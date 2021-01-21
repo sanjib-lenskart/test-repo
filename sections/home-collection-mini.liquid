@@ -1,0 +1,147 @@
+{% if section.blocks.size == 0  %}
+{% include 'no-section-msg' %}
+
+{% else %}
+{% assign sizes = '300,480,765,900,1000,1100,1300,1500,1700,1900,2000' | split: "," %}
+<div id="home_collections_min" class="clearfix">
+  <div class="container">
+    {% unless section.settings.title == blank  %}
+    <h3 class="title text-center">{{section.settings.title}} </h3>
+    {% endunless %}
+    <div class="row">
+      <div class="relative_product">
+        <div class="col-sm-8 col-sm-offset-2">
+          <ul class="list row">
+            {% for block in section.blocks  %}
+            {% assign link = collections[block.settings.collection] %}
+            <li class="{{section.settings.product_row}} col-xs-6">
+              <div class="image text-center">
+                <div class="img">
+                  <a href="{{link.url}}">
+                    {% if block.settings.collection_img == blank %}
+                    <img alt="{{link.title}}"
+                         src="{{link.image| img_url: '100x' | format: 'pjpg' }}"
+                         data-sizes="auto"
+                         data-src="{{ link.image | img_url: 'grande' | format: 'pjpg' }}"
+                         data-srcset="
+                                      {% for size in sizes %}
+                                      {% assign size_x = size| append : 'x' %}
+                                      {{ link.image | img_url: size_x | format: 'pjpg' }} {{size | append:'w'}},
+                                      {% endfor %}"
+                         class="lazyload img_blur blur-up">
+
+
+                    {% else %}
+                    <img
+                    alt="{{ block.settings.collection_img.alt |  escape}}"
+                         src="{{block.settings.collection_img | img_url: '100x' | format: 'pjpg' }}"
+                         data-sizes="auto"
+                         data-src="{{ block.settings.collection_img  | img_url: 'grande' | format: 'pjpg' }}"
+                         data-srcset="
+                                      {% for size in sizes %}
+                                      {% assign size_x = size| append : 'x' %}
+                                      {{ block.settings.collection_img   | img_url: size_x  | format: 'pjpg' }} {{size | append:'w'}},
+                                      {% endfor %}"
+                         class="lazyload img_blur blur-up">
+                    {% endif %}
+                  </a>
+                </div>
+                <a href="{{ block.settings.men_link }}" class="shop_now btn text-center">Shop Men</a>
+                <a href="{{ block.settings.women_link }}" class="shop_now btn text-center">Shop Women</a>
+              </div>
+
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+    "name": "Featured collection",
+      "max_blocks": 10,
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Featured collection"
+          },
+          {
+            "type": "select",
+            "label": "Product per row",
+            "id": "product_row",
+            "info": "Only for desktop and tablet view",
+            "options": [
+              {
+                "value": "col-sm-6",
+                "label": "2"
+              },
+              {
+                "value": "col-sm-4",
+                "label": "3"
+              },
+              {
+                "value": "col-sm-3",
+                "label": "4"
+              }
+            ]
+          }
+        ],
+          "blocks": [
+            {
+              "name": "Collection",
+              "type": "collection",
+              "settings": [
+                {
+                  "type": "collection",
+                  "label": "Select a collection",
+                  "id": "collection"
+                },
+                {
+                  "type": "image_picker",
+                  "label": "Image",
+                  "id": "collection_img",
+                  "info": "Optional"
+                },
+                {
+                  "type": "url",
+                  "label": "Link Men",
+                  "id": "men_link",
+                  "info": "Link Men"
+                },
+                {
+                  "type": "url",
+                  "label": "Link Women",
+                  "id": "women_link",
+                  "info": "Link Women"
+                }
+              ]
+            }
+          ],
+            "presets": [
+              {
+                "name": "Featured collections",
+                "category": "Collection"
+              }
+            ]
+  }
+  {% endschema %}
+  {% comment %}
+</script>
+{% endcomment %}
+
+
+{% comment %}
+<style>
+  {% endcomment %}
+  {% comment %}
+</style>
+{% endcomment %}

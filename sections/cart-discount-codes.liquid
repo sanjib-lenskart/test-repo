@@ -1,0 +1,123 @@
+<!-- cart-discount-codes -->
+<script>
+  simply.cartDiscounts = {};
+  simply.cartDiscounts['success'] = "{{section.settings.success}}";
+  simply.cartDiscounts['error'] = "{{section.settings.error}}";
+  {%- for block in section.blocks -%}
+  var obj = {};
+  obj.name = "{{block.settings.discount}}";
+  obj.type = "{{block.settings.type}}";
+  
+  var name = obj.name + ','; 
+  {%- if block.settings.type == 'price' -%}
+  obj.amount = "{{block.settings.amount | times:100}}";
+  {%- else -%}
+  obj.amount = "{{block.settings.amount}}";
+  {%- endif -%}
+  obj.success = "{{block.settings.success}}";
+  obj.error ="{{block.settings.error}}";
+  simply.cartDiscounts["{{block.settings.discount | handleize}}"] = obj;
+  {%- endfor -%}
+  {%- if section.settings.auto_discount != blank -%}
+  simply.cartDiscounts['auto'] = "{{section.settings.auto_discount}}";
+  simply.cartDiscounts['auto_price'] = {{section.settings.auto_discount_price | times:100}};
+  {%- endif -%}
+</script> 
+
+{% include 'cart-discount-script' %}
+<div id="cart_discount_code"></div>
+
+  {% schema %}
+  {
+    "name":"Cart discount code",
+	"class":"hide",
+    "settings":[
+    {
+      "type":"text",
+      "id":"success",
+      "label":"Success Message",
+      "default":"successfully applied"
+    },
+    {
+      "type":"text",
+      "id":"error",
+      "label":"Error Message",
+      "default":"Please try on checkout"
+    },
+    {
+      "type":"text",
+      "id":"auto_discount",
+      "label":"Auto discount",
+      "default":"JJ500"
+    },
+    {
+      "type":"number",
+      "id":"auto_discount_price",
+      "label":"Auto discount mini price",
+      "default":3000
+    }
+    ],
+
+    "blocks":[
+    {
+      "type":"text",
+      "name":"Discount",
+      "settings":[
+      {
+        "type":"text",
+        "id":"discount",
+        "label":"Discount code"
+      },
+      {
+        "type":"select",
+        "id":"type",
+        "label":"Type",
+        "options":[
+        {
+          "label":"Percentage",
+          "value":"percentage"
+        },
+        {
+          "label":"Price",
+          "value":"price"
+        }
+        ]
+      },
+      {
+        "type":"number",
+        "id":"amount",
+        "label":"Amount"
+      },
+{
+        "type":"number",
+        "id":"min_amount",
+        "label":"Minimum Cart Value",
+		"default":120
+      },
+{
+        "type":"number",
+        "id":"max_pair",
+        "label":"Max No of Pairs",
+		"default":0
+      },
+      {
+        "type":"text",
+        "id":"success",
+        "label":"Success Message",
+        "default":"successfully applied"
+      },
+      { 
+        "type":"text",
+        "id":"error",
+        "label":"Error Message",
+        "default":"Please try on checkout"
+      }
+
+      ]
+    }
+    ]
+  }
+  {% endschema %}
+  {%- comment -%}
+</script>
+{%- endcomment -%}

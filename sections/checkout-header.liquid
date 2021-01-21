@@ -1,0 +1,39 @@
+<div class='checkout_header'>
+	<div class='container'>
+		<div class='logo'>
+		
+		<a href="{{shop.url}}">
+			<img src="{{section.settings.logo | format:'png' | img_url:logo_size }}" alt="{{shop.name}}">
+		</a>
+		</div>
+		
+		<div class='progress_bar'>
+		</div>
+	</div>
+</div>
+{% comment %}
+<script>
+	{% endcomment %}
+	{% schema %}
+	{
+		"name": "Checkout header",
+		"class":"no_bottom_padding",
+		"settings": [
+		{
+			"type":"image_picker",
+			"label":"logo",
+			"id":"logo"
+		},
+		{
+			"type":"number",
+			"label":"Logo size",
+			"id":"logo_size",
+			"default":140
+		}
+		]
+	}
+	{% endschema %}
+	{% comment %}
+</script>
+{% endcomment %}
+

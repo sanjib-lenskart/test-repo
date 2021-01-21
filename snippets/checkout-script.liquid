@@ -1,0 +1,87 @@
+{% comment %}
+<!-- checkout script -->
+{{ '//ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js' | script_tag }}
+{{ 'country-number.js' | asset_url | script_tag }}
+<script src="{{ 'lazyload.js' | asset_url }}"></script>
+<script src="{{ 'options.js' | asset_url }}"></script>
+<!--[if (gt IE 9)|!(IE)]><!--><script src="{{ 'shopify_common.js' | shopify_asset_url }}" defer="defer"></script><!--<![endif]-->
+<!--[if lte IE 9]><script src="{{ 'shopify_common.js' | shopify_asset_url }}"></script><![endif]-->
+{%- assign master_count = 0 -%}
+<script type="text/javascript">
+  window.cart_data = [];
+  window.codAppied = false;
+  window.prepaidAppied =false;
+  window.checkoutLineItem = [];
+  $(".loading_me").appendTo('body');
+  simply.shopDomain = "{{shop.domain}}";
+  {%- for item in checkout.line_items -%}  
+  {%- unless item.properties['Type'] == 'Lens' -%}
+  {%- assign master_count = master_count | plus:1 -%}
+  {%- endunless -%}
+  var item  = {};
+  item.id = '{{item.variant_id}}';
+  item.quantity = '{{item.quantity}}';
+  properties = {};
+  {%- for pro in item.properties -%}
+  {% if pro.last == 'cod' %}
+  {%- assign cod = true -%}
+  {% endif %}
+
+  {% if pro.first == 'prepaid_applied' %}
+  {% if pro.last == 'yes' %}
+  {%- assign prepaid_applied = true -%}
+  {% endif %}
+  {% endif %}
+
+  properties['{{pro.first}}'] = '{{pro.last}}';
+             {%- endfor -%}
+             item.properties = properties;
+             window.cart_data.push(item);
+             {%- endfor -%}
+             var not_cod_input = $(".content-box__row:first input");
+             var cod_input = $(".content-box__row[data-select-gateway='119554188'] input");
+             var disccount_banner = $(".section--payment-method .section__content");
+             var discount_text_footer =$(".total-line-table__tbody");
+             {%- if prepaid_applied -%}
+             prepaidAppied = true;
+             {%- endif -%}
+             {%- if cod -%}
+             cod_input.click();
+             codAppied = true;
+             disccount_banner.prepend("<p class='cod_banner'>Pay online and get ₹250 off.</p>");
+             {%- else -%} 
+             disccount_banner.prepend("<p class='cod_banner'>For all Online Payments ₹250 discount is applied.</p>");
+             var total_footer = $(".total-line-table__footer");
+             total_footer.append("<tr class='online_payment_discount'> <td class='total-line__name'>Pre-paid Discount</td><td class='total-line__price'><b>-</b> ₹250.00</td> </tr>");
+             var prepaid_footer = $(".order-summary__section--total-lines");
+             var prep_applied = $(".prepaid_checkout"); 
+             prepaid_footer.append(prep_applied);  
+             var count = $(".checkout_sub_calc:first").text();
+             $(".total-line__price .order-summary__emphasis[data-checkout-subtotal-price-target]").text(count);
+             var totalcount =$(".checkout_total_calc:first").text();
+             $(".payment-due__price").text(totalcount);
+             var totaltax =$(".checkout_tax_calc:first").text();
+             $(".order-summary__emphasis[data-checkout-total-taxes-target]").text(totaltax);
+             $( ".total-line--subtotal" ).insertAfter( ".total-line--reduction" );
+             {%- endif -%}
+</script>
+{% comment %}
+<script src="{{ '77C043EBDD8A405484BEC9E2044274C6.js' | asset_url }}"></script>
+{% endcomment %}
+<script src="{{ 'checkout.js' | asset_url }}"></script>
+{{ 'datalayer.js' | asset_url | script_tag }}
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDTVBDM9VTBwyTMutQccOk2ZgWSL4r8IY"></script>
+{%- comment -%}
+<script>
+  {% for discount in checkout.discounts %}
+  {%- assign applid_dis_code =  discount.code -%}
+  {% endfor %}  
+              {%- if applid_dis_code == 'JJ500' or applid_dis_code == 'EYE1000' or applid_dis_code == 'JJ1500' -%}
+
+              {%- if master_count > 1 -%}
+              $(".edit_checkout").submit();
+  {%- endif -%}
+  {%- endif -%}
+</script>
+{%- endcomment -%} 
+{% endcomment %}

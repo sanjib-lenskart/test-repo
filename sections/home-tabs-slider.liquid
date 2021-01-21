@@ -1,0 +1,35 @@
+<div class="container tab-slider-section">
+  <div class="row">
+   <div id="col-xs-12 col-sm-12 col-md-12">
+   <h2>{{section.settings.title}}</h2>
+  
+  <div id="tabs-slider">
+    <ul>
+        <li class="active eyeglasses-tab"><span>Eyeglasses</span></li>
+        <li class="sunglasses-tab"><span>Sunglasses</span></li>
+    </ul>
+  </div>
+  </div>
+ </div>
+</div>
+  
+{% schema %}
+{
+  "name": "Home Tabs Slider", 
+  "class": "home-tab-slider",
+  "settings": [
+    
+    {
+      "type": "text",
+      "label": "Header text",
+      "id": "title"
+    }       
+  ],
+  "presets": [
+    {
+      "name": "Tabs Slider",
+      "category": "Banner"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,15 @@
+<ul class="tags tags--article inline-list">
+  {% if article.tags.size > 0 %}
+  <li>
+    <span class="tags_title">Tags:</span>
+    {% for tag in article.tags %}
+    <a href="{{ blog.url }}/tagged/{{ tag | handle }}" class="text-link">{{ tag }}</a>
+    {% endfor %}
+  </li>
+  {% endif %}
+  {% if section.settings.social %}
+  <li>
+    {% include 'social-share' %}
+  </li>
+  {% endif %}
+</ul>

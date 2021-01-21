@@ -1,0 +1,165 @@
+<div id='fly_plane'>
+	<div class='header'>
+		<a href='{{section.settings.header_link}}'>
+			{%- assign src_alt = "header Image" -%}
+			{%- assign src_name = section.settings.header_image -%}
+			{%- assign src_class = "xs-hide" -%}
+			{%- include 'srcset-img' -%}
+			{%- assign src_name = section.settings.header_image_xs -%}
+			{%- assign src_class = "xs-show" -%}
+			{%- include 'srcset-img' -%}
+			{%- assign src_class = blank -%}
+		</a>
+      {%- comment -%}
+		<div class='text'>
+			<div class='container'>
+				<p>#FlyWithJohnJacobs</p>
+				<h1>You Buy, You Fly</h1>
+				<h4>Buy Eyewear & Stand a chance to Fly a Plane*.</h4>
+				<div class='buttons'>
+					<a href='' class="btn">Shop Men</a>
+					<a href='' class='btn'>Shop Women</a>
+				</div>
+			</div>
+		</div>
+      {%- endcomment -%}
+	</div>
+	<div class='steps section'>
+		<div class='container'>
+			<div class='row'>
+				<div class='col-sm-2 col-sm-offset-1'>
+					<h3 class='mlm xs-left'>{{section.settings.steps_header}}</h3>
+				</div>
+				<div class='col-sm-9'>
+				</div>
+			</div>
+			
+			<div class='flex_view_xs space-between'>
+				{%- for block in section.blocks -%}
+				<div  class='col-sm-3 col-xs-6'>
+					<div class='img'>
+						{%- assign src_name = block.settings.image -%}
+						{%- assign src_alt = block.settings.header -%}
+						{%- include 'srcset-img' -%}
+					</div>
+					<div class='text text-center'>
+						<h5>{{block.settings.header}}</h5>
+						<p>
+							{{block.settings.text}}
+						</p>
+					</div>
+				</div>
+				{%- endfor -%}
+
+			</div>
+		</div>
+	</div>
+	<div class='eligibility section'>
+		<div class='container'>
+			<div class='flex_view middle reverse'>
+				<div class='col-sm-6'>
+					<div class='img'>
+                      <div class='video_wrapper'>
+                        <iframe
+                                src="https://www.youtube.com/embed/IlkfUviV0-g" 
+                                frameborder="0" allowfullscreen></iframe>
+                      </div>
+					</div>
+				</div>
+				<div class='col-sm-5 col-sm-offset-1'>
+
+					<div class='text mlm'>
+						{{page.content}}
+					</div>
+				</div>
+				
+			</div>
+
+		</div>
+	</div>
+</div>
+{% comment %}
+<script>
+	{% endcomment %}
+	{% schema %}
+	{
+		"name": "Fly a plane settings",
+		"class": "no_padding",
+		"settings": [
+		{
+			"type": "header",
+			"content": "Header"
+		},
+		{
+			"type": "url",
+			"id": "header_link",
+			"label": "Header image link"
+		},
+		{
+			"type": "image_picker",
+			"id": "header_image",
+			"label": "Header image"
+		},
+		{
+			"type": "image_picker",
+			"id": "header_image_xs",
+			"label": "Header image mobile"
+		},
+		{
+			"type":"header",
+			"content":"Steps"
+		},
+		{
+			"type":"text",
+			"id":"steps_header",
+			"label":"Steps header"
+		},
+		{
+			"type":"header",
+			"content":"Eligibility section"
+		},
+		{
+			"type":"image_picker",
+			"id":"el_image",
+			"label":"Image",
+			"info":"Content is coming from page.content"
+		}
+		],
+		"blocks":[
+		{
+			"type": "text",
+			"name": "Steps",
+			"settings": [
+			{
+				"type": "image_picker",
+				"id": "image",
+				"label": "Image"
+			},
+			{
+				"type": "text",
+				"id": "header",
+				"label": "Header text"
+			},
+			{
+				"type": "text",
+				"id": "text",
+				"label": "Paragraph text"
+			}
+			]
+		}
+		]
+	}
+	{% endschema %}
+	{% javascript %}
+
+	{% endjavascript %}
+	{% comment %}
+
+</script>
+{% endcomment %}
+{% comment %}
+<style>
+	{% endcomment %}
+	{% comment %}
+</style>
+{% endcomment %}

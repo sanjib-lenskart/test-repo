@@ -1,0 +1,107 @@
+<!-- do not delete this snippet -->
+{% assign sizes = '150,220,300,360,480,765,900,1000' | split: "," %}
+<div id="mobile_drawer">
+  <h3 class="menu_title">
+    <a href="/pages/wishlist" class="wlheart_icon">
+        <img class="header-icon" src="https://cdn.shopify.com/s/files/1/0047/5335/8922/files/heart-icon.svg?v=1596194866"/>
+        <span class="wlcount">0</span>
+     </a>
+    {{shop.name | link_to: shop.url }}
+    <span class="drawer_close">
+      &times;
+    </span>
+  </h3>
+  <ul class="ul nav clearfix">    
+    {% if customer %}
+     <li>
+    <div class='li'>
+        <div class="link">
+           <a href="/account"><i class="fa fa-user"></i> My Account</a>
+      </div>
+    </div>
+    </li>
+    {% else %}
+    <li>
+      <div class='li'>
+        <div class="link">
+          <a href="/account/register"><i class="fa fa-sign-in"></i>Sign In / Sign Up</a>
+        </div>
+      </div>
+    </li>
+    {% endif %}    
+    {% for link in linklists[settings.mobile_menu].links  %}
+    {% assign child_list_handle = link.title | handleize %}
+    {% if linklists[child_list_handle].links == blank %}
+    <li class="{% if link.active %} {% endif %}">
+      <div class="link">
+        <a href='{% if link.handle == "i-class-fa-fa-whatsapp-i-whatsapp-us" %}https://api.whatsapp.com/send?phone={{settings.whatsapp_number}}&text=Discuss Your Any Query With Us{% elsif link.handle == "i-class-fa-fa-envelope-i-write-to-uscustomer-lenskart-us" %}mailto:customer@lenskart.us{% else %}{{link.url}}{% endif %}' {% if link.handle == "i-class-fa-fa-whatsapp-i-whatsapp-us" or link.handle == "i-class-fa-fa-envelope-i-write-to-uscustomer-lenskart-us" %} target="_blank" {% endif %} data-url="https://{{ shop.domain }}">
+          {% if link.handle == 'festive' %}
+          <img class='festive' src='https://cdn.shopify.com/s/files/1/1276/5299/files/Homepage-FESTIVE_2.png?18170171212655170051'>
+          <span class='festive_span'>{{link.title}}</span>
+          {% else %}
+         {{link.title}}
+          {% endif %}
+        </a>
+      </div>
+    </li> 
+    {% else %}
+    <li class="has_child li{% if link.active %} {% endif %}">
+      <div class="link">
+        <a {% unless link.url == blank %}{% if linklists[child_list_handle].links == blank %}href="{{link.url}}"{% endif %}{% endunless %}>
+          {{link.title}}
+          <span class="icon">
+            <i class="fa fa-plus" aria-hidden="true"></i>
+          </span>
+        </a>
+      </div>
+      <div class="child_menu">
+        <ul class="child_ul">
+          {% for childlink in linklists[child_list_handle].links %}
+          {% assign sub_child_list_handle = childlink.title | handleize %}
+          {% if linklists[sub_child_list_handle].links == blank %}
+          {% assign third_tire = false %}
+          {% else %}
+          {% assign third_tire = true %}
+          {% endif %}
+          {% if third_tire %}
+          <li class="has_child child_li">
+            <div class="link">
+              <a {% unless childlink.url == blank %}href="{{ childlink.url }}{% endunless %}">{{ childlink.title | escape }}</a>
+              <span class="icon">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+              </span>
+            </div>
+            <ul class="child_menu third_menu">
+              {% for subchildlink in linklists[sub_child_list_handle].links %}
+              <li>
+                <div class="link">
+                  <a href="{{ subchildlink.url }}">{{ subchildlink.title | escape }}</a>
+                </div>
+              </li>
+              {% endfor %}
+            </ul>
+          </li>
+          {% else %}
+          <li class="child_li">
+            <div class="link">
+              <a {% unless childlink.url == blank %}href="{{ childlink.url }}{% endunless %}">{{ childlink.title | escape }}</a>
+            </div>
+          </li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </div>
+    </li> 
+    {% endif %}
+    {% endfor %}
+    {% if customer %}
+     <li>
+      <div class='li'>
+        <div class="link">
+          <a href="/account/logout"><i class="fa fa-sign-out"></i>Logout</a>
+        </div>
+      </div>
+    </li>
+    {% endif %}
+  </ul>
+</div>

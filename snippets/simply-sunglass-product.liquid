@@ -1,0 +1,130 @@
+{% assign sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign sale = true %}
+{% endif %}
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+{% assign swtich_img = settings.switch_image %}
+{%- for variant in product.variants -%}
+
+<div class="product_main{% if sold_out %} sold_out{% endif %} detail_{{product.id}}">
+  <div class="{% unless no_height_alignment == true %}image{% endunless %}">
+    <div class="relative {% unless no_height_alignment == true %}img{% endunless %}">
+      <a class="product_link" href="{{ product.url | within: collection }}" data-href="{{ product.url | within: collection }}">
+        {%- if product.available -%}
+        {% assign new_image = product.first_available_variant.image.src  %}
+        {%- assign alt_img_pos = product.first_available_variant.image.position | plus:1 -%}
+        {%- else -%}
+        {% assign new_image = product.featured_image.src  %}
+        {%- assign alt_img_pos = product.featured_image.position | plus:1 -%}
+        {%- endif -%}
+        
+        {% assign tag_color = "" %}
+        {% for t in current_tags %}
+        {% if t contains 'Color_' %}
+        {% assign tag_color = t | remove : 'Color_' | handlieze %}
+        {% endif %}
+        {% endfor %}
+        {% if tag_color != blank %}
+        {% for v in product.variants %}
+        {% assign title = v.title | handlieze %}
+        {% if title contains tag_color and v.image.src %}
+        {% assign new_image = v.image.src  %}
+        {%- assign alt_img_pos = v.image.position | plus:1 -%}
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {% assign src_name = new_image %}
+        {% assign src_alt = product.featured_image.alt | escape %}
+        {% assign src_class = 'product_img double_img' %}
+        {% include 'srcset-img' %}
+           {%- assign src_name = product.images[alt_img_pos].src -%}
+        {%- assign src_alt = product.featured_image.src -%}
+        {%- assign src_class= 'alter_img' -%}
+        <img src='{{src_name | img_url:'370x'}}' class='{{src_class}}' alt='{{src_alt}}'>
+        <!--
+        <img src='' class='ditto_img' alt='{{src_alt}}' />
+        -->
+        <div class="coll_ditto hide" style="display: none !important;"></div>
+        <div class="coll_thumbditto"></div>
+      </a>
+      {% if sold_out %}
+      {% if settings.sold_out_banner %}
+      <div class="sold_out">
+        <p>Sold <br/> out</p>
+      </div>
+      {% endif %}
+      {% elsif sale %}
+      {% if settings.on_sale_banner %}
+      <div class="on_sale">
+        {% capture saved_amount %}{{ product.compare_at_price | minus: product.price | money_without_trailing_zeros }}{% endcapture %}
+        <p>Save <br/> {{saved_amount}}</p>
+      </div>
+      {% endif %}
+      {% endif %}
+    </div>
+  </div>
+
+
+  {% unless no_text == true %}
+  <div class="text">
+
+    <a href="{{ product.url | within: collection }}" class="product_link">
+      <span class="product_title">{{ product.title }}</span>
+      {% if section.settings.product_vendor_enable %}
+      <p class="grid-product__vendor">{{ product.vendor }}</p>
+      {% endif %}
+    </a>
+    <span class="product_price">
+      <span class="orignal">
+        {{- product.price | money_without_trailing_zeros | replace: ',','' -}}
+      </span>
+
+      {% if settings.compare_price %}
+      {% if sale %}
+      <span class="compare">
+        {{- product.compare_at_price | money_without_trailing_zeros | replace: ',','' -}}
+      </span>
+      {% endif %}
+      {% endif %}
+
+      {% if product.type == 'Eyeglasses' %}
+      {% if settings.after_hour %}
+      <br/>
+      {% endif %}
+      <span class="note">
+        ( including prescription lenses )
+      </span>
+      {% endif %}
+
+    </span>
+
+    {% unless settings.after_hour %}
+    {% unless product.tags contains 'nodiscount' %}
+    <div class="bogo">
+      {% if product.type == 'Sunglasses' %}
+      Buy One Get One
+      {%- else -%}
+      Buy One Get One
+      {%- endif -%}
+    </div>
+    {% endunless %}
+    {% endunless %}
+
+    {% if template == 'index' %}
+    <div class="shop_now">
+      <a href="{{ product.url | within: collection }}" class="btn">Shop Now</a>
+    </div>
+    {% endif %}
+
+  </div>
+  {% endunless %}
+  {% if product.tags contains 'New' %}
+  <div class='new_product'>
+    <img src='https://cdn.shopify.com/s/files/1/1276/5299/files/new_icon_c797f6d8-5bbf-43e2-b680-fc4c04443ff2_35x.png?9178848186706648467'>
+  </div>
+  {% endif %}
+</div>
+{%- endfor -%}

@@ -1,0 +1,79 @@
+<div id='wall_of_frames'>
+  <div class="banner_image">
+    <div class="img"> 
+      {%- assign src_name = section.settings.banner -%}
+      {%- assign src_alt = 'Wall of frames' -%}
+      {%- assign src_class = 'xs-hide' -%}
+      {%- include 'srcset-img' -%}
+      {%- assign src_name = section.settings.mobile_banner -%}
+      {%- assign src_class = 'xs-show' -%}
+      {%- include 'srcset-img' -%}
+      {%- assign src_class = '' -%}
+    </div>
+  </div>
+  <div class="container">
+    <div class="frames row">
+      {%- for block in section.blocks -%}
+      <div class='col-sm-4'>
+        <div class='frame'>
+          <div class='img' style="background: url({{block.settings.image | img_url:'grande'}});background-position: center 45%;background-size: 80%;background-repeat: no-repeat;">
+            {%- assign src_name = section.settings.frame -%}
+            {%- assign src_alt = 'Person image' -%}
+            {%- include 'srcset-img' -%}
+          </div>
+          <div class="text">
+            {{block.settings.name}}
+          </div>
+        </div>
+      </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+{%- comment -%}
+<script>
+  {%- endcomment -%}
+  {% schema %}
+  {
+    "name": "Wall of frames",
+    "class":"no_padding",
+    "settings":[
+    {
+      "type": "image_picker",
+      "id": "banner",
+      "label": "Banner image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_banner",
+      "label": "Mobile Banner image"
+    },
+    {
+      "type": "image_picker",
+      "id": "frame",
+      "label": "Frame image"
+    }
+    ],
+    "blocks":[
+    {
+      "name":"Image",
+      "type":"image",
+      "settings":[
+      {
+        "type":"image_picker",
+        "label":"image",
+        "id":"image"
+      },
+      {
+        "type":"text",
+        "label":"Name",
+        "id":"name"
+      }
+      ]
+    }
+    ]
+  }
+  {% endschema %}
+  {%- comment -%}
+</script>
+{%- endcomment -%}

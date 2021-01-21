@@ -1,0 +1,159 @@
+{%- assign shp_secret_salt = "WgkS8umiqgDDPoK7asfmT2DRdp8WZJfLj8Vyhih2GtAoTD" -%}
+
+{%- assign date = "now" | date: "%Y-%m" -%}
+{%- assign hash_val = date | append: '-' -%}
+{%- assign hash_val = hash_val | append: 'lk-secret-k' -%}
+{% assign my_secret_string = hash_val | hmac_sha256:  shp_secret_salt%}
+
+<div class="grid exchange-modal">
+  <div class="inner-container">
+      <div class="grid__item one-whole">
+        <h1 class="signuppopuplogo">Exchange Request for Order {{ order.name}}</h1>
+      </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-4">
+      <p style="font-weight:bold;font-size:14px;margin-top:20px;">Detailed explanation for Exchange Request:</p>
+    </div>
+    <div class="col-sm-12 col-md-8">
+  		<textarea class="exchange-txt" id="exchange-txt" required></textarea>
+    </div>
+    	<button type="submit" style="padding: 15px 45px;margin-top:30px;" class="green-btn" onclick="RequestExchange('{{ order.id}}','{{ order.name}}','{{ order.email}}','{{ customer.name}}')">Submit Request</button>
+    </div>
+    
+    </div>
+  <span class="close-exchange-modal">&nbsp;&nbsp;&times;</span>
+</div>
+              
+<script>
+  $(".close-exchange-modal, .closemodel").click(function(){
+      $(".exchange-modal").fadeOut(200);  
+    });
+  $("#RequestExchangeBox").click(function(){
+        $(".exchange-modal").fadeIn(200);  
+     });
+
+  function RequestExchange(order_id,order_no,email,name){
+    $("#RequestExchangeBox").hide();
+    $(".exchange-modal").fadeOut(200);
+    var exchangeTxt=$("#exchange-txt").val();
+    if(order_id!=null){
+    $.ajax({
+          url: "https://singapore.lenskart.com/api/exchangeRequest.php",
+          type: "post",
+          "timeout": 0,
+    	  "headers": {
+      		"Content-Type": "application/json"
+    	  },
+          data: JSON.stringify({
+            "order_id": order_id,"order_no": order_no,"email": email,"name": name,"exchange-txt":exchangeTxt,"token":"{{my_secret_string}}"
+          }),
+          success: function (response) {
+            if(response.status=='Success'){
+              $("#order-exchange-error").hide();
+              if(response.status == "Success"){
+                $("#order-exchange-div").show();
+                $("#order-exchange").attr("style", "color:green");
+                $("#order-exchange").text(response.message);
+              }else{
+                var trackUrl=response.message;
+              	$("#order-exchange-div").show();
+                $("#order-exchange").attr("style", "color:red");
+                $("#order-exchange").text(response.message);
+              }
+            }else{
+              	$("#order-exchange-div").hide();
+              	$("#order-exchange-error").show();
+            }
+          }
+      });
+  }else{
+    $("#order_page").hide();
+    $("#track-shipment-error").show();
+  }
+  }
+  </script>
+  <style>
+  .exchange-modal::-webkit-scrollbar {
+    display: none;
+  }
+  .exchange-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #f9f9f9;
+    z-index: 9999;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
+  }
+  @media (min-width: 768px) {
+    .exchange-modal {
+      padding: 0 50px 50px;
+    }
+  }
+  .exchange-modal .inner-container {
+    padding: 0 10px;
+    text-align: center;
+    max-width: 1200px;
+    margin: auto;
+  }
+  .exchange-modal .close-exchange-modal {
+    position: fixed;
+    top: 6px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: black;
+    color: white;
+    font-size: 26px;
+    cursor: pointer;
+    line-height: 40px;
+  }
+  @media (min-width: 768px) {
+    .exchange-modal .close-exchange-modal {
+      right: 35px;
+    }
+  }
+    .exchange-txt{
+      width: 100%;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+      overflow: auto;
+    resize: vertical;
+    }
+  </style>
+<script>
+$(document).ready(function() {
+  $.ajax({
+          url: "https://singapore.lenskart.com/api/getExchangeRequest.php",
+          type: "post",
+          "timeout": 0,
+    	  "headers": {
+      		"Content-Type": "application/json"
+    	  },
+          data: JSON.stringify({
+            "order_id": "{{ order.id}}", "token":"{{my_secret_string}}"
+          }),
+          success: function (response) {
+            console.log(response);
+            if(response.status == "Success"){
+              $("#RequestExchangeBox").hide();
+              $("#order-exchange-div").show();
+              $("#order-exchange").attr("style", "color:green");
+              $("#order-exchange").text(response.message);
+            }else{
+              $("#RequestExchangeBox").show();
+            }
+          }
+      });
+});
+</script>

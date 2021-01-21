@@ -1,0 +1,331 @@
+<!-- home-banner-image.liquid  -->
+{% assign sizes = '480,765,900,1000,1100,1300,1500,1700,1900,2000' | split: "," %}
+<style>
+  .home_banner_{{section.id}} .btn{
+    color:{{section.settings.btn_color}};
+  }
+/*   .home_slider{margin-bottom:-5px;} */
+  @media(max-width:767px){ #shopify-section-1494586550868{display:none;}}
+  #shopify-section-1494586550868{
+  padding: 0;
+    margin-top: -25px;
+  }
+   .slider-main{
+     display:flex; 
+     background: #f59e35; 
+     line-height: 0;
+   }
+  
+    .imagegif{width:28%;} 
+  .imagegif img{width:100%;}
+  
+  .imagebig{
+    width:72%; 
+    background-image: url('{{ section.settings.image | img_url: 'original' }}');
+      -webkit-background-size: auto;
+      -moz-background-size: auto;
+      -o-background-size: auto;
+      background-size: auto;
+      background-repeat: no-repeat;      
+      background-size: 100%;
+      position:relative;
+      }
+  
+  @media(min-width:1201px){
+ .imagebig .slide_text{
+    position:absolute;
+    bottom:10%;
+    left:15%;
+  }
+  }
+  
+  @media(max-width:1200px){
+    .imagebig .slide_text{  
+      position:absolute;
+    bottom:10%;
+    left:6%;
+  }
+  }
+  
+  #home_banner .slide_text a {
+  max-width: 100%;
+    display: inline-block;
+    word-wrap: break-word;
+    background-color: #184257;
+    color: #f8ad3c;
+    min-height: 2.125rem;
+    line-height: 1.2;
+    border: none;
+    font-size: 20px;
+    width: 150px;
+    font-family: 'Rajdhani', sans-serif;
+    font-weight:700;
+  }
+  
+  @media(max-width:1200px){
+    #home_banner .slide_text a {
+    font-size: 16px;
+    width: 140px;
+    }
+  }
+  .main-btn-container{
+    display: inline-flex;
+  }
+  
+  .btn-cont {
+    margin-right: 40px;
+    text-align: center;
+}
+  .imagebig .sub_header{     
+    font-family: 'Rajdhani', sans-serif; 
+    font-weight:400;
+    font-size: 24px;
+  }
+  
+  @media(max-width:1200px){
+   .imagebig .sub_header{ 
+     font-size: 16px;
+   }
+  }
+  
+  @media(max-width:1023px){
+    
+     #home_banner .slide_text a {
+    font-size: 14px;
+    width: 120px;
+    }
+    
+    .btn-cont {
+    margin-right: 10px;
+    text-align: center;
+}
+    
+    .imagebig .slide_text{  
+      position:absolute;
+    bottom:4%;
+    left:13%;
+  }
+    
+    .imagebig .sub_header{ 
+     font-size: 14px;
+    margin-bottom: 7px;
+   }
+    
+  }
+  
+  @media(max-width:979px){
+     .imagebig .slide_text{  
+      position:absolute;
+    bottom:4%;
+    left:4%;
+  }
+  }
+</style>
+<div id="home_banner" class='home_banner_{{section.id}} slider-main'>
+  
+   <div class="imagegif">
+         <a href="{{ section.settings.gifimg_link }}"><img src="{{ section.settings.imagegif | img_url: 'original' }}" alt=""></a>
+      </div>
+  
+  <div class="{% unless section.settings.full %}container {% endunless %}xs-hide imagebig">
+    <ul class="list clearfix">
+       <li class="">
+        <div class="img">
+          <a href="{{section.settings.img_link}}">
+<!--             <img alt="{{section.settings.image.alt |  escape}}"
+                 src="{{section.settings.image | img_url: '100x' | format: 'jpg' }}"
+                 data-sizes="auto"
+                 data-src="{{section.settings.image | img_url: '1400x' | format: 'jpg' }}"
+                 data-srcset="
+                              {%- for size in sizes -%}
+                              {%- assign size_x = size| append : 'x' -%}
+                              {{ section.settings.image | img_url: size_x | format: 'jpg' }} {{size | append:'w'}},
+                              {%- endfor -%}"
+                 class="lazyload img_blur blur-up xs-hide"> -->
+
+          </a>
+        </div>
+      
+      </li>
+
+    </ul>
+    
+      <div class="slide_text  {{section.settings.home_slider_alignment }}">
+        <div class="main-btn-container">          
+
+          {% if section.settings.home_slider_btn != blank %}
+          <div class="btn-cont">
+            {% unless section.settings.subheader_text  == blank %}
+            <p class='sub_header'>{{section.settings.subheader_text }}</p>
+            {% endunless %}            
+            <a href="{{section.settings.home_slider_link}}" class="btn{% if section.id == '1517216094830' %} fancybox fancybox.iframe{% endif %}">{{section.settings.home_slider_btn }}</a>
+          </div>
+          {% endif %}
+
+          {% if section.settings.home_slider_btn2 != blank %}
+          <div class="btn-cont">
+            {% unless section.settings.subheader_text2  == blank %}
+            <p class='sub_header'>{{section.settings.subheader_text2 }}</p>
+            {% endunless %}
+
+            <a href="{{section.settings.home_slider_link2}}" class="btn">{{section.settings.home_slider_btn2 }}</a>
+          </div>
+          {% endif %}
+
+          {% if section.settings.home_slider_btn3 != blank %}
+          <div class="btn-cont">
+            {% unless section.settings.subheader_text3  == blank %}
+            <p class='sub_header'>{{section.settings.subheader_text3 }}</p>
+            {% endunless %}
+
+            <a href="{{section.settings.home_slider_link3 }}" class="btn">{{section.settings.home_slider_btn3 }}</a>
+          </div>
+          {% endif %}
+
+          {% if section.settings.home_slider_btn4 != blank %}
+          <div class="btn-cont">
+            {% unless section.settings.subheader_text4  == blank %}
+            <p class='sub_header'>{{section.settings.subheader_text4 }}</p>
+            {% endunless %}
+
+            <a href="{{section.settings.home_slider_link4 }}" class="btn">{{section.settings.home_slider_btn4 }}</a>
+          </div>
+          {% endif %}
+
+
+        </div>
+        </div>
+  </div>
+</div>
+
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+    "name": "Desktop Banner image",
+
+      "settings": [
+        {
+          "type": "checkbox",
+          "label": "Full-width",
+          "id": "full"
+        },
+        {
+          "type":"color",
+          "id":"btn_color",
+          "label":"Button text color"
+        },
+        {
+          "type": "image_picker",
+          "id": "imagegif",
+          "label": "GIF Image(437px X 400px)"
+        },
+        {
+          "type":"url",
+          "id":"gifimg_link",
+          "label":"Image URL GIF"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image(1912 px X 730px)"
+        },
+        {
+          "type":"url",
+          "id":"img_link",
+          "label":"Image URL"
+        },
+        {
+          "type": "select",
+          "label": "Text alignment",
+          "id": "home_slider_alignment",
+          "options": [
+            {
+              "label": "Left",
+              "value": "left"
+            },
+            {
+              "label": "Right",
+              "value": "right"
+            },
+            {
+              "label": "Center",
+              "value": "center"
+            }
+          ]
+        },
+        
+        {
+          "type": "text",
+          "label": "Sub-header text",
+          "id": "subheader_text"
+        },
+        {
+          "type": "text",
+          "label": "Button name 1",
+          "id": "home_slider_btn"
+        },
+        {
+          "type": "url",
+          "label": "Button URL 1",
+          "id": "home_slider_link"
+        },
+        {
+          "type": "text",
+          "label": "Sub-header text 2",
+          "id": "subheader_text2"
+        },
+        {
+          "type": "text",
+          "label": "Button name 2",
+          "id": "home_slider_btn2"
+        },
+        {
+          "type": "url",
+          "label": "Button URL 2",
+          "id": "home_slider_link2"
+        },
+        {
+          "type": "text",
+          "label": "Sub-header text 3",
+          "id": "subheader_text3"
+        },
+        {
+          "type": "text",
+          "label": "Button name 3",
+          "id": "home_slider_btn3"
+        },
+        {
+          "type": "url",
+          "label": "Button URL 3",
+          "id": "home_slider_link3"
+        },
+        {
+          "type": "text",
+          "label": "Sub-header text 4",
+          "id": "subheader_text4"
+        },
+        {
+          "type": "text",
+          "label": "Button name 4",
+          "id": "home_slider_btn4"
+        },
+        {
+          "type": "url",
+          "label": "Button URL 4",
+          "id": "home_slider_link4"
+        }        
+      ],
+        "presets": [
+          {
+            "name": "Desktop - Banner image",
+            "category": "Banner"
+          }
+        ]
+  }
+  {% endschema %}
+  {% comment %}
+</script>
+{% endcomment %}
+

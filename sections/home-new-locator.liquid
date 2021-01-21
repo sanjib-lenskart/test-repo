@@ -1,0 +1,207 @@
+<div class="new_home_loctor">
+  <div class="{% if section.settings.full %}container-fluid{% else %}container{% endif %}">
+    <div class="">
+      <h3 class="title">{{section.settings.header}}</h3>
+      {% unless section.settings.sub_header == blank %}
+       <p class="sub_title">{{section.settings.sub_header}}</p>
+      {% endunless %}
+       <p class="sub_title">Phone No:- +65 62511322  <a  href=" https://goo.gl/maps/YvYwRBAKMsz" onClick="ga('send', 'event', 'click', 'StoreVisitAdd30March', 'Store Page');">Get Directions</a></p>
+    </div>
+    <div class="desk_locator store_locator col-sm-12 clearfix">
+      <div class="flex_view middle">
+        <div class="col-md-3 col-sm-5 pd hide">
+          <div class="locate_tabs">
+            <ul class="ul">
+              {%- for block in section.blocks -%} 
+              <li class="li">
+                <img class="location-img" src="https://cdn.shopify.com/s/files/1/1276/5299/files/location.jpg?14612567820654507899">
+                <a class="a{% if forloop.index == 1 %} active{% endif %}" data-target='{{forloop.index}}'>
+                  {{block.settings.name}}
+                  <div class="addresses">
+                    <div class="address address_{{forloop.index}}">
+                      <p> {{block.settings.address}}</p>
+                    </div>
+                  </div>
+                  {% unless block.settings.mobile == blank %}
+                  <a class="mobile" href="tel:{{block.settings.mobile_url}}">{{block.settings.mobile}}</a>
+                  {% endunless %}
+                </a>
+
+                {%- assign src_name = block.settings.image-%}
+                {%- assign src_alt = block.settings.image.alt |  escape -%}
+              </li>
+              {%- capture store_images -%}
+              {{store_images}}
+              {%- assign src_name = block.settings.image-%}
+              {%- assign src_alt = block.settings.image.alt |  escape -%}
+              <div class="img locator_img img_{{forloop.index}} {%unless forloop.index == 1%} hide{%- endunless -%}"> 
+                {%- include 'srcset-img' -%}
+                {% if forloop.index == 8 %}
+              <!-- <p class="store_locater_comming_soon"> Coming Soon! </p>  -->
+              {% endif %}
+              </div>
+              {%- endcapture -%}
+              {%- endfor -%}
+            </ul>
+            <div class="locator_arrow xs-hide"> 
+            <i class="fa fa-angle-down" aria-hidden="true"></i>
+            </div>
+            </div>
+        </div>
+        <div class="col-md-12 col-sm-7">
+          <div class="locator_img_wrapper">
+            {{- store_images -}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="mob_locator">
+    <div class='mobile_version'>
+      <div class='images'> 
+        {%- for block in section.blocks -%}  
+        {%- assign src_name = block.settings.mobileimage-%}
+        <div class="img img_{{forloop.index}}{% unless forloop.index == 1 %} hide{% endunless %}">
+          {%- assign src_class = 'mob_locator' -%}
+          {%  include 'srcset-img' %} 
+          {% if forloop.index == 8 %}
+              <!-- <p class="store_locater_comming_soon"> Coming Soon! </p>  -->
+              {% endif %}
+        </div>
+        {% capture s_options %} 
+        {{s_options}}
+        <option value="{{forloop.index}}">{{block.settings.name}}</option>
+        {%- endcapture -%}
+        {% endfor %}
+      </div>
+      <div class="container hide">
+        <div class="select_wrapper">
+          <select>  
+            {{s_options}}
+          </select>  
+        </div>
+        <div class="addresses">
+          {%- for block in section.blocks -%}  
+          <div class="address address_{{forloop.index}} text-center{% unless forloop.index == 1 %} hide{% endunless %}">
+            <p>{{block.settings.address}}</p>
+            {% unless block.settings.mobile == blank %}
+            <a class="mobile" href="tel:{{block.settings.mobile_url}}">{{block.settings.mobile}}</a>
+            {% endunless %}
+            {% unless block.settings.locate_text == blank or block.settings.locate_url == blank %}
+            <a href="{{block.settings.locate_url}}" target="_blank" class="locate_btn btn reverse">
+              {{block.settings.locate_text}}
+            </a>
+            {% endunless %}
+            {%- unless block.settings.link == blank -%}
+            <div class="buttons clearfix">
+              <a class="btn" target="_blank" href='{{block.settings.link}}'>
+                Get Direction
+              </a>
+              {%- comment -%}
+              <a class="btn" href="tel:{{block.settings.mobile}}">Contact us</a>
+              {%- endcomment -%}
+            </div>
+            {% endunless %}
+          </div>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div> 
+  </div>
+</div>
+<style>
+  .sub_title a {
+    text-decoration: underline;
+    color: blue;
+    margin-left: 10px;
+}
+</style>
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+    "name": "Home - New Store-Locater",
+      "settings": [
+        {
+          "type": "checkbox",
+          "label": "Full-width",
+          "id": "full"
+        },
+
+        {
+          "type": "text",
+          "label": "Header text",
+          "id": "header"
+        },
+        {
+          "type": "textarea",
+          "label": "Sub header text",
+          "id": "sub_header"
+        }
+      ],
+        "blocks": [
+          {
+            "type": "image",
+            "name": "Image",
+            "settings": [
+              {
+                "type": "image_picker",
+                "label": "Image",
+                "id": "image"
+              },
+              {
+                "type": "image_picker",
+                "label": "Mobile Image",
+                "id": "mobileimage"
+              },
+              {
+                "type": "text",
+                "label": "Store name",
+                "id": "name"
+              },
+              {
+                "type":"textarea",
+                "label":"Address",
+                "id":"address"
+              },
+              {
+                "type":"text",
+                "label":"Contact number",
+                "id":"mobile"
+              },
+              {
+                "type":"text",
+                "label":"Contact number url",
+                "id":"mobile_url"
+              },
+              {
+                "type": "text",
+                "label": "Image URL",
+                "id": "link"
+              },
+              {
+                "type": "text",
+                "id": "locate_text",
+                "label": "Locate text"
+              },
+              {
+                "type": "text",
+                "id": "locate_url",
+                "label": "Locate URL"
+              }
+
+            ]
+          }
+        ],
+          "presets": [
+            {
+              "name": "Home - New StoreLocator",
+              "category": "Store Locator"
+            }
+          ]
+  }
+  {% endschema %}
+  {% comment %}
+</script>
+{% endcomment %}

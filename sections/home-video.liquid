@@ -1,0 +1,70 @@
+{% if section.blocks.size == 0  %}
+{% include 'no-section-msg' %}
+{% else %}
+<div id="home_video">
+  <div class="{% unless section.settings.full %}container{% endunless %}">
+    <ul class="{% unless section.settings.full %}row{% endunless %}">
+      {% for block in section.blocks %}
+      <li class="col-xs-6">
+        <div class="video">
+          {% if block.settings.video_header != blank %}
+          <h3 class="title">{{block.settings.video_header}}</h3>
+          {% endif %}
+          <div class="img">
+            <a href="{{block.settings.url}}" class="fancybox fancybox.iframe">
+            <img src="{{ block.settings.image | img_url: '100x' | format: 'jpg' }}" data-img="{{ block.settings.image | img_url: 'large' | format: 'jpg' }}" class="img_blur img_load">
+            </a>
+            <a class="play fancybox fancybox.iframe" href="{{block.settings.url}}">
+              <img src="{{'video_play.png' | asset_img_url: '64x64'}}">
+            </a>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  </div>
+<hr>
+{% endif %}
+{% schema %}
+{
+  "name": "Home page - Videos",
+  "max_blocks": 10,
+ "settings":[
+	{
+	"type":"checkbox",
+	"label":"Full-width",
+	"id":"full"
+	}
+],
+  "presets": [
+    {
+      "name": "Homepage - Video",
+      "category": "Video"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image"
+        },
+		{
+      "type": "text",
+      "id": "video_header",
+      "label": "Header text"
+    	},
+        {
+          "type": "text",
+          "label": "Video URL",
+          "id": "url"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,121 @@
+<!-- home-2-banner-text -->
+<div id="home_two_banner_text">
+  <div class="container-fluid">
+    <div class="flex_view_xs middle space">
+      <div class="col-sm-8 col-xs-12">
+        <div class="row">
+          {% for c in (1..2) %}
+          {% assign image = "image_" | append:c %}
+          {% assign mob_image = "mob_image_" | append:c %}
+          {% assign img_url = "url_" | append:c %}
+          <div class="col-sm-6 col-xs-6">
+            <div class="image">
+              <a href="{{section.settings[img_url]}}">
+                <div class="xs-hide">
+                  {%- assign src_alt = section.settings[image].alt -%}
+                {%- assign src_name = section.settings[image] -%}
+                {%- include 'srcset-img' -%} 
+                </div>
+                
+                <div class="xs-show">
+                  {%- assign src_alt = section.settings[image].alt -%}
+                {%- assign src_name = section.settings[mob_image] -%}
+                {%- include 'srcset-img' -%}
+                </div>
+              </a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="col-sm-4 col-xs-12">
+        <div class="text_wrapper">
+          <p class="header_text">{{section.settings.header_text}}</p>
+          <p class="sub_text">{{section.settings.subheader_text}}</p>
+          {% unless section.settings.btn == blank %}
+          <a href="{{section.settings.btn_url}}" class="btn banner_btn">{{section.settings.btn}}</a>
+          {% endunless %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+    "name": "Home Two Banner Text",
+      "settings": [
+        {
+          "type":"header",
+          "content":"Desktop Images"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_1",
+          "label": "Image"
+        },
+        {
+          "type":"url",
+          "label":"Image url",
+          "id":"url_1"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_2",
+          "label": "Image"
+        },
+{
+          "type":"url",
+          "label":"Image url",
+          "id":"url_2"
+        },
+        {
+          "type":"header",
+          "content":"Mobile Images"
+        },
+        {
+          "type": "image_picker",
+          "id": "mob_image_1",
+          "label": "Mobile Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "mob_image_2",
+          "label": "Mobile Image"
+        },
+
+        {
+          "type": "text",
+          "label": "Header text",
+          "id": "header_text"
+        },
+        {
+          "type": "textarea",
+          "label": "Sub-header text",
+          "id": "subheader_text"
+        },
+        {
+          "type":"text",
+          "id":"btn",
+          "label":"Banner button"
+        },
+        {
+          "type":"text",
+          "id":"btn_url",
+          "label":"Banner button url"
+        }
+      ],
+        "presets": [
+          {
+            "name": "Home Two Banner Text",
+            "category": "Banner"
+          }
+        ]
+  }
+  {% endschema %}
+  {% comment %}
+</script>
+{% endcomment %}
+

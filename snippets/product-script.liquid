@@ -1,0 +1,827 @@
+<!-- product-script -->
+<script  type="text/javascript">
+  var selectCallback_{{ product.id }} = function(variant, selector) {
+    simply.productCallback({
+      money_format: '{{ shop.money_format }}',
+      variant: variant,
+      selector: selector,
+      translations: {
+      addToCart : "Buy from",
+      soldOut : {{ 'products.product.sold_out' | t | json }},
+      unavailable : {{ 'products.product.unavailable' | t | json }},
+      inStock : "In stock"
+    }
+   });
+  };
+  simply.productJson = {{ product | json }};
+  simply.collageMen = {{product.metafields.new_t_men_src | json}};
+  simply.collageWomen = {{product.metafields.new_t_women_src | json}};
+  simply.men_id = {{product.metafields.men_id | json}};
+  simply.women_id = {{product.metafields.women_id | json}};
+  simply.variant_id = {{product.metafields.variant_id | json}};   
+  simply.men_src = {{product.metafields.men_src | json}};
+  simply.women_src = {{product.metafields.women_src | json}};
+  simply.variant_src = {{product.metafields.variant_src | json}}; 
+  
+  var skuId = {{ product.selected_or_first_available_variant.sku }};
+  
+  
+  
+      $(document).ready(function() {
+        updateShopifyInventory(skuId);
+        // Dirty Hacks Anubhaw 08/01/2021 //
+        var sunglassDirtyList = [93667,93668 ,93881 ,105674 ,108539 ,108541 ,114986 ,114991 ,114992 ,122259 ,122261 ,122263 ,122779 ,122959 ,123881 ,123882 ,123886 ,123887 ,123978 ,124384 ,124399 ,124630 ,124637 ,125470 ,125471 ,125926 ,126221 ,127295 ,127323 ,127344 ,127389 ,127584 ,127592 ,127615 ,127619 ,127638 ,127639 ,127640 ,127641 ,127714 ,127717 ,128397 ,128657 ,128659 ,130234 ,130237 ,130788 ,130795 ,130811 ,130815 ,130819 ,130821 ,130844 ,130845 ,130846 ,130847 ,130849 ,130902 ,130904 ,131000 ,131002 ,131004 ,131013 ,131015 ,131238 ,131283 ,131288 ,131297 ,131299 ,131311 ,131315 ,131316 ,131317 ,131320 ,131321 ,131322 ,131323 ,131330 ,134952 ,134955 ,135554 ,136071 ,136342 ,136370 ,136390 ,136394 ,136399 ,136414 ,136565 ,136572 ,136578 ,136639 ,136972 ,136973 ,137036 ,137123 ,137124 ,137126 ,137135 ,137144 ,93664 ,93669 ,93877 ,93879 ,93880 ,102352 ,108516 ,108542 ,108543 ,108623 ,114993 ,115099 ,122254 ,122260 ,122262 ,122265 ,122266 ,122780 ,122781 ,122782 ,122961 ,123869 ,124370 ,124371 ,124627 ,124631 ,124633 ,124635 ,124638 ,124646 ,125469 ,125896 ,125927 ,126218 ,126219 ,127180 ,127290 ,127292 ,127316 ,127317 ,127320 ,127322 ,127345 ,127387 ,127634 ,127637 ,127642 ,127715 ,128008 ,128010 ,128257 ,128258 ,128259 ,128260 ,128658 ,128660 ,129991 ,129994 ,129995 ,130094 ,130115 ,130236 ,130239 ,130243 ,130244 ,130362 ,130363 ,130799 ,130814 ,130895 ,130900 ,130903 ,131001 ,131012 ,131282 ,131284 ,131285 ,131286 ,131287 ,131289 ,131290 ,131294 ,131295 ,131296 ,131305 ,131309 ,131332 ,131343 ,131550 ,133427 ,133428 ,133430 ,133431 ,133432 ,134397 ,134398 ,134399 ,134523 ,134579 ,134581 ,134582 ,134863 ,134864 ,134865 ,134869 ,134870 ,134936 ,134937 ,134938 ,134939 ,134940 ,134941 ,134942 ,134943 ,134945 ,134953 ,134954 ,135205 ,135207 ,135208 ,135213 ,135214 ,135215 ,135501 ,135502 ,135515 ,135521 ,135525 ,135526 ,135528 ,135537 ,135538 ,135539 ,135540 ,135547 ,135553 ,135557 ,135558 ,135559 ,135866 ,135868 ,135877 ,135878 ,135880 ,135881 ,135882 ,136062 ,136067 ,136068 ,136069 ,136070 ,136343 ,136365 ,136366 ,136367 ,136368 ,136369 ,136373 ,136374 ,136375 ,136381 ,136382 ,136386 ,136387 ,136388 ,136389 ,136391 ,136392 ,136393 ,136395 ,136396 ,136397 ,136398 ,136400 ,136401 ,136402 ,136403 ,136404 ,136405 ,136406 ,136411 ,136412 ,136415 ,136566 ,136568 ,136571 ,136631 ,136632 ,136633 ,136634 ,136638 ,136640 ,136641 ,136642 ,136990 ,137005 ,137012 ,137014 ,137018 ,137019 ,137032 ,137035 ,137037 ,137125 ,137127 ,137128 ,137129 ,137130 ,137131 ,137136 ,137137 ,137138 ,137145 ,137150 ,137151 ,137152 ,137153 ,137154 ,137155 ,137156 ,137157 ,137158 ,137159 ,137160];
+        
+        if(!sunglassDirtyList.includes(skuId)){
+          $('#sun_withpower').parent().hide();
+          $('#sun_withpower').removeAttr('checked');
+          
+          $('#sun_withpower_pro').parent().hide();
+          $('#sun_withpower_pro').removeAttr('checked');
+        }
+        // Dirty Hacks Anubhaw 08/01/2021 //
+        
+    $('ul.tabsmm').each(function(){
+      var active, content, links = $(this).find('a');
+      active = links.first().addClass('active');
+      content = $(active.attr('href'));
+      links.not(':first').each(function () {
+        $($(this).attr('href')).hide();
+      });
+      $(this).find('a').click(function(e){
+        active.removeClass('active');
+        content.hide();
+        active = $(this);
+        content = $($(this).attr('href'));
+        active.addClass('active');
+        content.show();
+        return false;
+      });
+    });
+      
+      $('ul.tabsdd').each(function(){
+      var active, content, links = $(this).find('a');
+      active = links.first().addClass('active');
+      content = $(active.attr('href'));
+      links.not(':first').each(function () {
+        $($(this).attr('href')).hide();
+      });
+      $(this).find('a').click(function(e){
+        active.removeClass('active');
+        content.hide();
+        active = $(this);
+        content = $($(this).attr('href'));
+        active.addClass('active');
+        content.show();
+        return false;
+      });
+    });
+        $("#dittotextmob_topbox").click(function() {
+       if($(this).hasClass('tryonmob')){
+         $('.switchimage').click();
+       }
+      else if($(this).hasClass('retryonmob')){
+        setppcookiestryon();
+        window.location.href = '/pages/compare-looks'; 
+       }
+     }); 
+        
+    //Switch images by toggle button
+    $('.switchimage').click(function() {
+      var togglebtn_pp = simply.getCookie('sgdittoId');
+      if(togglebtn_pp != ''){
+      
+              $('#contentttt').toggle();
+              if ($('#contentttt:visible').length != 0)
+              {
+                $(this).addClass('active');      
+
+                if($(this).hasClass('runfirsttime')){
+                  $('.try_ditto').click();
+                }else{      
+                $('#ditto-thumbnail img').click();
+                  console.log('ditto-thumbnail clicked');
+                }
+                console.log('show ditto');
+                simply.setCookie('try3d',1,1);
+              }
+              else
+              {
+                $(this).removeClass('active'); 
+                $(this).removeClass('runfirsttime'); 
+                $('.first_img_thub').click();
+                console.log('hide ditto');
+                simply.setCookie('try3d',0,-1);
+              }
+      }else{
+        //   when resirect to compare lool page from product page
+		setppcookiestryon();
+       window.location.href = '/pages/compare-looks'; 
+      }
+      
+});
+    
+     jQuery('.re_try_ditto').click(function() {
+       setppcookiestryon();
+       window.location.href = '/pages/compare-looks'; 
+     });
+        
+        if ($(window).width() < 481) {
+      $(".small-padding .tooltiplensinfo").click(function(){     
+        $(this).parents('.small-padding').find('.tooltiplensinfotext').css('visibility','visible');
+        $(this).parents('.small-padding').siblings().find('.tooltiplensinfotext').css('visibility','hidden');     
+      });
+
+      $(".close-tooltiplensinfo").click(function(){
+        $(this).parents('.small-padding').find('.tooltiplensinfotext').css('visibility','hidden');
+      });
+    }
+            
+  $('body').click(function(e) {
+    if (!$(e.target).closest('.tooltiplensinfotext').length){
+      $(".tooltiplensinfotext").css('visibility','hidden');
+    }
+
+    if ($(e.target).closest('.small-padding').length){
+      $(e.target).closest('.small-padding').find('.tooltiplensinfotext').css('visibility','visible');
+    }
+
+    if ($(e.target).closest('.close-tooltiplensinfo').length){
+      $(e.target).closest('.small-padding').find('.tooltiplensinfotext').css('visibility','hidden');
+    }
+  });
+    
+    $(".accordion_container .closesecond").click(function(){
+      $(".accordion_container").hide();
+      $(".bgoverlay_pres").hide();
+    });
+    
+    $("#mirror_manual").click(function(){
+      $("#manual a").click();
+      $(".accordion_container").show();
+      $(".bgoverlay_pres").show();
+      $('.accordion_container #tab-1').show();
+      $('.accordion_container #tab-3').hide();
+    });
+    $("#mirror_dontknow").click(function(){
+      $("#dontknow a").click();
+      $(".accordion_container").show();
+      $(".bgoverlay_pres").show();
+    });
+    $("#mirror_upload").click(function(){
+      $("#upload a").click();
+      $(".accordion_container").show();
+      $(".bgoverlay_pres").show();
+      $('.accordion_container #tab-3').show();
+      $('.accordion_container #tab-1').hide();
+    });
+    
+    $(".openpremodel_pp").click(function(){
+      $(".power-modal").fadeIn(200);
+      //$(".bgoverlay1").show();
+    });
+
+    $(".close-power-modal, .closemodel").click(function(){
+      $(".power-modal").fadeOut(200);
+      //$(".bgoverlay1").hide();
+    });
+    //toggle the component with class accordion_body
+    $(".accordion_head").click(function() {
+      if ($('.accordion_body').is(':visible')) {
+        $(".accordion_body").slideUp(300);
+        $(".plusminus").text('+');
+      }
+      if ($(this).next(".accordion_body").is(':visible')) {
+        $(this).next(".accordion_body").slideUp(300);
+        $(this).children(".plusminus").text('+');
+      } else {
+        $(this).next(".accordion_body").slideDown(300);
+        $(this).children(".plusminus").text('-');
+      }
+    });
+       
+    $(".sendorder_id").click(function(e){
+      $('.loadingpr').fadeIn().css('display','inline-block');
+      e.preventDefault();
+
+    var shopify_orderid =  "pp";
+    var shopify_session =  $('.shopify_session').text();
+    var shopify_session =  shopify_session.trim();
+    
+    var shopify_session_item =  $('.shopify_session_item').text();
+    var shopify_session_item =  shopify_session_item.trim();
+    var item_sku = $('.current_variant_sku').text();
+    var item_id =  "item_id";
+
+    console.log(shopify_session);
+      console.log(shopify_orderid);
+      
+      var contact_text = "NA";
+      var contact_img = "NA";
+      
+      var RightEyeCylindrical = $("#RightEyeCylindrical").find('option:selected').val();
+      var RightEyeAxis = $("#RightEyeAxis").find('option:selected').val();
+      var RightEyeSpherical = $("#RightEyeSpherical").find('option:selected').val();
+
+      var LeftEyeCylindrical = $("#LeftEyeCylindrical").find('option:selected').val();
+      var LeftEyeAxis = $("#LeftEyeAxis").find('option:selected').val();
+      var LeftEyeSpherical = $("#LeftEyeSpherical").find('option:selected').val();
+
+      var RightEyeBifocal = $("#RightEyeBifocal").find('option:selected').val();
+      var LeftEyeBifocal = $("#LeftEyeBifocal").find('option:selected').val();
+      var ImageLink = '/images/noimage.jpg';
+    
+
+       if (shopify_session != '' && shopify_session_item != ''){
+        if (RightEyeCylindrical != 'NA' || LeftEyeCylindrical != 'NA' || RightEyeSpherical != 'NA' || LeftEyeSpherical != 'NA' || RightEyeAxis != 'NA' || LeftEyeAxis != 'NA' || RightEyeBifocal != 'NA' || LeftEyeBifocal != 'NA'){
+      var mysenturls = 'https://singapore.lenskart.com/interprescription_pp.php';
+      //var mysenturls = 'http://localhost/pre_prescription/interprescription_pp.php'; 
+
+      $.ajax({
+        type: "POST",
+        url: mysenturls,
+        crossDomain: true,
+        data: {contact_text:contact_text, contact_img:'NA', shopify_orderid:shopify_orderid, shopify_session: shopify_session, item_sku: item_sku, RightEyeCylindrical: RightEyeCylindrical, RightEyeAxis: RightEyeAxis, RightEyeSpherical: RightEyeSpherical, LeftEyeCylindrical: LeftEyeCylindrical, LeftEyeAxis: LeftEyeAxis, LeftEyeSpherical: LeftEyeSpherical, RightEyeBifocal: RightEyeBifocal, LeftEyeBifocal: LeftEyeBifocal, ImageLink: ImageLink, shopify_session_item:shopify_session_item, item_id:item_id, item_type:'{{ product.type }}'},
+        success: function (data) {
+          
+          aftersubmitok(data, item_sku);
+        },
+        error: function (err) {
+          console.log(err);
+          $(".usermessage").text('Prescription Not submitted');
+          $(".usermessage").css('color','red');
+        }
+      });
+      }else{
+      $(".err_selectpower").text('Power options not seletcted');
+         $('.loadingpr').css('display','none');
+         }
+       }
+    });//sendorder_id on click end
+
+    $('select').on('change', function() {
+        $(".err_selectpower").text('');
+        $('.successtext').text('');
+      });
+    
+      $('ul.tabs').each(function(){
+      var active, content, links = $(this).find('a');
+      active = links.first().addClass('active');
+      content = $(active.attr('href'));
+      links.not(':first').each(function () {
+        $($(this).attr('href')).hide();
+      });
+      $(this).find('a').click(function(e){
+        active.removeClass('active');
+        content.hide();
+        active = $(this);
+        content = $($(this).attr('href'));
+        active.addClass('active');
+        content.show();
+        return false;
+      });
+    });   
+
+    $(".uploadfile").click(function(){
+      var shopify_session =  $('.shopify_session').text();
+    var shopify_session =  shopify_session.trim();
+    
+    var shopify_session_item =  $('.shopify_session_item').text();
+    var shopify_session_item =  shopify_session_item.trim();
+    var item_sku = $('.current_variant_sku').text();
+      
+      
+      var fi = document.getElementById("fileupload");
+      var filea = fi.files[0];
+      if(filea != undefined){
+      var filenamea = $("#fileupload").val();
+      var imgsize = $("#fileupload")[0].files[0].size;
+      
+      if(imgsize > 10000000){
+          var ImageLink = '/images/noimage.jpg';
+          $('.successtext').show();
+          $('.successtext').css('color','red');
+          $('.successtext').text('Image Size To Large, Please upload less than 10 mb');
+          //alert('Image Size To Large, Please upload less than 6 mb');
+          return;
+        }      
+      else{
+        uploadFile(shopify_session_item, shopify_session, item_sku);
+      }
+      
+        }else{
+        $('.successtext').show();
+        $('.successtext').css('color','red');
+        $('.successtext').text('Select file');
+        return;
+      }
+      
+    });
+  });    //document ready end   
+  
+  
+  // Anubhaw
+  
+  function updateShopifyInventory(skuId){
+    {%- assign shp_secret_salt = "WgkS8umiqgDDPoK7asfmT2DRdp8WZJfLj8Vyhih2GtAoTD" -%}
+    {%- assign date = "now" | date: "%Y-%m" -%}
+    {%- assign hash_val = date | append: '-' -%}
+    {%- assign hash_val = hash_val | append: 'lk-secret-k' -%}
+    {% assign my_secret_string = hash_val | hmac_sha256: shp_secret_salt%}
+   
+    var requestPayload = 'https://singapore.lenskart.com/api/inventory-count.php?sku='+skuId;
+    $.ajax({
+      url: requestPayload,
+      method: "GET",
+      headers:{
+        "Content-Type": "application/json"
+      },
+      success: function (res) {
+        if(res.data.quantity < 20){
+          
+          // case for eyeglass hide buy now button
+          $('#AddToCart .buy_from').text('Sold Out');
+          $('#AddToCart').addClass('disabled');
+          $('#AddToCart').css('background', "#999");
+          $('#AddToCart').css('border-color', "#999");
+          $('#AddToCart .money').text('');
+          
+          //case for sunglass
+          
+          $('#AddToCart #AddToCartText').addClass('disabled');
+          $('#AddToCart #AddToCartText').text('Sold Out');
+          $('#AddToCart').click(function(){
+          	return false;
+          });
+        }else{
+          var singlevisionlen = '';
+          var bifocallen = '';
+          if(res.data.hasOwnProperty('singlevision_package')){
+            singlevisionlen = res.data.singlevision_package;
+            if(singlevisionlen.length < 1){
+              $('#single-vision').parent().hide();
+              $('#single-vision').removeAttr('checked');
+            }
+          }else{
+            $('#single-vision').parent().hide();
+            $('#single-vision').removeAttr('checked');
+          }
+          
+          if(res.data.hasOwnProperty('bifocal_package')){
+            bifocallen = res.data.bifocal_package;
+            if(bifocallen.length < 1){
+              $('#bifocal-power').parent().hide();
+              $('#bifocal-power').removeAttr('checked');
+            }
+          }else{
+            $('#bifocal-power').parent().hide();
+            $('#bifocal-power').removeAttr('checked');
+          }
+          
+          // Hack Anubhaw
+          if(singlevisionlen.length < 1 && bifocallen.length < 1){
+            $('.choose_lense').hide();
+            $('.choose_lensespan').hide();
+            $('.power_detail').hide();
+            $('.place-orderspan').hide();
+            $('.place-order').hide();
+          }else{
+            $('.choose_lense').show();
+            $('.choose_lensespan').show();
+            $('.power_detail').show();
+            $('.place-orderspan').show();
+            $('.place-order').show();
+          }
+        }
+      },
+      error: function (err) {
+        console.log(err);
+      }
+    });
+  }
+  
+  // Anubhaw
+  
+  
+  
+  
+  
+    function uploadFile(shopify_session_item, shopify_session, item_sku){         
+$('.loadingpr').fadeIn().css('display','inline-block');
+      $('#progress-wrp').show();
+    var input = document.getElementById("fileupload");
+    file = input.files[0];
+    if(file != undefined){
+      var filenamea = $("#fileupload").val();
+      var aux = filenamea.split('.');
+      var extension = aux[aux.length -1].toLowerCase();;
+      var newFileName = shopify_session_item+'.'+extension;
+    }
+    else{
+      var newFileName = "File not uploaded";
+    }       
+      
+    var contact_img = "NA";
+    if(file != undefined){
+      formData= new FormData();
+      //if(!!file.type.match(/image\/.*|application\/pdf/)){
+      if(extension == "pdf" || extension == "docx" || extension == "doc" || extension == "jpg" || extension == "jpeg" || extension == "png" || extension == "txt"){
+        formData.append("image", file, newFileName);
+        formData.append("shopify_session", shopify_session);
+        formData.append("shopify_session_item", shopify_session_item);
+        formData.append("item_sku", item_sku);
+        formData.append("shopify_orderid", 'pp');
+        formData.append("ImageLink", 'NA');
+        formData.append("contact_img", contact_img);
+        formData.append("contact_text", 'NA');
+        formData.append("item_type", '{{ product.type }}');
+
+        $.ajax({
+          url: 'https://singapore.lenskart.com/interprescription_pp.php',
+          type: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+          	xhr: function(){
+		//upload Progress
+		var xhr = $.ajaxSettings.xhr();
+		if (xhr.upload) {
+			xhr.upload.addEventListener('progress', function(event) {
+				var percent = 0;
+				var position = event.loaded || event.position;
+				var total = event.total;
+				if (event.lengthComputable) {
+					percent = Math.ceil(position / total * 100);
+				}
+				//update progressbar
+				$(".progress-bar").css("width", + percent +"%");
+				$(".status").text(percent +"%");
+			}, true);
+		}
+		return xhr;
+	},              
+                        
+          success: function(data){
+            $("#fileupload").val('');
+            $(".inputfilespan").text('Click Here To Upload Prescription');
+            
+            if(data == 'Image_inserted_server'){
+              aftersubmitok(data, item_sku);
+            }
+            else if(data == 'invalid'){
+              $('.loadingpr').css('display','none');
+              $('.successtext').text('Only Image pdf Allow');
+              $('.successtext').show();
+              $('.successtext').css('color','red');
+              $('#progress-wrp').hide();
+            }
+            else if(data == 'Prescription Updated'){
+              $('.loadingpr').css('display','none');
+              $('#progress-wrp').hide();
+              $('.successtext').text('Prescription Updated');
+              $('.successtext').show();
+              $('.successtext').css('color','green');
+              aftersubmitok(data, item_sku);
+            }
+            else{
+              $('.loadingpr').css('display','none');
+              $('.successtext').text('Failed, Please Try Again');
+              $('.successtext').show();
+              $('.successtext').css('color','red');
+              $('#progress-wrp').hide();
+            }
+          }
+        });
+          
+      }else{
+        //alert('Not a valid image!');
+        $('.loadingpr').css('display','none');
+        console.log('Only Image/pdf Allow');
+        $('#progress-wrp').hide();        
+        $('.successtext').text('Only Image/pdf Allow');
+        $('.successtext').show();
+        $('.successtext').css('color','red');
+      }
+    }else{
+      //alert('Input something!');
+      $('.loadingpr').css('display','none');
+      $('#progress-wrp').hide();
+    }
+  }
+
+    function ihaveprescheck(){
+    if($('.havepres').is(":checked"))   
+      $(".extraoptions").show(300);
+    else
+      $(".extraoptions").hide(200);
+  }
+
+  function ihavebifocalcheck(){
+    if($('.havebifocal').is(":checked"))   
+      $(".extraoptions1").show(300);
+    else
+      $(".extraoptions1").hide(200);
+  }
+  
+  function aftersubmitok(data, item_sku){
+    if ($(window).width() > 767) {
+    $(".accordion_container").hide();
+  }
+    $('#progress-wrp').hide();
+    $(".power-modal").hide();
+    $(".bgoverlay_pres").hide();
+    $(".submitsuccess").show();
+    $('.loadingpr').css('display','none');
+    $('.successtext').text('');
+    
+    if(data=='Already exist'){
+     $(".usermessage").text('Already Submitted');
+     $(".usermessage").css('color','green');
+    }
+    else{
+     $(".usermessage").text('PRESCRIPTION SUBMITTED. PLEASE CLICK "CONTINUE" TO PROCEED');
+     $(".usermessage").css('color','green');
+    }
+    var prescription_pp = "prescription_pp_"+item_sku;
+    simply.setCookie(prescription_pp, prescription_pp,1);
+  }
+  'use strict';
+
+  ;( function ( document, window, index )
+    {
+    var inputs = document.querySelectorAll( '.inputfile' );
+    Array.prototype.forEach.call( inputs, function( input )
+                                 {
+      var label	 = input.nextElementSibling,
+          labelVal = label.innerHTML;
+
+      input.addEventListener( 'change', function( e )
+                             {
+        var fileName = '';
+        if( this.files && this.files.length > 1 )
+          fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+        else
+          fileName = e.target.value.split( '\\' ).pop();
+
+        if( fileName )
+          label.querySelector( 'span' ).innerHTML = fileName;
+        else
+          label.innerHTML = labelVal;
+        $(".err_selectpower").text('');
+        $('.successtext').text('');
+      });
+
+      // Firefox bug fix
+      input.addEventListener( 'focus', function(){ input.classList.add( 'has-focus' ); });
+      input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
+    });
+  }( document, window, 0 ));
+      var video = document.querySelector("#videoblucut"),
+       button = document.querySelector(".blucutvdo"),
+       closetooltipnew = document.querySelector(".stopvdo");
+
+   button.addEventListener("click", function() {
+     video.play()
+   }, false);
+
+   closetooltipnew.addEventListener("click", function() {
+     video.pause()
+   }, false);
+  
+  function setppcookiestryon(){
+           //   when resirect to compare lool page from product page
+  if(window.location.href.indexOf('/products/') > -1){ 
+    simply.lastCollection = '{{ product.handle }}';
+		if(!cn(simply.lastCollection)){
+			simply.setCookie('lastCollection',simply.lastCollection,1);
+          simply.setCookie('lastCollectionpp','ppon',1);
+		}
+	}
+  }//end when resirect to compare look.
+
+</script>
+<style>
+  {%- if product.metafields.women_header_src == blank or product.metafields.men_header_src == blank  -%}
+  .work_tab{
+  display:none;
+  }
+  #product_page #product_work_play .tabs_desk a{
+  display:none;
+  }
+  {%- endif -%}
+  
+  @media(max-width:767px){
+  .find_store_container a{
+  bottom:50px;
+  }
+  }
+</style>
+
+  {%- if product.type == 'Sunglasses' -%}
+  <script>
+ $(document).ready(function(){   
+   $(".choose_lense-sun").click(function(){
+        $('.product_form .btn_next').removeClass('display-no-imp');
+            $('.product_form .btn_proceed').removeClass('display-imp');     
+    });
+   
+   $(".power_detail-sun").click(function(){
+        $('.product_form .btn_next').addClass('display-no-imp');
+            $('.product_form .btn_proceed').addClass('display-imp');     
+    });
+   
+   $(".product_form .btn_next").click(function(){
+        $(this).addClass('display-no-imp');
+            $('.product_form .btn_proceed').addClass('display-imp');     
+    });
+   
+   $(".sunglass-power").click(function(){
+      $("#product_page .side_option").addClass("active");
+    });
+   
+    $(".sg_next_btn").click(function(){
+     $(".choose_lense-sun ").click();
+      $(this).addClass('hideimp');
+    });
+   
+   $(".sg_addtocart_btn").click(function(){
+     $("#AddToCart").click();
+    });   
+   });
+</script>
+<style>
+  .display-imp{display:block!important;}
+  .display-no-imp{display:none!important;}
+</style>  
+{%- endif -%}
+
+<script>
+  $(document).ready(function(){  
+        //function extra_product_images(){
+     //Api
+     
+   var devicetype = 'desktop'; 
+  var currentSkuId = jQuery(".swatch-element.active").attr("data-sku");
+      if(currentSkuId != ''){
+var myveryfuurl = 'https://api.lenskart.com/v2/products/product/'+currentSkuId;
+      $.ajax({
+        "method": "GET",
+        url: myveryfuurl,
+        "async": true,
+        "crossDomain": true,
+        "headers": {   
+            "Content-Type": "application/json",
+            "X-Api-Client": devicetype,
+            "X-Country-Code": "IN",
+            "Accept": "*/*",
+            "Cache-Control": "no-cache",
+       }
+      }).done(function(response){ 
+                var imageUrlsDetail = response['result']['imageUrlsDetail'];
+        //console.log(imageUrlsDetail);
+        
+           $.each(imageUrlsDetail, function(key, value) {
+             
+             {% if collection.title == "Sunglasses For Men" or collection.title == "Eyeglasses For Men" or collection.title == "Blue Light Eyeglasses For Men" %}
+              var mobileimage = value['url'].replace('628x301', '1325x636');
+            // if(value['label'] == 'Image_FT Front' || value['label'] == 'Image_FT Left' || value['label'] == 'Image_FT Right' || value['label'] == 'Image_FT Side' || value['label'] == 'Image_MT Front' || value['label'] == 'Image_MT Left' || value['label'] == 'Image_MT Right' || value['label'] == 'Image_MT Side'){
+               if(value['label'].includes("Image_MT")){
+             
+              $('#ProductImages').append('<li><div class="zoom img"><img class="product_image img_blur img_load" src="'+mobileimage+'" alt="" /></div></li>');
+                simply.product_page_slider.refresh();
+             }        
+         
+             if(value['label'].includes("Image_FT") || value['label'].includes("Image_MT")){
+             if(value['label'].includes("Image_FT")){
+              $('.desk_gellery .desk_woman').prepend('<img class="mySlides" src="'+mobileimage+'" alt="" />');
+              simply.women_yes = 'true';
+            }
+              else if(value['label'].includes("Image_MT")){
+              $('.desk_gellery .desk_man').prepend('<img class="mySlides" src="'+mobileimage+'" alt="" />');
+                simply.men_yes = 'true';
+            } 
+               
+               {% elsif collection.title == "Sunglasses For Women" or collection.title == "Eyeglasses For Women" or collection.title == "Blue Light Eyeglasses For Women" %}
+               
+               var mobileimage = value['url'].replace('628x301', '1325x636');
+               if(value['label'].includes("Image_FT")){
+             
+              $('#ProductImages').append('<li><div class="zoom img"><img class="product_image img_blur img_load" src="'+mobileimage+'" alt="" /></div></li>');
+                simply.product_page_slider.refresh();
+             }
+                 
+             if(value['label'].includes("Image_FT") || value['label'].includes("Image_MT")){
+             if(value['label'].includes("Image_FT")){
+              $('.desk_gellery .desk_woman').prepend('<img class="mySlides" src="'+mobileimage+'" alt="" />');
+              simply.women_yes = 'true';
+            }
+              else if(value['label'].includes("Image_MT")){
+              $('.desk_gellery .desk_man').prepend('<img class="mySlides" src="'+mobileimage+'" alt="" />');
+                simply.men_yes = 'true';
+            } 
+                   
+            {% else %}
+              var mobileimage = value['url'].replace('628x301', '1325x636');
+               if(value['label'].includes("Image_FT") || value['label'].includes("Image_MT")){
+              $('#ProductImages').append('<li><div class="zoom img"><img class="product_image img_blur img_load" src="'+mobileimage+'" alt="" /></div></li>');
+                 simply.product_page_slider.refresh();
+             }            
+         
+             if(value['label'].includes("Image_FT") || value['label'].includes("Image_MT")){
+             if(value['label'].includes("Image_FT")){
+              $('.desk_gellery .desk_woman').prepend('<img class="mySlides" src="'+mobileimage+'" alt="" />');
+              simply.women_yes = 'true';
+            }
+              else if(value['label'].includes("Image_MT")){
+              $('.desk_gellery .desk_man').prepend('<img class="mySlides" src="'+mobileimage+'" alt="" />');
+                simply.men_yes = 'true';
+            } 
+               
+            {% endif %}
+                
+               
+            $('.pp-gallery').show();            
+          }
+                   
+        });
+        if(simply.men_yes == 'true' && simply.women_yes == 'true'){
+          $('.tabsdd').show();
+        }
+    $(".desk_gellery #desk_man").owlCarousel({
+        items:1,
+        itemsDesktop:[1000,1],
+        itemsDesktopSmall:[979,1],
+        itemsTablet:[768,1],
+        pagination:false,
+        navigation:true,
+        navigationText:["",""],
+        autoPlay:false
+    });
+        
+    $(".desk_gellery #desk_woman").owlCarousel({
+        items:1,
+        itemsDesktop:[1000,1],
+        itemsDesktopSmall:[979,1],
+        itemsTablet:[768,1],
+        pagination:false,
+        navigation:true,
+        navigationText:["",""],
+        autoPlay:false
+    });
+      }
+      ).fail(function(response){
+        
+      });//api end
+      }//end if
+  //}
+      //extra_product_images();
+    });
+</script>
+
+
+<!-- Tabs js for me and women -->
+
+ {% if collection.title == "Eyeglasses For Women" or collection.title == "Blue Light Eyeglasses For Women" %}
+
+<script>
+ $('.tabsdd ').hide();
+ $('#tab-1d').hide();
+ $('#tab-2d').addClass('active');
+ $('#tab-100').hide();
+ $('#tab-200').addClass('active');
+ $('#product_page .degree_btn_wrapper').hide();
+ $('.desk_gellery .tabsdd').addClass('hide');
+</script>
+ {% endif %}
+
+
+{% if collection.title == "Eyeglasses For Men" or collection.title == "Blue Light Eyeglasses For Men" %}
+
+<script>
+ $('#product_page .degree_btn.reverse').hide();
+  $('.desk_gellery .tabsdd').addClass('hide');
+</script>
+ {% endif %}
+
+
+{% if collection.title == "Sunglasses For Women" %}
+
+<script>
+ $('.tabsdd ').hide();
+ $('#tab-1d').hide();
+ $('#tab-100').hide();
+ $('#tab-200').addClass('active');
+ $('#tab-2d').addClass('active');
+ $('#product_page .degree_btn_wrapper').hide();
+  $('.desk_gellery .tabsdd').addClass('hide');
+</script>
+ {% endif %}
+
+
+{% if collection.title == "Sunglasses For Men" %}
+
+<script>
+ $('#product_page .degree_btn.reverse').hide();
+  $('.desk_gellery .tabsdd').addClass('hide');
+</script>
+ {% endif %}

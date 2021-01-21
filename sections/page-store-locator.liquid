@@ -1,0 +1,146 @@
+<div id="store_locator_page">
+  <h1 class='text-center'>
+  {{section.settings.seo_title}}
+</h1>
+  <div class="container">
+    <div class="main_header text-center">
+      {{section.settings.header}}
+    </div>
+    {% comment %}
+    <div class="text-center xs-hide">
+      <img src="{{'location.jpg' | asset_url}}" class="img-responsive">
+    </div>
+    {% endcomment %}
+    <div class="row">
+      <div class="col-sm-10 col-sm-offset-1">
+        <ul class="row list">
+          {% for block in section.blocks %}
+          <li class="col-sm-3">
+            <div class="content">
+              <div class="img{% if forloop.index == 4 %} no_h flex_view middle{% endif %}">
+                
+                {%- assign src_name = block.settings.image -%}
+                {%- assign src_alt = block.settings.header -%}
+                {%- include 'srcset-img' -%}
+              </div>
+              <div class="text">
+                <h3 class="area">{{block.settings.header}}</h3>
+                <div class="address">
+                  {{block.settings.text}}
+                </div>
+                <a {% unless block.settings.locate_text contains 'coming' %}href="{{block.settings.locate_url}}"{% endunless %} target="_blank" class="btn reverse">
+                  {{block.settings.locate_text}}
+                </a>
+                {% unless block.settings.text_2 == blank %}
+                <br/><br/><br/>
+                <div class="address">
+                  {{block.settings.text_2}}
+                </div>
+                {% endunless %}
+                {% unless block.settings.locate_text_2 == blank %}
+                <a {% unless block.settings.locate_text_2 contains 'coming' %}href="{{block.settings.locate_url_2}}"{% endunless %} target="_blank" class="btn reverse">
+                  {{block.settings.locate_text_2}}
+                </a>
+                {% endunless %}
+                {% unless block.settings.text_3 == blank %}
+                <br/><br/><br/>
+                <div class="address">
+                  {{block.settings.text_3}}
+                </div>
+                {% endunless %}
+                {% unless block.settings.locate_text_3 == blank %}
+                <a {% unless block.settings.locate_text_3 contains 'coming' %}href="{{block.settings.locate_url_3}}"{% endunless %} target="_blank" class="btn reverse">
+                  {{block.settings.locate_text_3}}
+                </a>
+                {% endunless %}
+              </div>
+
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Store locator - Desktop",
+  "max_blocks": 4,
+  "settings": [
+  {
+    "type":"text",
+    "id":"seo_title",
+    "label":"SEO title"
+  },
+  {
+    "type": "richtext",
+    "id": "header",
+    "label": "Header text"
+  }
+  ],
+  "blocks": [
+  {
+    "name": "Store location",
+    "type": "text",
+    "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "label": "Area",
+      "id": "header"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Address"
+    },
+    {
+      "type": "text",
+      "id": "locate_text",
+      "label": "Locate text"
+    },
+    {
+      "type": "text",
+      "id": "locate_url",
+      "label": "Locate URL"
+    },
+    {
+      "type": "richtext",
+      "id": "text_2",
+      "label": "Address - 2"
+    },
+    {
+      "type": "text",
+      "id": "locate_text_2",
+      "label": "Locate text -2"
+    },
+    {
+      "type": "text",
+      "id": "locate_url_2",
+      "label": "Locate URL -2"
+    },
+    {
+      "type": "richtext",
+      "id": "text_3",
+      "label": "Address - 3"
+    },
+    {
+      "type": "text",
+      "id": "locate_text_3",
+      "label": "Locate text -3"
+    },
+    {
+      "type": "text",
+      "id": "locate_url_3",
+      "label": "Locate URL -3"
+    }
+    ]
+  }
+  ]
+}
+{% endschema %}

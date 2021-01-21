@@ -1,0 +1,151 @@
+{%- assign p_price = settings.p_price -%}
+{%- assign p_fakeprice = settings.p_fakeprice -%}
+{%- assign prepaidApplied = false -%}
+
+<table class='product-table'>
+  <tbody >
+    {%- for item in checkout.line_items -%}
+    {% assign prepaid_applied = false %}
+    {%- assign master = false -%}
+    {%- assign child = false -%}
+    {%- assign sunglass = false -%}
+    {% assign zero = false %}
+    {% assign bundle = blank %}
+    {% assign property_size = item.properties | size %}
+    {%- for p in item.properties -%}
+
+    {% if p.first == 'zero-power' %}
+    {% assign zero = true %}
+    {% endif %}
+    {% if p.first == 'Bundle'  %}
+    {% assign bundle = p.last %}
+    {% if item.product.type == 'Lens' %}
+    {%- assign child = true -%}
+    {%- else -%}
+    {%- assign master_count = master_count | plus:1 -%}
+    {%- assign master = true -%}
+    {% if item.product.type == 'Sunglasses' %}
+    {%- assign sunglass = true -%}
+    {% endif %}
+    {% endif %}
+    {%- endif -%}
+    {%- endfor -%}
+    {%- assign product = item.product -%}
+    {%- for tag in product.tags -%}
+    {%- if tag contains 'short_name_' -%}
+    {%- assign  child_name = tag | remove:'short_name_' -%}
+    {%- endif -%}
+    {%- endfor -%}
+    {%- assign currentprepaidApplied = false -%}
+    {%- if item.properties['prepaid_applied'] == 'yes' -%}
+    {%- assign prepaidApplied = true -%}
+    {%- assign currentprepaidApplied = true -%}
+    {%- endif -%}
+    <tr class=" product items item_{{bundle}}{% if child %} hide child {% endif %}{% if master %} master{% endif %}" data-bundle='{{bundle}}' data-handle='{{item.product.handle  }}' {% if child %}data-line='{{item.id}}' data-price='{{item.price}}' data-name='{{child_name}}'{% endif %}>
+      <td class="product__image">
+        <div class="product-thumbnail">
+          <div class="product-thumbnail__wrapper">
+            {%- assign src_name = item -%}
+            {%- assign src_alt = item.title -%}
+            {%- assign src_class = 'product-thumbnail__image' -%}
+            {%- include 'srcset-img' -%}
+          </div>
+
+        </div>
+
+      </td>
+      <td class="product__description">
+        <span class="product__description__name order-summary__emphasis">
+          {%- if bundle == blank -%}
+          {{item.product.title}} 
+          {%- else -%}
+          {{item.product.title}} +  {%- unless bundle == blank -%}
+          <span class='lens_name'>  </span>
+          {%- endunless -%}
+          {%- endif -%}
+        </span>
+      </td>
+
+      <td class="product__price">
+        <span class="order-summary__emphasis">
+          {%- assign item_price = item.price -%}         
+          {%- if currentprepaidApplied -%}
+          {{ item_price | plus:p_price | money }} 
+          {%- else -%}
+          {{ item_price | money }} 
+          {% if item.original_line_price != item_price %}
+          <small class="original-price"><s>{{ item.original_line_price | money }}</s></small>
+          {% endif %}
+          {% endif %}          
+          {%- unless bundle == blank -%}
+          + <span class='lens_price'></span>
+          {%- endunless -%}
+        </span>
+      </td>
+    </tr>    
+    {%- endfor -%}
+    
+  </tbody>
+</table>
+
+<div class='fakeCart{% unless step_no == 1 %} hide{% endunless %}'>
+  {% if checkout.discounts_amount > 0 %}
+  <div class='discount row'>
+    <div class='col-xs-5'>
+      <span>Discount</span>
+    </div>
+    <div class='col-xs-7 text-right'>
+      <h3>-{{ checkout.discounts_amount | money }}</h3>
+    </div>
+  </div>
+  {% endif %}
+  <div class='sub_total row'>
+    <div class='col-xs-5'>
+      <span>Sub - Total</span>
+    </div>
+    <div class='col-xs-7 text-right'>
+      {%- assign checkout_subtotal = checkout.subtotal_price -%}
+      {%- if prepaidApplied  -%}
+      {%- assign checkout_subtotal = checkout.subtotal_price | plus:p_price -%}
+      {%- endif -%}
+      <h3 class='checkout_sub_calc'>{{ checkout_subtotal | money }}</h3>
+      
+    </div>
+    <div class='col-xs-5'>
+      <span>Shipping</span>
+    </div>
+    <div class='col-xs-7 text-right'>
+      <h3>{{ checkout.shipping_price | money }}</h3>
+    </div>
+    <div class='col-xs-5'>
+      <span>Tax</span>
+    </div>
+    <div class='col-xs-7 text-right'>
+      <h3 class='checkout_tax_calc'>
+        {%- if prepaidApplied -%}
+
+        {% assign taxes = checkout_subtotal  | times:12 | divided_by :100 %}
+        
+        {{ taxes | money }}
+        
+        {%- else -%}
+        
+        {{ checkout.tax_price | money }}
+        
+        {%- endif -%}
+      </h3>
+    </div>
+  </div>
+  <div class='total row'>
+    <div class='col-xs-5'>
+      <span>Total</span>
+    </div>
+    <div class='col-xs-7 text-right'>
+     {%- assign checkout_total = checkout.total_price -%}
+     {%- if prepaidApplied -%}
+     {%- assign checkout_total = checkout.total_price | plus:p_fakeprice -%}
+     {%- endif -%}
+     <h3 class='checkout_total_calc'>{{ checkout_total | money }}</h3>
+   </div>
+ </div>
+</div>  

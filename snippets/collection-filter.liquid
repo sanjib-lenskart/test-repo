@@ -1,0 +1,188 @@
+<!-- collection-filter -->
+{% if sort %}
+{% assign pw = "col-sm-8 col-sm-offset-2" %}
+{% assign cw = "col-sm-3 col-xs-6" %}
+{% else %}
+{% assign pw = "col-sm-6 col-sm-offset-3" %}
+{% assign cw = "col-sm-4 col-xs-6" %}
+{% endif %}
+{%- assign custom_current = current_tags | replace:'Size_' , 'size_' -%}
+<div class="filter-tag"> 
+  {% if collection.all_tags.size > 0 %}
+  <div class="text-center">
+    <div class='mob-advanced-filters'>
+      <div class='xs-show'>
+        <div class='mega_filter_header'>
+          <p>FILTER {{ collection.all_products_count }} PRODUCTS
+            <a class='mega_filter_close'>
+              &times;
+            </a>
+          </p>
+
+        </div>
+      </div>
+      <div class="advance_filter hide_mobile">
+        {% for cat_item in linklists['collection-filter-dummy1'].links %}
+        {% unless cat_item.title == '' %}
+        <div class="widget-wrapper widget-wrapper_{{forloop.index}}" data-index="{{forloop.index}}">  
+          <div class="content">
+            <p class="toggle">
+              {% if cat_item == 'Colour' or cat_item.title == 'Color'  %}
+              Colour
+              {% elsif cat_item.title == 'Eye-' %}
+              Lens Width
+              {% else %}
+              {{ cat_item.title}}
+              {% endif %}
+            </p>
+          </div>
+        </div>
+        {% endunless %}
+        {% endfor %}
+      </div>
+    </div>
+    <div class="divurl hide"></div>
+    <div class="divurl1 hide"></div>
+    <div class="divurl2 hide"></div>
+    {% for cat_item in linklists['collection-filter-dummy1'].links %}
+    {% unless cat_item.title == '' %}
+    <div class="filter_data filter_data_{{forloop.index}}" data-status="0">
+      {% if cat_item == 'Colour' or cat_item.title == 'Color'  %}
+      {% assign class = 'color_filter' %}
+      {% else %}
+      {% assign class = '' %}
+      {% endif %}
+      {% unless cat_item.title == 'Color' or cat_item.title == 'Colour' %}
+      {% assign class = 'normal_filter' %}
+      {% endunless %}
+      {% if cat_item.title == 'Frame Width'  %}
+      {% assign class_width_filter = 'width_filter' %}
+      {% assign class_width_filter_eye = '' %}
+      {% endif %}
+
+      {% if cat_item.title == 'Eye-' %}
+      {% assign class_width_filter_eye = 'eye_width_filter' %}
+      {% assign class_width_filter = '' %}
+      {% endif %}
+
+      <div class="advanced-filters">
+        <p class="mobile_title">Filter By <span>{% if cat_item.title == 'Eye-'%}Lens Width{%else%} {{ cat_item.title}}{% endif %}</span></p>
+        <ul class="{{class}} clearfix {{class_width_filter}} {{class_width_filter_eye}}">
+          {% for custom_tag in collection.all_tags %}
+          {% if custom_tag contains cat_item.title %}
+          {% unless custom_tag == "I'm in Love with the Shape of You" %}
+          {% assign link_name =    custom_tag | remove_first: cat_item.title | remove: '_'   %}
+          {% assign link_name = link_name | handleize | append : '.png' %}
+
+
+          {% if custom_current contains custom_tag %}
+          <li data-handle="{{ custom_tag | handleize  | replace : 'Size_' , 'size_' }}"  class="advanced-filter active-filter addborder" data-group="{{ cat_item.title }}" data-handle="{{ custom_tag | handleize  | replace : 'Size_' , 'size_' }}">
+            {%if cat_item.title == 'Color' or cat_item.title == 'Colour' %}
+            <span class="color_span">
+              <span style="background-color:{{ custom_tag | remove:'Color_'  }};background:url({{link_name | asset_url}}) no-repeat;background-size:cover;" class="color_filter_span"></span>
+
+            </span>
+            {%- else -%}
+
+            {% unless cat_item.title == 'Material' or cat_item.title == 'Eye-' or cat_item.title == 'Frame Width' %}
+            {% assign imagename = custom_tag | remove_first: cat_item.title | remove: '_' %}
+            {% assign imagename = imagename | handleize | append: '.png' %}
+            <div><img class="filter-icons" src="{{ imagename | asset_url }}" alt=""/></div>
+            {% endunless %}
+            <input type="checkbox" checked="true" class="filter_check 12">
+            {% endif %}
+
+            {{ custom_tag | remove_first: cat_item.title | remove: '_' | link_to_remove_tag: custom_tag }}
+          </li>
+          {% else %} 
+          <li data-handle="{{ custom_tag | handleize  | replace : 'Size_' , 'size_'}}" class="advanced-filter addborder" data-group="{{ cat_item.title }}">
+            {% if cat_item.title == 'Color' or cat_item.title == 'Colour' %}
+            <span class="color_span">
+              <span style="background-color:{{ custom_tag | remove:'Color_' }};background:url({{link_name | asset_url}}) no-repeat;background-size:cover;" class="color_filter_span"></span>
+            </span>
+            {%- else -%}
+
+            {% unless cat_item.title == 'Material' or cat_item.title == 'Eye-' or cat_item.title == 'Frame Width' %}
+            {% assign imagename = custom_tag | remove_first: cat_item.title | remove: '_' %}
+            {% assign imagename = imagename | handleize | append: '.png' %}
+            <div><img src="{{ imagename | asset_url }}" alt=""/></div>
+            {% endunless %}
+
+            <input type="checkbox" name="" class="filter_check 13">
+            {% endif %}
+
+            {{ custom_tag | remove_first: cat_item.title | remove: '_' | link_to_add_tag: custom_tag  | replace : 'Size_' , 'size_'}}
+          </li>
+          {% endif %}
+          {% endunless %}
+          {% endif %}
+
+          {% endfor %}
+        </ul>
+        <br/>
+        <div class="text-center resetapply_btn_container_desk">
+          <a class="applyfilter-btn" href="">
+            Apply
+          </a>
+
+          <a class="clearfilter" href="{{collection.url}}">
+            Clear All &times;
+          </a>
+          <span class="filter-error"></span>
+        </div>
+
+      </div>
+    </div>
+    {% endunless %}
+    {% endfor %}
+    <div class="text-center resetapply_btn_container_mob">
+      <a class="clearfilter" href="{{collection.url}}">
+        Clear All &times;
+      </a>
+      <a class="applyfilter-btn" href="">
+        Apply
+      </a>
+    </div>
+  </div>
+  {% endif %}
+  {% if collection.handle contains 'eyeglasses' or collection.handle contains 'magnetic' or collection.handle contains 'reading'%}
+  <div id="bte_size" class="bte_size">
+    Find Your Size
+  </div>
+  {% endif %}
+  <div class="try3d_enable">
+    <span class="frame" style="display: inline-grid;padding-top: 9px; line-height: 11px; text-align: center;"><span></span>View<span>Frame</span></span>
+    <input type="checkbox" class="hide" id="try3d_enable" />
+    <label for="try3d_enable">
+      <span class="round_toggle"></span>
+    </label>
+    <span class="tryon_text" style="display: inline-grid;padding-top: 9px; line-height: 11px; text-align: center;"><span></span>Virtual<span>Try On</span></span>
+  </div>
+</div>
+
+{% if collection.handle contains 'eyeglasses' or collection.handle contains 'magnetic' or collection.handle contains 'reading'%}
+<div id="bte_size_mob" class="bte_size_mob">
+  Find Your Size
+</div>
+{% endif %}
+
+{% assign count_item1 = 0 %}
+{% for item in cart.items %}
+{% unless item.product.type == 'Lens' %}
+{% assign single_item = 1 %}
+{% assign qty =  item.quantity %}
+{% assign single_item = single_item | times : qty %}
+{% assign count_item1 = count_item1 | plus : single_item %}
+{% endunless %}
+{% endfor %}
+
+<div class="filter_cart_wl">
+  <a href="/pages/wishlist" class="wlheart_icon">
+    <img class="header-icon" src="https://cdn.shopify.com/s/files/1/0047/5335/8922/files/heart-icon.svg?v=1596194866"/>
+    <span class="wlcount">0</span>
+  </a>
+  <a class="cart" href="/cart">
+    <img class="header-icon" src="{{'cart.png' | asset_url }}">
+    <span class="count">{{count_item1}}</span>
+  </a>
+</div>

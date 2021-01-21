@@ -1,0 +1,43 @@
+
+<div id="unsubscribe-page">
+	<div class="container">
+		<h4>I want to unsubscribe from future emails</h4>
+        
+        <input type="email" name="customer-email" placeholder="Email Address  *" class="email-input" required="">
+        <br><br>
+        <button onclick="unsubscribe()" class="btn unsub_btn" type="submit">Unsubscribe me</button>
+        
+    </div>
+</div>
+<script>
+  // on  page load, fetch the email id of the user.
+  window.onload = function() {
+  	$WZRK_WR.getEmail();
+  };
+
+        // will be called after the email id of the user has been fetched
+        function wzrk_email_fetched(emailStr) {
+        	document.getElementById("email").value = emailStr;
+        }
+
+        // will be called after the subscription preferences for the user have been updated
+        function wzrk_email_subscription(status) {
+            //status 0 : unsubscribed, status 1 : subscribed
+            // todo - you can show a success message to the user from here
+            var statusLabel = 'subscribed';
+            if (status == 0) {
+            	statusLabel = 'unsubscribed';
+            }
+            alert("You've been " + statusLabel);
+
+        }
+
+        // call this function to unsubscribe the user
+        function unsubscribe() {
+        	$WZRK_WR.unSubEmail();
+        }
+        // call this function to resubscribe the user
+        function resubscribe() {
+        	$WZRK_WR.subEmail();
+        }
+    </script> 

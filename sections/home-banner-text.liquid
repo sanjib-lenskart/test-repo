@@ -1,0 +1,121 @@
+<style>
+  #banner_{{ section.id }} .main{
+    background:{{section.settings.background}};
+  }
+  #banner_{{ section.id }} .header , #banner_text .text p{
+    color:{{section.settings.font_color}};
+    font-weight:inherit;
+  }  
+  #banner_{{ section.id }} .main .link{
+    background:{{section.settings.link_background}};
+    color:{{section.settings.font_color}};
+  }
+  #banner_{{ section.id }} .main .link:hover{
+    color:{{section.settings.background}};
+  }
+  #banner_text hr.dotted{
+    border-top:3px dotted {{section.settings.font_color}};
+  }
+</style>
+{% if section.settings.header == blank %}
+{% include 'no-section-msg' %}
+{% else %}
+<div id="banner_{{ section.id }}">
+  <div id="banner_text">
+    <div class="{% unless section.settings.full %}container{% endunless %}">
+      <div class="main">
+
+        <div class="image">
+          {% assign src_name = section.settings.image %}
+          {% include 'srcset-img' %}
+        </div>
+        <h3 class="header"> {{section.settings.header}} </h3>
+        <div class="text">
+          {{section.settings.paragraph_text}}
+          {% unless section.settings.link_text == blank %}
+          <a href="{{section.settings.link}}" class="link">
+            {{section.settings.link_text}}
+          </a>
+          {% endunless %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+    "name": "Mobile Banner text",
+      "class":"xs-show no_bottom_padding",
+        "settings": [
+          {
+            "type": "checkbox",
+            "label": "Full-width",
+            "id": "full"
+          },
+          {
+            "type":"image_picker",
+            "label":"Image",
+            "id":"image"
+          },
+          {
+            "type": "color",
+            "label": "Font color",
+            "default": "#fff",
+            "id": "font_color"
+          },
+          {
+            "type": "color",
+            "label": "Background color",
+            "default": "#fff",
+            "id": "background"
+          },
+          {
+            "type": "color",
+            "label": "Link background color",
+            "default": "#fff",
+            "id": "link_background"
+          },
+          {
+            "type": "text",
+            "label": "Header text",
+            "id": "header"
+          },
+          {
+            "type": "richtext",
+            "label": "Paragraph text",
+            "id": "paragraph_text"
+          },
+          {
+            "type": "text",
+            "label": "Link text",
+            "id": "link_text"
+          },
+          {
+            "type": "text",
+            "label": "Link URL",
+            "id": "link"
+          }
+        ],
+          "presets": [
+            {
+              "name": "Mobile Banner text",
+              "category": "Banner"
+            }
+          ]
+  }
+  {% endschema %}
+  {% comment %}
+</script>
+{% endcomment %}
+
+{% comment %}
+<style>
+  {% endcomment %}
+  {% comment %}
+</style>
+{% endcomment %}

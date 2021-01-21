@@ -1,0 +1,49 @@
+{%- comment-%}
+{% if collection.handle contains 'eyeglasses' %}
+<div class='collection_extra_content hide col-xs-12'>
+  <div class='row'>
+    <div class='image'>
+      {%  assign src_name = 'collection-xs-banner-first.jpg' %}
+      {%assign a_link = '/search?q=rimless' %}
+      <a href='{{a_link}}'>
+        {% assign src_alt = 'Mobile collection banner' %}
+        {% include 'srcset-img' %}
+      </a>
+    </div>
+  </div> 
+</div>
+{% endif %}
+<div class='collection_extra_content hide col-xs-12'>
+  <div class='row'>
+    <div class='image'>
+      {% if collection.handle contains 'eyeglasses' %}
+      {%  assign src_name = 'collection-xs-banner.png' %}
+      {%assign a_link = '/search?q=rimless' %}
+      {% else %}
+      {%assign a_link = '/collections/sunglasses-for-women/shape_cat-eye' %}
+      {%  assign src_name = 'collection-xs-banner-sunglass.png' %}
+      {% endif %}
+      <a href='{{a_link}}'>
+        {% assign src_alt = 'Mobile collection banner' %}
+        {% include 'srcset-img' %}
+      </a>
+    </div>
+  </div>
+</div>
+{%- endcomment-%}
+<!--<div class='collection_call_form call_form hide col-xs-12'>
+  <div class='row'>
+     <a href="https://api.whatsapp.com/send?phone={{settings.whatsapp_number}}&text=I%27m%20interested%20in%20buying%20eyewear%20from%20John%20Jacobs%20https://{{ shop.domain }}{{ product.url | within: collection }}" target="_blank">
+      <div class='img'>
+        {%  assign src_name =  settings.whatsapp_banner %}
+        {% assign src_alt = 'Mobile collection banner' %}
+        {% include 'srcset-img' %}
+        <div class="call_details">
+          <h3>Need Help?</h3>
+          <p>Leave us a Whatsapp and our Eyewear specialist will get in touch with you instantly!</p>
+          <button class='btn' type="button">Let's Chat<i class="fa fa-caret-right" aria-hidden="true"></i></button>
+        </div>
+      </div>
+    </a>
+  </div>
+</div>--> 

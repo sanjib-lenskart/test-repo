@@ -1,0 +1,115 @@
+<!-- Make-Appointment -->
+<div id="make_appointment">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-5 col-sm-12 col-xs-12 ">
+        <img alt="{{section.settings.appointment_image | escape}}"
+             src="{{section.settings.appointment_image | img_url:'800x' | format:'pjpg'}}" 
+             class="appointment_image"
+             data-sizes="auto"
+             data-srcset="
+                          {%- for size in sizes -%}
+                          {%- assign size_x = size -%}
+                          {%- assign size_x = size_x | append : 'x' -%}
+                          {{ section.settings.appointment_image | img_url: size_x | format: 'pjpg' }} {{size | append:'w'}},
+                          {%- endfor -%}">
+      </div>
+      <div class="col-md-7">
+        <div class="header">
+          <header>
+            <h1>{{section.settings.header}}</h1>
+          </header>
+          <div class="header_content">
+            <p>{{section.settings.content_value}}</p>
+          </div>
+        </div>
+        <div class="button_center">
+          <a href="{{section.settings.button_url}}" class="btn btn_book">{{section.settings.button_value}}</a>
+        </div>  
+      </div>
+    </div>
+  </div>
+  <div class="appointment_footer">
+    <div class="appointment_faq">
+      <div class="container">
+        <div class="row">
+          {% for block in section.blocks %}
+          <div class="col-md-4 border-right">
+            <div class="footer">
+              <div class="footer_header">
+                <h4>{{block.settings.que}}</h4>
+              </div>
+              <div class="footer_content">
+                <p class="appointmet_content">{{block.settings.ans}}</p>
+              </div>
+            </div>
+          </div>
+          {%endfor%}
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{%- comment -%}
+<script>
+  {%- endcomment -%}
+  {% schema %}
+  {
+    "name": "Make Appointment",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "appointment_image"
+        },
+        {
+          "type": "text",
+          "label": "Header text",
+          "id": "header"
+        },
+        {
+          "type": "richtext",
+          "label": "Content",
+          "id": "content_value"
+        },
+        {
+          "type": "text",
+          "label": "Button text",
+          "id": "button_value"
+        },
+        {
+          "type": "text",
+          "label": "Button URL",
+          "id": "button_url"
+        }
+      ],
+        "blocks": [
+          {
+            "type": "FAQ",
+            "name": "Block",
+            "settings": [
+              {
+                "type": "text",
+                "label": "Header",
+                "id": "que"
+              },
+              {
+                "type": "richtext",
+                "label": "Content",
+                "id": "ans"
+              }
+            ]
+          }
+        ]
+  }
+  {% endschema %}
+  {%- comment -%}
+</script>
+{%- endcomment -%}
+{%- comment -%}
+<style>
+  {%- endcomment -%}
+  {%- comment -%}
+</style>
+{%- endcomment -%}

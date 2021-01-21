@@ -1,0 +1,8 @@
+development:
+  password: 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
+  theme_id: "83485229130"
+  store: lenskart-international.myshopify.com
+  ignore_files:
+    - "*.gif"
+    - "*.jpg"
+    - config/settings_data.json

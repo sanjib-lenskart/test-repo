@@ -1,0 +1,119 @@
+<div id="our_story">
+  <h1 class="text-center">{{section.settings.seo_header}}</h1>
+  <div class="banner">
+    <div class="img" href="{{section.settings.video_url}}">
+      {%- assign src_name = section.settings.banner -%}
+      {%-  assign src_alt = 'Our story' -%}
+      {%- include 'srcset-img' -%}
+      <a class="video_link play" data-src="{{section.settings.video_url}}?autoplay=1">
+        <img src="{{'video_play.png' | asset_img_url: '64x64'}}">
+      </a>
+      <div class='video_wrapper'>
+        <iframe src=""></iframe>
+      </div>
+    </div>
+    {% unless  section.settings.banner_text == blank %}
+    <div class="text">
+      {{section.settings.banner_text}}
+    </div>
+    {% endunless %}
+  </div>
+  <div class="footer_content xs-center">
+    <div class="{% unless section.full %}container{% endunless %}">
+      <ul class="list row">
+        {% for block in section.blocks %}
+        <li class="col-sm-4">
+          <div class="content">
+            <h3 class="header">
+              {{block.settings.header}}
+            </h3>
+            <div class="text">
+              {{block.settings.text}}
+            </div>
+            <div class="img">
+              {%- assign src_name = block.settings.banner -%}
+              {%-  assign src_alt = 'Our story' -%}
+              {%- include 'srcset-img' -%}
+            </div>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  {% comment %}
+  <script>
+    {% endcomment %}
+    {% schema %}
+    {
+      "name": "Our story",
+      "class": "no_padding",
+      "max_blocks": 18,
+      "settings": [
+      {
+        "type": "checkbox",
+        "label": "Full-width",
+        "id": "full"
+      },
+      {
+        "type":"text",
+        "id":"seo_header",
+        "label":"SEO Header"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner",
+        "label": "Banner image"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_banner",
+        "label": "Mobile Banner image"
+      },
+      {
+        "type": "text",
+        "id": "video_url",
+        "label": "Banner video URL",
+        "info": "Embedded required"
+      },
+      {
+        "type": "richtext",
+        "id": "banner_text",
+        "label": "Banner text"
+      }
+      ],
+      "blocks": [
+      {
+        "name": "content",
+        "type": "text",
+        "settings": [
+        {
+          "type": "text",
+          "label": "Header",
+          "id": "header"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        },
+        {
+          "type": "image_picker",
+          "id": "banner",
+          "label": "Image"
+        }
+        ]
+      }
+      ]
+    }
+    {% endschema %}
+      {% comment %}
+  </script>
+  {% endcomment %}
+  {% comment %}
+  <style>
+    {% endcomment %}
+    {% comment %}
+  </style>
+  {% endcomment %}
+

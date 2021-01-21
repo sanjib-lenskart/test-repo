@@ -1,0 +1,137 @@
+<script
+src="https://code.jquery.com/jquery-2.2.4.min.js"
+integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+crossorigin="anonymous"></script>
+<script type="text/javascript" defer='defer'>
+$(document).ready(function(){$(".checkout_btn").click(function(e){e.preventDefault() ;$("body").addClass("overflow_hidden");$("html").addClass("overflow_hidden");$(".video_wrapper").fadeIn();});
+ $(".video_wrapper .close").click(function(){
+   $(".video_wrapper").fadeOut();$("body").removeClass("overflow_hidden");$("html").removeClass("overflow_hidden");
+ });$(window).load(function(){setTimeout(function(){ $(".checkout_btn").click();}, 1500);});});
+</script>
+<style>
+.btn{background:#d83c31;color:#ffffff;transition:.5s all;padding:8px 12px;}.btn:hover{background:#000;color:#fff;}
+</style>
+<br> 
+{% assign count = 0 %}
+{% assign check = 'no' %}
+{% for item in checkout.line_items %}
+{% for p in item.properties %}
+{% if p.first == 'Prescription-form' %}
+{% assign check = p.last | downcase %}
+{% endif %}
+{% if check ==  'yes' %}
+{% if count == 0 %}
+
+<div class='video_wrapper'>
+<a class='close' title='Close'>
+&times;
+</a>
+ 
+  </div>
+  {% endif %}
+  {% assign count = 1 %}
+  {% endif %}
+
+  {% endfor %}
+  {% endfor %}
+  <style>p+p{margin-top:0}.video_wrapper{left:0;top:0;bottom:0;right:0;z-index:10;position:fixed;display:none;-webkit-overflow-scrolling:touch!important;overflow-y:auto}.overflow_hidden{overflow:hidden}.video_wrapper .close{position:absolute;right:20px;top:20px;font-size:34px;cursor:pointer;z-index:110;width:30px;height:30px;border-radius:100%;background:#fff;text-align:center;line-height:30px}.video_wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;max-width:100%;border:none;z-index:0}
+  </style>
+  <script type="text/javascript">
+  /* <![CDATA[ */
+  var google_conversion_id = 863183917;
+  var google_conversion_language = "en";
+  var google_conversion_format = "3";
+  var google_conversion_color = "ffffff";
+  var google_conversion_label = "rTlBCImq7XEQrcjMmwM";
+  var google_conversion_value = {{ total_price | money_without_currency | replace : ',' }};
+  var google_conversion_currency = "INR";
+  var google_remarketing_only = false;
+  /* ]]> */
+  </script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/863183917/?value={{ total_price | money_without_currency | replace : ',' }}&amp;currency_code=INR&amp;label=rTlBCImq7XEQrcjMmwM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+
+<!-- Google Code for Remarketing Tag -->
+<!--------------------------------------------------
+Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. See more information and instructions on how to setup the tag on: http://google.com/ads/remarketingsetup
+
+{% assign prodidarray = prodidarray | append : ','  | append: '"shopify_IN_' |  append : item.product_id | append : '_' | append : item.variant_id  | append: '"'%}
+
+{% assign prodidarray = prodidarray | append : ','   |  append : item.product_id  %}
+--------------------------------------------------->
+<script type="text/javascript">
+var google_tag_params = {
+  {% assign prodidarray = "," %}
+  {% for item in checkout.line_items %}
+  {% assign prodidarray = prodidarray | append : ','  | append: '"shopify_IN_' |  append : item.product_id | append : '_' | append : item.variant_id | append: '"' %}
+  {% endfor %}
+  ecomm_prodid: [{{prodidarray | remove : ',,'}}],
+  ecomm_pagetype: 'purchase',
+  ecomm_totalvalue: {{ total_price   | money_without_currency | replace : ','}},
+};
+</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 863183917;
+var google_custom_params = window.google_tag_params;
+var google_remarketing_only = true;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/863183917/?guid=ON&amp;script=0"/>
+</div>
+</noscript>
+
+<iframe src="https://ansdigital.scaleo-up.com/track?offer_id=30&amount={{ total_price   | money_without_currency | replace : ','}}&track_id={{order_number}}" height="1" width="1" frameborder="0" scrolling="no"></iframe>
+<iframe src="https://traqkar.com/p.ashx?o=122&e=122&t={{order_number}}&ect={{ total_price   | money_without_currency | replace : ','}}" height="1" width="1" frameborder="0"></iframe>
+<iframe src="https://af0y.com/p.ashx?o=88&e=101&t={{order_number}}&ect={{ total_price   | money_without_currency | replace : ','}}" height="1" width="1" frameborder="0"></iframe>
+<img src="https://pointificsecure.com/p.ashx?o=1161&e=613&f=img&t={{order_number}}" width="1" height="1" border="0" />
+<iframe src="https://admlnk.com/p.ashx?o=5784&e=576&t={{order_number}}" height="1" width="1" frameborder="0"></iframe>
+<iframe src="https://forksurgetrk.com/p.ashx?o=2727&e=775&t={{order_number}}" height="1" width="1" frameborder="0"></iframe>
+<script type="text/javascript">
+function getCookie(cname){var name=cname+"=";var ca=document.cookie.split(";");for(var i=0;i<ca.length;i++){var c=ca[i];while(c.charAt(0)==" ")c=c.substring(1);if(c.indexOf(name)==0)return c.substring(name.length,c.length)}return""};
+admitad_uid = getCookie('admitad_uid');
+aff = getCookie('aff');
+if(admitad_uid && (aff == "11" || aff=="10")){
+  (function (d, w) {
+    w._admitadPixel = {
+            response_type: 'img',     // 'script' or 'img'. Default: 'img'
+            action_code: '1',
+            campaign_code: 'b2315de2c3'
+          };
+          w._admitadPositions = w._admitadPositions || [];
+          w._admitadPositions.push({
+            uid: admitad_uid,
+            tariff_code: '1',
+            order_id: {{order_number}},
+            position_id: '1',
+            currency_code: '',
+            position_count: '1',
+            price: {{ total_price   | money_without_currency | replace : ','}},
+            quantity: '1',
+            product_id: '',
+            payment_type: 'sale'
+          });
+          var id = '_admitad-pixel';
+          if (d.getElementById(id)) { return; }
+          var s = d.createElement('script');
+          s.id = id;
+          var r = (new Date).getTime();
+          var protocol = (d.location.protocol === 'https:' ? 'https:' : 'http:');
+          s.src = protocol + '//cdn.asbmit.com/static/js/npixel.js?r=' + r;
+          var head = d.getElementsByTagName('head')[0];
+          head.appendChild(s);
+        })(document, window);
+      }
+      </script>
+      <noscript>
+      <img src="//ad.admitad.com/r?campaign_code=b2315de2c3&action_code=1&payment_type=sale&response_type=img&uid=&tariff_code=1&order_id={{order_number}}&position_id=1&currency_code=&position_count=1&price={{ total_price   | money_without_currency | replace : ','}}&quantity=1&product_id=" width="1" height="1" alt="">
+      </noscript>

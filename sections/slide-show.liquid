@@ -1,0 +1,331 @@
+<!-- slide-show -->
+{% assign sizes = '480,765,900,1000,1100,1300,1500,1700,1900,2000' | split: "," %}
+<style>
+{% for block in section.blocks %}
+.home_slider ul.lightSlider li .block-{{forloop.index}}  h3{
+  color:{{block.settings.home_slider_header_color}};
+
+}
+.home_slider ul.lightSlider li .block-{{forloop.index}} .new_text p{
+  color:{{block.settings.home_slider_text_color}};
+}
+.home_slider ul.lightSlider li .block-{{forloop.index}}  .msg{
+  color:{{block.settings.home_slider_text_color}};
+}
+{% endfor %}
+
+</style> 
+<div class="home_slider">
+  <div class="clearfix{% unless section.settings.full %} container{% endunless %}">
+    <ul class="lightSlider">
+      {% for block in section.blocks %}
+      {% if block.settings.image  != blank  %}
+      <li class="v_hide li-{{forloop.index}}">
+        <div class="img">
+          <a class="{% if forloop.index == 4 %}fancybox fancybox.iframe{% endif %} image_url" 
+          {% if forloop.index == 4 %}
+          href="{{block.settings.video_url}}"
+          {% else %}
+          href="{{block.settings.image_url}}"
+          {% endif %} 
+          >
+          {% assign src_alt =block.settings.image.alt |  escape %}
+          {% assign src_name = block.settings.image %}
+          {%- include 'srcset-img' -%}
+        </a>
+      </div>
+      <div class="slide_text block-{{forloop.index}}">
+        {% if forloop.index == 2 %}
+        
+        {% elsif forloop.index == 2 %}
+        <div class="text-left">
+          <h3 class="new_header">Why Pay Premium For Premium Eyewear?</h3>
+          <div class="new_text"><p>Get the Style and Quality you deserve at totally fair prices.</p></div>
+           <div class="pair_btn text-center">
+            <a href="/collections/eyeglasses" class="btn">Eyeglasses at ₹4500</a>
+          </div>           
+          <div class="small_img">
+            <img src="{{ 'banner-1.png' | asset_img_url:'master'}}">
+          </div>
+        </div>
+        {% else %}
+        <div class="{{block.settings.home_slider_alignment }}">
+          {% unless block.settings.home_slider_header_new == blank %}
+          <h3 class="new_header">{{block.settings.home_slider_header_new}}</h3>
+          {% endunless %}
+          {% unless block.settings.home_slider_text_new == blank %}
+          <div class="new_text">{{block.settings.home_slider_text_new}}</div>
+          {% endunless %}
+          {% if block.settings.home_slider_link != blank %}
+           <a href="{{block.settings.home_slider_link}}" class="btn btn_1">{{block.settings.home_slider_btn}}</a>
+          {% unless forloop.index == 1 %}
+          {% endunless %}
+          {% endif %}
+          {% if block.settings.home_slider_link2 != blank %}
+          {%- comment -%}
+           <a href="{{block.settings.home_slider_link2}}" class="btn btn_2">{{block.settings.home_slider_btn2}}</a> 
+           {%- endcomment -%}
+          {% endif %}
+          {% unless block.settings.msg_price == blank %}
+          <div class="msg">
+            <span class='price'>
+              {{block.settings.msg_price}}
+            </span>
+            <span class='text'>
+              {{block.settings.msg_text}}
+            </span>
+          </div>
+          {% endunless %}
+          {% if block.settings.video_url != blank %}
+          <a class="video_link play fancybox fancybox.iframe" href="{{block.settings.video_url}}"> 
+            <img src="{{'video_play_64x64.png' | asset_url }}">
+          </a>
+          {% endif %}
+
+        </div>
+        {% endif %}
+        {% if forloop.index == 4 %}
+        <a class="video_link play fancybox fancybox.iframe" href="{{block.settings.video_url}}">
+            {%- comment -%}
+            <div class="discover-head">
+              SEE THROUGH <span>CLEARLY WITH</span> <span>JOHN JACOBS</span>
+              <button class="discover-story">Discover our story</button>
+            </div>
+            {%- endcomment -%}
+          </a>
+          {% endif %}
+        </div>
+        {% unless block.settings.slider_video_text == blank %}
+        <p class="video_text">{{block.settings.slider_video_text}}</p>
+        {% endunless %}
+      </li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+
+<div class="mobile_banner_image text-center">
+  <div class="img">
+    <a href='{{section.settings.mo_banner_link}}'>
+      {%- assign src_name = section.settings.image  -%}
+      {%- assign src_alt = section.settings.image.alt | escape  -%}
+      {%- include 'srcset-img' -%}
+    </a>
+  </div>
+  <div class="flex_view_xs middle slide_text_xs"> 
+    <div class="col">
+      <h3 class="new_header">{{section.settings.home_slider_header_new}}</h3>
+      <div class="new_text">{{section.settings.home_slider_text_new}}</div>
+    </div>
+    <div class="col">
+      {% unless section.settings.home_slider_link == blank %}
+      <a href="{{section.settings.home_slider_link}}" class="btn">{{section.settings.home_slider_btn}}</a>
+      {% endunless %}
+      {% unless section.settings.home_slider_link2 == blank %}
+      <a href="{{section.settings.home_slider_link2}}" class="btn">{{section.settings.home_slider_btn2}}</a>
+      {% endunless %}
+    </div>
+  </div>
+</div>
+<div class="mobile_banner_image text-center" style="display:none;">
+  <div class="mobile_img">
+    <a href="{{section.settings.mo_banner_link}}" class="fancybox fancybox.iframe">
+      {%- assign src_name = section.settings.image -%}
+      {%- include 'srcset-img' -%}
+      <!--     <div class="mobile_gold_banner">ROUNDS RELOADED <span>Round frames have come full circle.</span><span>Like Literally!</span><div class="mobile_gold_shop">Shop</div></div> -->
+    </a>
+    <div class="mob_button">
+      <a href="{{section.settings.home_slider_link}}" class="btn">{{section.settings.home_slider_btn}}</a>
+    </div>
+  </div>
+</div>
+
+
+{% if section.blocks.size == 0 %}
+{% include 'no-section-msg' %}
+{% endif %}
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  { 
+    "name": "Slide-show",
+    "max_blocks": 6,
+    "class":"no_top_padding",
+    "settings": [
+    {
+      "type": "checkbox",
+      "label": "Full-width",
+      "id": "full"
+    },
+    {
+      "type":"header",
+      "content":"Mobile Banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Mobile Image"
+    },
+    {
+      "type": "url",
+      "id": "mo_banner_link",
+      "label": "Mobile Image URL"
+    },
+
+    {
+      "type": "richtext",
+      "label": "Header text",
+      "id": "home_slider_header_new"
+    },
+    {
+      "type": "richtext",
+      "label": "Sub-header text",
+      "id": "home_slider_text_new"
+    },
+    {
+      "type": "text",
+      "label": "Button name",
+      "id": "home_slider_btn"
+    },
+    {
+      "type": "url",
+      "label": "Button URL",
+      "id": "home_slider_link"
+    },
+    {
+      "type": "text",
+      "label": "Button name",
+      "id": "home_slider_btn2",
+      "info": "For video"
+    },
+    {
+      "type": "url",
+      "label": "Button URL",
+      "id": "home_slider_link2",
+      "info": "Paste embedded URL"
+    }
+    ],
+    "blocks": [
+    {
+      "type": "slide",
+      "name": "Slide",
+      "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Desktop Image"
+      },
+      {
+        "type": "url",
+        "id": "image_url",
+        "label": "Image URL"
+      },
+      {
+        "type": "select",
+        "label": "Text alignment",
+        "id": "home_slider_alignment",
+        "options": [
+        {
+          "label": "Left",
+          "value": "text-left"
+        },
+        {
+          "label": "Right",
+          "value": "text-right"
+        },
+        {
+          "label": "Center",
+          "value": "text-center"
+        }
+        ]
+      },
+      {
+        "type": "textarea",
+        "label": "Header text",
+        "id": "home_slider_header_new"
+      },
+      {
+        "type": "richtext",
+        "label": "Sub-header text",
+        "id": "home_slider_text_new"
+      },
+      {
+        "type": "color",
+        "id": "home_slider_header_color",
+        "default": "#333333",
+        "label": "Header text color"
+      },
+      {
+        "type": "color",
+        "id": "home_slider_text_color",
+        "default": "#333333",
+        "label": "Paragraph text color"
+      },
+      {
+        "type": "text",
+        "id": "home_slider_header_size",
+        "default": "42",
+        "label": "Header text size"
+      },
+      {
+        "type": "text",
+        "id": "home_slider_text_size",
+        "default": "28",
+        "label": "Paragraph text size"
+      },
+      {
+        "type": "text",
+        "label": "Button name",
+        "id": "home_slider_btn"
+      },
+      {
+        "type": "url",
+        "label": "Button URL",
+        "id": "home_slider_link"
+      },
+      {
+        "type": "text",
+        "label": "Button name",
+        "id": "home_slider_btn2",
+        "info": "For video"
+      },
+      {
+        "type": "text",
+        "label": "Video text",
+        "id": "slider_video_text",
+        "info": "For video text"
+      },
+      {
+        "type": "url",
+        "label": "Button URL",
+        "id": "home_slider_link2",
+        "info": "Paste embedded URL"
+      },
+      {
+        "type": "text",
+        "label": "Code text",
+        "id": "msg_price"
+      },
+      {
+        "type": "text",
+        "label": "Code",
+        "id": "msg_text"
+      },
+      {
+        "type": "text",
+        "label": "Video URL",
+        "id": "video_url"
+      }
+      ]
+    }
+    ],
+    "presets": [
+    {
+      "name": "Home page - Slideshow",
+      "category": "Slide show"
+    }
+    ]
+  }
+  {% endschema %}  

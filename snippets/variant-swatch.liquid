@@ -1,0 +1,52 @@
+{%- assign file_extension = 'png' -%}
+{%- if variant-swatch == blank -%}
+{%- else -%}
+{%- assign found_option = false -%}
+{%- assign is_color = false -%}
+{%- assign option_index = -1 -%}
+{%- for option in product.options -%}
+{%- if option == variant-swatch -%}
+{%- assign found_option = true -%}
+{%- assign option_index = forloop.index0 -%}
+{%- assign downcased_option = variant-swatch | downcase -%}
+{%- if downcased_option contains 'color' or downcased_option contains 'colour' -%}
+{%- assign is_color = true -%}
+{%- endif -%}
+{%- endif -%}
+{%- endfor -%}
+{%- if option_index != -1 -%}
+
+<div class="swatch_filter relative">
+  <div class="swatches text-center">
+    <div class="swatch clearfix" data-option-index="{{ option_index }}" data-id="detail_{{product.id}}">
+      {%- assign values = '' -%}
+      
+      {%- assign value = variant.options[option_index] -%}
+      {%- unless values contains value -%}
+      {% assign values = values | join: ',' %}
+      {% assign values = values | append: ',' | append: value %} 
+      {% assign values = values | split: ',' %}
+      {%- assign active_me = false -%}
+      {%- if current_product_img == variant.image.src -%}
+      {% assign active_me = true %}
+      {%- endif -%}
+      {%- assign alt_img_pos = variant.image.position | plus:1 -%}
+      <div  data-tip='{{value}}' data-value="{{ value | escape }}" class="swatch-element {% if is_color %}color {% endif %} {{ value | handle }}{% if active_me %} active{% endif %}">
+        {% if is_color %}
+        <label data-vid="{{variant.id}}" data-img = "{% unless variant.image.size == blank%}{{variant | img_url:'grande'}}{% endunless %}" for="swatch-{{ option_index }}-{{ value | handle }}" style="background-image: url({{ value | handle | append: '.' | append: file_extension | asset_url }})" data-switch-img="{{product.images[alt_img_pos].src | img_url:'370x' }}">
+        </label>
+        {%- else -%}
+        <span>
+          {{ value | escape }}
+        </span>
+        {%- endif -%}
+      </div>
+      {%- endunless -%}
+    </div>
+  </div>
+</div>
+{%- if template contains 'product' -%}
+<p class="select_swatch_name"></p>
+{%- endif -%}
+{%- endif -%}
+{%- endif -%}

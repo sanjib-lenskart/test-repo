@@ -1,0 +1,136 @@
+<!-- TEAM PAGE -->
+{% assign sizes = '480,765,900,1000,1100,1300,1500,1700,1900,2000' | split: "," %}
+<div id="team_details">
+  <div class="header_img">
+    <a href="{{section.settings.img_link}}">
+      <img alt="{{section.settings.header_image.alt |  escape}}"
+           src="{{section.settings.header_image | img_url: '100x' | format: 'jpg' }}"
+           data-sizes="auto"
+           data-src="{{section.settings.header_image | img_url: '1400x' | format: 'jpg' }}"
+           data-srcset="
+                        {%- for size in sizes -%}
+                        {%- assign size_x = size| append : 'x' -%}
+                        {{ section.settings.header_image | img_url: size_x | format: 'jpg' }} {{size | append:'w'}},
+                        {%- endfor -%}"
+           class="lazyload img_blur blur-up">
+    </a>
+  </div>
+  <div class="about_us_details">
+    <h1>{{section.settings.title}}</h1>
+    <div class="content-1">
+      {{section.settings.text}}
+    </div>
+    <div class="content-2">
+      {{section.settings.text2}}
+    </div>
+  </div>
+  <div class="team_info">
+    <div class="container">
+      <ul class="list row">
+        {% for block in section.blocks %}
+        <li class="col-md-3 col-sm-4 col-xs-12 item">
+          <div class="image">
+            <a>
+              <img alt="{{block.settings.image.alt |  escape}}"
+                   src="{{block.settings.image | img_url: '100x' | format: 'jpg' }}"
+                   data-sizes="auto"
+                   data-src="{{block.settings.image | img_url: '1400x' | format: 'jpg' }}"
+                   data-srcset="
+                                {%- for size in sizes -%}
+                                {%- assign size_x = size| append : 'x' -%}
+                                {{ block.settings.image | img_url: size_x | format: 'jpg' }} {{size | append:'w'}},
+                                {%- endfor -%}"
+                   class="lazyload img_blur blur-up">
+            </a>
+            <div class="personal_details xs-hide">
+              <span class="bio"> {{ block.settings.bio }} </span>
+            </div>
+          </div>
+          <div class="image_name">
+            {{ block.settings.name }}
+          </div>
+          <div class="image_work">
+            {{ block.settings.img_name2 }}
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+    "name": "Team Deatils",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "header_image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "label": "Title",
+          "id": "title"
+        },
+        {
+          "type": "richtext",
+          "label": "Content",
+          "id": "text"
+        },
+        {
+          "type": "richtext",
+          "label": "Content",
+          "id": "text2"
+        }
+      ],
+        "blocks":[
+          {
+            "type":"Image",
+            "name":"Add content",
+            "settings": [
+              {
+                "type": "image_picker",
+                "label": "Image",
+                "id": "image"
+              },
+              {
+                "type": "text",
+                "label": "Name",
+                "id": "name"
+              },
+              {
+                "type": "text",
+                "label": "Destination",
+                "id": "img_name2"
+              },
+              {
+                "type": "richtext",
+                "label": "Professional Bio",
+                "id": "bio"
+              }
+            ]
+          }
+        ],
+          "presets": [
+            {
+              "name": "Team Details",
+              "category": "Team"
+            }
+          ]
+  }
+  {% endschema %}
+  {% javascript %}
+
+  {% endjavascript %}
+  {% comment %}
+</script>
+{% endcomment %}
+{%  comment %}
+<style>
+  {% endcomment %}
+  {%  comment %}
+</style>
+{% endcomment %}

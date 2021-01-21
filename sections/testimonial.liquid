@@ -1,0 +1,326 @@
+{% if section.settings.show %}
+<div class="container">
+    <div class="row testimonial_header">
+      <div class=" col-md-6 col-xs-12 col-sm-6 headcont">
+        <h1 class>{{section.settings.title}}</h1>
+      </div>      
+      <div class="col-md-6 col-xs-12 col-sm-6 starcont">
+        {% if section.settings.show_all_rating %}
+        {% case section.settings.overallrating %}
+        {% when '1' %}
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-o"></i>
+        <i class="fa fa-star-o"></i>
+        <i class="fa fa-star-o"></i>
+        <i class="fa fa-star-o"></i>
+        {% when '1.5' %}
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-half-empty"></i>
+        <i class="fa fa-star-o"></i>
+        <i class="fa fa-star-o"></i>
+        <i class="fa fa-star-o"></i>
+        {% when '2' %}
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-o"></i>
+        <i class="fa fa-star-o"></i>
+        <i class="fa fa-star-o"></i>
+
+        {% when '2.5' %}
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-half-empty"></i>
+        <i class="fa fa-star-o"></i>
+        <i class="fa fa-star-o"></i>
+
+        {% when '3' %}
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-o"></i>
+        <i class="fa fa-star-o"></i>
+
+        {% when '3.5' %}
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-half-empty"></i>
+        <i class="fa fa-star-o"></i>
+       
+        {% when '4' %}
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-o"></i>
+        
+        {% when '4.5' %}
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-half-empty"></i>
+        {% when '5' %}
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        {% else %}
+
+        {% endcase %}
+        <span class="reviewcount">{{ section.settings.reviewcount }}</span>
+{% endif %}
+        
+      </div>      
+      </div>
+  <div class="row">
+        <div class="col-md-12 col-xs-12 col-sm-12">
+            <div id="testimonial-slider" class="owl-carousel">
+              {% for block in section.blocks %}
+                <div class="testimonial">
+                 
+                  
+                  <p style="margin-bottom: 10px;">
+            
+                    {% if block.settings.show_rating %}
+                    {% case block.settings.rating %}
+        {% when '1' %}
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-o"></i>
+        <i class="fa fa-star-o"></i>
+        <i class="fa fa-star-o"></i>
+        <i class="fa fa-star-o"></i>
+        {% when '1.5' %}
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-half-empty"></i>
+        <i class="fa fa-star-o"></i>
+        <i class="fa fa-star-o"></i>
+        <i class="fa fa-star-o"></i>
+        {% when '2' %}
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-o"></i>
+        <i class="fa fa-star-o"></i>
+        <i class="fa fa-star-o"></i>
+
+        {% when '2.5' %}
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-half-empty"></i>
+        <i class="fa fa-star-o"></i>
+        <i class="fa fa-star-o"></i>
+
+        {% when '3' %}
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-o"></i>
+        <i class="fa fa-star-o"></i>
+
+        {% when '3.5' %}
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-half-empty"></i>
+        <i class="fa fa-star-o"></i>
+       
+        {% when '4' %}
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-o"></i>
+        
+        {% when '4.5' %}
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star-half-empty"></i>
+       
+        {% when '5' %}
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+
+        {% else %}
+
+        {% endcase %}
+          {% endif %}        
+                  </p>
+                  
+                  {% unless block.settings.commenttitle == blank %}
+                  <h4 class="reviewtitle">{{block.settings.commenttitle}}</h4>
+                  {% endunless %}
+                   <div class="description xs-hide">
+                     {{block.settings.comment | truncate : 110 }}
+                     <div class="treadmore tooltip xs-hide">Read More
+                       <div class="outermodel tthide">                        
+                         <div class="tooltiptext">
+                         <h4 class="reviewtitle">{{block.settings.commenttitle}}</h4>
+                         {{block.settings.comment}}
+                         <span class="testimonialclosetooltip xs-show">&times;</span>
+                       </div>                         
+                       </div>                                             
+                     </div>
+                  </div>
+                  
+                    <div class="description xs-show">
+                     {{block.settings.comment |truncate : 110 }}
+                    </div>
+            <div class="mobreadmore_tt xs-show" data-index="{{ forloop.index }}">Read More</div>                  
+                  <div class="description xs-show hide">
+                     {{block.settings.comment }}
+                    </div>
+                    <h3 class="title">{{block.settings.name}}</h3>
+              </div> 
+              {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+ {% for block in section.blocks %}
+<div class="xs-show description_mob_tt{{forloop.index}} hide">
+  <h4 class="reviewtitle">{{block.settings.commenttitle}}</h4>
+  {{block.settings.comment }}
+  <span class="testimonialclosetooltip">&times;</span>
+</div>
+<style>
+    .description_mob_tt{{forloop.index}}{
+   position: fixed;
+    background: #fff;
+    z-index:5;
+    top: 50%;
+left: 50%;
+ -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    padding:20px;
+    width:95%;
+  }
+  </style>
+{% endfor %}
+<div class="ttbgoverlay"></div>
+{% schema %}
+  {
+    "name": "Testimonial",
+"class": "testimonial-section",
+"max_blocks":20,
+    "settings": [
+      {
+        "type": "header",
+        "content": "General"
+      },
+      {
+        "type": "checkbox",
+        "id": "show",
+        "label": "Show Testimonial",
+        "default": false
+      },      
+   	  
+	  {
+          "type":"text",
+          "id":"title",
+          "label":"Heading",
+		  "default":"REAL REVIEWS FROM REAL CUSTOMERS"
+      },
+	  {
+        "type": "checkbox",
+        "id": "show_all_rating",
+        "label": "Show Over All Rating",
+        "default": false
+      }, 
+      {
+         "type": "select",
+         "id": "overallrating",
+         "options": [
+            { "value": "1", "label": "1 Rating"},
+            { "value": "1.5", "label": "1.5 Rating"},
+            { "value": "2", "label": "2 Rating"},
+            { "value": "2.5", "label": "2.5 Rating"},
+            { "value": "3", "label": "3 Rating"},
+            { "value": "3.5", "label": "3.5 Rating"},
+            { "value": "4", "label": "4 Rating"},
+            { "value": "4.5", "label": "4.5 Rating"},
+            { "value": "5", "label": "5 Rating"}
+         ],
+         "label": "Products Over All Rating"
+      },
+	  {
+          "type":"text",
+          "id":"reviewcount",
+          "label":"Total No of Reviews"
+      }
+    ],
+"blocks":[  
+      {  
+      "type":"text",
+      "name":"Text",
+          "settings":[  
+		  {
+          "type":"image_picker",
+          "id":"image",
+          "label":"Image"
+          },
+          {
+          "type":"text",
+          "id":"name",
+          "label":"Name"
+          },
+		  {
+          "type":"text",
+          "id":"designation",
+          "label":"Designation"
+          },
+		  {
+          "type":"text",
+          "id":"commenttitle",
+          "label":"comment Title"
+          },
+          {
+          "type":"richtext",
+          "id":"comment",
+          "label":"Text"
+          },
+ {
+        "type": "checkbox",
+        "id": "show_rating",
+        "label": "Show Rating",
+        "default": false
+      }, 
+		 
+{
+   "type": "select",
+   "id": "rating",
+   "options": [
+      { "value": "1", "label": "1 Rating"},
+	  { "value": "1.5", "label": "1.5 Rating"},
+      { "value": "2", "label": "2 Rating"},
+	  { "value": "2.5", "label": "2.5 Rating"},
+      { "value": "3", "label": "3 Rating"},
+	  { "value": "3.5", "label": "3.5 Rating"},
+      { "value": "4", "label": "4 Rating"},
+	  { "value": "4.5", "label": "4.5 Rating"},
+      { "value": "5", "label": "5 Rating"}
+   ],
+   "label": "Product Rating"
+}
+        ]
+ 	  }		
+	],
+
+        "presets": [
+          {
+            "name": "Testimonial",
+            "category": "Slide show"
+          }
+        ]
+  }
+{% endschema %}

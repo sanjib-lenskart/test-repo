@@ -1,0 +1,75 @@
+
+{% if section.blocks.size == 0  %}
+{% include 'no-section-msg' %}
+{% else %}
+<div id="home_testimonials_images">
+  <div class="{% unless section.settings.full %}container{% endunless %}">
+  <div class="{% unless section.settings.full %}row{% endunless %}">
+    {% unless  section.settings.main_img == blank %}
+    <div class="col-sm-4">
+      <div class="main_img">
+        <img src="{{section.settings.main_img | img_url : '100x' | format: 'jpg'}}" data-img="{{section.settings.main_img | img_url : 'large' | format: 'jpg'}}" class="img_blur img_load">
+      </div>
+    </div>
+    {% endunless %}
+    <div class="{% if section.settings.main_img == blank %}col-sm-12{% else %}col-sm-8{%  endif %}">
+      <div class="rich_text xs-center">
+        {% if section.settings.page_text != blank %}
+        {{ pages[section.settings.page_text].content }}
+        {% endif %}
+      </div>
+      <ul class="lightSlider">
+    {% for block in section.blocks %}
+    <li>
+      <div class="img">
+        <img data-img="{{ block.settings.image | img_url: '1024x1024' | format: 'jpg' }}" src="{{ block.settings.image | img_url: '100x' | format: 'jpg' }}" class="img_blur img_load">
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+    </div>
+  </div>
+  </div>
+</div>
+<hr/>
+{% endif %}
+{% schema %}
+{  
+   "name":"Testimonials - Slideshow",
+   "max_blocks":20,
+	"settings":[
+{
+	"type":"checkbox",
+	"label":"Full-width",
+	"id":"full"
+	},
+	{
+	"type":"image_picker",
+	"label":"Main image",
+	"id":"main_img"
+	},
+{
+"type":"page",
+"id":"page_text",
+"label":"Text"
+}
+],
+   "blocks":[  
+      {  
+         "type":"image",
+         "name":"Image",
+         "settings":[  
+            {  
+               "type":"image_picker",
+               "id":"image",
+               "label":"Image"
+            }
+         ]
+      }
+   ],
+"presets": [{
+    "name": "Testimonials-images",
+    "category": "Slide show"
+  }]
+}
+{% endschema %}

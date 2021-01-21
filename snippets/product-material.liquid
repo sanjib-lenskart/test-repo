@@ -1,0 +1,94 @@
+{%- for tag in product.tags -%}
+  {% case tag %}
+      {% when 'Acetate' %}
+        {% assign header = 'Rich Acetate' %}
+      {%- when 'Titanium' -%} 
+        {% assign header = 'Pro-titanium' %}
+      {%-  when 'Arthouse Collective' -%}
+        {% assign header = 'Bullhorn' %}
+      {%-  when 'Wood' -%}
+        {% assign header = 'Classic Wood' %}
+      {%-  when 'TR90' -%}
+        {% assign header = 'TR Flex' %}
+      {%-  when 'Stainless Steel' -%}
+        {% assign header = 'Supreme Steel' %}
+  {%- endcase -%}
+{%- endfor -%}
+
+{%- if header ==  'Bullhorn' -%}
+  {%- assign header = 'Arthouse Collective' -%}
+{%- endif -%}
+{% assign coll_handle = header | handleize %}
+
+<div class="product_material">
+  <div class="detail xs-hide">
+    <div class="{% if product.type == 'NON_POWER_READING' %} no_power_glass{% endif %}" itemprop="description"> 
+      <h3 class='no_bottom_marigin'>ABOUT THE FRAMES</h3>
+      {%- if product.description != blank -%}
+      <div class='uppler_margin'>
+        {{product.description | remove:'#SIMPLY_TABS'}}
+      </div>
+      {%- endif -%}
+    </div> 
+  </div>
+  <div class='detail xs-show'>
+    <!-- <h3>{{header}}</h3>  -->
+    <h3 class="xs-show no_bottom_marigin">ABOUT THE FRAMES</h3>
+    {%- if collections[coll_handle].description != blank -%}
+    <div class='uppler_margin'>
+      <p>
+        {{collections[coll_handle].description }}
+      </p>
+    </div>
+    {%- endif -%}
+  </div>
+</div>
+
+
+{%-comment-%}
+<div class="product_material text-center">
+  <div class="title">
+    <h3>Your Glasses</h3>
+  </div>
+  
+  <div class="flex_view_xs middle reverse">
+
+    <div class="col-sm-6 col-xs-12 abt_img_sec">
+      {%- if header ==  'Bullhorn' -%}
+      {%- assign header = 'Arthouse Collective' -%}
+      {%- endif -%}
+      {% assign coll_handle = header | handleize %}
+      {% if collections[coll_handle].image %}
+      {% assign src_name = collections[coll_handle].image %}
+      {% assign src_alt = header %}
+      {% include 'srcset-img' %}
+      {% endif %}
+    </div>
+
+   <div class="col-sm-6 col-xs-12 abt_data_sec">
+      <div class="detail xs-hide">
+        <div class="{% if product.type == 'NON_POWER_READING' %} no_power_glass{% endif %}" itemprop="description"> 
+          <h3 class='no_bottom_marigin'>ABOUT THE FRAMES</h3>
+          {%- if product.description != blank -%}
+          <div class='uppler_margin'>
+            {{product.description | remove:'#SIMPLY_TABS'}}
+          </div>
+          {%- endif -%}
+        </div> 
+      </div>
+
+      <div class='detail'>
+        <!-- <h3>{{header}}</h3>  -->
+        <h3 class="xs-show no_bottom_marigin">ABOUT THE FRAMES</h3>
+        {%- if collections[coll_handle].description != blank -%}
+        <div class='uppler_margin'>
+          <p>
+            {{collections[coll_handle].description }}
+          </p>
+        </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div> 
+{%-endcomment-%}

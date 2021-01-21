@@ -1,0 +1,139 @@
+<!-- section: home-image-with-text -->
+<div class="container oddevenbox who-we-are-section">
+  <div class="row commendiv">
+    {% unless section.settings.header == blank %}
+    <div id="col-xs-12 col-sm-12 col-md-12">
+      <div class="section-header text-center">
+        <h3> {{ section.settings.header }} </h3>
+      </div>
+    </div>
+	{% endunless %}
+    
+   {% for block in section.blocks %}  
+    <div class="block-container commendiv">
+
+    <div class="col-xs-12 col-sm-12 col-md-6 imageitem{{ forloop.index }} coll imageitem_cont">
+<!--       <a class="" href="{% if block.settings.link == '#' %}javascript:void(0);{% else %}{{ block.settings.link }}{% endif %}">        -->
+     
+        {% assign src_name = block.settings.image %}
+      {% assign src_class = 'image' %}     
+        {% include 'srcset-img' %}
+
+<!-- <img class="image" src="{{ block.settings.image | img_url: 'original' }}" alt=""> -->
+<!--       <div class="m_title xs-show">
+        <div class="type">{{ block.settings.m_title }}</div>
+        <div class="glasses">{{ block.settings.m_title_2 }}</div>
+      </div> -->
+<!--       </a> -->
+    </div>
+      
+         <div class="col-xs-12 col-sm-12 col-md-6 textitem{{ forloop.index }} textitem_cont"> 
+     <div class="text-wrapper">
+      <h2 class="title">{{ block.settings.title }}</h2> 
+      <div class="text">{{ block.settings.text }}</div> 
+       {% unless block.settings.link == blank %}
+      <a class="readmore" href="{{ block.settings.link }}">{{ block.settings.readmore }}</a> 
+       {% endunless %}
+        {% unless block.settings.link1 == blank %}
+       <a class="readmore" href="{% if block.settings.link1 == '#' %}javascript:void(0);{% else %}{{ block.settings.link1 }}{% endif %}">{{ block.settings.readmore1 }}</a> 
+       {% endunless %}
+        {% unless block.settings.link2 == blank %}
+        <a class="readmore secondbtn" href="{{ block.settings.link2 }}">{{ block.settings.readmore2 }}</a> 
+      {% endunless %}
+      </div>
+    </div> 
+      
+    </div>
+      {% endfor %}
+  </div>
+</div>
+{% schema %}
+{
+  "name": "Image With Text",
+  "max_blocks": 6, 
+  "class": "who-text-with-image",
+  "settings": [
+    
+    {
+      "type": "text",
+      "label": "Header text",
+      "id": "header"
+    }       
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Image 900x500px",
+          "id": "image"
+        },
+		{
+          "type": "text",
+          "label": "Title text",
+          "id": "title",
+		  "default": "Title"
+        },
+{
+          "type": "text",
+          "label": "Line2 Title text",
+          "id": "m_title_2",
+		  "default": "Glasses Text"
+        },
+{
+          "type": "text",
+          "label": "Mobile Title text",
+          "id": "m_title",
+		  "default": "Glasses Type"
+        },
+        {
+          "type": "richtext",
+          "label": "Image text",
+          "id": "text"
+        },
+		{
+          "type": "text",
+          "label": "Image text",
+          "id": "readmore",
+		  "default": "Read More"
+        },
+		{
+          "type": "url",
+          "label": "Image URL",
+          "id": "link"
+        },
+		{
+          "type": "text",
+          "label": "Link text",
+          "id": "readmore1",
+		  "default": "Link Text 2"
+        },
+		{
+          "type": "url",
+          "label": "Link URL 2",
+          "id": "link1"
+        },
+		{
+          "type": "text",
+          "label": "Link text",
+          "id": "readmore2",
+		  "default": "Link Text 2"
+        },
+		{
+          "type": "url",
+          "label": "Link URL 2",
+          "id": "link2"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Who We Are Section",
+      "category": "Banner"
+    }
+  ]
+}
+{% endschema %}

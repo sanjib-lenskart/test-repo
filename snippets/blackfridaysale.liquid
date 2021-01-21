@@ -1,0 +1,110 @@
+<script>
+ function nextDayDate() {
+      // get today's date then add one
+      var nextDay = new Date();
+      nextDay.setDate(nextDay.getDate() + 1);
+
+      var month = nextDay.getMonth() + 1;
+      var day = nextDay.getDate();
+      var year = nextDay.getFullYear();
+
+      if (month < 10) { month = "0" + month } 
+      if (day < 10) { day = "0" + day }
+
+      return month + day + year;
+}
+    
+  var monthShortNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+];
+  
+function dateFormat2(ddd) {
+  var t = new Date(ddd);
+  var ddn = t.getDate()+1;
+  return  monthShortNames[t.getMonth()] + ' ' + ddn;
+} 
+    
+  var sas = nextDayDate();
+  var xzx = new Date(new Date().getTime()+(1*24*60*60*1000));
+  var ddmm = dateFormat2(xzx);
+ 
+//var countDownDate = new Date( ddmm + ", 2020 00:00:00").getTime();
+var countDownDate1 = new Date().getTime()+(1*03*60*60*1000);
+  //var countDownDate = new Date().getTime()+(1*03*60*60*1000);
+   
+  function getCook(cookiename) 
+  {
+  var cookiestring=RegExp(cookiename+"=[^;]+").exec(document.cookie);
+  return decodeURIComponent(!!cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
+  }
+var expirein3hour_ckeck = getCook('expirein3hour');
+    
+    
+    if(expirein3hour_ckeck == ''){
+      document.cookie = 'expirein3hour' + "=" + countDownDate1 + ";" + "expires" + "=" + countDownDate1 + ";";
+      countDownDate = countDownDate1;
+      //console.log('not has cookies');
+    }else{
+      countDownDate = expirein3hour_ckeck;
+      //console.log('has cookies');
+    }
+ 
+// Update the count down every 1 second
+var x = setInterval(function() {
+  var now = new Date().getTime();
+  var distance = countDownDate - now;
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  
+  if (days< 10) {
+        days =  "0"+days;}
+
+  if (hours < 10) {
+    hours = "0"+hours;
+}
+
+  if (minutes < 10) {
+    minutes = "0"+minutes;
+  }
+
+  if (seconds < 10) {
+    seconds = "0"+seconds;
+}
+
+  
+  // Display the result in the element with id="demo"
+//   document.getElementById("countdown").innerHTML =  hours + ": "
+//   + minutes + ": " + seconds + " ";
+//    document.getElementById("countdownd").innerHTML = hours + ": "
+//   + minutes + ": " + seconds + " ";
+
+  // If the count down is finished, write some text
+//   if (distance < 0) {
+//     clearInterval(x);
+//     document.getElementById("countdown").innerHTML = "EXPIRED";
+//     document.getElementById("countdownd").innerHTML = "EXPIRED";
+//     document.cookie = 'expirein3hour' + "=" + '' + ";" + "expires" + "=" + countDownDate1 + ";";
+//   }
+}, 1000);
+  
+</script>
+<style>
+  #particles-js {  
+    height:60px;
+  background: linear-gradient(to top, rgba(117, 114, 113, 0.8) 0%, rgba(40, 49, 77, 0.8) 0%, rgba(29, 35, 71, 0.8) 0%, rgba(19, 25, 28, 0.8) 0%, rgba(15, 14, 14, 0.8) 0%), url(https://38.media.tumblr.com/tumblr_m00c3czJkM1qbukryo1_500.gif);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+  .particles-js-canvas-el{
+    top: 0;
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 60px!important;
+  }
+</style>

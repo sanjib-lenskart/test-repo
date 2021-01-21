@@ -1,0 +1,658 @@
+<div class="container">
+  <div class="text-left">
+    <h3 class="page_header">{{ page.title }}</h3>
+  </div>
+
+  {% unless page.content == blank %}
+  <div class="rte">
+    {{ page.content }}
+  </div>
+</div>
+{% endunless %}
+<div class="container-fit" style="display:block">
+  <form enctype="multipart/form-data">
+    <div class="app">
+      <video id="camera-stream" playsinline></video>
+      <img id="snap">
+
+      <p id="error-message"></p>
+
+      <div class="controls">
+        <p class="instruction">For accurate result, make sure your face is well-lit & within the mask</p>
+        <a href="#" id="take-photo" title="Take Photo">Take Photo</a>
+      </div>
+
+      <div class="instructionimages">
+        <div class="skip hideimp">SKIP</div>
+         <div class="back" onclick="goBack()">BACK</div>
+        <h3>How it works</h3>
+        <div id="instructionimages-slider" class="owl-carousel">
+          <div class="instructionimages_img_cont">
+            <img class="image1" src="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/Screen-1.png?84958" />
+            <h4>Take your glasses off</h4>
+            <p>This will help us track your eyes and calculate your frame size</p>
+          </div>
+
+          <div class="instructionimages_img_cont">
+            <img class="image2" src="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/Screen-2.png?84958" />
+            <h4>Align your face to the guide</h4>
+            <p>This ensures that the distance between your face and phone is appropriate</p>
+          </div>
+
+          <div class="instructionimages_img_cont">
+            <img class="image3" src="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/Screen-3.png?84958" />
+            <h4>Keep the camera at eye level</h4>
+            <p>For accurate result, we need to make sure that youe face and the phone are aligned vertically</p>
+          </div>
+
+          <div class="instructionimages_img_cont">
+            <img class="image4" src="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/Screen-4.png?84958" />
+            <h4>Browse frames that fit you perfectly</h4>
+            <p>Select from a list of 1000+ frames tailor made for you</p>
+          </div>
+        </div>
+        <div id="start-camera" class="lets visible">LET'S GET STARTED</div>
+      </div>
+
+      <div class="sizeresponce">
+        <span class="closesize" onclick="goBack();">&times;</span>
+        <div class="contop">
+<!--           <p class="imageicon">
+            <img src="https://cdn.shopify.com/s/files/1/0084/6957/7794/files/we_are_here.97b4c07fd402e584f700_100x.png?11316" alt="">
+          </p> -->         
+          
+          <p>Your Frame size is</p>          
+          <p class="sizeint"><span></span>mm (<span class="topsize"></span>)</p>
+          
+           <p class="imageicon">
+            <img src="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/ezgif.com-webp-to-png_2.png?v=1587553099" alt="">
+          </p>
+          
+        </div>
+
+         <div class="conbott">
+          <img src="https://static.lenskart.com/media/desktop/img/15-July-19/ic_frame_size_eyeglasses.png" />
+          <p class="goforsize">Go For <a href="" class="sizevar"></a></p>
+          <p class="eyeframes">Eyeframe</p>
+        </div>
+        
+        <div class="shapebox">
+          <h4>Recommended Frame Shape</h4>
+          
+          <div class="shapeboxitems">
+            <div class="shapeboxitem">
+            <img src="https://static.lenskart.com/media/desktop/img/15-July-19/ic_frame_size_eyeglasses.png" />
+            <p>type</p>
+            </div>
+             <div class="shapeboxitem">
+            <img src="https://static.lenskart.com/media/desktop/img/15-July-19/ic_frame_size_eyeglasses.png" />
+            <p>type</p>
+            </div>
+             <div class="shapeboxitem">
+            <img src="https://static.lenskart.com/media/desktop/img/15-July-19/ic_frame_size_eyeglasses.png" />
+            <p>type</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sizeresponce_err">
+        <span class="closesize_err">&times;</span>
+        <h3 class="title_err"></h3>
+        <p class="message_err"></p>
+        <div id="start-camera_ta" class="btn full_width findyourfit_tryagn">TRY AGAIN</div>
+      </div>
+
+      <div class="loaderbox">
+        <p><img src="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/small_loader.gif?84083" alt=""/> <span>Calculating Frame Size</span></p>
+      </div>
+
+      <!-- Hidden canvas element. Used for taking snapshot of video. -->
+      <canvas id="canvas"></canvas>
+<span class="overlay_cross" onclick="closeall();">&times;</span>
+      <!--       <div class="faceoverlay"></div> -->
+      <img class="faceoverlay" src="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/boundary_overlay_400x.png?86258" alt=""/>
+    </div>
+  </form>
+  <div class="bgoverlayfit"></div>
+</div>
+
+
+<script>
+  // References to all the element we will need.
+  var videos = document.querySelector('#camera-stream'),
+      image = document.querySelector('#snap'),
+      start_camera = document.querySelector('#start-camera'),
+      start_camera_ta = document.querySelector('#start-camera_ta'),
+      controls = document.querySelector('.controls'),
+      take_photo_btn = document.querySelector('#take-photo'),
+      error_message = document.querySelector('#error-message');
+  closesize = document.querySelector('.closesize');
+  closesize_err = document.querySelector('.closesize_err');
+  skip = document.querySelector('.skip');
+  back = document.querySelector('.back');
+
+  start_camera.addEventListener("click", function(e){
+    //e.preventDefault();
+    oncamera();
+    // Start video playback manually.
+    
+    videos.play();
+    showVideo();    
+  });
+
+  
+  start_camera_ta.addEventListener("click", function(e){
+    //e.preventDefault();
+    oncamera();
+    // Start video playback manually.
+    
+    videos.play();
+    showVideo();   
+    
+    $('.instructionimages').hide();
+    $('.sizeresponce_err').hide();
+    $('.bgoverlayfit').hide();   
+    $('.faceoverlay').show();
+    $('.overlay_cross').show();
+  });
+
+  skip.addEventListener("click", function(e){
+    //e.preventDefault();
+    oncamera();
+    // Start video playback manually.
+    //$('.faceoverlay').show();
+    //$('.overlay_cross').show();
+    videos.play();
+    showVideo();
+
+    //$('.instructionimages').hide();
+  });
+
+  back.addEventListener("click", function(e){
+    $(".container-fit").hide();
+  });
+
+  
+  take_photo_btn.addEventListener("click", function(e){
+    $('.faceoverlay').hide();
+    $('.overlay_cross').hide();
+    $('.bgoverlayfit').show();
+    $('.loaderbox').show();
+$('.findyourfit-new').css('display','block');
+    e.preventDefault();
+    var snap = takeSnapshot();
+
+    // Show image. 
+    image.setAttribute('src', snap);
+    //image.classList.add("visible");
+
+    var canvas = document.getElementById('canvas');
+    var dataURL = canvas.toDataURL("image/jpeg");
+    videos.pause();
+ 
+    var form = new FormData();
+    form.append("image_file", dataURItoBlob(dataURL));
+
+    $.ajax({
+      "async": true,
+      "crossDomain": true,
+      type: "POST",
+      "headers": {
+        "cache-control": "no-cache",
+        "X-Api-Client": "international",
+        "authToken": "7mpy4tjjg5b117shcn54wa80uqo30o3u9p3m1p01uf6iaeysgzz6n5qet6t0f2bj"
+      },            
+      "processData": false,
+      "contentType": false,
+      "mimeType": "multipart/form-data",
+      url: 'https://area51.lenskart.io/api/v1/frame-size/calculate?faceAnalysis=true',
+      crossDomain: true,
+      "data": form,
+      success: function (data) {
+        successoperation(data);
+      },
+      error: function (data){         
+        erroroperation(data); 
+        console.log("error:"+data);
+      }
+    });     
+  });
+
+  function erroroperation(response){  
+    // obj = JSON.parse(response);
+    var abc = JSON.parse(JSON.stringify(response));
+    var obj = JSON.parse(abc.responseText);
+    
+
+    function printValues(obj) {
+      for(var k in obj) {
+        if(obj[k] instanceof Object) {
+          printValues(obj[k]);
+        } else {
+          //document.write([k] +": " + obj[k] +"<br>");              
+          if([k] == 'title'){            
+            console.log(obj[k]);
+            $('.sizeresponce_err .title_err').text(obj[k]);              
+          }
+
+          if([k] == 'message'){            
+            console.log(obj[k]);
+            $('.sizeresponce_err .message_err').text(obj[k]);              
+          }
+          $('.loaderbox').hide();
+          $('.sizeresponce_err').show();
+        };
+      }
+    };
+
+    // Printing all the values from the resulting object
+    printValues(obj);
+  }
+
+  function successoperation(response){
+
+    myObj = JSON.parse(response);
+    //console.log(myObj);
+    for (x in myObj) {
+      console.log(parseInt(myObj[x].frameWidth));
+      console.log(myObj[x].faceShape);
+      console.log(myObj[x]['faceShape'].shape);
+      //console.log(myObj[x]);
+
+      {% if page.handle == 'fit' %}
+      {% assign collectionhandle = 'eyeglasses' %}
+      {% else if template == 'collection' %}
+      {% assign collectionhandle = collection.handle %}
+      {% else if template == 'product' %}
+      {% assign collectionhandle = collection.handle %}
+      {% endif %}
+      $('.sizeresponce .sizeint span').text(parseInt(myObj[x].frameWidth));
+
+      //find medium small large category
+      var inputval = parseInt(myObj[x].frameWidth);
+      if(inputval == null || inputval == '') {     
+      }
+      else if(inputval < 48){
+        $('.sizeresponce .sizevar').text('Small');
+        $('.contop .topsize').text('Small');
+        $('.sizeresponce .sizevar').attr('href','/collections/{{ collectionhandle }}/size_small');
+      var sizetype = "size_small";
+      }
+
+      else if(inputval >= 48 && inputval <= 55){
+        $('.sizeresponce .sizevar').text('Medium');
+          $('.contop .topsize').text('Medium');
+          $('.sizeresponce .sizevar').attr('href','/collections/{{ collectionhandle }}/size_medium');
+          var sizetype = "size_medium";
+      }
+
+      else if(inputval > 55){
+        $('.sizeresponce .sizevar').text('Large');
+            $('.contop .topsize').text('Large');
+            $('.sizeresponce .sizevar').attr('href','/collections/{{ collectionhandle }}/size_large');
+            var sizetype = "size_large";
+      }
+
+      else if(isNaN(inputval)){
+        //$(".error1").show();
+      }
+
+    }
+
+//           Checking face type
+//          round:  'Wayfarer', 'Rectangle' 
+// diamond: 'Rectangle', 'Round'
+// square:  'Round', 'Oval'
+// oval: 'Rectangle', 'Round'
+// heart: 'Wayfarer', 'Rectangle'
+  var facetype = myObj[x]['faceShape'].shape;
+          if(facetype == null || facetype == '') {     
+      }
+          else if(facetype == "round"){
+            var result = '<a class="shapeboxitem" href="/collections/{{ collectionhandle }}/shape_wayfarer+'+ sizetype +'"><div class="shapeboxitemc"><img src="{{ 'wayfarer.png' | asset_img_url: '100x' }}" /><p>Wayfarer</p></div></a>'; 
+            result = result +'<a class="shapeboxitem" href="/collections/{{ collectionhandle }}/shape_rectangle+'+ sizetype +'"><div class="shapeboxitemc"><img src="{{ 'rectangle.png' | asset_img_url: '100x' }}" /><p>Rectangle</p></div></a>'; 
+            $('.shapeboxitems').html(result);
+          }
+          
+          else if(facetype == "diamond"){
+            var result = '<a class="shapeboxitem" href="/collections/{{ collectionhandle }}/shape_wayfarer+'+ sizetype +'"><div class="shapeboxitemc"><img src="{{ 'wayfarer.png' | asset_img_url: '100x' }}" /><p>Rectangle</p></div></a>'; 
+            result = result +'<a class="shapeboxitem" href="/collections/{{ collectionhandle }}/shape_round+'+ sizetype +'"><div class="shapeboxitemc"><img src="{{ 'round.png' | asset_img_url: '100x' }}" /><p>Round</p></div></a>'; 
+            $('.shapeboxitems').html(result);
+          }
+          
+          else if(facetype == "square"){
+            var result = '<a class="shapeboxitem" href="/collections/{{ collectionhandle }}/shape_oval+'+ sizetype +'"><div class="shapeboxitemc"><img src="{{ 'oval.png' | asset_img_url: '100x' }}" /><p>Oval</p></div></a>'; 
+            result = result +'<a class="shapeboxitem" href="/collections/{{ collectionhandle }}/shape_round+'+ sizetype +'"><div class="shapeboxitemc"><img src="{{ 'round.png' | asset_img_url: '100x' }}" /><p>Round</p></div></a>'; 
+            $('.shapeboxitems').html(result);
+          }
+          
+          else if(facetype == "oval"){
+            var result = '<a class="shapeboxitem" href="/collections/{{ collectionhandle }}/shape_rectangle+'+ sizetype +'"><div class="shapeboxitemc"><img src="{{ 'rectangle.png' | asset_img_url: '100x' }}" /><p>Rectangle</p></div></a>'; 
+            result = result +'<a class="shapeboxitem" href="/collections/{{ collectionhandle }}/shape_round+'+ sizetype +'"><div class="shapeboxitemc"><img src="{{ 'round.png' | asset_img_url: '100x' }}" /><p>Round</p></div></a>'; 
+            $('.shapeboxitems').html(result);
+            
+          }
+          else if(facetype == "heart"){
+            var result = '<a class="shapeboxitem" href="/collections/{{ collectionhandle }}/shape_wayfarer+'+ sizetype +'"><div class="shapeboxitemc"><img src="{{ 'wayfarer.png' | asset_img_url: '100x' }}" /><p>Wayfarer</p></div></a>'; 
+            result = result +'<a class="shapeboxitem" href="/collections/{{ collectionhandle }}/shape_rectangle+'+ sizetype +'"><div class="shapeboxitemc"><img src="{{ 'rectangle.png' | asset_img_url: '100x' }}" /><p>Rectangle</p></div></a>'; 
+            $('.shapeboxitems').html(result);
+            
+          }
+          else if(isNaN(facetype)){
+        $('.shapebox').hide();
+      }
+          
+    $('.loaderbox').hide();
+    $('.sizeresponce').show();
+
+  }
+
+
+  function dataURItoBlob(dataURI) {
+    var byteString = atob(dataURI.split(',')[1]);
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], {type: 'image/jpeg'});
+  }
+
+
+  closesize.addEventListener("click", function(e){
+    hideelements();
+    stopcamera();
+  });
+
+  closesize_err.addEventListener("click", function(e){
+    hideelements();
+    stopcamera();
+  });
+
+  function oncamera(){    
+    if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    // Not adding `{ audio: true }` since we only want video now
+    navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+          videos.srcObject = stream;
+          videos.play();
+          videos.onplay = function() {
+            showVideo();
+          };
+    });
+}  
+  }
+
+  function showVideo(){
+    hideUI();
+    videos.classList.add("visible"); 
+    $('.instructionimages').hide();
+    setTimeout(function(){
+      controls.classList.add("visible"); 
+    $('.faceoverlay').show();
+    $('.overlay_cross').show();
+    $('.findyourfit-new').css('display','none');      
+    $('.sizeresponce_err').hide();
+    $('.bgoverlayfit').hide(); 
+    $('#take-photo').css('display','block');   
+    }, 2000);
+    
+  }
+
+  function takeSnapshot(){
+    // Here we're using a trick that involves a hidden canvas element.
+    var hidden_canvas = document.querySelector('canvas'),
+        context = hidden_canvas.getContext('2d');
+
+    var width = videos.videoWidth,
+        height = videos.videoHeight;
+
+    if (width && height) {
+
+      // Setup a canvas with the same dimensions as the video.
+      hidden_canvas.width = width;
+      hidden_canvas.height = height;
+
+      // Make a copy of the current frame in the video on the canvas.
+      context.drawImage(videos, 0, 0, width, height);
+
+      // Turn the canvas image into a dataURL that can be used as a src for our photo.
+      return hidden_canvas.toDataURL('image/png');
+    }
+  }
+
+  function displayErrorMessage(error_msg, error){
+    error = error || "";
+    if(error){
+      console.log(error);
+    }
+
+    error_message.innerText = error_msg;
+    hideUI();
+    error_message.classList.add("visible");
+  }
+
+  function hideUI(){
+    // Helper function for clearing the app UI.
+    controls.classList.remove("visible");
+    start_camera.classList.remove("visible");
+    videos.classList.remove("visible");
+    snap.classList.remove("visible");
+    error_message.classList.remove("visible");
+  }
+
+  function hideelements(){
+    // Helper function for clearing the app UI.
+    controls.classList.remove("visible");   
+    videos.classList.remove("visible");
+    snap.classList.remove("visible");
+    error_message.classList.remove("visible");
+  }
+        
+                      function goBack() {
+  window.history.back();
+}
+          function closeall() {
+  location.reload();
+}
+          function stopcamera(){       
+    const stream = videos.srcObject;
+    const tracks = stream.getTracks();
+    tracks.forEach(function(track) {
+      track.stop();
+    });
+
+    videos.srcObject = null;
+  }
+</script>
+
+<style>
+  .container-fit form{height: 100%;}
+  .app{
+    width: 100%;
+    position: relative;
+    height: 100%;
+  }
+
+  #shopify-section-fit{
+    border: 2px solid #ccc;
+    min-height: 220px;
+  }
+  
+  @media(min-width:991px){
+    #shopify-section-fit{
+      display:none;
+    }
+  }
+  
+  .app .instruction{
+   font-size: 15px;
+    color: #fff;
+    max-width: 280px;
+    margin: 6px auto 30px; 
+  }
+  
+  .app #start-camera{
+    display: none;
+    border-radius: 3px;
+    max-width: 100%;
+    color: #fff;
+    background-color: #448AFF;
+    text-decoration: none;
+    padding: 15px;
+    margin: 15px auto 0;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .app video#camera-stream{    
+/*     -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    left:50%;
+    top:50%;    */
+    
+    -moz-transform: rotateY(180deg);
+    -ms-transform: rotateY(180deg);
+    -o-transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+    
+    display: none;
+    position: fixed;   
+    min-width: 100%;
+    min-height: 100%;
+  }
+
+  .app img#snap{
+    position: absolute;
+    top: 0%;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+    display: none;
+  }
+
+  .app #error-message{
+    width: 100%;
+    background-color: #ccc;
+    color: #9b9b9b;
+    font-size: 28px;
+    padding: 200px 100px;
+    text-align: center;
+    display: none;
+  }
+
+  .app .controls{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    padding: 0;
+    display: none;
+    text-align:center;
+  }
+
+  .app .controls a{   
+    color: #fff;
+    background-color: #49aa9a;
+    text-decoration: none;
+    padding: 15px;
+    outline: none;
+    width:100%;
+    display:block;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+
+  .findyourfit_tryagn{
+    text-decoration: none;
+    padding: 15px;
+    outline: none;
+    width:100%;
+    display:block;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+
+  .app .controls a:hover{
+    opacity: 1;
+  }
+
+  .app .controls a.disabled{
+    background-color: #555;
+    opacity: 0.5;
+    cursor: default;
+    pointer-events: none;
+  }
+
+  .app .controls a.disabled:hover{
+    opacity: 0.5;
+  }
+
+  .app .controls a i{
+    font-size: 18px;
+  }
+
+  .app .controls #take-photo i{
+    font-size: 32px;
+  }
+
+  .app canvas{
+    display: none;
+  }
+
+  .app video#camera-stream.visible,
+  .app img#snap.visible,
+  .app #error-message.visible
+  {
+    display: block;
+  }
+
+  .app .controls.visible{
+    display: block;
+  }
+
+  @media(max-width: 1000px){
+
+    .app #start-camera.visible{
+      display: block;
+    }
+
+    .app .controls a i{
+      font-size: 16px;
+    }
+
+    .app .controls #take-photo i{
+      font-size: 24px;
+    }
+  }
+
+  @media(max-width: 600px){
+    .app #error-message{
+      padding: 80px 50px;
+      font-size: 18px;
+    }
+
+    .app .controls a i{
+      font-size: 12px;
+    }
+
+    .app .controls #take-photo i{
+      font-size: 18px;
+    }
+  }
+  .app .controls #take-photo{
+      display:none;
+    }
+</style>
+

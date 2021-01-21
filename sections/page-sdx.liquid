@@ -1,0 +1,43 @@
+<div id="sdx_page">
+  <div class= "image">
+    {% assign src_name = section.settings.sdx_banner %}
+    {% include 'srcset-img' %}
+  </div> 
+
+  <div class="container">
+    {% unless page.content == blank %}
+    <div class="rte">
+      {{ page.content }}
+    </div>
+  </div>
+</div>
+{% endunless %}
+{% comment %}
+<script>
+  {% endcomment %}
+
+  {% schema %}
+  {
+    "name": "Page sdx",
+      "class": "no_top_padding",
+        "settings": [
+          { "type": "image_picker",
+           "id":"sdx_banner",
+           "label": "sdx banner"
+          }
+        ]
+  }
+  {% endschema %}
+  {% comment %}
+</script>
+{% endcomment %}
+
+{% comment %}
+<style>
+  {% endcomment %}
+  {% comment %}
+</style>
+{% endcomment %}
+
+{% javascript %}
+{% endjavascript %}

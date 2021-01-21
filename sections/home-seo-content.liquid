@@ -1,0 +1,31 @@
+<div id="seo_content">
+  <div class="container">
+    <div class="content">
+      {% assign page = pages[section.settings.page] %}
+      {{ page.content }}
+    </div>
+  </div>
+</div>
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+    "name": "SEO Content",
+      "settings": [
+        {
+          "type":"page",
+          "id":"page",
+          "label":"SEO Page"
+        }
+      ],
+        "presets": [
+          {
+            "name": "SEO Content"
+          }
+        ]
+  }
+  {% endschema %}
+  {% comment %}
+</script>
+{% endcomment %}

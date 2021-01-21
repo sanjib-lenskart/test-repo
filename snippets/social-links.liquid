@@ -1,0 +1,26 @@
+<div id="social_links">
+  <ul>
+    {% assign format = ".png" %}
+    {%- assign asset_url = true -%}
+    {% for i in (1..10) %}
+    {% assign as = "_as_" | append : i %}
+    {% assign link = "social_link" | append : as %}
+    {% assign label = "social_label" | append : as %}
+    {% assign img = "social_icon" | append : as %}
+    {% assign image = img | append : format %}
+    {% assign check = "social_check" | append : as %}
+    {% if settings[check] %}
+    <li>
+      <a href="{{settings[link]}}" target="_blank" title="{{settings[label]}}">
+        <div class="img">
+          {%- assign src_name =  image -%}
+          {%- assign src_alt = shop.name -%}
+          {%- include 'srcset-img' -%}
+        </div>
+      </a>
+    </li>
+    {% endif %}
+    {% endfor %}
+    {%- assign asset_url = false -%}
+  </ul>
+</div>

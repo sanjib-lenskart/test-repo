@@ -1,0 +1,17 @@
+<div class='payment_section'>
+	{% assign step_no = 2 %}
+	{% include 'checkout-steps' %}
+</div>
+{% comment %}
+<script>
+	{% endcomment %}
+	{% schema %}
+	{
+		"name": "Checkout payment",
+		"class":"no_padding",
+		"settings": []
+	}
+	{% endschema %}
+	{% comment %}
+</script>
+{% endcomment %}

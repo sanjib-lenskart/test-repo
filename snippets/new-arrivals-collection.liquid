@@ -1,0 +1,91 @@
+<h2 class="metalworks_head">Sleek and strong made from Supreme Steel.  Add a touch of graceful shine with these super strong & super light frames.</h2>
+
+<div class='text-center'> 
+  <p class="collection_extra_text">
+    FULL RIMMED WONDER
+  </p>
+<!--   <p class='sm_text'>
+    Variety of colour bursts so you can shine bright in your colours
+  </p>  -->
+
+
+</div>
+<ul class="list row">
+  {% assign count = 0 %}
+  {% for product in collection.products %}
+  {% if product.type == 'Lens' or product.type == 'Gift card' or product.template_suffix == 'none' %} {% continue %} {% endif %}
+  {% assign count =  forloop.index %}
+
+  <li class="{{section.settings.product_row}} col-sm-4 col-xs-12 item" data-item='{{count}}'>
+    <div class="main_content">
+      {% include 'simply-product' %}
+       {% comment %}
+      {% for block in section.blocks %}
+      {% assign v_name = block.settings.variant %}
+      {% unless v_name == blank %}
+      {% include 'swatch' with v_name %}
+      {% endunless %}
+      {% endfor %}
+       {% endcomment %}
+    </div>
+
+  </li>
+  {% assign six_mod = forloop.index | modulo:9  %}
+  {% if six_mod == 0  %}
+</ul>
+
+{% case forloop.index %}
+{% when 9 %}
+<div class='text-center'>
+
+  <p class="collection_extra_text">
+    HALF ON RIM, FULL ON STYLE
+  </p>
+<!--   <p class='sm_text'>
+    Sleek, strong & graceful
+  </p> -->
+</div>
+{% when 12 %}
+<div class='text-center'>
+  <p class="collection_extra_text">
+    Leopard Label
+  </p>
+  <p class='sm_text'>
+    Keep it bold & wild with your eyewear too
+
+  </p>
+
+</div>
+
+{% when 18 %}
+<div class='text-center'>
+  <p class="collection_extra_text first">
+    Trending Tints
+  </p>
+  <p class='sm_text'>Trending globally & now present with us
+  </p>
+</div>
+{% when 24 %}
+<div class='text-center'>
+  <p class="collection_extra_text first">
+    Pearl Collection
+  </p>
+  <p class='sm_text'>Matte finish in soothing pastel colours
+  </p>
+</div>
+{% else %}
+
+{% endcase %}
+
+<ul class="list row">
+
+  {% endif %}
+  {% endfor %}
+</ul>
+
+{% if count == 0 %}
+<li>
+  <h3 class="text-center">No products found.</h3>
+</li>
+{% endif %}
+

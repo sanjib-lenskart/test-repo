@@ -1,0 +1,2017 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Section plus",
+    "theme_author": "Lucent innovation",
+    "theme_version": "1.0.0",
+    "theme_documentation_url": "https:\/\/help.shopify.com\/manual\/using-themes\/sections",
+    "theme_support_url": "https:\/\/support.shopify.com\/"
+  },
+  {
+    "name": "General settings",
+    "settings": [
+      {
+        "label": "Normal view site width",
+        "type": "number",
+        "id": "site_width_normal"
+      },
+      {
+        "label": "Tablet view site width",
+        "type": "number",
+        "id": "site_width_tablet",
+        "info": "Not more than 970"
+      },
+      {
+        "label": "Mobile view site width",
+        "type": "number",
+        "id": "site_width_mobile",
+        "info": "Not more than 750"
+      },
+      {
+        "type": "number",
+        "label": "Section spacing",
+        "id": "section_space",
+        "default": 25
+      }
+    ]
+  },
+  {
+    "name": "Prepaid text",
+    "settings": [
+      {
+        "type": "textarea",
+        "label": "Prepaid text",
+        "id": "prepaid_text"
+      }
+    ]
+  },
+  {
+    "name": "Airtl Money Text",
+    "settings": [
+      {
+        "type": "richtext",
+        "label": "Airtel money text",
+        "id": "airtel_text"
+      },
+      {
+        "type": "image_picker",
+        "id": "prepaid_img",
+        "label": "Prepaid Logo"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "label": "Body background color",
+        "default": "#fff",
+        "id": "body_background_color"
+      },
+      {
+        "type": "color",
+        "label": "Text color",
+        "id": "font_color",
+        "default": "#666"
+      },
+      {
+        "type": "color",
+        "label": "Heading text color",
+        "default": "#666",
+        "id": "heading_font_color"
+      },
+      {
+        "type": "color",
+        "id": "anchor_tag_color",
+        "label": "Link color",
+        "default": "#233445"
+      },
+      {
+        "type": "color",
+        "id": "anchor_tag_hover_color",
+        "label": "Link hover color",
+        "default": "#f05d7c"
+      },
+      {
+        "type": "color",
+        "id": "slider_primary_color",
+        "label": "Slider primary color",
+        "default": "#7b9f5d"
+      },
+      {
+        "type": "header",
+        "content": "Button color"
+      },
+      {
+        "type": "color",
+        "id": "btn_color",
+        "default": "#7b9f5d",
+        "label": "Primary button color"
+      },
+      {
+        "type": "color",
+        "id": "btn_hover_color",
+        "default": "#729258",
+        "label": "Primary button hover color"
+      },
+      {
+        "type": "color",
+        "id": "btn_font_color",
+        "default": "#000",
+        "label": "Primary button font color"
+      },
+      {
+        "type": "color",
+        "id": "btn_font_hover_color",
+        "default": "#ddd",
+        "label": "Primary button font hover color"
+      },
+      {
+        "type": "color",
+        "id": "btn_disabled_color",
+        "default": "#999",
+        "label": "Disabled button color"
+      },
+      {
+        "type": "header",
+        "content": "Footer"
+      },
+      {
+        "type": "color",
+        "id": "footer_background",
+        "default": "#fff",
+        "label": "Footer backgorund-color"
+      },
+      {
+        "type": "header",
+        "content": "Product"
+      },
+      {
+        "type": "color",
+        "id": "sale_color",
+        "default": "#000",
+        "label": "Sale color"
+      },
+      {
+        "type": "color",
+        "id": "sold_color",
+        "default": "#000",
+        "label": "Sold out color"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Headings"
+      },
+      {
+        "type": "select",
+        "id": "type_header_family",
+        "label": "Font",
+        "options": [
+          {
+            "value": "'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, 'AppleGothic', sans-serif",
+            "label": "Avant Garde",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+            "label": "Gill Sans",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "'rajdhani-regular', sans-serif",
+            "label": "Rajdhani regular",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "'rajdhani-medium', sans-serif",
+            "label": "Rajdhani medium",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "'rajdhani-semibold', sans-serif",
+            "label": "Rajdhani semibold",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "'rajdhani', sans-serif",
+            "label": "Rajdhani bold",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+            "label": "Helvetica Neue",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Arial, 'Helvetica Neue', Helvetica, sans-serif",
+            "label": "Arial",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Candara, Calibri, Segoe, 'Segoe UI', Optima, Arial, sans-serif",
+            "label": "Candara",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Geneva, Tahoma, Verdana, sans-serif",
+            "label": "Geneva",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Google_Droid+Sans_400_sans",
+            "label": "Droid Sans",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Droid+Sans_700_sans",
+            "label": "Droid Sans Bold",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Lato_400_sans",
+            "label": "Lato",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Lato_700_sans",
+            "label": "Lato Bold",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Montserrat_400_sans",
+            "label": "Montserrat",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Montserrat_700_sans",
+            "label": "Montserrat Bold",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Open+Sans_400_sans",
+            "label": "Open Sans",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Open+Sans_700_sans",
+            "label": "Open Sans Bold",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_PT+Sans_400_sans",
+            "label": "PT Sans",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_PT+Sans_700_sans",
+            "label": "PT Sans Bold",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Quantico_400_sans",
+            "label": "Quantico",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Quantico_700_sans",
+            "label": "Quantico Bold",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Roboto_400_sans",
+            "label": "Roboto",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Roboto_700_sans",
+            "label": "Roboto Bold",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Source+Sans+Pro_400_sans",
+            "label": "Source Sans Pro",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Source+Sans+Pro_700_sans",
+            "label": "Source Sans Pro Bold",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Ubuntu_400_sans",
+            "label": "Ubuntu",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Ubuntu_700_sans",
+            "label": "Ubuntu Bold",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Karla_700_sans",
+            "label": "Karla Bold",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "'Big Caslon', 'Book Antiqua', 'Palatino Linotype', Georgia, serif",
+            "label": "Big Caslon",
+            "group": "Serif"
+          },
+          {
+            "value": "'Calisto MT', 'Bookman Old Style', Bookman, 'Goudy Old Style', Garamond, 'Hoefler Text', 'Bitstream Charter', Georgia, serif",
+            "label": "Calisto MT",
+            "group": "Serif"
+          },
+          {
+            "value": "Baskerville, 'Baskerville Old Face', 'Hoefler Text', Garamond, 'Times New Roman', serif",
+            "label": "Baskerville",
+            "group": "Serif"
+          },
+          {
+            "value": "Garamond, Baskerville, 'Baskerville Old Face', 'Hoefler Text', 'Times New Roman', serif",
+            "label": "Garamond",
+            "group": "Serif"
+          },
+          {
+            "value": "TimesNewRoman, 'Times New Roman', Times, Baskerville, Georgia, serif",
+            "label": "Times New Roman",
+            "group": "Serif"
+          },
+          {
+            "value": "Google_Arvo_400_serif",
+            "label": "Arvo",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Arvo_700_serif",
+            "label": "Arvo Bold",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Crimson+Text_400_serif",
+            "label": "Crimson Text",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Crimson+Text_700_serif",
+            "label": "Crimson Text Bold",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Droid+Serif_400_serif",
+            "label": "Droid Serif",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Droid+Serif_700_serif",
+            "label": "Droid Serif Bold",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Lora_400_serif",
+            "label": "Lora",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Lora_700_serif",
+            "label": "Lora Bold",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Old+Standard+TT_400_serif",
+            "label": "Old Standard",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Old+Standard+TT_700_serif",
+            "label": "Old Standard Bold",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_PT+Serif_400_serif",
+            "label": "PT Serif",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_PT+Serif_700_serif",
+            "label": "PT Serif Bold",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Vollkorn_400_serif",
+            "label": "Vollkorn",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Vollkorn_700_serif",
+            "label": "Vollkorn Bold",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Signika_400_serif",
+            "label": "Signika",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Signika_600_serif",
+            "label": "Signika Bold",
+            "group": "Serif | Google Web Fonts"
+          }
+        ]
+      },
+      {
+        "label": "Product Title Font size",
+        "type": "number",
+        "id": "pro_title",
+        "default": 12
+      },
+      {
+        "label": "H1 Font size",
+        "type": "number",
+        "id": "h1_font_size",
+        "default": 30
+      },
+      {
+        "type": "select",
+        "id": "h1_font_weight",
+        "label": "H1 Font weight",
+        "options": [
+          {
+            "value": "normal",
+            "label": "Medium"
+          },
+          {
+            "value": "lighter",
+            "label": "Light"
+          },
+          {
+            "value": "bold",
+            "label": "Bold"
+          }
+        ]
+      },
+      {
+        "label": "H2 Font size",
+        "type": "number",
+        "id": "h2_font_size",
+        "default": 30
+      },
+      {
+        "type": "select",
+        "id": "h2_font_weight",
+        "label": "H2 Font weight",
+        "options": [
+          {
+            "value": "normal",
+            "label": "Medium"
+          },
+          {
+            "value": "lighter",
+            "label": "Light"
+          },
+          {
+            "value": "bold",
+            "label": "Bold"
+          }
+        ]
+      },
+      {
+        "label": "H3 Font size",
+        "type": "number",
+        "id": "h3_font_size",
+        "default": 26
+      },
+      {
+        "type": "select",
+        "id": "h3_font_weight",
+        "label": "H3 Font weight",
+        "options": [
+          {
+            "value": "normal",
+            "label": "Medium"
+          },
+          {
+            "value": "lighter",
+            "label": "Light"
+          },
+          {
+            "value": "bold",
+            "label": "Bold"
+          }
+        ]
+      },
+      {
+        "label": "H4 Font size",
+        "type": "number",
+        "id": "h4_font_size",
+        "default": 24
+      },
+      {
+        "type": "select",
+        "id": "h4_font_weight",
+        "label": "H4 Font weight",
+        "options": [
+          {
+            "value": "normal",
+            "label": "Medium"
+          },
+          {
+            "value": "lighter",
+            "label": "Light"
+          },
+          {
+            "value": "bold",
+            "label": "Bold"
+          }
+        ]
+      },
+      {
+        "label": "H5 Font size",
+        "type": "number",
+        "id": "h5_font_size",
+        "default": 22
+      },
+      {
+        "type": "select",
+        "id": "h5_font_weight",
+        "label": "H5 Font weight",
+        "options": [
+          {
+            "value": "normal",
+            "label": "Medium"
+          },
+          {
+            "value": "lighter",
+            "label": "Light"
+          },
+          {
+            "value": "bold",
+            "label": "Bold"
+          }
+        ]
+      },
+      {
+        "label": "H6 Font size",
+        "type": "number",
+        "id": "h6_font_size",
+        "default": 20
+      },
+      {
+        "type": "select",
+        "id": "h6_font_weight",
+        "label": "H6 Font weight",
+        "options": [
+          {
+            "value": "normal",
+            "label": "Medium"
+          },
+          {
+            "value": "lighter",
+            "label": "Light"
+          },
+          {
+            "value": "bold",
+            "label": "Bold"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "type_header_spacing",
+        "label": "Letter spacing",
+        "options": [
+          {
+            "value": "0",
+            "label": "None"
+          },
+          {
+            "value": "0.05em",
+            "label": "Small"
+          },
+          {
+            "value": "0.1em",
+            "label": "Medium"
+          },
+          {
+            "value": "0.2em",
+            "label": "Wide"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Body text"
+      },
+      {
+        "type": "select",
+        "id": "type_base_family",
+        "label": "Font",
+        "options": [
+          {
+            "value": "'Avant Garde', Avantgarde, 'Century Gothic', CenturyGothic, 'AppleGothic', sans-serif",
+            "label": "Avant Garde",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "'Gill Sans', 'Gill Sans MT', Calibri, sans-serif",
+            "label": "Gill Sans",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "'rajdhani-regular', sans-serif",
+            "label": "Rajdhani regular",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "'rajdhani-medium', sans-serif",
+            "label": "Rajdhani medium",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "'rajdhani-semibold', sans-serif",
+            "label": "Rajdhani semibold",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "'rajdhani', sans-serif",
+            "label": "Rajdhani bold",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "'HelveticaNeue', 'Helvetica Neue', Helvetica, Arial, sans-serif",
+            "label": "Helvetica Neue",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Arial, 'Helvetica Neue', Helvetica, sans-serif",
+            "label": "Arial",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Candara, Calibri, Segoe, 'Segoe UI', Optima, Arial, sans-serif",
+            "label": "Candara",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Geneva, Tahoma, Verdana, sans-serif",
+            "label": "Geneva",
+            "group": "Sans-serif"
+          },
+          {
+            "value": "Google_Droid+Sans_400_sans",
+            "label": "Droid Sans",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Droid+Sans_700_sans",
+            "label": "Droid Sans Bold",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Lato_400_sans",
+            "label": "Lato",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Lato_700_sans",
+            "label": "Lato Bold",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Montserrat_400_sans",
+            "label": "Montserrat",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Montserrat_700_sans",
+            "label": "Montserrat Bold",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Open+Sans_400_sans",
+            "label": "Open Sans",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Open+Sans_700_sans",
+            "label": "Open Sans Bold",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_PT+Sans_400_sans",
+            "label": "PT Sans",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_PT+Sans_700_sans",
+            "label": "PT Sans Bold",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Roboto_400_sans",
+            "label": "Roboto",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Roboto_700_sans",
+            "label": "Roboto Bold",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Source+Sans+Pro_400_sans",
+            "label": "Source Sans Pro",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Source+Sans+Pro_700_sans",
+            "label": "Source Sans Pro Bold",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Ubuntu_400_sans",
+            "label": "Ubuntu",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Ubuntu_700_sans",
+            "label": "Ubuntu Bold",
+            "group": "Sans-serif | Google Web Fonts"
+          },
+          {
+            "value": "'Big Caslon', 'Book Antiqua', 'Palatino Linotype', Georgia, serif",
+            "label": "Big Caslon",
+            "group": "Serif"
+          },
+          {
+            "value": "'Calisto MT', 'Bookman Old Style', Bookman, 'Goudy Old Style', Garamond, 'Hoefler Text', 'Bitstream Charter', Georgia, serif",
+            "label": "Calisto MT",
+            "group": "Serif"
+          },
+          {
+            "value": "Baskerville, 'Baskerville Old Face', 'Hoefler Text', Garamond, 'Times New Roman', serif",
+            "label": "Baskerville",
+            "group": "Serif"
+          },
+          {
+            "value": "Garamond, Baskerville, 'Baskerville Old Face', 'Hoefler Text', 'Times New Roman', serif",
+            "label": "Garamond",
+            "group": "Serif"
+          },
+          {
+            "value": "Georgia, 'Hoefler Text', 'Times New Roman', serif",
+            "label": "Georgia",
+            "group": "Serif"
+          },
+          {
+            "value": "TimesNewRoman, 'Times New Roman', Times, Baskerville, Georgia, serif",
+            "label": "Times New Roman",
+            "group": "Serif"
+          },
+          {
+            "value": "Google_Arapey_400_serif",
+            "label": "Arapey",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Arvo_400_serif",
+            "label": "Arvo",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Arvo_700_serif",
+            "label": "Arvo Bold",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Crimson+Text_400_serif",
+            "label": "Crimson Text",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Crimson+Text_700_serif",
+            "label": "Crimson Text Bold",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Droid+Serif_400_serif",
+            "label": "Droid Serif",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Droid+Serif_700_serif",
+            "label": "Droid Serif Bold",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Lora_400_serif",
+            "label": "Lora",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Lora_700_serif",
+            "label": "Lora Bold",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_PT+Serif_400_serif",
+            "label": "PT Serif",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_PT+Serif_700_serif",
+            "label": "PT Serif Bold",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Vollkorn_400_serif",
+            "label": "Vollkorn",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Vollkorn_700_serif",
+            "label": "Vollkorn Bold",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Signika_400_serif",
+            "label": "Signika",
+            "group": "Serif | Google Web Fonts"
+          },
+          {
+            "value": "Google_Signika_600_serif",
+            "label": "Signika Bold",
+            "group": "Serif | Google Web Fonts"
+          }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "type_base_size",
+        "label": "Base size",
+        "options": [
+          {
+            "value": "14",
+            "label": "14px"
+          },
+          {
+            "value": "15",
+            "label": "15px"
+          },
+          {
+            "value": "16",
+            "label": "16px"
+          },
+          {
+            "value": "17",
+            "label": "17px"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Mobile menu",
+    "settings": [
+      {
+        "type": "link_list",
+        "label": "Choose mobile menu",
+        "id": "mobile_menu"
+      },
+      {
+        "type": "image",
+        "id": "eye_mobile.jpg",
+        "label": "Eyeglass image"
+      },
+      {
+        "type": "image",
+        "id": "sun_mobile.jpg",
+        "label": "Sunglass image"
+      },
+      {
+        "type": "image",
+        "id": "eye_men.png",
+        "label": "Eyeglass men image"
+      },
+      {
+        "type": "url",
+        "id": "eye_men_url",
+        "label": "Eyeglass men image URL"
+      },
+      {
+        "type": "image",
+        "id": "eye_women.png",
+        "label": "Eyeglass women image"
+      },
+      {
+        "type": "url",
+        "id": "eye_women_url",
+        "label": "Eyeglass women URL"
+      },
+      {
+        "type": "image",
+        "id": "sun_men.png",
+        "label": "Sunglass men image"
+      },
+      {
+        "type": "url",
+        "id": "sun_men_url",
+        "label": "Sunglass men image URL"
+      },
+      {
+        "type": "image",
+        "id": "sun_women.png",
+        "label": "Sunglass women image"
+      },
+      {
+        "type": "url",
+        "id": "sun_women_url",
+        "label": "Sunglass women URL"
+      }
+    ]
+  },
+  {
+    "name": "Eyeglass lens product",
+    "settings": [
+      {
+        "type": "number",
+        "id": "lens_product_id",
+        "label": "Enter id of lens product for eyeglass"
+      }
+    ]
+  },
+  {
+    "name": "Collection Banner Link",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Eyeglasses Link"
+      },
+      {
+        "type": "url",
+        "label": "First Link",
+        "id": "eyeglass_first_link"
+      },
+      {
+        "type": "url",
+        "label": "Second Link",
+        "id": "eyeglass_second_link"
+      },
+      {
+        "type": "url",
+        "label": "Third Link",
+        "id": "eyeglass_third_link"
+      },
+      {
+        "type": "url",
+        "label": "Fourth Link",
+        "id": "eyeglass_fourth_link"
+      },
+      {
+        "type": "url",
+        "label": "Fifth Link",
+        "id": "eyeglass_fifth_link"
+      },
+      {
+        "type": "header",
+        "content": "Sunglasses Link"
+      },
+      {
+        "type": "url",
+        "label": "First Link",
+        "id": "sunglass_first_link"
+      },
+      {
+        "type": "url",
+        "label": "Second Link",
+        "id": "sunglass_second_link"
+      },
+      {
+        "type": "url",
+        "label": "Third Link",
+        "id": "sunglass_third_link"
+      },
+      {
+        "type": "url",
+        "label": "Fourth Link",
+        "id": "sunglass_fourth_link"
+      },
+      {
+        "type": "url",
+        "label": "Fifth Link",
+        "id": "sunglass_fifth_link"
+      }
+    ]
+  },
+  {
+    "name": "Products",
+    "settings": [
+      {
+        "type": "checkbox",
+        "label": "On sale banner",
+        "id": "on_sale_banner",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "label": "Sold out banner",
+        "id": "sold_out_banner",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "label": "Price compare",
+        "id": "compare_price",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "label": "Hover image switching",
+        "id": "switch_image",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "label": "Quick add to cart",
+        "id": "ajax_cart",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Product Leaving Popup"
+      },
+      {
+        "type": "image_picker",
+        "label": "Product Leaving Popup Image",
+        "id": "product_leaving_popup_img"
+      },
+      {
+        "type": "text",
+        "label": "whatsapp number",
+        "id": "whatsapp_number",
+        "default": "919717687425"
+      }
+    ]
+  },
+  {
+    "name": "Collection-Product Banner",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Eyeglass Collection"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable click ?",
+        "id": "eg_coll_click"
+      },
+      {
+        "type": "image_picker",
+        "label": "Eyeglass topbar-Desktop Image",
+        "id": "eg_coll_desktop_img"
+      },
+      {
+        "type": "image_picker",
+        "label": "Eyeglass topbar-Mobile Image",
+        "id": "eg_coll_mobile_img"
+      },
+      {
+        "type": "text",
+        "id": "eg_coll_discount_code",
+        "label": "Eyeglass-Discount code"
+      },
+      {
+        "type": "text",
+        "id": "eg_coll_applied_msg",
+        "label": "Eyeglass Discount code Message"
+      },
+      {
+        "type": "color",
+        "id": "eg_coll_text_color",
+        "label": "Eyeglass Discount code Message Text Color"
+      },
+      {
+        "type": "color",
+        "id": "eg_coll_msg_bg_color",
+        "label": "Eyeglass Discount code Message Background Color"
+      },
+      {
+        "type": "header",
+        "content": "Sunglass Collection"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable click ?",
+        "id": "sun_coll_click"
+      },
+      {
+        "type": "image_picker",
+        "label": "Sunglass topbar-Desktop Image",
+        "id": "sun_coll_desktop_img"
+      },
+      {
+        "type": "image_picker",
+        "label": "Sunglass topbar-Mobile Image",
+        "id": "sun_coll_mobile_img"
+      },
+      {
+        "type": "text",
+        "id": "sun_coll_discount_code",
+        "label": "Sunglass-Discount code"
+      },
+      {
+        "type": "text",
+        "id": "sun_coll_applied_msg",
+        "label": "Sunglass Discount code Message"
+      },
+      {
+        "type": "color",
+        "id": "sun_coll_text_color",
+        "label": "Sunglass Discount code Message Text Color"
+      },
+      {
+        "type": "color",
+        "id": "sun_coll_msg_bg_color",
+        "label": "Sunglass Discount code Message Background Color"
+      },
+      {
+        "type": "header",
+        "content": "Eyeglass Products"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable click ?",
+        "id": "eg_prod_click"
+      },
+      {
+        "type": "image_picker",
+        "label": "Eyeglass topbar-Desktop Image",
+        "id": "eg_prod_desktop_img"
+      },
+      {
+        "type": "image_picker",
+        "label": "Eyeglass topbar-Mobile Image",
+        "id": "eg_prod_mobile_img"
+      },
+      {
+        "type": "text",
+        "id": "eg_prod_discount_code",
+        "label": "Eyeglass-Discount code"
+      },
+      {
+        "type": "text",
+        "id": "eg_prod_applied_msg",
+        "label": "Eyeglass Discount code Message"
+      },
+      {
+        "type": "color",
+        "id": "eg_prod_text_color",
+        "label": "Eyeglass Discount code Message Text Color"
+      },
+      {
+        "type": "color",
+        "id": "eg_prod_msg_bg_color",
+        "label": "Eyeglass Discount code Message Background Color"
+      },
+      {
+        "type": "header",
+        "content": "Sunglass Products"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable click ?",
+        "id": "sun_prod_click"
+      },
+      {
+        "type": "image_picker",
+        "label": "Sunglass topbar-Desktop Image",
+        "id": "sun_prod_desktop_img"
+      },
+      {
+        "type": "image_picker",
+        "label": "Sunglass topbar-Mobile Image",
+        "id": "sun_prod_mobile_img"
+      },
+      {
+        "type": "text",
+        "id": "sun_prod_discount_code",
+        "label": "Sunglass-Discount code"
+      },
+      {
+        "type": "text",
+        "id": "sun_prod_applied_msg",
+        "label": "Sunglass Discount code Message"
+      },
+      {
+        "type": "color",
+        "id": "sun_prod_text_color",
+        "label": "Sunglass Discount code Message Text Color"
+      },
+      {
+        "type": "color",
+        "id": "sun_prod_msg_bg_color",
+        "label": "Sunglass Discount code Message Background Color"
+      }
+    ]
+  },
+  {
+    "name": "Social share",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "display_product_detail_share",
+        "label": "Display Product Share?",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "text_share",
+        "label": "Text Share"
+      },
+      {
+        "type": "image",
+        "id": "social_icon_1.png",
+        "label": "Social icon 1",
+        "max-width": 50
+      },
+      {
+        "type": "text",
+        "id": "social_title_1",
+        "label": "Social title 1",
+        "default": "Email"
+      },
+      {
+        "type": "text",
+        "id": "social_link_1",
+        "label": "Social link 1"
+      },
+      {
+        "type": "image",
+        "id": "social_icon_2.png",
+        "label": "Social icon 2",
+        "max-width": 50
+      },
+      {
+        "type": "text",
+        "id": "social_title_2",
+        "label": "Social title 2",
+        "default": "Share Facebook"
+      },
+      {
+        "type": "text",
+        "id": "social_link_2",
+        "label": "Social link 2",
+        "default": "#"
+      },
+      {
+        "type": "image",
+        "id": "social_icon_3.png",
+        "label": "Social icon 3",
+        "max-width": 50
+      },
+      {
+        "type": "text",
+        "id": "social_title_3",
+        "label": "Social title 3",
+        "default": "Twitter"
+      },
+      {
+        "type": "text",
+        "id": "social_link_3",
+        "label": "Social link 3",
+        "default": "#"
+      },
+      {
+        "type": "image",
+        "id": "social_icon_4.png",
+        "label": "Social icon 4",
+        "max-width": 50
+      },
+      {
+        "type": "text",
+        "id": "social_title_4",
+        "label": "Social title 4",
+        "default": "Pinterest"
+      },
+      {
+        "type": "text",
+        "id": "social_link_4",
+        "label": "Social link 4",
+        "default": "#"
+      }
+    ]
+  },
+  {
+    "name": "Quick view - Settings",
+    "settings": [
+      {
+        "type": "checkbox",
+        "label": "Enable",
+        "id": "quick_view",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "label": "Show product-description",
+        "id": "quick_view_desc",
+        "default": false
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social accounts"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable",
+        "id": "social_check_as_1"
+      },
+      {
+        "type": "image",
+        "label": "Image 1",
+        "id": "social_icon_as_1.png"
+      },
+      {
+        "type": "text",
+        "label": "Title",
+        "id": "social_label_as_1"
+      },
+      {
+        "type": "text",
+        "id": "social_link_as_1",
+        "label": "Social link 1",
+        "info": "https:\/\/twitter.com\/shopify"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable",
+        "id": "social_check_as_2"
+      },
+      {
+        "type": "image",
+        "label": "Image 2",
+        "id": "social_icon_as_2.png"
+      },
+      {
+        "type": "text",
+        "label": "Title",
+        "id": "social_label_as_2"
+      },
+      {
+        "type": "text",
+        "id": "social_link_as_2",
+        "label": "Social link 2",
+        "info": "https:\/\/twitter.com\/shopify"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable",
+        "id": "social_check_as_3"
+      },
+      {
+        "type": "image",
+        "label": "Image 3",
+        "id": "social_icon_as_3.png"
+      },
+      {
+        "type": "text",
+        "label": "Title",
+        "id": "social_label_as_3"
+      },
+      {
+        "type": "text",
+        "id": "social_link_as_3",
+        "label": "Social link 3",
+        "info": "https:\/\/twitter.com\/shopify"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable",
+        "id": "social_check_as_4"
+      },
+      {
+        "type": "image",
+        "label": "Image 4",
+        "id": "social_icon_as_4.png"
+      },
+      {
+        "type": "text",
+        "label": "Title",
+        "id": "social_label_as_4"
+      },
+      {
+        "type": "text",
+        "id": "social_link_as_4",
+        "label": "Social link 4",
+        "info": "https:\/\/twitter.com\/shopify"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable",
+        "id": "social_check_as_5"
+      },
+      {
+        "type": "image",
+        "label": "Image 5",
+        "id": "social_icon_as_5.png"
+      },
+      {
+        "type": "text",
+        "label": "Title",
+        "id": "social_label_as_5"
+      },
+      {
+        "type": "text",
+        "id": "social_link_as_5",
+        "label": "Social link 5",
+        "info": "https:\/\/twitter.com\/shopify"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable",
+        "id": "social_check_as_6"
+      },
+      {
+        "type": "image",
+        "label": "Image 6",
+        "id": "social_icon_as_6.png"
+      },
+      {
+        "type": "text",
+        "label": "Title",
+        "id": "social_label_as_6"
+      },
+      {
+        "type": "text",
+        "id": "social_link_as_6",
+        "label": "Social link 6",
+        "info": "https:\/\/twitter.com\/shopify"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable",
+        "id": "social_check_as_7"
+      },
+      {
+        "type": "image",
+        "label": "Image 7",
+        "id": "social_icon_as_7.png"
+      },
+      {
+        "type": "text",
+        "label": "Title",
+        "id": "social_label_as_7"
+      },
+      {
+        "type": "text",
+        "id": "social_link_as_7",
+        "label": "Social link 7",
+        "info": "https:\/\/twitter.com\/shopify"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable",
+        "id": "social_check_as_8"
+      },
+      {
+        "type": "image",
+        "label": "Image 8",
+        "id": "social_icon_as_8.png"
+      },
+      {
+        "type": "text",
+        "label": "Title",
+        "id": "social_label_as_8"
+      },
+      {
+        "type": "text",
+        "id": "social_link_as_8",
+        "label": "Social link 8",
+        "info": "https:\/\/twitter.com\/shopify"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable",
+        "id": "social_check_as_9"
+      },
+      {
+        "type": "image",
+        "label": "Image 9",
+        "id": "social_icon_as_9.png"
+      },
+      {
+        "type": "text",
+        "label": "Title",
+        "id": "social_label_as_9"
+      },
+      {
+        "type": "text",
+        "id": "social_link_as_9",
+        "label": "Social link 9",
+        "info": "https:\/\/twitter.com\/shopify"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable",
+        "id": "social_check_as_10"
+      },
+      {
+        "type": "image",
+        "label": "Image 10",
+        "id": "social_icon_as_10.png"
+      },
+      {
+        "type": "text",
+        "label": "Title",
+        "id": "social_label_as_10"
+      },
+      {
+        "type": "text",
+        "id": "social_link_as_10",
+        "label": "Social link 10",
+        "info": "https:\/\/twitter.com\/shopify"
+      }
+    ]
+  },
+  {
+    "name": "Newsletter",
+    "settings": [
+      {
+        "type": "text",
+        "label": "Newsletter mailchimp URL",
+        "id": "newsletter_form_action"
+      },
+      {
+        "type": "checkbox",
+        "label": "Enable - Welcome popup",
+        "id": "welcome_popup"
+      },
+      {
+        "type": "checkbox",
+        "id": "welcome_popup_img",
+        "label": "Use image"
+      },
+      {
+        "type": "image",
+        "id": "welcome_popup_image.png",
+        "label": "Image"
+      },
+      {
+        "type": "number",
+        "id": "welcome_popup_expire",
+        "label": "Days interval",
+        "default": 10
+      },
+      {
+        "type": "text",
+        "label": "Popup Header",
+        "id": "welcome_popup_header"
+      },
+      {
+        "type": "textarea",
+        "label": "Popup text",
+        "id": "welcome_popup_text"
+      }
+    ]
+  },
+  {
+    "name": "Time popup",
+    "settings": [
+      {
+        "type": "text",
+        "id": "time_popup_code",
+        "label": "Time popup code"
+      }
+    ]
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image",
+        "info": "Will be scaled down to 32 x 32px"
+      }
+    ]
+  },
+  {
+    "name": "Prepaid price",
+    "settings": [
+      {
+        "type": "number",
+        "id": "p_price",
+        "label": "Prepaid price in cents",
+        "default": 22300
+      },
+      {
+        "type": "number",
+        "id": "p_fakeprice",
+        "label": "Prepaid fake price in cents",
+        "default": 25000
+      }
+    ]
+  },
+  {
+    "name": "Whatsapp banner on collection page",
+    "settings": [
+      {
+        "type": "image_picker",
+        "label": "Whatsapp banner",
+        "id": "whatsapp_banner"
+      }
+    ]
+  },
+  {
+    "name": "Collection Banner images Products",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Eyeglasses"
+      },
+      {
+        "type": "image_picker",
+        "label": "Collection Image 1",
+        "id": "collection_ban_1"
+      },
+      {
+        "type": "text",
+        "id": "seo_header",
+        "label": "SEO Header"
+      },
+      {
+        "type": "text",
+        "id": "sub-seo_header",
+        "label": "SEO Sub Header"
+      },
+      {
+        "type": "text",
+        "id": "sub-seo_header1",
+        "label": "SEO Sub Header Line 2(optional)"
+      },
+      {
+        "type": "url",
+        "id": "collection_ban_link_1",
+        "label": "Collection Image 1"
+      },
+      {
+        "type": "image_picker",
+        "label": "Collection Image 2",
+        "id": "collection_ban_2"
+      },
+      {
+        "type": "text",
+        "id": "seo_header_2",
+        "label": "SEO Header"
+      },
+      {
+        "type": "text",
+        "id": "sub-seo_header_2",
+        "label": "SEO Sub Header"
+      },
+      {
+        "type": "text",
+        "id": "sub-seo_header1_2",
+        "label": "SEO Sub Header Line 2(optional)"
+      },
+      {
+        "type": "url",
+        "id": "collection_ban_link_2",
+        "label": "Collection Image 2"
+      },
+      {
+        "type": "image_picker",
+        "label": "Collection Image 3",
+        "id": "collection_ban_3"
+      },
+      {
+        "type": "text",
+        "id": "seo_header_3",
+        "label": "SEO Header"
+      },
+      {
+        "type": "text",
+        "id": "sub-seo_header_3",
+        "label": "SEO Sub Header"
+      },
+      {
+        "type": "text",
+        "id": "sub-seo_header1_3",
+        "label": "SEO Sub Header Line 2(optional)"
+      },
+      {
+        "type": "url",
+        "id": "collection_ban_link_3",
+        "label": "Collection Image 3"
+      },
+      {
+        "type": "image_picker",
+        "label": "Collection Image 4",
+        "id": "collection_ban_4"
+      },
+      {
+        "type": "text",
+        "id": "seo_header_4",
+        "label": "SEO Header"
+      },
+      {
+        "type": "text",
+        "id": "sub-seo_header_4",
+        "label": "SEO Sub Header"
+      },
+      {
+        "type": "text",
+        "id": "sub-seo_header1_4",
+        "label": "SEO Sub Header Line 2(optional)"
+      },
+      {
+        "type": "url",
+        "id": "collection_ban_link_4",
+        "label": "Collection Image 4"
+      },
+      {
+        "type": "header",
+        "content": "Sunglasses"
+      },
+      {
+        "type": "image_picker",
+        "label": "Collection Image 5",
+        "id": "collection_ban_5"
+      },
+      {
+        "type": "text",
+        "id": "seo_header_5",
+        "label": "SEO Header"
+      },
+      {
+        "type": "text",
+        "id": "sub-seo_header_5",
+        "label": "SEO Sub Header"
+      },
+      {
+        "type": "text",
+        "id": "sub-seo_header1_5",
+        "label": "SEO Sub Header Line 2(optional)"
+      },
+      {
+        "type": "url",
+        "id": "collection_ban_link_5",
+        "label": "Collection Image 5"
+      },
+      {
+        "type": "image_picker",
+        "label": "Collection Image 6",
+        "id": "collection_ban_6"
+      },
+      {
+        "type": "text",
+        "id": "seo_header_6",
+        "label": "SEO Header"
+      },
+      {
+        "type": "text",
+        "id": "sub-seo_header_6",
+        "label": "SEO Sub Header"
+      },
+      {
+        "type": "text",
+        "id": "sub-seo_header1_6",
+        "label": "SEO Sub Header Line 2(optional)"
+      },
+      {
+        "type": "url",
+        "id": "collection_ban_link_6",
+        "label": "Collection Image 6"
+      },
+      {
+        "type": "image_picker",
+        "label": "Collection Image 7",
+        "id": "collection_ban_7"
+      },
+      {
+        "type": "text",
+        "id": "seo_header_7",
+        "label": "SEO Header"
+      },
+      {
+        "type": "text",
+        "id": "sub-seo_header_7",
+        "label": "SEO Sub Header"
+      },
+      {
+        "type": "text",
+        "id": "sub-seo_header1_7",
+        "label": "SEO Sub Header Line 2(optional)"
+      },
+      {
+        "type": "url",
+        "id": "collection_ban_link_7",
+        "label": "Collection Image 7"
+      },
+      {
+        "type": "image_picker",
+        "label": "Collection Image 8",
+        "id": "collection_ban_8"
+      },
+      {
+        "type": "text",
+        "id": "seo_header_8",
+        "label": "SEO Header"
+      },
+      {
+        "type": "text",
+        "id": "sub-seo_header_8",
+        "label": "SEO Sub Header"
+      },
+      {
+        "type": "text",
+        "id": "sub-seo_header1_8",
+        "label": "SEO Sub Header Line 2(optional)"
+      },
+      {
+        "type": "url",
+        "id": "collection_ban_link_8",
+        "label": "Collection Image 8"
+      }
+    ]
+  },
+  {
+    "name": "Gold product",
+    "settings": [
+      {
+        "type": "product",
+        "label": "Gold product",
+        "id": "gold_product"
+      }
+    ]
+  },
+  {
+    "name": "Currency",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "To offer multiple currencies on your online store, you must first [edit your store's currency formatting]({{ site.url }}\/manual\/using-themes\/change-the-layout\/help-script-find-money-formats)."
+      },
+      {
+        "type": "checkbox",
+        "id": "show_multiple_currencies",
+        "label": "Enable currency conversion",
+        "default": true,
+        "info": "Even though prices are displayed in different currencies, orders will still be processed in your store's currency."
+      },
+      {
+        "type": "select",
+        "id": "currency_format",
+        "label": "Format",
+        "options": [
+          {
+            "value": "money_format",
+            "label": "Without currency ($10.00)"
+          },
+          {
+            "value": "money_with_currency_format",
+            "label": "With currency ($10.00 CAD)"
+          }
+        ],
+        "default": "money_with_currency_format"
+      },
+      {
+        "type": "text",
+        "id": "supported_currencies",
+        "label": "Supported currencies",
+        "default": "INR GBP CAD USD AUD EUR JPY",
+        "info": "Use the country's ISO [currency code](http:\/\/www.xe.com\/iso4217.php). Separate your currency codes with a space."
+      },
+      {
+        "type": "text",
+        "id": "default_currency",
+        "label": "Default currency",
+        "default": "USD"
+      }
+    ]
+  },
+  {
+    "name": "Live Chat",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "livechat_enable",
+        "label": "Show Live Chat Option",
+        "default": false
+      },
+      {
+        "type": "html",
+        "id": "chatcode",
+        "label": "Script Code"
+      },
+      {
+        "type": "checkbox",
+        "id": "whatapp_enable",
+        "label": "Show Whatsapp Chat Option",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "mess_enable",
+        "label": "Show Messageres Live Chat Option",
+        "default": false
+      }
+    ]
+  },
+  {
+    "name": "Sale Header",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "sale_enable",
+        "label": "Show Sale Header Option",
+        "default": false
+      }
+    ]
+  },
+  {
+    "name": "Welcome Pop",
+    "settings": [
+      {
+        "type": "image_picker",
+        "label": "Desktop images",
+        "id": "welcomeDes"
+      },
+      {
+        "type": "image_picker",
+        "label": "MObile Images",
+        "id": "welcomeMob"
+      }
+    ]
+  },
+  {
+    "name": "Mobile Top Banner",
+    "settings": [
+      {
+        "type": "image_picker",
+        "label": "MObile Banner Images",
+        "id": "mobiletopbannerimg"
+      }
+    ]
+  },
+  {
+    "name": "loading Image",
+    "settings": [
+      {
+        "type": "image_picker",
+        "label": "Loading Images",
+        "id": "loadingimage"
+      }
+    ]
+  },
+  {
+    "name": "Fit Image",
+    "settings": [
+      {
+        "type": "image_picker",
+        "label": "Fit Slide Image 1",
+        "id": "fit_img_1"
+      },
+      {
+        "type": "image_picker",
+        "label": "Fit Slide Image 2",
+        "id": "fit_img_2"
+      },
+      {
+        "type": "image_picker",
+        "label": "Fit Slide Image 3",
+        "id": "fit_img_3"
+      },
+      {
+        "type": "image_picker",
+        "label": "Fit Slide Image 4",
+        "id": "fit_img_4"
+      },
+      {
+        "type": "image_picker",
+        "label": "Fit Slide Image 5",
+        "id": "fit_img_5"
+      }
+    ]
+  },
+  {
+    "name": "Show Related Products",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "related_prod_enable",
+        "label": "Show Related Products",
+        "default": false
+      }
+    ]
+  }
+]

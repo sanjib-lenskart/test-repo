@@ -1,0 +1,15 @@
+<!-- pcheck -->
+{%- if product.type == 'NON_POWER_READING' -%}
+<input type="hidden" name="properties[prescription_type]" value="READING_GLASS">
+{%- else -%}
+{%- case template -%}
+{% when 'product.progressive' %}
+<input type="hidden" name="properties[prescription_type]" value="PROGRESSIVE">  
+{% when 'product.bifocal' %}
+<input type="hidden" name="properties[prescription_type]" value="BIFOCAL">  
+{% when 'product.single_vision' %}
+<input type="hidden" name="properties[prescription_type]" value="SINGLE_VISION">
+{%- else -%}
+
+{%- endcase -%}
+{%- endif -%}

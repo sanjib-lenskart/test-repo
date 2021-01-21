@@ -1,0 +1,93 @@
+<div id="mobile_banner_image" class="xs-show">
+  <div class="clearfix{% unless section.settings.full %} container{% endunless %}">
+    <div class="text-center">
+      <div class="img">
+        {%- assign src_name = section.settings.image  -%}
+        {%- assign src_alt = section.settings.image.alt | escape  -%}
+        {%- include 'srcset-img' -%}
+        <div class="slide_text_xs">
+          <h3 class="new_header">{{section.settings.home_slider_header_new}}</h3>
+          <div class="new_text">{{section.settings.home_slider_text_new}}</div>
+        </div>
+
+        <div class="mobile_text flex_view_xs middle">
+          <div class="pair_btn col">
+            <a href="{{section.settings.home_slider_link}}" class="btn">
+              {{section.settings.home_slider_btn}}</a><br/>
+            <a href="{{section.settings.home_slider_link2}}" class="btn">
+              {{section.settings.home_slider_btn2}}</a>
+          </div>
+
+          <div class="small_img col">
+            <img src="{{ 'banner-3.png' | asset_img_url:'master'}}">
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+    "name": "Home Mobile Banner Img",
+      "settings": [
+        {
+          "type": "checkbox",
+          "label": "Full-width",
+          "id": "full"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Mobile Image"
+        },
+
+        {
+          "type": "richtext",
+          "label": "Header text",
+          "id": "home_slider_header_new"
+        },
+        {
+          "type": "richtext",
+          "label": "Sub-header text",
+          "id": "home_slider_text_new"
+        },
+        {
+          "type": "text",
+          "label": "Button name",
+          "id": "home_slider_btn"
+        },
+        {
+          "type": "url",
+          "label": "Button URL",
+          "id": "home_slider_link"
+        },
+        {
+          "type": "text",
+          "label": "Button name",
+          "id": "home_slider_btn2",
+          "info": "For video"
+        },
+        {
+          "type": "url",
+          "label": "Button URL",
+          "id": "home_slider_link2",
+          "info": "Paste embedded URL"
+        }
+      ],
+        "presets": [
+          {
+            "name": "Home Mobile Banner Img",
+            "category": "Banner"
+          }
+        ]
+  }
+  {% endschema %}
+
+  {% comment %}
+</script>
+{% endcomment %}

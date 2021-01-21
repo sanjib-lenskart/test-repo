@@ -1,0 +1,64 @@
+{% unless template == 'index' or template == 'cart' or template == 'list-collections' %}
+<nav class="breadcrumb" role="navigation" aria-label="breadcrumbs">
+  <a href="/" title="Home">Home</a>
+  {% if template contains 'page' %}
+  <span aria-hidden="true">&rsaquo;</span>
+  <span>{{ page.title }}</span>
+  {% elsif template contains 'product' %}
+  
+  {% if collection.url %}
+      <span aria-hidden="true">&rsaquo;</span>
+      {{ collection.title | link_to: collection.url }}
+    {% endif %}
+  
+  <span aria-hidden="true">/</span>
+  {% assign short_name = false %}
+  {% for tag in product.tags %}
+  {% if tag contains 'short_name_' %}
+  {% assign short_name = true %}
+  {% assign s_name =  tag | remove : 'short_name_' %}
+  {% endif %}
+  {% endfor %}
+  {%- if short_name -%}
+  {%- assign product_name = s_name -%}
+  {%- else -%}
+  {%- assign product_name = product.title -%}
+  {%- endif -%}
+  <span class="product_title">
+   {{product_name}}
+ </span> 
+ {% elsif template contains 'collection' and collection.handle %}
+ <span aria-hidden="true">/</span>
+ {% if current_tags %}
+ {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+ {{ collection.title | link_to: url }}
+ <span aria-hidden="true">/</span>
+ {% assign Btags = current_tags %}
+ {% for link in linklists['collection-filter-test'].links %}
+ {% assign temp = link.title | append :'_'%}
+ {% assign Btags = Btags | join: " + " | remove: temp %}
+ {% endfor %}
+ <span> {{ Btags | join: " + " | remove: temp }} </span>
+ {% else %}
+ <span>{{ collection.title }}</span>
+ {% endif %}
+ {% elsif template == 'blog' %}
+ <span aria-hidden="true">/</span>
+ {% if current_tags %}
+ {{ blog.title | link_to: blog.url }}
+ <span aria-hidden="true">/</span>
+ <span>{{ current_tags | join: " + " }}</span>
+ {% else %}
+ <span>{{ blog.title }}</span>
+ {% endif %}
+ {% elsif template == 'article' %}
+ <span aria-hidden="true">/</span>
+ {{ blog.title | link_to: blog.url }}
+ <span aria-hidden="true">/</span>
+ <span>{{ article.title }}</span>
+ {% else %}
+ <span aria-hidden="true">/</span>
+ <span>{{ page_title }}</span>
+ {% endif %}
+</nav>
+{% endunless %}

@@ -1,0 +1,36 @@
+{% if mega_menu == '1' %}
+{% assign men_img  = section.settings.mega_1_image_1 %}
+{% assign women_img  = section.settings.mega_1_image_2 %}
+{% else %}
+{% assign men_img  = section.settings.mega_2_image_1 %}
+{% assign women_img  = section.settings.mega_2_image_2 %}
+{% endif %}
+<div class="mega_menu child_menu">
+<div class="container-fluid">
+    <div class="row mega_ul">
+      {% assign mega_count = 0 %}
+      {% for childlink in linklists[child_list_handle].links %}
+      {% assign mega_count = mega_count | plus : 1 %}
+      <div class="col-sm-6 mega_li">
+        <div class="table_view">
+          <div class="col-sm-12">
+            <a href="{{childlink.url}}">
+              {%- assign blur_me = true -%}
+              {% if mega_count == 1 %}
+              {%- assign src_name = men_img -%}
+              {%- assign src_alt = 'Men' -%}
+              {%- include 'srcset-img' -%}
+              {% else %}
+              {%- assign src_name = women_img -%}
+              {%- assign src_alt = 'Women' -%}
+              {%- include 'srcset-img' -%}
+              {% endif %}
+              {%- assign blur_me = false -%}
+            </a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+{% if collections.for-price.products.size > 0 %}
+{% for product in collections.for-price.products %}
+{% if product.handle == 'price' %}
+<!--   <span>              
+    {{product.price | money_without_trailing_zeros | replace: ',',''}}                          
+  </span> -->
+
+ <span class="nonusdcase">              
+    {{ 7500 | money }}                          
+  </span>
+
+<span class="usdcase" style="display:none;">              
+    {{product.price | money  }}                          
+  </span>
+
+{% endif %}
+{% endfor %}
+{% endif %}

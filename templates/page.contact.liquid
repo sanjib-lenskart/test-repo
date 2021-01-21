@@ -1,0 +1,76 @@
+<div id="contact_page">
+  <div class="container">
+    <header class="header text-center">
+      <h3>{{ page.title }}</h3>
+    </header>
+    <div class="row">
+      <div class="col-sm-12 col-md-12">
+        <div class="row">
+      <div class="col-sm-6 hideimp">
+        <div class="form_vertical">
+          {% form 'contact' %}
+
+          {% if form.posted_successfully? %}
+          <p class="note form-success">
+            {{ 'contact.form.post_success' | t }}
+          </p>
+          {% endif %}
+
+          {{ form.errors | default_errors }}
+
+
+          <label for="ContactFormName">{{ 'contact.form.name' | t }}</label>
+          <input type="text" id="ContactFormName" name="contact[name]" value="{% if form[name] %}{{ form[name] }}{% elsif customer %}{{ customer.name }}{% endif %}">
+          <label for="ContactFormEmail" class="{% if form.errors contains 'email' %}label--error{% endif %}">{{ 'contact.form.email' | t }}</label>
+          <input type="email" id="ContactFormEmail" name="contact[email]" autocorrect="off" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" class="{% if form.errors contains 'email' %}input--error{% endif %}">
+
+          <label for="ContactFormPhone">{{ 'contact.form.phone' | t }}</label>
+          <input type="tel" id="ContactFormPhone" name="contact[phone]" pattern="[0-9\-]*" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}">
+
+          <label for="ContactFormMessage">{{ 'contact.form.message' | t }}</label>
+          <textarea rows="10" id="ContactFormMessage" name="contact[body]">{% if form.body %}{{ form.body }}{% endif %}</textarea><br/>
+
+          <input type="submit" class="btn" value="{{ 'contact.form.submit' | t }}">
+
+          {% endform %}
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-12 contactus-container">
+        
+    <div class="content">
+      {{ page.content }}
+      
+      
+        <div class="col-xs-12 col-sm-6 col-md-6 faq">
+          <div class="text">
+          <h1><i class="fa"><img src="//cdn.shopify.com/s/files/1/0135/4144/1595/t/51/assets/lets_chat.png?62341" alt="Find Sotre"></i>WHATSAPP US</h1>
+            <p>
+            <a class="find_store" href="https://api.whatsapp.com/send?phone={{settings.whatsapp_number}}&amp;text=I%27m%20interested%20in%20buying%20eyewear%20from%20lenskart%20" onclick="ga('send', 'event', 'click', 'Whats app', 'Product Page');" data-url="https://lenskart.sg/products/vincent-chase-polarized-gunmetal-sunglasses-93664" target="_blank"><span class="underline">
+              Click Here.</span>
+            </a>
+            </p>
+          </div>
+        </div>
+        
+<!--         <div class="col-xs-12 col-sm-12 col-md-12 callus">
+           <div class="text">
+          <h1><i class="fa fa-phone"></i>CALL US</h1>
+             <p><a href="tel:+65 31587899">+65 31587899</a></p>
+          </div>
+        </div> -->
+        
+        <div class="col-xs-12 col-sm-6 col-md-6 emailus">
+           <div class="text">
+          <h1><i class="fa fa-envelope"></i>EMAIL US</h1>
+             <p><a href="mailto:supportme@lenskart.in" target="_blank">customer@lenskart.us</a></p>
+          </div>
+        </div>
+       
+    </div>
+   
+      </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

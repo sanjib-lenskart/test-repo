@@ -1,0 +1,87 @@
+<!-- home-lens-making-video -->
+<div class="container">
+  <div class="row">    
+    <div class="col-xs-12 col-sm-12 text-center">
+      <h3>Why Lenskart?</h3>
+    </div>
+    <div class="col-xs-6 col-sm-6 leftpadding">      
+      {% assign src_name = section.settings.image1 %}
+      {% assign src_class = 'blucutvdoa manuvdoa' %}     
+        {% include 'srcset-img' %}
+       <!-- popup contents -->
+      <div id="pop_modela" class="pop_model">
+        <div class="text_wrapper_model">
+          <video id="videoblucuta" controls="controls" preload="none" mediagroup="myVideoGroup" width="100%" poster="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/PrecisionFrames.jpg?105580">
+            <source src="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/Revised_V1.mp4?105564" type="video/mp4" />
+            <source src="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/Revised_V1.mp4?105564" type="video/ogg" />
+            Your browser does not support HTML5 video.
+          </video>
+          <div class="text-center btn_container">
+            <span class="backa">&#8592;</span>
+          </div>
+        </div>
+      </div>      
+    </div>
+    <div class="col-xs-6 col-sm-6 rightpadding"> 
+		{% assign src_name = section.settings.image2 %}
+      {% assign src_class = 'blucutvdo manuvdo' %}      
+        {% include 'srcset-img' %}
+      <!-- popup contents -->
+      <div id="pop_model" class="pop_model">
+        <div class="text_wrapper_model">
+          <video id="videoblucut" controls="controls" preload="none" mediagroup="myVideoGroup" width="100%" poster="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/LensesMadeByrobots.jpg?105814">
+            <source src="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/Lenses_Made_By_Robots_FD.mp4?105564" type="video/mp4" />
+            <source src="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/Lenses_Made_By_Robots_FD.mp4?105564" type="video/ogg" />
+            Your browser does not support HTML5 video.
+          </video>
+          <div class="text-center btn_container">
+            <span class="back">&#8592;</span>
+          </div>
+        </div>
+      </div>
+    </div>           
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Lens Making Video",
+    "class": "index-section home-lens-making-video xs-show",
+    "settings": [
+        {
+        "id": "text1",
+        "type": "text",
+        "label": "Heading",
+        "default": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image1",
+          "label": "Image"
+        },
+		{
+        "id": "text2",
+        "type": "text",
+        "label": "Heading",
+        "default": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image2",
+          "label": "Image"
+        }
+	],
+ "presets": [
+    {
+      "name": {
+        "en": "Lens Making Video"
+        
+      },
+      "category": {
+        "en": "Video"
+        
+      }
+    }
+  ]
+
+  }
+{% endschema %}

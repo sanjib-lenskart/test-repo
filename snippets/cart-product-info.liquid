@@ -1,0 +1,43 @@
+<div class="name cart_item ">
+
+  <a {% unless second_product %}href="{{ item.url }}{% endunless %}">
+    {% for tag in item.product.tags %}
+    {% if tag contains 'short_name_' %}
+    {% assign title = tag | remove : 'short_name_' %}
+    {{ title }} 
+    {% endif %}
+    {% endfor %}
+    {% if product.type == 'Contact Lens' %}
+    {{ item.title }}
+    {% endif %}
+  </a>
+
+  {% if settings.product_vendor_enable %}
+  <p >{{ item.vendor }}</p>
+  {% endif %}
+  {%- if showPlusMinus == false -%}
+  <p ><b>{{ item.title }}</b></p>
+  {% endif %}
+  {% assign property_size = item.properties | size %}
+  {% if property_size > 0 %}
+  {% for p in item.properties %}
+  {% unless p.first == 'Prescription-form' %}
+  {% if p.first == 'Bundle' %}
+  {% assign bundle_product = true %}
+  {% else %}
+  {% endif %}
+  <p {% if bundle %}class="timeStamp hide {% if second_product %}child{% else %}master{% endif %}" data-item={{key}} data-time="{{p.last}}"{% endif %}>
+    {% assign first_character_in_key = p.first | truncate: 1, '' %}
+    {% unless p.last == blank or first_character_in_key == '_' or p_first == 'Bundle' %}
+    {{ p.first }}:
+    {% if p.last contains '/uploads/' %}
+    <a href="{{ p.last }}">{{ p.last | split: '/' | last }}</a>
+    {% else %}
+    {{ p.last }}
+    {% endif %}
+  </p>
+  {% endunless %}
+  {% endunless %}
+  {% endfor %}
+  {% endif %}
+</div>

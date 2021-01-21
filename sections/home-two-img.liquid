@@ -1,0 +1,115 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+      <h2 class="title_horizontal_line"><span>{{ section.settings.htext_1 }}</span></h2>
+    </div>
+     <div class="col-md-6 col-sm-6 col-xs-12 bbk bbk_l">
+       <a href="{{ section.settings.url_1 }}">
+     {% assign src_name = section.settings.image_1 %}
+        {% include 'srcset-img' %}
+         <span>{{ section.settings.ctitle }}</span>
+         <p>{{ section.settings.cdescription1 }}</p>
+       </a>
+    </div>    
+    <div class="col-md-6 col-sm-6 col-xs-12 bbk bbk_r"> 
+      <a href="{{ section.settings.url_2 }}">
+       {% assign src_name = section.settings.image_2 %}
+        {% include 'srcset-img' %}
+        <span>{{ section.settings.ctitle2 }}</span>
+        <p>{{ section.settings.cdescription2 }}</p>
+      </a>
+    </div>   
+  </div>
+</div>
+
+<style>
+  .home-two-img h2{
+    text-align: center;
+    padding: 25px 0;
+    text-transform:uppercase;
+  }
+  
+  .home-two-img h2 span{
+    padding: 0px 7px;
+  }
+  .home-two-img .bbk{
+    margin-bottom:20px;
+  }
+  
+  @media(min-width: 768px){
+  .bbk_l{
+    border-right: 1px solid #a0a0a0;
+    padding-right: 25px;
+  }
+  .bbk_r{
+    padding-left: 25px;
+  }
+}
+
+</style>
+
+      {% schema %}
+      {
+      "name": "Home Two Images",
+      "class": "home-two-img",
+      "settings": [
+      
+      {
+      "type": "text",
+      "label": "Header text",
+      "id": "htext_1",
+		"default":"Our Lense"
+      },
+      {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image"
+      },
+      {
+      "id": "ctitle",
+      "type": "text",
+      "label": "Heading",
+      "default": "Title"
+      },
+      {
+      "id": "cdescription1",
+      "type": "text",
+      "label": "Heading",
+      "default": "Description"
+      },
+      {
+      "type": "url",
+      "label": "button link",
+      "id": "url_1"
+      },
+       {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image"
+      },
+      {
+      "id": "ctitle2",
+      "type": "text",
+      "label": "Heading",
+      "default": "Title"
+      },
+      {
+      "id": "cdescription2",
+      "type": "text",
+      "label": "Heading",
+      "default": "Description"
+      },
+      {
+      "type": "url",
+      "label": "button link",
+      "id": "url_2"
+      }
+      ],
+      "presets": [
+      {
+      "name": "Home Two Images Column",
+      "category": "Banner"
+      }
+      ]
+      }
+      {% endschema %}

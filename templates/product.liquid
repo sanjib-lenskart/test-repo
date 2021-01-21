@@ -1,0 +1,98 @@
+<div class="mlvedaform">
+<!-- product template -->
+<div class="container product_breadcrumbs">
+   {% include 'breadcrumbs' %}
+</div>
+{% section 'product-template' %}
+
+{% if product.type == 'Eyeglasses' %} 
+<section class="container framedes1">
+  <div class="row flex">
+    <div class="col-md-4 col-xs-12 col-sm-12 ttxx">
+      <h1>We offer a variety of prescription and lens types</h1>
+      <div class="text">
+        <p>Click on "Select Lenses and Purchase" to see all the options we have</p>
+
+        <div class="row type1">
+          <div class="col-md-6 col-xs-6 col-sm-6 mobp0">
+            <h2>Prescription type</h2>
+          </div>
+
+          <div class="col-md-6 col-xs-6 col-sm-6">
+            <ul>
+              <li>Single-vision</li>
+              <li>Progressives</li>
+              <li>Zero-Power</li>
+              <li>Frame Only</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row type1">
+          <div class="col-md-6 col-xs-6 col-sm-6 mobp0">
+            <h2>Lens Type</h2>
+          </div>
+          <div class="col-md-6 col-xs-6 col-sm-6">
+            <ul>
+              <li>Premium Anti Glare</li>
+              <li>Blue-light-filtering</li>
+              <li>Transistion</li>
+              <li>Progressive (No Line Bifocal)</li>
+              <li>Premium Bifocal</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8 col-xs-12 col-sm-12 iimmgg">
+      <div class="img">
+     {% assign src_name = product.images[1] %}
+          {% assign src_alt = product.featured_image.alt | escape %}     
+          {% include 'srcset-img' %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}
+ 
+{% if product.type == 'Eyeglasses' %} 
+<div class="frame-description container">
+  <div class="descriptionarea">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Everything that's included</h1>
+      <div class="text">Each pair of glasses comes with prescription lenses, plus a frame case and lens cloth. We also offer free shipping and a 14-day, hassle-free return or exchange policy as well as a one-year, no scratch guarantee for our lenses; we'll replace your scratched lenses for free within the first 12 months.</div>
+    </div>
+  </div>
+  </div>
+</div>
+{% endif %}
+<!-- I am inside product template -->
+{% if product.type == 'Eyeglasses' %} 
+<!-- <div class="framesize-sectiopn container">
+  <div class="row">
+    <div class="col-md-12">
+      <h1>Not Sure Whether The Frame Will Fit You Or Not?</h1>
+      <h3 class="">Checkout Our Frame Size Guide</h3>
+      <p></p>
+      <div class="frame-size-container"><a href="#size-chart" class="frame-size size-chart-open-popup">Frame Size Guide</a></div>
+    </div>
+  </div>
+</div> -->
+{% endif %}
+
+{% unless product.type == 'Eyeglasses' or product.type == "Child" or product.type == "Contact_Lens_Medical" or product.type == "Contact_Lens_color"%}
+<div class="product_lens_details"> 
+{% section 'product-lens-details' %}
+</div>
+{% endunless %}
+
+  {% if settings.related_prod_enable %}
+{% section 'related-product' %}
+{% endif %}
+  
+{% section 'testimonial' %}
+
+  
+
+</div>

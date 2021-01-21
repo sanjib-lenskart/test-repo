@@ -1,0 +1,97 @@
+<!-- section: pp-image-with-text -->
+<div class="container oddevenbox">
+  <div class="row commendiv">
+    {% unless section.settings.header == blank %}
+    <div class="col-xs-12 col-sm-12 col-md-12 header_container">
+      <div class="section-header text-center">
+         <h1 class="xs-hide"> {{ section.settings.header }} </h1>
+        <h1 class="xs-show"> {{ section.settings.header1 }} </h1>
+        <h3 class="xs-show"> {{ section.settings.header11 }} </h3>
+      </div>
+      <div class="subheader text-center xs-hide">
+       {{ section.settings.subheader }} 
+      </div>
+    </div>
+	{% endunless %}
+    
+    {% for block in section.blocks %}  
+    <div class="col-xs-12 col-sm-12 col-md-6 textitem{{ forloop.index }}"> 
+      <div class="text-wrapper">
+        <h4 class="title">{{ block.settings.title }}</h4> 
+        <div class="text">{{ block.settings.text }}</div>
+      </div>
+    </div> 
+
+    <div class="col-xs-12 col-sm-12 col-md-6 imageitem{{ forloop.index }}">
+      {% unless block.settings.image == blank %}
+      <img class="image" src="{{ block.settings.image | img_url: '600x' }}" alt="">
+      {% else %}
+      <video id="videoblucut" controls="controls" preload="none" mediagroup="myVideoGroup" width="100%" poster="https://cdn.shopify.com/s/files/1/0047/5335/8922/files/poster-image.png?20582">
+        <source id="mp4" src="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/BluLenses.mp4?80187" type="video/mp4" />
+        <source id="webm" src="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/BluLenses.mp4?80187" type="video/webm" />
+        <source id="ogv" src="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/BluLenses.mp4?80187" type="video/ogg" />
+        <p>Your user agent does not support the HTML5 Video element.</p>
+      </video>
+      {% endunless %}
+      <div class="text-mobile">{{ block.settings.text }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "ProductPage ImageWithTxt",
+  "max_blocks": 8, 
+  "class": "pp-text-with-image",
+  "settings": [
+    
+    {
+      "type": "text",
+      "label": "Header text",
+      "id": "header"
+    },
+{
+      "type": "text",
+      "label": "Header text",
+      "id": "header1"
+    },
+{
+      "type": "text",
+      "label": "Header text",
+      "id": "header11"
+    },
+{
+      "type": "text",
+      "label": "Sub Header text",
+      "id": "subheader"
+    }  
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Image 900x500px",
+          "id": "image"
+        },
+		{
+          "type": "text",
+          "label": "Title text",
+          "id": "title",
+		  "default": "Title"
+        },        
+        {
+          "type": "richtext",
+          "label": "Image text",
+          "id": "text"
+        }
+		
+		
+      ]
+    }
+  ]
+}
+{% endschema %}

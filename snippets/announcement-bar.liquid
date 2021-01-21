@@ -1,0 +1,23 @@
+<div class="container-fluid announcement-bar">
+  <div class="row margin-zero">   
+     <div class="col-md-12 col-sm-12 xs-hide p0">
+       Free Shipping <span id="worldwideText">Worldwide </span>| 1 Year Warranty | Free 14 Day Return or Exchange
+    </div>
+    
+    <div class="col-md-6 col-sm-12 xs-show p0">
+      Free Shipping | 1 Year Warranty <br/> Free 14 Day Return or Exchange
+    </div>
+    
+  </div>
+</div>
+<style>
+ .modelmenu {
+   top: 100px!important;
+ }
+</style>
+<script>
+  var requestHost="{{ request.host}}";
+  if(requestHost=="ae.lenskart.com"){
+    document.getElementById("worldwideText").style.display= 'none';
+  }
+</script>

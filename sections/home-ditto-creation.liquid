@@ -1,0 +1,88 @@
+<div class="container padding-zero blue-home-banner-img home-ditto-section">
+  <div class="row">
+<!--     <div class="col-md-12 col-sm-12 col-xs-12">
+      <h2 class="title_horizontal_line"><span>{{ section.settings.htext_1 }}</span></h2>
+    </div> -->
+     <div class="col-md-12 col-sm-12 col-xs-12">
+      <div class="row">
+        <div class="ditto-warapper">
+        <div class="col-md-6 col-sm-6">
+       <a href="pages/compare-looks">
+        {% assign src_name = section.settings.image_1 %}
+        {% include 'srcset-img' %}
+       </a> 
+       </div>
+        <div class="col-md-6 col-sm-6">
+         <div class="ditto-text-des">
+          <h2>Virtual Try On</h2>
+          <p>See Yourself In Your Fave Pair Of Glasses</p>
+          <a class="btn" href="pages/compare-looks">Try Now</a>
+          </div>
+        </div>
+        </div>
+     </div>    
+<!--     <div class="col-md-12 col-sm-12 col-xs-12 xs-show"> 
+      <div class="row">
+        <div class="ditto-warapper">
+        <div class="col-md-6 col-sm-6 col-xs-6">
+      <a href="pages/compare-looks">
+       {% assign src_name = section.settings.image_2 %}
+        {% include 'srcset-img' %}
+      </a>
+       </div>
+        <div class="col-md-6 col-sm-6 col-xs-6">
+          <div class="ditto-text-des">
+          <h2>Virtual Try On</h2>
+          <p>See Yourself In Your Fave Pair Of Glasses</p>
+          <a class="btn" href="pages/compare-looks">Try Now</a>
+          </div>
+        </div>
+      </div>
+      </div>
+     
+    </div>    -->
+  </div>
+</div>
+</div>
+
+ {% schema %}
+      {
+      "name": "Home Ditto Creation",
+      "class": "home-ditto-img",
+      "settings": [
+      
+      {
+      "type": "text",
+      "label": "Header text",
+      "id": "htext_1",
+		"default":"Our Lense"
+      },
+{
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Desktop Image"
+      },
+      {
+      "type": "url",
+      "label": "button link",
+      "id": "url_1"
+      },
+       {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Mobile Image"
+      },
+      {
+      "type": "url",
+      "label": "button link",
+      "id": "url_2"
+      }
+      ],
+      "presets": [
+      {
+      "name": "Home Ditto Img",
+      "category": "Banner"
+      }
+      ]
+      }
+{% endschema %}

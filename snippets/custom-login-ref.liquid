@@ -1,0 +1,469 @@
+<style>
+  input[type=number]::-webkit-inner-spin-button, 
+  input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+  }
+</style>
+
+<div id="ac-wrapper" style='display:none' onClick="hideNow(event)">
+  <div id="popup">
+<!--     <h1 class="signuppopuplogo">
+      <a href="/">
+        <img src="//cdn.shopify.com/s/files/1/0084/6957/7794/files/logo_7ae23fb0-c20d-454b-ac7a-666fd6bb7d82_200x.png?v=1563190882" srcset="//cdn.shopify.com/s/files/1/0084/6957/7794/files/logo_7ae23fb0-c20d-454b-ac7a-666fd6bb7d82_200x.png?v=1563190882 1x, //cdn.shopify.com/s/files/1/0084/6957/7794/files/logo_7ae23fb0-c20d-454b-ac7a-666fd6bb7d82_200x@2x.png?v=1563190882 2x" alt="Aqualens" itemprop="logo">
+      </a>
+    </h1> -->
+
+    <div class="text-container form-container">
+
+      <h1 class="signuppopuplogo">
+        <a href="/">
+          <img src="//cdn.shopify.com/s/files/1/0084/6957/7794/files/logo_7ae23fb0-c20d-454b-ac7a-666fd6bb7d82_200x.png?v=1563190882" srcset="//cdn.shopify.com/s/files/1/0084/6957/7794/files/logo_7ae23fb0-c20d-454b-ac7a-666fd6bb7d82_200x.png?v=1563190882 1x, //cdn.shopify.com/s/files/1/0084/6957/7794/files/logo_7ae23fb0-c20d-454b-ac7a-666fd6bb7d82_200x@2x.png?v=1563190882 2x" alt="Aqualens Contact lenses" itemprop="logo">
+        </a>
+      </h1>
+      <div class="sendotp-section">
+        <p class="bogo-text-whole">
+          <span class="bogo-text">Enter Your Mobile No. to proceed.<br /></span>
+        </p> 
+
+        <div class="inputbox">
+          <input class="stdcode" type="text" value="+91" disabled>
+          <input class="otpsms-text" type='number' placeholder="Your Mobile Number" pattern="[0-9\-]*" name="contact">
+        </div>
+        <button class="otpsms button-style" type="submit">
+         <span id="button_text">PROCEED</span>
+          <span class="loadingicon1"></span>
+        </button>
+
+        <div class="error-notification"></div>
+      </div>
+
+      <div class="verifyotp-section hide">
+        <p class="header">Insert the OTP.</p>
+
+        <div class="otpsms-very-container">
+          <input class="otpsms-very smsdigit1" type='number' value='' maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" >
+          <input class="otpsms-very smsdigit2" type='number' value='' maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" >
+          <input class="otpsms-very smsdigit3" type='number' value='' maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" >
+          <input class="otpsms-very smsdigit4" type='number' value='' maxlength="1" oninput="this.value=this.value.replace(/[^0-9]/g,'');" >          
+        </div>
+        <div class="resendotp"><span class="not-active-link" style="float:left;">Resend OTP</span> <span id="countdown"></span></div>
+
+       
+
+        <button class="otpsmsvery button-style" type='submit'>
+          <span id="button_text">PROCEED</span>
+          <span class="loadingicon"></span>
+        </button>
+          <div class="error-notification2"></div>
+
+      </div>    
+
+      <div class="popup-elements hide">
+        <input type="tel" id="ContactFormPhonee" name="contact" pattern="[0-9\-]*" value="{% if form[phone] %}{{ form[phone] }}{% elsif customer %}{{ customer.phone }}{% endif %}" placeholder="Contact number"> 
+        <div class="submit-btn btn">Submit</div>
+      </div>
+
+      <!-- Signup page code -->  
+      <div class="hide"> 
+        <form method="post" action="/account" id="create_customer" accept-charset="UTF-8">         
+
+          <input type="hidden" name="form_type" value="create_customer">
+          <input type="hidden" name="utf8" value="✓">
+
+          {{ form.errors | default_errors }}
+
+          <label for="Email" class="hidden-label">{{ 'customer.register.email' | t }}</label>
+          <input type="email" name="customer[email]" id="Email" class="input-full{% if form.errors contains 'email' %} error{% endif %}" placeholder="{{ 'customer.register.email' | t }}" {% if form.email %} value="{{ form.email }}"{% endif %} autocorrect="off" autocapitalize="off">
+
+          <label for="CreatePassword" class="hidden-label">{{ 'customer.register.password' | t }}</label>
+          <input type="text" name="customer[password]" id="CreatePassword" class="input-full{% if form.errors contains 'password' %} error{% endif %}" placeholder="{{ 'customer.register.password' | t }}" autocomplete="off">
+
+          <p>
+            <input id="creatacc" type="submit" value="{{ 'customer.register.submit' | t }}" class="btn btn--full">
+          </p>
+        </form>
+      </div>
+
+      <!-- Login page code -->
+      <div class="login-hide hide">
+        {% form 'customer_login' %}
+        {{ form.errors | default_errors }}
+        <input type="hidden" name="return_to" value="back" />
+        <label for="CustomerEmail" class="hidden-label">{{ 'customer.login.email' | t }}</label>
+        <input type="email" name="customer[email]" id="CustomerEmail" class="input-full{% if form.errors contains 'email' %} error{% endif %}" placeholder="{{ 'customer.login.email' | t }}" autocorrect="off" autocapitalize="off" autofocus>
+
+        {% if form.password_needed %}
+        <label for="CustomerPassword" class="hidden-label">{{ 'customer.login.password' | t }}</label>
+        <input type="text" value="" name="customer[password]" id="CustomerPassword" class="input-full{% if form.errors contains 'password' %} error{% endif %}" placeholder="{{ 'customer.login.password' | t }}">
+        {% endif %}
+
+        <p>
+          <input id="loginacc" type="submit" class="btn btn--full" value="{{ 'customer.login.sign_in' | t }}">
+        </p>
+        <p>{{ 'layout.customer.create_account' | t | customer_register_link }}</p>
+        <p><a href="{{ shop.url }}">{{ 'customer.login.cancel' | t }}</a></p>
+        {% if form.password_needed %}
+        <p><a href="#recover" id="RecoverPassword">{{ 'customer.login.forgot_password' | t }}</a></p>
+        {% endif %}
+        {% endform %}
+      </div>          
+
+    </div>
+    <span class="closemeak" onClick="PopUp('hide')"><span>&times;</span></span>
+  </div>
+</div>
+
+<script>
+  jQuery(function() {
+    jQuery('#create_customer').submit(function(event) {  
+      event.preventDefault();
+      var data = jQuery(this).serialize();
+
+      //create new account
+      jQuery.post('/account', data)
+      .done(function(data){
+        var logErrors = jQuery(data).find('.errors').text();
+
+        //if there are errors show them in the html form
+        if(logErrors =='This email address is already associated with an account. If this account is yours, you can reset your passwordThis email address is already associated with an account. If this account is yours, you can reset your password') {
+          var valueid = $("#Email").val();
+          var valuepw = $("#CreatePassword").val();          
+          $('#CustomerEmail').val(valueid);
+          $('#CustomerPassword').val('123456');
+          $('#loginacc').click();
+        }            
+        else if (logErrors != "" && logErrors != 'undefined') {
+          jQuery('#create_customer .errors').html(logErrors);
+          jQuery('#create_customer .errors').show();
+        }
+        else {
+          //$(".power-modal").fadeIn(500);
+          $("#ac-wrapper").fadeOut(500);
+
+          {% if template contains 'product' %}
+          let planId = '',
+              customerId = '';          
+          planId = $('.js-openOtpModal.active').attr('data-plan-id');
+
+          $.getJSON('https://aqualens.in/account?view=json', function(response){
+            customerId = response.customer[0].id; 
+            if(planId != '' && customerId) {
+              location.reload();
+//               $('body').hide();
+//               document.location.href = 'https://subscriber.aqualens.in/subscribe/shipping/' + customerId + '/' + planId;
+            } else {
+              location.reload();
+            }
+          });
+          {% else %}
+          location.reload();
+          {% endif %}
+        }
+      }).fail(function(){console.log('error');});
+      return false;
+    }); 
+  });
+</script>
+
+<script>
+  jQuery(function() {
+    jQuery('#customer_login').submit(function(event) {  
+      event.preventDefault();
+      var data = jQuery(this).serialize();
+
+      //login to account
+      jQuery.post('/account/login', data)
+      .done(function(data){
+        var logErrors = jQuery(data).find('.errors').text();
+
+        if (logErrors != "" && logErrors != 'undefined') {}
+        else {
+          //console.log('success');          
+          //$(".power-modal").fadeIn(500);
+          $("#ac-wrapper").fadeOut(500);
+
+          {% if template == 'customers/login' or template == 'customers/register' %}
+          document.location.href = '/';
+          {% endif %}
+
+          {% if template contains 'product' %}
+          let planId = '',
+              customerId = '';          
+          planId = $('.js-openOtpModal.active').attr('data-plan-id');
+
+          $.getJSON('https://aqualens.in/account?view=json', function(response){
+            customerId = response.customer[0].id; 
+            if(planId != '' && customerId) {
+              $('body').hide();
+              console.log(planId + ' ' + customerId);
+              location.reload();
+//               document.location.href = 'https://subscriber.aqualens.in/subscribe/shipping/' + customerId + '/' + planId;
+            } else {
+              location.reload();
+            }
+          });                     
+          {% else %}
+          location.reload();
+          {% endif %}
+        }
+      }).fail(function(){console.log('error');});
+      return false;
+    }); 
+  });
+</script>
+
+<script>
+  function PopUp(hideOrshow) {
+    if (hideOrshow == 'hide') {
+      document.getElementById('ac-wrapper').style.display = "none";
+    }
+    else  if(localStorage.getItem("popupWasShown") == null) {
+      localStorage.setItem("popupWasShown",1);
+      document.getElementById('ac-wrapper').removeAttribute('style');
+    }
+  }
+
+  {% if template == 'customers/login' or template == 'customers/register' %}
+  window.onload = function () {
+    setTimeout(function () {
+      PopUp('show');
+    }, 0);
+  }
+  {% endif %}
+
+  function hideNow(e) {
+    if (e.target.id == 'ac-wrapper') document.getElementById('ac-wrapper').style.display = 'none';
+  }
+</script>
+
+    <script>
+      $(document).ready(function () {
+
+        $(".otpsms").click(function (event) { 
+          var thisE = $(this);
+          thisE.addClass('disableBtn');
+          thisE.find("#button_text").text('Sending...');
+          var countdigit;
+          var phoneno = $('.otpsms-text').val();
+          if(phoneno != ''){
+            var userIdGup = '2000186438';
+            var userPGup = '2pwA7F';
+            $('.loadingicon1').css('display','inline-block').fadeOut(3000);
+            var mysenturl = 'https://subscriber.aqualens.in/api/send-otp/'+phoneno+''
+
+            var proxy = 'https://cors-anywhere.herokuapp.com/';
+
+             $.ajax({
+    		  url: mysenturl,
+
+               complete: function(response) {
+
+                 var responseText = response.responseJSON.status;
+                 if(responseText == 'SUCCESS'){
+                   thisE.removeClass('disableBtn');
+                   thisE.find("#button_text").text('PROCEED');
+                   $(".error-notification2").html('OTP has been sent sucessfully.');
+                   $(".error-notification2").css({color: 'green',display: 'block'});
+                   $('.verifyotp-section').removeClass('hide');
+                   $('.sendotp-section').hide();
+                   $('.smsdigit1').focus();
+
+                   resendotpcountdown();
+
+                 }
+                 else{
+                   thisE.removeClass('disableBtn');
+                    $(".error-notification1").html('Something went wrong.');
+                   $(".error-notification1").css({display: 'block'});
+                 
+                 }
+                 
+                } 
+             });
+            
+          }
+          else{
+            thisE.removeClass('disableBtn');
+            $('.error-notification').text('Please enter correct Mobile No');
+            $('.error-notification').show();
+          }
+        });
+
+        //   Run this code when Verify OTP Button Clicked
+        $(".otpsmsvery").click(function (e) {
+          var thisE = $(this);
+          thisE.addClass('disableBtn');
+          thisE.find("#button_text").text('Verifying...');
+          var userIdGup = '2000186438';
+            var userPGup = '2pwA7F';
+          var smsdigit1 = $('.smsdigit1').val();
+      var smsdigit2 = $('.smsdigit2').val();
+      var smsdigit3 = $('.smsdigit3').val();
+      var smsdigit4 = $('.smsdigit4').val();
+
+      var sentsmsforvarify = smsdigit1+smsdigit2+smsdigit3+smsdigit4;
+          
+          if(smsdigit1 == '' || smsdigit2 == '' || smsdigit3 == '' || smsdigit4 == ''){
+            var ok = 0;
+          }
+          
+          var phoneno = $('.otpsms-text').val();
+          if(ok != 0){
+           $('.loadingicon').css('display','inline-block').fadeOut(8000);
+            var mysenturl = 'https://subscriber.aqualens.in/api/verify-otp/'+phoneno+'/'+sentsmsforvarify+'';
+
+          var proxya = 'https://cors-anywhere.herokuapp.com/';
+          $.ajax({
+            url: mysenturl,
+
+            success: function (result) {
+              console.log(result);
+              var responseText = result.status;
+              if(responseText == 'SUCCESS'){
+                thisE.removeClass('disableBtn');
+          		thisE.find("#button_text").text('Verifying...');
+                $('.error-notification2').hide();
+                $("#ContactFormPhonee").val(phoneno);
+                var value = $("#ContactFormPhonee").val();
+                value = value +"@guest.com";
+                $('#Email').val(value);
+                $('#CreatePassword').val('123456');                   
+                $('#creatacc').click();                  
+                e.preventDefault();
+              }
+              else{
+                thisE.removeClass('disabled');
+                $('.error-notification2').text(result);
+                $('.error-notification2').show();
+                if(result.includes('This OTP is incorrect') == true){
+                  $('.error-notification2').html('This OTP is incorrect');
+                  $('.error-notification2').css('color','red');
+                  $('.error-notification2').show();
+                }
+                
+                                                
+                if(result == 'error | 909 | International Service is Disabled'){
+                  $('.error-notification2').text('International Service is Disabled');
+                }
+                else if(result == 'error | 904 | Inactive Key'){
+                  $('.error-notification2').text('Entered OTP is wrong');
+                }
+                else if(result == 'error | 910 | Voice Service is Disabled'){
+                  $('.error-notification2').text('Voice Service is Disabled');
+                }
+                else if(result == 'error | 905 | Max No of attempts exceeded for the user'){
+                  $('.error-notification2').text('Max No of attempts exceeded for the user');
+                } 
+                else if(result == 'error | 903 | Invalid code'){
+                  $('.error-notification2').text('Invalid code');
+                } 
+                else if(result == 'error | 907 | Code is expired'){
+                  $('.error-notification2').text('Code is expired');
+                } 
+                
+                else if(result == 'error | 906 | Please try after'){
+                  $('.error-notification2').text('Please try after Some Time');
+                } 
+                
+                else if(result == 'error | 908 | Phone number has already been verified'){
+                  $('.error-notification2').text('Phone number has already been verified');
+                } 
+                
+                                
+                else{
+                  console.log(result);
+                  $('.error-notification').text(result);
+                  $('.error-notification').show();
+                  if(result == 'error | 909 | International Service is Disabled'){
+                  $('.error-notification2').text('International Service is Disabled');
+                }
+                else if(result == 'error | 904 | Inactive Key'){
+                  $('.error-notification2').text('Inactive Key');
+                }
+                else if(result == 'error | 910 | Voice Service is Disabled'){
+                  $('.error-notification2').text('Voice Service is Disabled');
+                }
+                else if(result == 'error | 905 | Max No of attempts exceeded for the user'){
+                  $('.error-notification2').text('Max No of attempts exceeded for the user');
+                } 
+                else if(result == 'error | 903 | Invalid code'){
+                  $('.error-notification2').text('Invalid code');
+                } 
+                else if(result == 'error | 907 | Code is expired'){
+                  $('.error-notification2').text('Code is expired');
+                } 
+                  else if(result == 'error | 906 | Please try after'){
+                  $('.error-notification2').text('Please try after Some Time');
+                } 
+                
+                else if(result == 'error | 908 | Phone number has already been verified'){
+                  $('.error-notification2').text('Phone number has already been verified');
+                } 
+                  
+                } 
+              }
+              
+            }});
+          }
+          else{
+            thisE.removeClass('disabled');
+            $('.error-notification2').text('Please enter OTP');
+            $('.error-notification2').show();
+          }
+        });
+       
+       // Hide error line
+        $(".otpsms-very").change(function() {
+          $('.error-notification2').hide();
+           });
+        
+        
+        
+        $(".resendotp span").click(function () {
+           $(".otpsms").click();
+        });
+        
+         $(".otpsms-very").keyup(function () {
+      if (this.value.length == this.maxLength) {
+        var $next = $(this).next('.otpsms-very');
+        if ($next.length)
+          $(this).next('.otpsms-very').focus();
+        else
+          $(this).blur();
+        
+      }
+    });
+        
+        $("#testimonial-slider").owlCarousel({
+        items:1,
+        itemsDesktop:[1000,1],
+        itemsDesktopSmall:[979,1],
+        itemsTablet:[768,1],
+        pagination:false,
+        navigation:true,
+        navigationText:["",""],
+        autoPlay:true
+    });
+        
+      });
+      
+      function resendotpcountdown(){
+        
+                   setTimeout(function(){
+          $('.resendotp span').removeClass('not-active-link');
+        }, 30000);
+        
+        var timeleft = 29;
+var downloadTimer = setInterval(function(){
+  document.getElementById("countdown").innerHTML = timeleft;
+  timeleft -= 1;
+  if(timeleft <= 0){
+    clearInterval(downloadTimer);
+    document.getElementById("countdown").innerHTML = ""
+  }
+}, 1000);
+      }
+    </script>

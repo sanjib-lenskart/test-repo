@@ -1,0 +1,33 @@
+{%- assign gift_applied = false -%}
+{% for item in cart.items %}
+	{% if item.product.type == "Gift" %}
+		{%- assign gift_applied = true -%}
+	{% endif %}
+{% endfor %}
+<script>
+  {% if gift_applied==true%}
+    $(function() {
+      var qty = 0;
+      var varient = 32618321707082; //Portable Mask Hanger (Black)
+      var qty1 = 0;
+      var varient1 = 32619002036298; //Portable Mask Hanger (Grey)
+      var qty2 = 0;
+      var varient2 = 32618322624586; //Anti-Fog Microfibre Cloth
+
+      var data = { updates: {} };
+      data.updates[varient] = qty;
+      data.updates[varient1] = qty1;
+      data.updates[varient2] = qty2;
+
+      jQuery.ajax({
+        type: 'POST',
+        url: '/cart/update.js',
+        data: data,
+        dataType: 'json',
+        success: function() { 
+          location.href = '/cart';
+        }
+      });
+    });
+  {% endif %}
+</script>

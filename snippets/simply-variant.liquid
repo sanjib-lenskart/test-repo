@@ -1,0 +1,131 @@
+{% assign sale = false %}
+{% if variant.compare_at_price > variant.price %}
+{% assign sale = true %}
+{% endif %}
+{% assign sold_out = true %}
+{% if variant.available %}
+{% assign sold_out = false %}
+{% endif %}
+
+{% assign swtich_img = settings.switch_image %}
+{%- assign current_product_img = blank -%}
+<div class="product_main{% if sold_out %} sold_out{% endif %} detail_{{variant.id}}">
+  <div class="{% unless no_height_alignment == true %}image{% endunless %}">
+    <div class="relative {% unless no_height_alignment == true %}img{% endunless %}">
+      <a class="product_link" href="{{ variant.url | within: collection }}" data-href="{{ variant.url | within: collection }}">
+
+        {% assign new_image = variant.image.src  %}
+        {%- assign alt_img_pos = variant.image.position | plus:1 -%}
+
+        {% assign tag_color = "" %}
+        {% for t in current_tags %}
+        {% if t contains 'Color_' %}
+        {% assign tag_color = t | remove : 'Color_' | handlieze %}
+        {% endif %}
+        {% endfor %}
+        {% assign src_name = new_image %}
+        {% assign src_alt = variant.image.alt | escape %}
+        {% assign src_class = 'product_img double_img' %}
+        {% include 'srcset-img' %}
+
+        {%- assign current_product_img = src_name -%}
+        {%- assign src_name = product.images[1].src -%}
+        {%- assign src_alt = variant.image.src -%}
+        {%- assign src_class= 'alter_img' -%} 
+        {% if variant.available %}
+        <img src='{{src_name | img_url:'370x'}}' class='{{src_class}}' alt='{{src_alt}}'>
+        <div class="coll_ditto">
+          <img src='' class='ditto_img' alt='' />
+        </div>
+        
+        {% comment %}<div class="coll_ditto hide" style="display: none !important;"></div>
+        <div class="coll_thumbditto"></div>{% endcomment %}
+        
+
+        {% endif %}
+      </a>
+      {% if sold_out %}
+      {% if settings.sold_out_banner %}
+      <div class="sold_out"> 
+        <p>Sold <br/> out</p>
+      </div>
+      {% endif %}
+      {% elsif sale %}
+      {% if settings.on_sale_banner %}
+      <div class="on_sale">
+        {% capture saved_amount %}{{ variant.compare_at_price | minus: variant.price | money_without_trailing_zeros }}{% endcapture %}
+        <p>Save <br/> {{saved_amount}}</p>
+      </div>
+      {% endif %}
+      {% endif %}
+    </div>
+  </div>
+
+
+  {% unless no_text == true %} 
+  <div class="text {{ product.handle }}">
+
+    {% if product.type == 'NON_POWER_READING' %}
+    <a href="{{ variant.url | within: collection }}" class="thin_title">
+      THIN OPTICS READING GLASSES
+    </a>
+    {% endif %}
+
+    {% assign short_name = false %}
+    {% for tag in product.tags %}
+    {% if tag contains 'short_name_' %}
+    {% assign short_name = true %}
+    {% assign s_name =  tag | remove : 'short_name_' %}
+    {% endif %}
+    {% endfor %}
+    <a href="{{ variant.url | within: collection }}" class="product_link">
+      <span class="product_title">
+       {%- if short_name -%}
+       {{s_name}}
+       {%- else -%}
+       {{ product.title}} - {{ variant.title }}
+       {%- endif -%}
+     </span>
+     {% if section.settings.product_vendor_enable %}
+     <p class="grid-product__vendor">{{ variant.vendor }}</p>
+     {% endif %}
+   </a> 
+
+   <!--  <a href="{{ variant.url | within: collection }}" class="product_link">
+      <span class="product_title">{{product.title}} - {{ variant.title }}</span>
+      {% if section.settings.product_vendor_enable %}
+      <p class="grid-product__vendor">{{ variant.vendor }}</p>
+      {% endif %}
+    </a> -->
+    <span class="product_price">
+      <span class="orignal">
+        {{- variant.price | money_without_trailing_zeros | replace: ',','' -}}
+      </span>
+
+      {% if settings.compare_price %}
+      {% if sale %}
+      <span class="compare">
+        {{- variant.compare_at_price | money_without_trailing_zeros | replace: ',','' -}}
+      </span>
+      {% endif %}
+      {% endif %}
+
+      {% if variant.type == 'Eyeglasses' %}
+      {% if settings.after_hour %}
+      <br/>
+      {% endif %}
+      <span class="note">
+        ( including prescription lenses )
+      </span>
+      {% endif %}
+
+    </span> 
+    
+    
+     <div class="wlicon_collpg" onclick="addwishlistcallcollctn('wlproduct_{{ product.id }}', '{{ product.handle }}', 'detail_{{product.id}}');"><img src="{{ 'wishlist_g.png' | asset_img_url: '22x'}}" /></div>
+	 <div class="wlicon_collpg_active" onclick="removewishlistcallcollctn('wlproduct_{{ product.id }}', '{{ product.handle }}', 'detail_{{product.id}}');"><img src="{{ 'wishlist_new.png' | asset_img_url: '22x'}}" /></div>
+  
+</div>
+{% endunless %}
+
+</div>

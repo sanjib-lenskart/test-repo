@@ -1,0 +1,32 @@
+<div class="{% if section.settings.contact %}col-md-7{% else %}col-sm-12{% endif %}">
+  <div class='row'>
+    <div class='col-md-6'>
+      <div class="nav nav_1">
+        <p class="title">{{linklists[section.settings.nav_1].title}}</p>
+        <ul class='list'>
+          {% for link in linklists[section.settings.nav_1].links %}
+          <li>
+            <a href="{{link.url}}">
+              {{link.title}}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class='col-md-6'>
+      <div class="nav nav_2">
+        <p class="title">{{linklists[section.settings.nav_2].title}}</p>
+        <ul class='list'> 
+          {% for link in linklists[section.settings.nav_2].links %}
+          <li>
+            <a href="{{link.url}}">
+              {{link.title}}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

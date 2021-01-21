@@ -1,0 +1,96 @@
+<!-- home-mobile-collections -->
+<div class="container {% unless section.settings.show_mobile %}xs-hide{% endunless %}{% unless section.settings.show_desktop %} xs-show{% endunless %}">
+  <div class="row">
+    <div class="col-xs-12 col-sm-12">
+      {% unless section.settings.title == blank  %}
+      <h3 class="title text-center">{{section.settings.title}} <span>{{section.settings.title-text-box}}</span></h3>
+      {% endunless %}
+    </div>
+    {% for block in section.blocks %}
+    <div class="col-md-20 col-xs-6 col-sm-6 coll-container {% if forloop.index == 1 or forloop.index == 2 %}mb40{% endif %}"> 
+      <a href="{{ block.settings.link }}" >
+        <i><img src="{{ block.settings.image | img_url: '700x' }}" alt=""></i>
+      {% unless block.settings.name == blank  %}
+        <div class="text-wrapper">
+      <div class="type">{{ block.settings.type }}</div>
+      <div class="name">{{ block.settings.name }}</div>
+      <div class="info">{{ block.settings.info }}</div>
+        </div>
+      {% endunless %}
+      </a>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Home Mobile Colections",
+	"class": "home-mobile-collections",
+	"max_blocks":20,
+    "settings": [
+      {
+        "type": "header",
+        "content": "General"
+      },
+      {
+        "id": "title",
+        "type": "text",
+        "label": "Heading",
+        "default": "Title"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_desktop",
+        "label": "Show On Desktop",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_mobile",
+        "label": "Show on Mobile",
+        "default": true
+      }
+    ],
+"blocks":[  
+      {  
+      "type":"text",
+      "name":"Text",
+          "settings":[  
+		  {
+          "type":"image_picker",
+          "id":"image",
+          "label":"Image"
+          },
+          {
+          "id": "link",
+          "type": "url",
+          "label": "Collection link"
+          },
+          {
+          "type":"text",
+          "id":"type",
+          "label":"Type"
+          },
+{
+          "type":"text",
+          "id":"name",
+          "label":"Collection Name"
+          },
+		  {
+          "type":"text",
+          "id":"info",
+          "label":"information"
+          }
+        ]
+ 	  }		
+	],
+
+        "presets": [
+          {
+            "name": "Home Mobile Colections",
+            "category": "Collection"
+          }
+        ]
+  }
+{% endschema %}

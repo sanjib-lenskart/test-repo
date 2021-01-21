@@ -1,0 +1,24 @@
+.product-thumbnail__quantity,.order-summary__section__content .product-table{
+  display:none;
+}
+.reviewSection .product-table{
+  display:initial;
+}
+.order-summary__section.order-summary__section--product-list{
+  display: initial;
+  @media(min-width:1000px){
+  min-height: 150px;
+  }
+  overflow-y: auto;
+}
+.order-summary__sections{
+  @media(min-width:1000px){
+  height:180px;
+  }
+}
+.order-summary__scroll-indicator{
+display:none;
+}
+.order-summary__section--product-list::after{
+bottom:-5px;
+}

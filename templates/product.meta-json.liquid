@@ -1,0 +1,12 @@
+<!-- product template -->
+{% layout none %}
+
+
+<script>
+  window.men_id = {{product.metafields.men_id | json}};
+   window.women_id = {{product.metafields.women_id | json}};
+window.variant_id = {{product.metafields.variant_id | json}};   
+window.men_src = {{product.metafields.men_src | json}};
+   window.women_src = {{product.metafields.women_src | json}};
+window.variant_src = {{product.metafields.variant_src | json}}; 
+  </script>

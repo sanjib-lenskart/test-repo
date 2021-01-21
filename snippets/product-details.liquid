@@ -1,0 +1,117 @@
+<!-- Blu Logic Starts -->
+{% assign bluCollection = "best-seller-blue,blue-light-eyeglasses-with-zero-power,blue-light-blocking-eyeglasses,blue-light-eyeglasses-for-men,blue-light-eyeglasses-for-women,blue-light-eyeglasses-for-kids,blue-light-blocker-magnetic-clip-on-glasses" | split: ',' %}
+{% assign collectionHandleVal = collection.handle %}
+{% if bluCollection contains collectionHandleVal %}
+	{% assign bluCounter = true %}
+{% endif %}
+{% if collectionHandleVal == 'blue-light-eyeglasses-with-zero-power'%}
+	{% assign bluLensCounter = true %}
+{% endif %}
+<!-- Blu Logic Ends -->
+<!-- product-details -->
+{% assign swatch = 'Color' %}
+{% assign sale = false %}
+
+{% if product.compare_at_price > product.price %}
+{% assign sale = true %}
+{% endif %}
+
+{% assign sold_out = true %}
+
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+
+{% assign current_variant = product.selected_or_first_available_variant %}
+
+<span class="current_variant_sku hide">{{ current_variant.sku }}</span>
+{% if product.type == 'NON_POWER_READING' %}
+<h1 itemprop="name" >THIN OPTICS READING GLASSES</h1>
+  <p class="product_title non_power_product">
+    {{product.title}} - <span class="variant_title"></span>
+  </p>
+{% else %}
+<h1 class="product_title" itemprop="name">{{product.title}}</h1>
+
+<div class="text-center" style="min-height:9px;">
+<div class="yotpo bottomLine titlereview-pp"
+  data-product-id="{{ product.selected_or_first_available_variant.sku }}">
+{%- assign yotpo_offload_content = shop.metafields.yotpo.yotpo_offload_content %}
+{%- assign time_now = 'now' | date: '%s' %}
+{%- assign yotpo_live_time = shop.metafields.yotpo.yotpo_live | date: '%s' %}
+{%- assign diff_seconds_from_live = time_now | minus: yotpo_live_time %}
+{%- assign yotpo_bottomline_last_updated = product.metafields.yotpo.bottomline_update_time | date: '%s' %}
+{%- assign diff_seconds_from_last_bottomline_update = time_now | minus: yotpo_bottomline_last_updated %}
+{%- if yotpo_live_time and diff_seconds_from_live < 86400 or yotpo_bottomline_last_updated and diff_seconds_from_last_bottomline_update < 86400 -%}
+   {%- assign yotpo_bottomline_obsolete = false %}
+{%- else %}
+   {%- assign yotpo_bottomline_obsolete = true %}
+{%- endif %}
+{%- if yotpo_offload_content == 'yes' and yotpo_bottomline_obsolete != true -%}
+   {{ product.metafields.yotpo.bottomline }}
+{%- endif %}
+</div>
+</div>
+{% endif %}   
+  
+    <div class="var_image">
+     {% include 'swatch' with 'Color' %}
+    </div>
+<div class="price-ak"> 
+  {% if product.type == 'Contact_Lens_Medical' or product.type == 'Contact_Lens_Color' %}
+  <span class="twobox">2 Boxes at</span>{{ product.price | money }}     
+  <p class="oneboxforeach">One box for each eye</p>
+  {% else %}
+  
+        {% assign frameprice = product.price %}
+        {% assign lensprice = 5000 %}        
+        {% assign lensframeprice = lensprice | plus: frameprice  %}
+        {% assign frameprice2 = product.price %}
+        {% assign lensprice2 = 1500 %}        
+        {% assign lensframeprice2 = lensprice2 | plus: frameprice2  %}
+  		
+        <span class="orignal">
+          {% if collection.handle == 'transition-eyeglasses'%}
+          {{ lensframeprice | money }}
+
+          {% elsif collection.handle == 'prescription-sunglasses' or collection.handle == 'blue-light-blocking-eyeglasses' or collection.handle == 'blue-light-eyeglasses-for-men' or collection.handle == 'blue-light-eyeglasses-for-women' or collection.handle == 'blue-light-eyeglasses-for-kids' or collection.handle == 'best-seller-blue' or collection.handle == 'blue-light-eyeglasses-with-zero-power' %}
+          {{ lensframeprice2 | money }}
+
+          {% else %}
+          {{- product.price | money_without_trailing_zeros  -}}
+        </span>
+        {% endif %}  
+        
+  {% endif %}
+</div>
+
+<div class="{% if product.type == 'Eyeglasses' or product.type == 'Testing' %} lens_tag{% endif %}" 
+itemprop="offers" itemscope itemtype="http://schema.org/Offer"
+>
+<meta itemprop="priceCurrency" content="{{ shop.currency }}">
+<link itemprop="availability" href="http://schema.org/{% if product.available %}InStock{% else %}OutOfStock{% endif %}">
+<div class="price_block">
+ <div class="pre_block">  
+      {% if product.type == 'Eyeglasses' or product.type == 'Testing' %}
+        <div class="product_prescription_eye">
+          
+          <p class='traditional_designer xs-hide'>
+          </p>
+      </div>
+    {% endif %}
+    
+    <div class="product_prescription_eye xs-hide">
+      {% if product.type == 'Sunglasses' or product.type == 'Testing' %}
+        <p class='traditional_designer'>
+        </p>
+      {% endif %} 
+    </div>
+  </div>
+
+</div>
+
+
+{%- unless settings.after_hour -%}
+{%- endunless -%}
+{% include 'product-form'  %}
+</div>

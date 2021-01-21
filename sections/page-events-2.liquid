@@ -1,0 +1,83 @@
+<div class="{% unless section.settings.full %}container{% endunless %}">
+	<div class='events_slider'>
+		<ul class="lightSlider">
+			{% assign src_class = 'slider_image' %}
+			{%- for block in section.blocks -%}
+			<li class="v_hide slider_li">
+				<div class='img'>
+					{% assign src_name = block.settings.image %}
+
+					{% assign src_alt = block.settings.alt |  escape %}
+					{% include 'srcset-img' %}
+					{% if block.settings.video_check %}
+					<a class="play fancybox fancybox.iframe" href="{{block.settings.video}}">
+						<img src="{{'video_play.png' | asset_img_url: '64x64'}}">
+					</a>
+					{% endif %}
+				</div>
+			</li>
+			{%- endfor -%}
+			{% assign src_class = blank %}
+		</ul>
+		<div class='text_content'>
+			<h3 class='header'>
+				<span> {{section.settings.title}}</span>
+			</h3>
+			<div class='text'>
+				{{section.settings.text}}
+			</div>
+		</div>
+	</div>
+</div>
+{% comment %}
+<script>
+	{% endcomment %}
+	{%- schema -%}
+	{
+		"name": "Event 2",
+		"class":"event_page_sliders",
+		"settings": [
+		{
+			"type":"checkbox",
+			"label":"Full-width",
+			"id":"full"
+		},
+		{
+			"type":"text",
+			"id":"title",
+			"label":"Title"
+		},
+		{
+			"type":"richtext",
+			"id":"text",
+			"label":"Text"
+		}
+		],
+		"blocks":[
+		{
+			"type":"image",
+			"name":"Image",
+			"settings":[
+			{
+				"type":"image_picker",
+				"id":"image",
+				"label":"Image"
+			},
+			{
+				"type":"checkbox",
+				"id":"video_check",
+				"label":"Add as video?"
+			},
+			{
+				"type":"text",
+				"id":"video",
+				"label":"Video URL"
+			}
+			]
+		}
+		]
+	}
+	{% endschema %}
+	{%- comment -%}
+</script>
+{%- endcomment %}

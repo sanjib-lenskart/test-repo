@@ -1,0 +1,117 @@
+{% unless section.settings.hide %}
+{% if section.settings.image == blank %}
+{% include 'no-section-msg' %}
+{% else %}
+<div id="home_promotional_banner" class="clearfix">
+  <div class="{% unless section.settings.full %}container{% endunless %}">
+    <div class="{% unless section.settings.full %}row{% endunless %}">
+      {% unless section.settings.title == blank %}
+      <div class="col-sm-12 col-xs-12">
+        <p class="text-center header"><span>{{section.settings.title}}</span></p>
+      </div>
+      {% endunless %}
+      <div class="col-sm-7">
+        <div class="img">
+          <a href="{{section.settings.img_link}}">
+            <img data-img="{{ section.settings.image | img_url: '1024x1024' | format: 'jpg' }}" src="{{ section.settings.image | img_url: '100x' | format: 'jpg' }}" class="img_blur img_load">
+          </a>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <div class="img">
+          <a href="{{section.settings.product_img_link}}">
+            <img data-img="{{ section.settings.product_image | img_url: 'large' | format: 'png' }}" src="{{ section.settings.product_image | img_url: '100x' | format: 'jpg' }}" class="img_blur img_load">
+          </a>
+        </div><br/>
+        <div class="text">
+          {{section.settings.text}}
+        </div>
+        {% unless section.settings.btn == blank %}
+        <div class="button text-center">
+          <a href="{{section.settings.btn_link}}" class="btn-large">
+            {{section.settings.btn}}
+          </a>
+        </div>
+        {% endunless %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endunless %}
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+    "name": "Banner promotional image",
+      "settings": [
+        {
+          "type": "checkbox",
+          "label": "Full-width",
+          "id": "full"
+        },
+        {
+          "type": "checkbox",
+          "label": "Hide",
+          "id": "hide",
+          "default":false
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Banner image"
+        },
+        {
+          "type": "text",
+          "id": "img_link",
+          "label": "Image URL"
+        },
+        {
+          "type":"text",
+          "label":"Header text",
+          "id":"title"
+        },
+        {
+          "type": "image_picker",
+          "id": "product_image",
+          "label": "Product image"
+        },
+        {
+          "type": "text",
+          "id": "product_img_link",
+          "label": "Image URL"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Description"
+        },
+        {
+          "type": "text",
+          "id": "btn",
+          "label": "Button"
+        },
+        {
+          "type": "text",
+          "id": "btn_link",
+          "label": "Button URL"
+        }
+      ],
+        "presets": [
+          {
+            "name": "Home page - Promotional banner",
+            "category": "Banner"
+          }
+        ]
+  }
+  {% endschema %}
+  {% comment %}
+</script>
+{% endcomment %}
+{% comment %}
+<style>
+  {% endcomment %}
+  {% comment %}
+</style>
+{% endcomment %}

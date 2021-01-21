@@ -1,0 +1,134 @@
+{% if section.settings.full %}
+{% assign container = 'container-fluid' %}
+{% else %}
+{% assign container = 'container' %}
+{% endif %}
+<div id="collection_list">
+  <div class="banner_image">
+    <div class="img"> 
+      {%- assign src_name = section.settings.banner -%}
+      {%- assign src_alt = 'Collections Banner' -%}
+      {%- assign src_class = 'xs-hide' -%}
+      {%- include 'srcset-img' -%}
+      {%- assign src_name = section.settings.mobile_banner -%}
+      {%- assign src_class = 'xs-show' -%}
+      {%- include 'srcset-img' -%}
+    </div>
+    <div class='text'>
+      {{section.settings.header_text}}
+    </div>
+  </div>
+  {%- assign src_class = '' -%}
+  <div class="{{container}}">
+    {% unless section.settings.seo_text == blank %}
+    <h1 class="text-center seo_header">{{section.settings.seo_text}}</h1>
+    {% endunless %}
+    <ul class="list">
+      <div class="row">
+        {% for block in section.blocks %}
+        {%- assign collection = collections[block.settings.collection] -%}
+
+        <li class="col-md-6">
+          <div class="img">
+            <a href="{{collection.url}}">
+              {%- assign src_name =  block.settings.image -%}
+              {%- assign src_alt =  collection.title -%}
+              {%- include 'srcset-img' -%}
+            </a>
+
+          </div>
+          <div class='flex_view middle'>
+            <div class='col-sm-7'>
+              <div class='p_img img'>
+                {%- assign src_name =  block.settings.p_image -%}
+                {%- assign src_alt =  collection.title -%}
+                {%- include 'srcset-img' -%}
+              </div>
+            </div>
+            <div class='col-sm-5'>
+              <div class='text'>
+                <div class='desc_wrap'>
+                  <div class='desc'>
+                    {{collection.description}}
+                  </div>
+                </div>
+                <div class='btn_wrap'>
+                  <a class='btn' href='{{collection.url}}'>
+                    Shop Now
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+
+        </li>
+        {% endfor %}
+      </div>
+    </ul>
+  </div>
+</div>
+{%- comment -%}
+<script>
+  {%- endcomment -%}
+  {% schema %}
+  {
+    "name": "Collection list",
+      "class":"no_padding",
+        "settings": [
+          {
+            "type":"checkbox",
+            "label":"Full-width",
+            "id":"full"
+          },
+          {
+            "type": "image_picker",
+            "id": "banner",
+            "label": "Banner image"
+          },
+          {
+            "type": "image_picker",
+            "id": "mobile_banner",
+            "label": "Mobile Banner image"
+          },
+          {
+            "type":"richtext",
+            "label":"Banner text",
+            "id":"header_text"
+          },
+          {
+            "type":"text",
+            "label":"SEO text",
+            "id":"seo_text"
+          }
+        ],
+          "blocks":[
+            {
+              "name":"collection",
+              "type":"collection",
+              "settings":[
+                {
+                  "type":"collection",
+                  "id":"collection",
+                  "label":"Collection"
+                },
+                {
+                  "type":"image_picker",
+                  "id":"image",
+                  "label":"Image"
+                },
+                {
+                  "type":"image_picker",
+                  "id":"p_image",
+                  "label":"Products image"
+                }
+              ]
+            }
+          ]
+  }
+  {% endschema %}
+  {%- comment -%}
+</script>
+{%- endcomment -%}

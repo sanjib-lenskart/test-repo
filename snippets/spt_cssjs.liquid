@@ -1,0 +1,273 @@
+<style>
+    .spt-box-container{
+        margin-top:20px;
+        display:block;
+    }
+    .spt-box-container img{
+        height: auto !important;
+        max-width:100% !important;
+    }
+    .spt-box{
+        /*     display:inline-block; */
+    }
+    .spt-tab-desc{
+        padding:0px !important;
+        list-style-type:none;
+        margin: 0px !important;
+    }
+    .spt-tab-desc>li{
+        padding:0px;
+        list-style-type:none;
+        /*     border-top:1px solid #ddd; */
+        margin:0px;
+    }
+    .spt-tab-desc>li>h5{
+        cursor:pointer;
+        display:none;
+    }
+    .spt-tab-desc>li:last-child{
+        border-bottom:1px solid #ddd;
+    }
+    .spt-tab-desc>li>.spt-desc{
+        display:none;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-bottom: 0px;
+    }
+    .spt-tab-desc>li>.spt-title{
+        padding: 5px;
+        background: #fff;
+        border: 1px solid #ddd;
+        margin: 0px;
+        border-bottom: 0px;
+        font-size: 13px;
+    }
+    .spt-tab-desc>li>.spt-title:after{
+        content: "+";
+        font-size: 90%;
+        margin: 0px;
+        -webkit-transition-delay: 0.25s;
+        -moz-transition-delay: 0.25s;
+        -o-transition-delay: 0.25s;
+        transition-delay: 0.25s;
+        -webkit-transition-duration: 0.25s;
+        -moz-transition-duration: 0.25s;
+        -o-transition-duration: 0.25s;
+        transition-duration: 0.25s;
+        float: right;
+        font-style: normal;
+    }
+    .spt-tab-desc>li>.spt-title.expanded:after{
+        content: "-";
+    }
+    .spt-accordian>li>h5{
+        display:block;
+    }
+</style>
+<style>
+    ul.spt-tabs li.active a {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border-left-width: 1px;
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
+        color: #111111;
+        position:relative;
+        height: 31px;
+    }
+    ul.spt-tabs {
+        border-bottom: 1px solid #DDDDDD;
+        display: block;
+        margin: 0 0 0px;
+        padding: 0;
+    }
+    ul.spt-tabs li {
+        display: block;
+        float: left;
+        margin-bottom: 0;
+        padding: 0;
+        width: auto;
+        height: 30px;
+        line-height: 30px;
+    }
+    ul.spt-tabs li a {
+        -moz-border-bottom-colors: none;
+        -moz-border-image: none;
+        -moz-border-left-colors: none;
+        -moz-border-right-colors: none;
+        -moz-border-top-colors: none;
+        background: none repeat scroll 0 0 #F5F5F5;
+        border-color: #DDDDDD !important;
+        border-style: solid;
+        border-width: 1px 1px 0 1px;
+        display: block;
+        font-size: 13px;
+        margin: 0;
+        padding: 0px 20px;
+        height: 30px;
+        line-height: 30px;
+        text-decoration: none;
+        width: auto;
+        color: #303030;
+        border-bottom:none !important;
+    }
+    ul.spt-tabs li a:focus {
+        outline: none;
+    }
+    ul.spt-tabs li a.active {
+        background: none repeat scroll 0 0 #FFFFFF;
+        border-left-width: 1px;
+        border-top-left-radius: 2px;
+        border-top-right-radius: 2px;
+        color: #111111;
+        position: relative;
+
+    }
+    ul.spt-tabs li:first-child a.active {
+        margin-left: 0;
+    }
+    ul.spt-tabs li:first-child a {
+        border-top-left-radius: 2px;
+        border-width: 1px 1px 0;
+    }
+    ul.spt-tabs li:last-child a {
+        border-top-right-radius: 2px;
+    }
+    ul.spt-tabs:before, ul.spt-tabs:after {
+        content: " ";
+        display: block;
+        height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        width: 0;
+    }
+    ul.spt-tabs:after {
+        clear: both;
+    }
+    .sp-fix:before,.sp-fix:after {
+        content: "\0020";
+        display: block;
+        height: 0;
+        visibility: hidden;
+    }
+    .sp-fix:after {
+        clear: both;
+    }
+</style>
+<script>
+    var loadScript = function (url, callback) {
+
+        var script = document.createElement("script");
+        script.type = "text/javascript";
+
+        // If the browser is Internet Explorer.
+        if (script.readyState) {
+            script.onreadystatechange = function () {
+                if (script.readyState == "loaded" || script.readyState == "complete") {
+                    script.onreadystatechange = null;
+                    callback();
+                }
+            };
+            // For any other browser.
+        } else {
+            script.onload = function () {
+                callback();
+            };
+        }
+
+        script.src = url;
+        document.getElementsByTagName("head")[0].appendChild(script);
+
+    };
+
+    var myAppJavaScript = function () {
+        var sptabboxwidth;
+        spt$(document).ready(function () {
+            var tab = 0;
+            function switchTab(tab) {
+                if (tab === 0) {
+                    spt$(".spt-tabs").css('visibility', 'hidden');
+                    spt$(".spt-tabs").css('height', '1px');
+                    spt$(".spt-tabs").css('overflow', 'hidden');
+                    spt$(".spt-title").show();
+                    spt$(".spt-title").next().slideUp();
+                    spt$(".spt-tab-desc").addClass("spt-accordian");
+                } else {
+                    spt$(".spt-tabs").css('visibility', 'visible');
+                    spt$(".spt-tabs").css('height', 'auto');
+                    spt$(".spt-tabs").css('overflow', 'inherit');
+                    spt$(".spt-tabs").show();
+                    spt$(".spt-title").hide();
+                    spt$(".spt-tab-desc").removeClass("spt-accordian");
+                }
+            }
+
+            spt$(window).resize(function () {
+                switchBasedOnSize();
+            });
+
+            spt$(".spt-title").click(function () {
+                spt$(this).toggleClass('expanded');
+                spt$(this).next().slideToggle("slow");
+            });
+
+            spt$(".spt-tabs li a").click(function (e) {
+                e.preventDefault();
+                spt$(".spt-tabs li").removeClass("active");
+                spt$(this).closest('li').addClass("active");
+                spt$('.spt-desc').hide();
+                var t = spt$(this).attr("href");
+                spt$(t).find('.spt-desc').show();
+            });
+
+            function switchBasedOnSize() {
+
+                var total = 0;
+                var divTab = spt$("ul.spt-tabs").width();
+                spt$('ul.spt-tabs li').each(function () {
+                    //spt$(this).attr("a");
+                    total += spt$(this).width();
+                });
+                if (spt$(window).width() < 768) {
+                    switchTab(0);
+                } else {
+                    var tab = spt$('.spt-box-container').attr('data-format');
+                    if (tab == "TAB") {
+                        tab = 1;
+                    } else {
+                        tab = 0;
+                    }
+                    switchTab(tab);
+                }
+            }
+            var tab = spt$('.spt-box-container').attr('data-format');
+            if (tab == "TAB") {
+                tab = 1;
+            } else {
+                tab = 0;
+            }
+            switchTab(tab);
+            switchBasedOnSize();
+            if (tab) {
+                spt$(".spt-tabs li:first-child a").click();
+            }
+        });
+    }
+    if ((typeof jQuery === 'undefined')) {
+        loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js', function () {
+            spt$ = jQuery.noConflict(true);
+            myAppJavaScript();
+        });
+    } else {
+        var arr = $.fn.jquery.split('.'); //["1", "10", "2"]
+        if (arr[0] > 1 || (arr[0] == 1 && arr[1] > 7)) {
+            //Do your thing
+            spt$ = jQuery;
+            myAppJavaScript(jQuery);
+        } else {
+            loadScript('//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js', function () {
+                spt$ = jQuery.noConflict(true);
+                myAppJavaScript();
+            });
+        }
+    }
+</script>

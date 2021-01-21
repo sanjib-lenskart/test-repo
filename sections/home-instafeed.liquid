@@ -1,0 +1,106 @@
+<!-- home-instafeed -->
+<style>
+  .home_instagram .il-photo__likes{
+    background:url({{'heart.png' | asset_url}});
+  }
+</style>
+<div class="home_instagram" 
+     data-id="{{section.settings.instagram_client_id}}" 
+     data-like="{{section.settings.like}}" 
+     data-tag="{{section.settings.tag}}" 
+     data-limit="{{section.settings.limit}}"
+     data-width="{{section.settings.photos_per_row}} col-xs-6" 
+     data-gutter="{% if section.settings.gutter %}true{% else %}false{% endif %}">
+  <div class="{% if section.settings.full %}container-fluid{% else %}container{% endif %}">
+
+    <div class="container">
+      {% unless section.settings.text  == blank %}
+      <h3 class=" title {% if section.settings.gutter %}no_gutter{% endif %}">
+        <a href='/pages/shop-by-instagram' > {{section.settings.text}}</a>
+      </h3>
+      {% endunless %}
+      
+    </div>
+    <div id="evm_shopify_app"></div>
+
+  </div>
+</div>
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+    "name": "Instagram feed",
+      "class":"no_bottom_padding",
+        "settings": [
+          {
+            "type": "checkbox",
+            "label": "Full-width",
+            "id": "full"
+          },
+          {
+            "type": "text",
+            "label": "Header text",
+            "id": "text"
+          },
+          {
+            "type": "text",
+            "id": "instagram_client_id",
+            "label": "Instagram Access Token ([?](http://instagram.pixelunion.net/))"
+          },
+          {
+            "type": "checkbox",
+            "id": "gutter",
+            "label": "No gutter?",
+            "default": true
+          },
+          {
+            "type": "select",
+            "id": "photos_per_row",
+            "info": "Only for desktop view",
+            "label": "Photos per row",
+            "options":[
+              {
+                "value": "col-sm-6",
+                "label": "2"
+              },
+              {
+                "value": "col-sm-4",
+                "label": "3"
+              },
+              {
+                "value": "col-sm-3",
+                "label": "4"
+              }
+            ]
+          },
+          {
+            "type": "number",
+            "label": "Photos limit",
+            "id": "limit",
+            "default":4
+          },
+          {
+            "type": "checkbox",
+            "label": "Enable photos like",
+            "id": "like"
+          },
+          {
+            "type": "checkbox",
+            "label": "Enable photos tags",
+            "id": "tag"
+          }
+        ],
+          "presets": [
+            {
+              "name": "Home page - Instagram feed",
+              "category": "Instagram"
+            }
+          ]
+  }
+  {% endschema %}
+
+
+  {% comment %}
+</script>
+{% endcomment %}

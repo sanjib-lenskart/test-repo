@@ -1,0 +1,201 @@
+<!-- cart template -->
+{%- assign bogo_applied = false -%}
+{%- assign prepaid = true -%}
+{%- assign prepaidApplied = false -%}
+{%- assign p_price = settings.p_price -%}
+
+<div id="cart_page">
+  {% include 'cart-header' %}
+  <div class="text-center cart_continue_btn">
+  </div>
+  <div class="container">
+    <div class='row'>
+      <div class='col-md-12'>
+        {% if cart.item_count > 0 %}
+        <form  method="post" novalidate class="cart">
+          <header class="section-header text-center">
+            <div class="cart-loader-action hide">
+              <ul class="animate-logo">
+                <li class="logo-round-one"></li>
+                <li class="logo-round-two"></li>
+              </ul>
+            </div>
+            <div class='row'>
+              <div class='col-sm-7'>
+                <h1 class="text-left xs-center">
+                  <span class="backtocollections xs-show">←</span>
+                  {{ 'cart.general.title' | t }}
+                </h1>
+              </div>
+              <div class='col-sm-5 text-right cart_checkout_btn1'>
+                <div id="cart_checkout_btn1" type="submit" name="checkout" class="btn cart_checkout_btn cart_btn" onclick='ga("send", "event", "CHECKOUT");'>
+                  {{ 'cart.general.checkout' | t }}
+                  <span class="loading"></span>
+                </div>
+              </div>
+            </div>
+            <hr class="hr--small">
+          </header>
+
+          <div class="cart_main">
+            {%- assign master_count = 0 -%}
+			{% assign bogo_btn = false %}
+            {%- assign last_item  = blank -%}
+            {% for item in cart.items %}
+            
+            {%- assign flatDiscount = false -%}
+            {%- if item.properties['flat_discount'] == 'yes' -%}
+            {%- assign flatDiscount = true -%}
+            {%- endif -%} 
+            
+            {% if item.product.type != "Lens" %}
+            {%- assign last_item = item -%}
+            
+            {% if item.product.tags contains 'cart_hide' %}
+            {% assign second_product = true %}
+            {% else %}
+            {% assign second_product = false %}
+            {% endif %}
+            {% endif %}
+
+            {%- assign master = false -%}
+            {%- assign child = false -%}
+            {%- assign sunglass = false -%}
+            {% assign zero = false %}
+            {% assign bundle = blank %}
+            {% assign property_size = item.properties | size %}
+
+            {%- for p in item.properties -%}
+            {% if p.first == 'zero-power' %}
+            {% assign zero = true %}
+            {% endif %}
+            {% if p.first == 'Bundle'  %}
+            {% assign bundle = p.last %}
+            {% if item.product.type == 'Lens' %}
+            {%- assign child = true -%}
+            {%- else -%}
+
+            {%- assign master = true -%}
+            {% if item.product.type == 'Sunglasses' %}
+            {%- assign sunglass = true -%}
+            {% endif %}
+            {% endif %}
+            {%- endif -%}
+            {%- endfor -%}
+            {% if item.product.type != 'Lens' and item.product.type != 'Gift'%}
+            {%- assign master_count = master_count | plus:1 -%}
+            {%- endif -%}
+            <!-- checkout script -->
+            {% assign script_dis = false %}
+            {% if item.price == 0 %}
+            {% assign script_dis = true %} 
+            {% assign bogo_applied = true %}
+            {% endif %}
+            <!-- end of checkout script -->
+            {%- assign product = item.product -%}
+            {%- for tag in product.tags -%}
+            {%- if tag contains 'short_name_' -%}
+            {%- assign  child_name = tag | remove:'short_name_' -%}
+            {%- endif -%}
+            {%- endfor -%}
+            <div data-product-type="{{item.product.type}}" class="items item_{{bundle}}{% if child %} hide child {% else %} {% endif %}{% if master %} master{% endif %}" data-bundle='{{bundle}}' data-handle='{{item.product.handle  }}' {% if child %}data-line='{{item.id}}' data-price='{{item.price}}' data-name="{{child_name}}"{% endif %} {% if zero %}data-zero='true'{% endif %}
+                 {%- if item.product.tags contains 'nodiscount' -%} data-nodiscount="true" {%- endif -%}
+                 >
+              {% include 'cart-snippet' %}
+            </div>
+            {% assign bundle_product = false %}
+            {% endfor %}
+            {%- assign master_mod = master_count | modulo:2 -%}
+            {%- if master_mod != 0 -%}
+            {% assign bogo_btn = true %}
+            {%- endif -%}
+            {% if bogo_btn %}
+            <div class="flex_view_xs">
+              <div class="col-xs-12">
+                {% if product.type != 'Contact Lens' %}
+                {%- include 'cart-discount-block' -%}
+                {% endif %} 
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          {%- include 'cart-footer' -%}
+          <input type="hidden" name="discount" class="topbar_dis">
+        </form>
+        {% else %}
+        {% comment %}
+        The cart is empty
+        {% endcomment %}
+        <header class="section-header text-center">
+          <h1 class="text-center">{{ 'cart.general.title' | t }}</h1>
+          <hr/>
+          <p>{{ 'cart.general.empty' | t }}</p>
+           <p class="btn"><a style="color:white;"href="/collections/eyeglasses">Continue browsing here.</a></p>
+        </header>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div> 
+{% include 'remove-gift' %}
+{% comment %}
+{% include 'free-gift' %}
+{% endcomment %}
+  {% schema %}
+  {
+    "name": "Cart detail",
+      "settings":[
+        {
+          "type":"checkbox",
+          "id":"checkout_script",
+          "label":"Checkout script text"
+        },
+        {
+          "type":"product",
+          "label":"Basic lens",
+          "id":"basic_lens"
+        },
+        {
+          "type":"checkbox",
+          "id":"leavingPopup",
+          "label":"Leaving cart popup",
+          "default":true
+        },
+        {
+          "type":"text",
+          "id":"bogo_link",
+          "label":"Discount bogo link(Right Side)"
+        }
+      ],
+        "blocks": [
+          {
+            "type": "text",
+            "name": "Info",
+            "settings": [
+              {
+                "type": "product",
+                "label": "Select Product",
+                "id": "product"
+              },
+              {
+                "type": "textarea",
+                "label": "Name",
+                "id": "name"
+              },
+              {
+                "type": "textarea",
+                "label": "Description",
+                "id": "description"
+              },
+              {
+                "type": "textarea",
+                "label": "Know more",
+                "id": "know_more"
+              }
+
+            ]
+          }
+        ]
+  }
+  {% endschema %}
+ 

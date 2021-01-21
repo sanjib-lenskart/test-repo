@@ -1,0 +1,225 @@
+<div class="order_page_pre">
+<div class="row mySlidespre fade">
+  <div class="col-sm-4 col-md-4 col-xs-4 t1">
+    Eye
+  </div>
+  <div class="col-sm-4 col-md-4 col-xs-4 t1">
+    Right Eye
+  </div>
+  <div class="col-sm-4 col-md-4 col-xs-4 t1">
+    Left Eye
+  </div>
+  
+  <div class='col-sm-4 col-md-4 col-xs-4 t2'>
+    Spherical
+  </div>
+  <div class='col-sm-4 col-md-4 col-xs-4 sr'>
+    NA
+  </div>
+  <div class='col-sm-4 col-md-4 col-xs-4 sl'>
+    NA
+  </div>
+  
+  <div class='col-sm-4 col-md-4 col-xs-4 t2'>
+    Cylindrical
+  </div>
+  <div class='col-sm-4 col-md-4 col-xs-4 sr'>
+    NA
+  </div>
+  <div class='col-sm-4 col-md-4 col-xs-4 sl'>
+    NA
+  </div>
+  
+  <div class='col-sm-4 col-md-4 col-xs-4 t2'>
+    Axia
+  </div>
+  <div class='col-sm-4 col-md-4 col-xs-4 ar'>
+    NA
+  </div>
+  <div class='col-sm-4 col-md-4 col-xs-4 al'>
+    NA
+  </div>
+  
+  <div class='col-sm-4 col-md-4 col-xs-4 t2'>
+    ADD
+  </div>
+  <div class='col-sm-4 col-md-4 col-xs-4 ar'>
+    NA
+  </div>
+  <div class='col-sm-4 col-md-4 col-xs-4 al'>
+    NA
+  </div>
+  
+</div>
+</div>
+
+
+<script>
+var slideIndex = 1;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+  var i;
+  var slides = document.getElementsByClassName("mySlidespre");
+  //var dots = document.getElementsByClassName("dot");
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+  for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
+  }
+//   for (i = 0; i < dots.length; i++) {
+//       dots[i].className = dots[i].className.replace(" active", "");
+//   }
+  slides[slideIndex-1].style.display = "block";  
+  //dots[slideIndex-1].className += " active";
+}
+</script>
+
+
+<style>
+  .t1, .t2{
+    background: #49a99c;
+    color: #fff;
+    height: 50px;
+    line-height: 50px;
+  }
+  
+  .order_page_pre .col-sm-4{
+    height: 50px;
+    line-height: 50px;
+  }
+  .order_page_pre .row{margin:0;}
+  .order_page_pre .imgs{
+   width: 100%;
+    max-height: 260px; 
+  }
+  
+  .order_page_pre .t1{
+    border: 1px solid #ddd;
+  }
+  .order_page_pre .t2{
+    border: 1px solid #ddd;
+  }
+  .order_page_pre .cmn{
+    text-indent: 6px;
+    border-radius: 0;
+    background-position: calc(100% - 8px) center;
+    background-size: 15px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    outline: none;
+  }
+  
+  .tooltiplensinfo {
+      position: relative;
+      display: inline-block;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #000;
+      line-height: 15px;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .order_page_pre .tooltiplensinfotext {
+      visibility: hidden;
+      background-color: #fff;
+      color: #000;
+      text-align: left;
+      border-radius: 6px;
+      padding: 2px 6px;
+      position: absolute;
+      z-index: 1;
+      max-width: 420px;
+      width:150%;
+      border: 1px solid #444;
+      text-transform: capitalize;
+      top: -15px;
+      line-height: 17px;
+    }
+    @media(max-width:590px){
+      .order_page_pre .tooltiplensinfotext {
+        min-width: 200px;
+        line-height: 18px;
+        padding: 6px 4px;
+      }
+    }
+    .t2:hover .tooltiplensinfotext {
+      visibility: visible;
+    }
+    .close-tooltiplensinfo{
+      width: 15px;
+      height: 15px;
+      line-height: 15px;
+      text-align: center !important;
+      position: absolute;
+      right: 0px;
+      top: -4px;
+      transform: translateY(-50%);
+      font-size: 16px;
+      font-weight: 400;
+      cursor: pointer;
+      font-family: initial;
+      color: #fff; 
+      display:none;
+      border-radius: 50%;
+      background: #000;
+      z-index: 99;
+    }
+    @media(max-width:481px){
+      .close-tooltiplensinfo{
+        display:block;
+      }
+    }
+  .order_page_pre .skuii{
+   text-align:left;
+    padding:10px 0;
+  }
+</style>
+  <script>
+    if ($(window).width() < 481) {
+      $(document).ready(function(){  
+
+        $(".order_page_pre .tooltiplensinfo").click(function(){     
+          $(this).parents('.order_page_pre').find('.tooltiplensinfotext').css('visibility','visible');
+          $(this).parents('.order_page_pre').siblings().find('.tooltiplensinfotext').css('visibility','hidden');     
+        });
+
+        $(".close-tooltiplensinfo").click(function(){
+          $(this).parents('.order_page_pre').find('.tooltiplensinfotext').css('visibility','hidden');
+
+        });
+      });
+
+      $('body').click(function(e) {
+        if (!$(e.target).closest('.tooltiplensinfotext').length){
+          $(".tooltiplensinfotext").css('visibility','hidden');
+        }
+
+        if ($(e.target).closest('.order_page_pre').length){
+          $(e.target).closest('.order_page_pre').find('.tooltiplensinfotext').css('visibility','visible');
+        }
+
+        if ($(e.target).closest('.close-tooltiplensinfo').length){
+          $(e.target).closest('.order_page_pre').find('.tooltiplensinfotext').css('visibility','hidden');
+        }
+      });
+    }
+  </script>

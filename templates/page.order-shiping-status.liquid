@@ -1,0 +1,229 @@
+{%- assign shp_secret_salt = "zGWgkS8umiqgDDPoK7asfmT2DRdp8WZJfLj8Vyhih2GtAoTiD" -%}
+
+{%- assign date = "now" | date: "%Y-%m" -%}
+{%- assign hash_val = date | append: '-' -%}
+{%- assign hash_val = hash_val | append: 'lk-secret-k' -%}
+{% assign my_secret_string = hash_val | hmac_sha256:  shp_secret_salt%}
+<style>
+	#shopify-section-footer{
+      display:none !important;
+    }
+  @media (max-width: 767px){
+    .btn{
+      width:100%;
+      margin-top:10px;
+    }
+  }
+</style>
+<script>
+  function fetchOrderStatus(){
+  	var orderNo = $('#OrderNo').val();
+    $("#track-shipment-estimate").hide();
+    if(orderNo!=null){
+    $.ajax({
+          url: "https://singapore.lenskart.com/api/shopify-order-shippment-status.php",
+          type: "post",
+          dataType: "json",
+          data: {
+            "order_no": orderNo,"token":"{{my_secret_string}}"
+          },
+          success: function (response) {
+            console.log(response);
+            if(response.status=='Success'){
+              $("#track-shipment-error").hide();
+              if(response.data.tracking_no != null){
+                var trackUrl="https://www.dhl.com/us-en/home/tracking.html?tracking-id="+response.data.tracking_no;
+              	$("#track-shipment-div").show();
+                $("#track-shipment").attr("href", trackUrl)
+              }else{
+                $("#track-shipment-div").hide();
+              }
+              $("#order_page").show();
+              	if(response.data.shipment_status == "complete_shipped" || response.data.shipment_status == "complete" ){
+          			$('.order_Placed').removeClass('hideimp');	
+                  	$('.processing-on').removeClass('hideimp');
+          			$('.processing-off').addClass('hideimp');
+          			$('.order_dispatched-on').removeClass('hideimp');
+          			$('.order_dispatched-off').addClass('hideimp'); 
+                  	$('.order_completed-on').addClass('hideimp');
+          			$('.order_completed-off').removeClass('hideimp');
+                    $('.cancelled').addClass('hideimp'); 
+        		}else if(response.data.shipment_status == "delivered"){
+          			$('.processing-on').removeClass('hideimp');
+          			$('.processing-off').addClass('hideimp');
+          			$('.order_dispatched-on').removeClass('hideimp');
+          			$('.order_dispatched-off').addClass('hideimp');
+          			$('.order_completed-on').removeClass('hideimp');
+          			$('.order_completed-off').addClass('hideimp'); 
+                  	$('.cancelled').addClass('hideimp');
+        		}else if(response.data.shipment_status == "predelivery_refund" ){
+           			$('.order_Placed').addClass('hideimp');
+          			$('.processing-on').addClass('hideimp');
+          			$('.processing-off').addClass('hideimp');
+          			$('.order_dispatched-on').addClass('hideimp');
+          			$('.order_dispatched-off').addClass('hideimp'); 
+          			$('.order_completed-off-on').addClass('hideimp');
+          			$('.order_completed-off').addClass('hideimp'); 
+          			$('.cancelled').removeClass('hideimp'); 
+                }else if(response.data.shipment_status =="" || response.data.shipment_status ==null){
+                  	$('.order_Placed').removeClass('hideimp');
+          			$('.processing-on').addClass('hideimp');
+          			$('.processing-off').removeClass('hideimp');
+          			$('.order_dispatched-on').addClass('hideimp');
+          			$('.order_dispatched-off').removeClass('hideimp');
+          			$('.order_completed-on').addClass('hideimp');
+          			$('.order_completed-off').removeClass('hideimp'); 
+                  	$('.cancelled').addClass('hideimp');
+                }else if(response.data.shipment_status =="processing" || response.data.shipment_status =="processing_power_followup"){
+                  	$('.order_Placed').removeClass('hideimp');
+          			$('.processing-on').removeClass('hideimp');
+          			$('.processing-off').addClass('hideimp');
+          			$('.order_dispatched-on').addClass('hideimp');
+          			$('.order_dispatched-off').removeClass('hideimp');
+          			$('.order_completed-on').addClass('hideimp');
+          			$('.order_completed-off').removeClass('hideimp'); 
+                  	$('.cancelled').addClass('hideimp');
+                  	$("#track-shipment-estimate").show();
+                  	$('#estimate-date').text(response.data.estimate_arrival_date)
+                }else{
+                  	$('.order_Placed').removeClass('hideimp');
+          			$('.processing-on').addClass('hideimp');
+          			$('.processing-off').removeClass('hideimp');
+          			$('.order_dispatched-on').addClass('hideimp');
+          			$('.order_dispatched-off').removeClass('hideimp');
+          			$('.order_completed-on').addClass('hideimp');
+          			$('.order_completed-off').removeClass('hideimp');
+                  	$('.cancelled').addClass('hideimp');
+                }
+            }else{
+              	$("#order_page").hide();
+              	$("#track-shipment-error").show();
+            }
+          }
+      });
+  }else{
+    $("#order_page").hide();
+    $("#track-shipment-error").show();
+  }
+  }
+</script>
+<div class="container" style="margin-top:100px;position:relative;">
+  <a href="/account" class="backto-account">
+    <i class="fa fa-arrow-circle-left"></i>
+  </a>
+  <div class="text-left">
+    <h3 class="page_header">{{ page.title }}</h3>
+  </div>
+
+  
+  
+	<div class="col-xs-12 text-center" style="padding:30px;">
+    	<input type="text" required name="contact[email]" id="OrderNo" placeholder="Enter Your Order Number">
+        <button onclick="fetchOrderStatus()" type="submit" name="commit" class="btn">Submit</button>        
+	</div>
+  <div id="order_page" style="display:none;">
+  	<div class="order_status">
+    <div class="container">
+      <div class='table_view_xs middle space-between'>
+        <!-- placed -->
+        <div class="order_Placed order_icon">
+          <div class="img">
+            <img alt="order Placed" src="https://cdn.shopify.com/s/files/1/1276/5299/files/Order_Placed_-_Only_green.png?10874443725392973975">
+          </div>
+          <span>Order Placed</span>
+        </div>
+
+        <!-- processing -->
+        <!-- packed -->
+        <div class="order_packed order_icon processing-off">
+          <div class="img">
+            <img alt="order packed" src="https://cdn.shopify.com/s/files/1/1276/5299/files/Packed-Grey.png?6562225409756223633">
+          </div>
+          <span>Processing</span>
+        </div>
+        
+        
+         <div class="order_packed order_icon active after_active processing-on">
+          <div class="img">
+            <img alt="order packed" src="https://cdn.shopify.com/s/files/1/1276/5299/files/Packed-Green.png?361636064670274829">
+          </div>
+          <span>Processing</span>
+        </div>
+               
+
+        <!-- dispatched -->
+
+       
+        <div class="order_dispatched order_icon order_dispatched-off">
+          <div class="img">
+            <img alt="order dispatched" src="https://cdn.shopify.com/s/files/1/1276/5299/files/Dispatched-Grey.png?6562225409756223633">
+          </div>
+          <span>Dispatched</span> 
+        </div> 
+        
+         <div class="hideimp order_dispatched order_icon active after_active order_dispatched-on">
+          <div class="img">
+            <img alt="order dispatched" src="https://cdn.shopify.com/s/files/1/1276/5299/files/Dispatched-Green.png?8433214511028225621">
+          </div>
+          <span>Dispatched</span>
+        </div>
+        
+       
+
+        <!-- delivered -->
+        
+        <div class="order_completed order_icon order_completed-off">
+          <div class="img">
+            <img alt="order completed" src="https://cdn.shopify.com/s/files/1/1276/5299/files/Delivered-Grey.png?6562225409756223633">
+          </div>
+          <span>Delivered</span>
+        </div>
+       
+         <div class=" hideimp order_completed order_icon active order_completed-on">
+          <div class="img">
+            <img alt="order completed" src="https://cdn.shopify.com/s/files/1/1276/5299/files/Delivered-Green.png?8433214511028225621">
+          </div> 
+          <span>Delivered</span>
+        </div>
+        
+        
+        
+         <div class="hideimp order_packed order_icon cancelled">
+          <div class="img">
+            <img alt="order cancelled" src="https://cdn.shopify.com/s/files/1/1276/5299/files/Cancelled-Red.png?16083916292634179994">
+          </div>
+          <span>Cancelled</span>
+        </div>
+        
+<!--          <div class="order_packed order_icon cancelled">
+          <div class="img">
+            <img alt="order cancelled" src="https://cdn.shopify.com/s/files/1/1276/5299/files/Cancelled-Red.png?16083916292634179994">
+          </div>
+          <span>Cancelled</span>
+        </div> -->
+        
+      </div>
+      <div id="track-shipment-div" class="col-xs-12 text-center" style="padding:30px;display:none;">
+        <a id="track-shipment" href="#" target="_blank">
+    		<button type="submit" name="commit" class="btn">Track Shipment</button> 
+        </a>
+		</div>
+    </div>
+  </div>
+  </div>
+  <div id="track-shipment-error" class="col-xs-12 text-center" style="display:none;">
+        <p style="color:red">Your tracking attempt was not successful. Please check your tracking number.</p>
+      </div>
+  <div id="track-shipment-estimate" class="col-xs-12 text-center" style="display:none;">
+    <h6 style="color:Green">Estimate Arrival Date : <span id="estimate-date"></span></h6>
+      </div>
+  
+  
+  
+  
+  {% unless page.content == blank %}
+  <div class="rte">
+    {{ page.content }}
+  </div>
+</div>
+{% endunless %}

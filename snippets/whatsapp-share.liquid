@@ -1,0 +1,165 @@
+{% assign store_meta = shop.metafields.wp_metafield.enable_wp_sticky | split: "&&"%}
+{%assign enable_sticky = store_meta[0] | split: "="%}
+{%assign bgcolor = store_meta[3] | split: "="%}
+{%assign text_color = store_meta[4] | split: "="%} 
+{%assign sticky_position = store_meta[5] | split: "="%} 
+{%assign sticky_position_value_1 = store_meta[6] | split: "="%}
+{%assign sticky_position_value_2 = store_meta[13] | split: "="%}
+{%assign sticky_width = store_meta[7] | split: "="%}
+{%assign sticky_width_value = store_meta[8] | split: "="%}
+{%assign icon_type = store_meta[9] | split: "="%}
+{%assign share_icon = store_meta[10] | split: "="%}
+{%assign sticky_type = store_meta[11] | split: "="%}
+{%assign default_sticky = store_meta[12] | split: "="%}
+
+{%assign position = sticky_position[1] | split: "-"%}
+{%assign position_1 = position[0] | downcase %}
+{%assign position_2 = position[1] | downcase %}
+
+
+{% assign bdcolor = '' %}
+{% assign fcolor = '' %}
+{% assign bbgcolor = '' %}
+{% assign wp_metafields = shop.metafields.wpbtn_metafield.wp_share_btn | split: "&&" %}
+  
+{% assign template_id = wp_metafields[3] | split: "=" %}
+{% assign temp_1_bgcolor = wp_metafields[4] | split: "=" %}
+{% assign temp_1_fontcolor = wp_metafields[5] | split: "=" %}
+{% assign temp_2_fontcolor = wp_metafields[6] | split: "=" %}
+{% assign temp_2_borcolor = wp_metafields[7] | split: "=" %}
+
+{% assign temp_0_bgcolor = wp_metafields[11] | split: "=" %}
+{% assign temp_0_fontcolor = wp_metafields[12] | split: "=" %}
+
+{%assign enable_wp_btn = wp_metafields[13] | split: "="%}
+
+{% assign template_name = template_id[1] %}
+{% if template_name == 'template_0' %}
+{% assign bbgcolor = temp_0_bgcolor[1] %}
+{% assign fcolor = temp_0_fontcolor[1] %}
+{% assign bdcolor = '' %}
+{% assign template_name = template_id[1] %}
+{% elsif template_name == 'template_1' %}
+{% assign bbgcolor = temp_1_bgcolor[1] %}
+{% assign fcolor = temp_1_fontcolor[1] %}
+{% assign bdcolor = '' %}
+{% elsif template_name == 'template_2' %}
+{% assign bdcolor = temp_2_borcolor[1] %}
+{% assign fcolor = temp_2_fontcolor[1] %}
+{% assign bbgcolor = '' %}
+
+{% endif %}
+
+{% if template_name == '' %}
+{% assign template_name = '' %}
+{% endif %}
+
+<script>
+ var jQ;
+ var isjQExists=false;
+  function showWPdiv(){
+   if(!isjQExists){
+      jQ=jQuery.noConflict(true);
+    } else{
+     jQ = jQuery;
+    }
+   
+  
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)){
+      
+      if (jQ("#wp_share")[0]){
+        jQ("#wp_share").show();
+      }
+    }
+    
+    jQ(".wa_btn").attr("display", "{{enable_wp_btn[1]}}");
+    
+    if (jQ(".wa_btn.wp_share_btn")[0]){
+      jQ('.wa_btn.wp_share_btn').attr({ "data-bdcolor":'{{bdcolor}}', "data-bgcolor":'{{bbgcolor}}', "data-fcolor":'{{fcolor}}', "data-temp":'{{template_name}}' });                             
+    }
+   
+  }
+  
+  if (typeof jQuery == 'undefined'){
+    var script = document.createElement('script');
+    script.src = '//code.jquery.com/jquery-1.11.0.min.js';
+    script.type = 'text/javascript';
+    script.onload = showWPdiv;
+    isjQExists=false;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+  else{
+    jQ=jQuery;
+    isjQExists=true;
+    jQ(document).ready(function() {
+      showWPdiv(true);
+    });
+  } 
+  
+</script>
+{% comment %}
+{% capture store_url %}https://shopiapps.in/whatsapp-share/whatsapp_inc.php?shop={{shop.permanent_domain}}{% endcapture %}
+{% endcomment %}
+{{ store_url | script_tag }}
+{% if enable_sticky[1] == "yes" %}
+
+<div id="wp_share">
+</div>
+
+{% if default_sticky[1] == "yes" %}
+
+<style>
+  #wp_share {display:none;width:100%;position:fixed;bottom:0;left:0;z-index:9999999;background-color:{{bgcolor[1]}};color:{{text_color[1]}};text-align:center;font-size:16px;font-weight:bold;font-family:Arial;}
+  #wp_share_content {padding:7px 10px 5px;}
+  #wp_share img {margin-left:10px;height:26px;vertical-align:middle;border:0;}
+  #wp_share a {color:{{text_color[1]}};text-decoration:none;}
+</style>
+
+{% else %}
+
+{% if sticky_type[1] == "Bar" %}
+
+{% assign width = sticky_width_value[1] | append: "%" %}
+{% assign b_padding = '7px 10px 5px' %}
+{% assign b_m_left = '10px' %}
+
+{% elsif sticky_type[1] == 'Round' %}
+
+{% assign width = 'auto' %}
+{% assign b_padding = '0' %}
+{% assign b_m_left = '0' %}
+
+{% else %}
+
+{% assign width = '100%' %}
+{% assign b_padding = '7px 10px 5px' %}
+{% assign b_m_left = '10px' %}
+
+{% endif %}
+
+{% if position_1 == "" and position_2 == "" %}
+
+{% assign position_1 = 'bottom' %}
+{% assign position_2 = 'left' %}
+{% assign n_sticky_position_value_1 = '0' %}
+{% assign n_sticky_position_value_2 = '0' %}
+
+{% else %}
+
+{% assign position_1 = position_1 %}
+{% assign position_2 = position_2 %}
+{% assign n_sticky_position_value_1 = sticky_position_value_1[1] %}
+{% assign n_sticky_position_value_2 = sticky_position_value_2[1] %}
+
+{% endif %}
+
+<style>
+  #wp_share {display:none;width:{{width}};position:fixed;{{position_1}}:{{n_sticky_position_value_1}}%;{{position_2}}:{{n_sticky_position_value_2}}%;z-index:9999999;background-color:{{bgcolor[1]}};color:{{text_color[1]}};text-align:center;font-size:16px;font-weight:bold;font-family:Arial;}
+  #wp_share_content {padding:{{b_padding}};}
+  #wp_share img {margin-left:{{b_m_left}};height:26px;vertical-align:middle;border:0;}
+  #wp_share a {color:{{text_color[1]}};text-decoration:none;}
+</style>
+
+{% endif %}
+
+{% endif %}

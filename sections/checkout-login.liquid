@@ -1,0 +1,75 @@
+<div class='checkout_login {% if customer  %} hide{% endif %}' id="checkout_login">
+  <div class='container'>
+    <div class='row'>
+      <div class='col-sm-6'>
+        <div class='guest_section'>
+          {% if customer %}
+          <h2>
+            Hello,
+          </h2>
+          <div class='logged_in'>
+          </div>
+          <a class='btn continue_guest'>
+            Shipping Information
+          </a>
+          {% else %}
+          <h2>
+            I'm New Here
+          </h2>
+          <div class='information_form'>
+            <a class='btn continue_guest'>
+              Continue as a Guest
+            </a>
+          </div>
+
+          {% endif %}
+        </div>
+      </div>
+      {% unless customer  %}
+      <div class='col-sm-6'>
+        <div class='login_section'>
+          <div class="section-spacer  xs-hide">
+            <span>or</span>
+          </div>
+          <h2>Sign in</h2>
+          {% form 'customer_login' %}
+          <div class='form-group'>
+            <input type='email'  name="customer[email]" class='field__input login_email' placeholder="Email Address">
+          </div>
+          <div class='form-group'>
+            <input type='password' name="customer[password]" class='field__input login_password' placeholder="Password">
+          </div>
+          <div class="text-left">
+            <input type="hidden" name="checkout_url" id="redirect_url" value="/checkout" />
+            {% if form.password_needed %}
+            <p><a href="#recover" id="RecoverPassword">{{ 'customer.login.forgot_password' | t }}</a></p>
+            {% endif %}
+            <button type="submit" class="btn myloginak" >
+              Login
+            </button>
+          </div>
+          {% endform %}
+        </div>
+      </div>
+      {% endunless %}
+
+    </div>
+  </div>
+</div>
+
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+    "name": "Checkout Login",
+    "class":"no_padding",
+    "settings": [
+
+    ]
+  }
+  {% endschema %}
+  {% comment %}
+</script>
+{% endcomment %}
+

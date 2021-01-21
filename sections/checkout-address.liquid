@@ -1,0 +1,30 @@
+<div class='checkout_address' id="checkout_address">
+
+  <div class='container'>
+  {% comment %}
+    <a class='go_email'>
+      <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+      Back to Login page
+    </a><br/>
+    {% endcomment %}
+  </div>
+  {% assign step_no = 1 %}
+  {% include 'checkout-steps' %}
+</div>
+
+
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+    "name": "Checkout Address",
+    "class":"no_padding", 
+    "settings": [
+    ]	
+  }
+  {% endschema %}
+  {% comment %}
+</script>
+{% endcomment %}
+

@@ -1,0 +1,111 @@
+{% if section.settings.collection == blank or collections[section.settings.collection].empty? or collections[section.settings.collection].products_count == 0 %}
+{% include 'no-section-msg' %}
+{% else %}
+{% assign product_limit = section.settings.limit %}
+{% if product_limit == 0 %}
+{% assign product_limit = 100 %}
+{% endif %}
+{% assign page_val = section.settings.collection_limit %}
+<div id="home_products">
+  <div class="{% unless section.settings.full %}container{% endunless %}">
+    {% unless section.settings.title == blank  %}
+    <h3 class="title text-center">{{section.settings.title}} </h3>
+    {% endunless %}
+    {% assign col = collections[section.settings.collection] %}
+    {% paginate col.products by page_val %}
+    <div class="row">
+      <ul class="list clearfix">
+        {% for product in collections[section.settings.collection].products limit: product_limit %}
+        <li class="col-sm-4 col-xs-12{% if forloop.index > 2 %} col-xs-hide{% endif %}">
+          {% include 'simply-product' %}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    
+     {% if paginate.next %}
+    <a href="/collections/{{ section.settings.collection }}" class="more-ak" title="View All {{section.settings.title}} Products">More + </a>
+    {% endif %}
+    
+    {% endpaginate %}
+  </div>
+</div>
+{% endif %}
+
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+    "name": "Featured products",
+    "settings": [
+    {
+      "type":"checkbox",
+      "label":"Full-width",
+      "id":"full"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Featured collection"
+    },
+    {
+      "type":"number",
+      "id":"limit",
+      "label":"Product limit",
+      "default":3
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type":"checkbox",
+      "id":"product_text_enable",
+      "label":"Enable product Info",
+      "default":true
+    },
+    {
+      "type":"number",
+      "id":"collection_limit",
+      "label":"Collection Product limit"
+    },
+    {
+      "type":"checkbox",
+      "id":"product_vendor_enable",
+      "label":"Enable product vendor"
+    }
+    ],
+    "blocks": [
+    {
+      "name": "Variant name for swatches",
+      "type": "varaint",
+      "settings": [
+      {
+        "type": "text",
+        "label": "Variant name",
+        "id": "variant"
+      }
+      ]
+    }
+    ],
+    "presets": [
+    {
+      "name": "Featured products",
+      "category": "Collection"
+    }
+    ]
+  }
+  {% endschema %}
+  {% comment %}
+</script>
+{% endcomment %}
+
+{% comment %}
+<style>
+  {% endcomment %}
+  {% comment %}
+</style>
+{% endcomment %}

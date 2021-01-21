@@ -1,0 +1,329 @@
+<div id="article_sunglass">
+  <div class="container">
+    <header class="header text-center">
+      <h1 class="title">{{ article.title }}</h1>
+      <hr/>
+    </header>
+  </div>
+  <div class="banner_img">
+    <a href="{{section.settings.img_link}}">
+      {% assign src_name = section.settings.header_img  %}
+      {% assign src_alt = 'header-image'  %}
+      {% include 'srcset-img' %}
+    </a>
+    <div class="banner_text">
+      {{section.settings.header_text}}
+    </div>
+  </div>
+  <div class='block_1 clearfix block'>
+    <div class='img p_image'>
+      <a href='{{section.settings.block_link_1}}'>
+      {% assign src_name = section.settings.block_1  %}
+      {% assign src_alt = 'header-image'  %}
+      {% include 'srcset-img' %}
+      </a>
+    </div>
+    <div class='right_text'>
+      <div class='clearfix'>
+        <div class="col-sm-7 col-sm-offset-2">
+          <div class="text">
+            {{section.settings.block_1_text}}
+          </div>
+        </div>
+        <div class="col-sm-12">
+          {% assign src_name = section.settings.block_xs_img_1  %}
+          {% assign src_alt = 'image'  %}
+          <div class='x_img'>
+            {% include 'srcset-img' %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='block_2 clearfix block'>
+    <div class='img p_image'>
+      <a href='{{section.settings.block_link_2}}'>
+      {% assign src_name = section.settings.block_2  %}
+      {% assign src_alt = 'header-image'  %}
+      {% include 'srcset-img' %}
+      </a>
+    </div>
+    <div class='right_text'>
+      <div class='clearfix'>
+        <div class="col-sm-11 col-sm-offset-1">
+          {% assign src_name = section.settings.block_xs_img_2  %}
+          {% assign src_alt = 'image'  %}
+          <div class='x_img xs-hide'>
+            {% include 'srcset-img' %}
+          </div>
+          <div class="text">
+            {{section.settings.block_2_text}}
+          </div>
+          <div class='x_img xs-show'>
+            {% include 'srcset-img' %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='block block_3'>
+    <div class="container">
+      <div class='flex_view middle'>
+        <div class="col-sm-6">
+          <div class="middle">
+            <div class="inline_block">
+              {% assign src_name = section.settings.block_xs_img_3  %}
+              {% assign src_alt = 'image'  %}
+              <div class='x_img'>
+                {% include 'srcset-img' %}
+              </div>
+            </div>
+            <div class='inline_block'>
+              <div class="text">
+                {{section.settings.block_3_text}}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class='col-sm-6'>
+          <div class="p_image">
+            <a href='{{section.settings.block_link_3}}'>
+            {% assign src_name = section.settings.block_3  %}
+            {% assign src_alt = 'header-image'  %}
+            {% include 'srcset-img' %}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="block block_4 flex_view middle clearfix">
+    <div class="p_image">
+      <a href='{{section.settings.block_link_4}}'>
+      {% assign src_name = section.settings.block_4  %}
+      {% assign src_alt = 'header-image'  %}
+      {% include 'srcset-img' %}
+      </a>
+    </div>
+    <div class="right_text">
+      {{section.settings.block_4_text}}
+    </div>
+  </div>
+  <div class="block block_5 clearfix">
+    <div class="p_image">
+      <a href='{{section.settings.block_link_5}}'>
+      {% assign src_name = section.settings.block_5  %}
+      {% assign src_alt = 'header-image'  %}
+      {% include 'srcset-img' %}
+      </a>
+    </div>
+    <div class="right_text">
+      <div class="text">
+        {{section.settings.block_5_text}}
+      </div> 
+      {% assign src_name = section.settings.block_xs_img_5  %}
+      {% assign src_alt = 'image'  %}
+      <div class='x_img'>
+        {% include 'srcset-img' %}
+      </div>
+    </div>
+  </div>
+  <div class='block block_6 table_view middle'>
+    <div class='col-sm-7'>
+      <a href='{{section.settings.block_link_6}}'>
+      {% assign src_name = section.settings.block_6  %}
+      {% assign src_alt = 'header-image'  %}
+      {% include 'srcset-img' %}
+      </a>
+    </div>
+    <div class="col-sm-5 rotate">
+      <div class="text">
+        {{section.settings.block_6_text}}
+      </div> 
+    </div>
+  </div>
+  <div class='block block_7 clearfix'>
+    <div class="col-sm-6 col-sm-offset-3">
+      {% assign src_name = section.settings.block_7  %}
+      {% assign src_alt = 'header-image'  %}
+      <div class="img">
+        <a href='{{section.settings.block_link_7}}'>
+        {% include 'srcset-img' %}
+        </a>
+      </div>
+      <div class="text">
+        {{section.settings.block_7_text}}
+      </div>
+    </div>
+  </div>
+  <div class='block footer_block'>
+    {{section.settings.block_footer_text}}
+  </div>
+</div>
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+    "name": "Sunglass article",
+      "class":"no_bottom_padding",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "header_img",
+            "label": "Header image"
+          },
+          {
+            "type":"url",
+            "id":"img_link",
+            "label":"Image URL"
+          },
+          {
+            "type": "richtext",
+            "id": "header_text",
+            "label": "Header text"
+          },
+          {
+            "type": "image_picker",
+            "id": "block_1",
+            "label": "block 1"
+          },
+           {
+            "type": "url",
+            "id": "block_link_1",
+            "label": "Block  URL 1 "
+          },
+          {
+            "type": "richtext",
+            "id": "block_1_text",
+            "label": "block 1 text"
+          },
+          {
+            "type": "image_picker",
+            "id": "block_xs_img_1",
+            "label": "block 1"
+          },
+          {
+            "type": "image_picker",
+            "id": "block_2",
+            "label": "block 2"
+          },
+          {
+            "type": "url",
+            "id": "block_link_2",
+            "label": "Block  URL 2"
+          },
+          {
+            "type": "richtext",
+            "id": "block_2_text",
+            "label": "block 2 text"
+          },
+          {
+            "type": "image_picker",
+            "id": "block_xs_img_2",
+            "label": "block 2"
+          },
+          {
+            "type": "image_picker",
+            "id": "block_3",
+            "label": "block 3"
+          },
+          {
+            "type": "url",
+            "id": "block_link_3",
+            "label": "Block  URL 3"
+          },
+          {
+            "type": "richtext",
+            "id": "block_3_text",
+            "label": "block 3 text"
+          },
+          {
+            "type": "image_picker",
+            "id": "block_xs_img_3",
+            "label": "block 3"
+          },
+          {
+            "type": "image_picker",
+            "id": "block_4",
+            "label": "block 4"
+          },
+          {
+            "type": "url",
+            "id": "block_link_4",
+            "label": "Block  URL 4"
+          },
+          {
+            "type": "richtext",
+            "id": "block_4_text",
+            "label": "block 4 text"
+          },
+          {
+            "type": "image_picker",
+            "id": "block_5",
+            "label": "block 5"
+          },
+          {
+            "type": "url",
+            "id": "block_link_5",
+            "label": "Block  URL 5"
+          },
+          {
+            "type": "richtext",
+            "id": "block_5_text",
+            "label": "block 5 text"
+          },
+          {
+            "type": "image_picker",
+            "id": "block_xs_img_5",
+            "label": "block 5"
+          },
+          {
+            "type": "image_picker",
+            "id": "block_6",
+            "label": "block 6"
+          },
+          {
+            "type": "url",
+            "id": "block_link_6",
+            "label": "Block  URL 6"
+          },
+          {
+            "type": "richtext",
+            "id": "block_6_text",
+            "label": "block 6 text"
+          },
+          {
+            "type": "image_picker",
+            "id": "block_7",
+            "label": "block 7"
+          },
+          {
+            "type": "url",
+            "id": "block_link_7",
+            "label": "Block  URL 7"
+          },
+          {
+            "type": "richtext",
+            "id": "block_7_text",
+            "label": "block 7 text"
+          },
+          {
+            "type": "richtext",
+            "id": "block_footer_text",
+            "label": "Footer text"
+          }
+        ]
+  }
+  {% endschema %}
+  {% comment %}
+</script>
+{% endcomment %}
+
+{% comment %}
+<style>
+  {% endcomment %}
+  {% comment %}
+</style>
+{% endcomment %}

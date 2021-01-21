@@ -1,0 +1,77 @@
+{% if section.settings.collection == blank %}
+{% include 'no-section-msg' %}
+{% else %}
+<div id="home_collections" class="clearfix">
+  <div class=" {% unless section.settings.full %}container{% endunless %}">
+  {% unless section.settings.title == blank  %}
+  <h3 class="title text-center">{{section.settings.title}} </h3>
+  {% endunless %}
+  <ul class="list{% unless section.settings.full %} row{% endunless %}">
+    {% for link in linklists[section.settings.collection].links  %}
+    
+    <li class="{{section.settings.product_row}} col-xs-6">
+      <div class="image">
+      <div class="img">
+        <a href="{{link.url}}">
+          <img src="{{link.object.image | img_url: '100x'}}" class="img_blur img_load" data-img="{{link.object.image | img_url: 'large'}}">
+        </a>
+        <div class="text">
+          <h5 class="name">{{link.title}}</h5>
+        </div>
+      </div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+</div>
+<hr/>
+{% endif %}
+{% schema %}
+  {
+    "name": "Featured collection-list",
+    "settings": [
+{
+	"type":"checkbox",
+	"label":"Full-width",
+	"id":"full"
+	},
+   {
+        "type": "text",
+        "id": "title",
+        "label": "Heading",
+        "default": "Featured collection"
+      },
+      {
+        "type": "link_list",
+        "id": "collection",
+        "label": "Select collections"
+      },
+		    {
+      "type": "select",
+      "label": "Product per row",
+      "id": "product_row",
+      "info": "Only for desktop and tablet view",
+      "options": [
+        {
+          "value": "col-sm-6",
+          "label": "2"
+        },
+        {
+          "value": "col-sm-4",
+          "label": "3"
+        },
+        {
+          "value": "col-sm-3",
+          "label": "4"
+        }
+      ]
+    }
+],
+ "presets": [{
+      "name": "Featured collections - list",
+      "category": "Collection"
+    }]
+  }
+{% endschema %}
+

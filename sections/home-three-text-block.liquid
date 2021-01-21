@@ -1,0 +1,113 @@
+
+<div class="threeblock_home">
+<div class="promise-sectiopn container">
+  <div class="row">
+    <div class="col-md-4 col-xs-12 col-sm-12">
+      <div class="border-top border-right border-bottom border-left item_block">
+      <h3>Eyeglasses for {% include 'buy_2_vc' %}<br>Including  Prescription Lenses</h3>
+      <p>Buy Eyeglasses only for {% include 'buy_2_vc' %} with lenses as per your Eye Prescription. Explore our Eyeglasses Collection from <a href="/collections/eyeglasses">HERE</a></p>
+    </div>
+    </div>
+    
+    <div class="col-md-4 col-xs-12 col-sm-12 p0">
+      <div class="border-top border-right border-bottom border-left item_block">
+      <h3>Buy One Get One Free</h3>
+      <p>Buy One Pair of Eyeglass and Get Any Other Pair for Free . Both Eyeglasses can have same or Different Prescription.</p>
+    </div>
+    </div>
+    
+    
+    <div class="col-md-4 col-xs-12 col-sm-12">
+      <div class="border-top border-right border-bottom border-left item_block">
+      <h3>Free 14 Days Promise</h3>
+      <p>Enjoy two weeks to try out our frames. Send back for a free exchange or refund. Free shipping always <span class="tooltip">Learn More</span></p>
+
+      <span class="tooltiptext">
+        <p class="text-left">At Lenskart, we guarantee the quality of our eyewear. If you are not happy with your glasses, simply contact us for a refund or a replacement.</p>
+        <p></p>
+        <h3 class="">Free 14 Days Promise</h3>
+        <p class="text-left">Lenskart has a 14-Day Fit &amp; Style guarantee which allows customers to make an equal exchange or return with no questions asked.</p>
+        
+        <h3 class="">365-Day Product Guarantee</h3>
+        <p class="text-left">Our 365-Day Product Guarantee means Customers are eligible for a one-time replacement pair within 12 months. A one-time replacement pair will be only issued if there are clear defects in material and workmanship.</p>
+       
+        <p class="disclmr text-left">Product warranty does not cover damage caused by accidents, negligence, or improper care.</p>
+        <span class="closetooltip">×</span>
+      </span>
+      <div class="bgoverlay_promise"></div>
+    </div>
+    </div>
+    
+  </div>
+</div>
+</div>
+{% schema %}
+{  
+   "name":"Home Three Full Sec",
+"class": "home-three-text-block",
+   "max_blocks":3,
+   "settings":[  
+      {  
+         "id":"text-box",
+         "type":"text",
+         "label":"Heading",
+         "default":"Title"
+      }
+   ],
+   "blocks":[  
+      {  
+         "type":"select",
+         "name":"Add Block",
+         "settings":[  
+            
+{  
+               "id":"Title",
+               "type":"text",
+               "label":"Title text",
+               "default":"Heading"
+            },
+{
+"id": "dec",
+"type": "richtext",
+"label": "Add custom text below",
+"default": "<p>Add your text here</p>"
+},
+
+{  
+               "id":"link",
+               "type":"url",
+               "label":"Button link"
+            },
+            {  
+               "id":"linktext",
+               "type":"text",
+               "label":"Button text",
+               "default":"Click here"
+            },
+ {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        }
+         ]
+      }
+   ],
+   "presets":[  
+      {  
+         "name":"Home Three Full Sec",
+         "category":"Home Banner",
+         "blocks":[  
+            {  
+               "type":"select"
+            },
+            {  
+               "type":"select"
+            },
+{  
+               "type":"select"
+            }
+         ]
+      }
+   ]
+}
+{% endschema %}

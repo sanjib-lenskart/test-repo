@@ -1,0 +1,12 @@
+{% layout none %}
+{% paginate products by 10 %}
+{% for product in collection.products %}
+{{product.id}}, {{product.title}}, {{product.url}}<br>
+{% endfor %}
+{% if paginate.previous.is_link %}
+    <a href="{{ paginate.previous.url }}">{{ paginate.previous.title }}</a>
+{% endif %}
+{% if paginate.next.is_link %}
+    <a href="{{ paginate.next.url }}">{{ paginate.next.title }}</a>
+{% endif %}
+{% endpaginate %}

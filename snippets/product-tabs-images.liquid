@@ -1,0 +1,152 @@
+<!-- product-tabs-images -->
+  {% for custom_tagss in product.tags %}
+   {% if custom_tagss contains 'Bridge-' %}
+  	{% assign bridge_size = custom_tagss | remove:'Bridge-' %}
+   {% endif %}
+  {% if custom_tagss contains 'Temple-' %}
+  	{% assign temple_size = custom_tagss | remove:'Temple-' %}
+   {% endif %}
+  {% if custom_tagss contains 'Eye-' %}
+  	{% assign eye_size = custom_tagss | remove:'Eye-' %}
+   {% endif %}
+  {% if custom_tagss contains 'Frame Width' %}
+  	{% assign frame_width = custom_tagss | remove:'Frame Width_' %}
+   {% endif %}
+  {% if custom_tagss contains 'size_' %}
+  	{% assign frame_size = custom_tagss | remove:'size_' %}
+   {% endif %}
+  {% endfor %}
+<div class="row text-center measurement">
+  <div class="col-xs-12 col-sm-6 col-md-5">
+    <div class="product_desc">            
+      <h4>FRAME DETAILS</h4>             
+      <div class="row detailstablerow">
+        <div class="col-md-12 col-sm-12 col-xs-12 detailscol">
+          <table class="discription-lk discription-lk1">
+            <tbody>
+<!--               <tr class="fsize">
+                <td class="one">Frame Width:</td>
+                <td class="two">--</td>
+              </tr> -->
+              <tr class="fmaterial">
+                <td class="one">Frame Material:</td>
+                <td class="two">--</td>
+              </tr>
+              <tr class="fshape">
+                <td class="one">Frame Shape:</td>
+                <td class="two">--</td>
+              </tr>
+              <tr class="ftype">
+                <td class="one">Frame Type:</td>
+                <td class="two">--</td>
+              </tr>
+<!--               <tr class="fweight">
+                <td class="one">Frame Weight:</td>
+                <td class="two">--</td>
+              </tr> -->
+              <tr class="fheight">
+                <td class="one">Frame Height:</td>
+                <td class="two">--</td>
+              </tr>
+              <tr class="fsz">
+                <td class="one">Frame Size:</td>
+                <td class="two">{{ frame_size }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+    
+  <div class="col-xs-12 col-sm-6 col-md-7">
+    <div class="row text-center measurementsize">  
+      <h4 class="">MEASUREMENTS</h4>
+      <div class="col-xs-12 col-sm-4 col-md-4 measu_container">
+        <img src="https://cdn.shopify.com/s/files/1/0047/5335/8922/files/Lens_Width_3_1_140x.png?v=1596088198" alt=""/>
+        <div class="eye_size measu_style">{{eye_size}}</div>
+      </div> 
+      <div class="col-xs-12 col-sm-4 col-md-4 measu_container">
+        <img src="https://cdn.shopify.com/s/files/1/0047/5335/8922/files/Bridge_Width_1_1_140x.png?v=1596088198" alt=""/>
+        <div class="bridge_size measu_style">{{bridge_size}}</div>
+      </div>
+      <div class="col-xs-12 col-sm-4 col-md-4 measu_container">
+        <img src="https://cdn.shopify.com/s/files/1/0047/5335/8922/files/Temple_Length__1_1_140x.png?v=1596088198" alt=""/>
+        <div class="temple_size measu_style">{{temple_size}}</div>
+      </div>  
+      <div class="col-xs-12 col-sm-12 col-md-12 mrgn">
+        <img src="https://cdn.shopify.com/s/files/1/0047/5335/8922/files/Bridge_Width_2_140x.png?v=1596088198" alt=""/>
+        <div class="eye_size measu_style">{{frame_width}}</div>
+      </div>   
+    </div>
+  </div>
+</div>
+
+<div class="container bte_container_pp">
+  <div class="row">
+    <div class="col-md-12">
+      <div id="bte_size" class="bte_size_pp">
+        <img src="https://cdn.shopify.com/s/files/1/0047/5335/8922/files/findmysize.png?v=1597843209" alt="" />
+      </div>
+    </div>
+  </div>
+</div>
+
+{% include 'pp-gallery-img' %} 
+
+<div class="product-tab-images relative hide">
+  <div class="container">
+    <div class="flex_view_xs middle">     
+      <div class="col-sm-12 col-md-12 col-xs-12 rotate_parent">
+        <div class='degree_section'>
+          <div class="face_tabs">
+          </div>
+          <div class="rotate_loading">
+            {% include 'loading' %}
+          </div>
+          <div class="rotate_img"></div>
+          <div class="normal_rotate_img"></div>
+          <div class='text-center degree_btn_wrapper clearfix'>
+            <div class="men reverse degree_btn active" data-target="men"></div>
+            <div class="women reverse degree_btn" data-target="women"></div>
+          </div>
+          <div class="rotate_180_swipe hide">Swipe for 180° view</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Alternate Text:- When lenskart API not working below code will display -->
+<div class="row text-center measurement_shopify hide">
+  <div class="col-sm-6 col-md-5 col-xs-12">
+    <h4>FRAME DETAILS</h4> 
+    {{ product.description }}
+  </div>
+
+  <div class="col-xs-12 col-sm-6 col-md-7">
+    <div class="row text-center measurementsize">  
+      <h4 class="">MEASUREMENTS</h4>
+      <div class="col-xs-12 col-sm-6 col-md-6">
+        <img src="https://static.lenskart.com/media/desktop/img/1st_frame.jpg" alt=""/>
+        {% unless product.metafields.Measurement.bridge_size == blank %}
+        <div class="size-text">{{ product.metafields.Measurement.bridge_size }} mm</div>
+        {% endunless %}
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6">
+        <img src="https://static1.lenskart.com/media/desktop/img/2nd_frame.jpg" alt=""/>
+        {% unless product.metafields.Measurement.temple_size == blank %}
+        <div class="size-text">{{ product.metafields.Measurement.temple_size }} mm</div>
+        {% endunless %}
+      </div>
+      <br>  
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <img src="https://static2.lenskart.com/media/desktop/img/3rd_frame.jpg" alt=""/>
+        {% unless product.metafields.Measurement.eye_size == blank %}
+        <div class="size-text">{{ product.metafields.Measurement.eye_size }} mm</div>
+        {% endunless %}
+      </div>           
+    </div>
+  </div> 
+</div>

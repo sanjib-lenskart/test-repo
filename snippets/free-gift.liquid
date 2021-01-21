@@ -1,0 +1,116 @@
+{%- assign gift_applied = false -%}
+{%- assign productCount = 0 -%}
+{% for item in cart.items %}
+	{% if item.product.type == "Gift" %}
+		{%- assign gift_applied = true -%}
+	{% elsif item.product.type == "Eyeglasses" or item.product.type == "Sunglasses" %}
+		{%- assign productCount = productCount | plus :1 -%}
+	{% endif %}
+{% endfor %}
+<script>
+  function fetchgiftDetail(){
+    var gift =[];
+    var giftMaskHangers = {
+        147192: 32618321707082,
+        147194: 32619002036298
+    };
+    var giftFogCloth = {
+        146268: 32618322624586
+    };
+    var giftMaskHangerSKUs=['147192','147194'];
+    var giftFogClothSKUs=['146268'];
+    const random = Math.floor(Math.random() * giftMaskHangerSKUs.length);
+    var randomSku = giftMaskHangerSKUs[random];
+    var giftMaskHangerQty = fetchGiftPids(randomSku);
+    var maskHangerVariantId=0;
+    if(giftMaskHangerQty){
+      gift.push(giftMaskHangers[randomSku]);
+    }else{
+      if(random==0){
+          giftMaskHangerQty = fetchGiftPids(giftMaskHangerSKUs[1]);
+          if(giftMaskHangerQty){
+            gift.push(giftMaskHangers[giftMaskHangerSKUs[1]]);
+          }
+      }
+
+    }
+    var gift1 = maskHangerVariantId;
+    var giftFogClothQty = fetchGiftPids(giftFogClothSKUs[0]);
+    var gift2 = 0;
+    if(giftFogClothQty){
+      gift.push(giftFogCloth[giftFogClothSKUs[0]]);
+    }
+    return gift;
+  }
+  function fetchGiftPids(skuId){
+    var response=false;
+  	var requestPayload = 'https://singapore.lenskart.com/api/inventory-count.php?sku='+skuId;
+    $.ajax({
+      url: requestPayload,
+      method: "GET",
+      "async": false,
+      headers:{
+        "Content-Type": "application/json"
+      },
+      success: function (resp) {
+        if(resp.data.quantity >= 200){
+        	response=true;
+        }
+      },
+      error: function (err) {
+        response=false;
+      }
+    });
+    return response;
+  }
+  
+  
+  {% if gift_applied==true%}
+  $( ".section-header" ).after( "<center><h2 style='color:#07b2b6'>We have added gifts in your cart. Happy Holidays !!</h2></center>" ); 
+  {% endif %}
+   {% if productCount >= 2 and gift_applied==false%}
+  	$(function() {
+      var data = { updates: {} };
+      var gifts = fetchgiftDetail();
+      var i;
+      for (i = 0; i < gifts.length; i++) {
+        data.updates[gifts[i]] = 1;
+      }
+      jQuery.ajax({
+        type: 'POST',
+        url: '/cart/update.js',
+        data: data,
+        dataType: 'json',
+        success: function() { 
+          location.href = '/cart';
+        }
+      });
+    });
+  {% endif %}
+  
+  {% if productCount < 2 and gift_applied==true%}
+    $(function() {
+      var qty = 0;
+      var varient = 32618321707082; //Portable Mask Hanger (Black)
+      var qty1 = 0;
+      var varient1 = 32619002036298; //Portable Mask Hanger (Grey)
+      var qty2 = 0;
+      var varient2 = 32618322624586; //Anti-Fog Microfibre Cloth
+
+      var data = { updates: {} };
+      data.updates[varient] = qty;
+      data.updates[varient1] = qty1;
+      data.updates[varient2] = qty2;
+
+      jQuery.ajax({
+        type: 'POST',
+        url: '/cart/update.js',
+        data: data,
+        dataType: 'json',
+        success: function() { 
+          location.href = '/cart';
+        }
+      });
+    });
+  {% endif %}
+</script>

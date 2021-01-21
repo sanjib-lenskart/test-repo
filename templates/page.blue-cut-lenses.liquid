@@ -1,0 +1,22 @@
+<div class="container-fluid blue-cut-lenses">
+ 
+  <div class="row">
+<!--     Desktop Images -->
+    <div class="col-md-12 col-sm-12 imagecontainer">
+      <img src="https://static.lenskart.com/images/cust_mailer/14-Aug-18/katpage_02.jpg" alt="" />
+      
+    </div>
+    <div class="col-md-12 col-sm-12 imagecontainer">
+      <img src="https://static.lenskart.com/images/cust_mailer/14-Aug-18/katpage_03.jpg" alt="" />
+    </div>   
+
+    <div class="col-md-12 col-sm-12 imagecontainer">
+      <img src="https://static.lenskart.com/images/cust_mailer/14-Aug-18/katpage_05.jpg" alt="" />      
+    </div>
+  </div>
+  {% unless page.content == blank %}
+  <div class="rte">
+    {{ page.content }}
+  </div>
+</div>
+{% endunless %}

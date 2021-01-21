@@ -1,0 +1,247 @@
+<!-- collection-template -->
+
+{% if section.settings.filter %}
+{% assign filter = true %}
+{% endif %}
+{% if section.settings.sort %} 
+{% assign sort = true %}
+{% endif %} 
+
+{% assign separate_variant = false %}
+
+<div id="collection_page" {%- if collection.handle contains 'sunglass' and separate_variant%}class='sun_collection variant_separate'{%- endif -%} data-collection="{{collection.handle}}" {% if separate_variant %}class='variant_separate'{% endif %}> 
+ 
+ {% assign page_val = 24 %}
+ {% assign coll_filter = true %}
+ 
+ {% paginate collection.products by page_val %}
+ {% if filter and coll_filter %}
+ <div class="collection_header relative">  
+   
+   {%unless collection.url contains "contact-lens" %}
+  <div class='filter_clone'></div>
+  <div class="filter_menu">
+    <div class='main_h1 hide'></div>  
+    
+      {% if collection.handle == 'sunglasses' or collection.handle == 'sunglasses-for-men' or collection.handle == 'sunglasses-for-women' %}
+         
+{% comment %} Polaroid button above 1200px  {% endcomment %}
+<div class="polarbutton-con2">
+     <div class="prescription-col-link">
+       <a href="/collections/prescription-sunglasses">Prescription</a>
+     </div>
+    
+    <div class="polar-col-link">
+      <a href="/collections/polarized-sunglasses">Polarized</a>
+    </div>
+    </div> 
+    <style>
+        @media(max-width: 767px){ 
+        .buytwo-con{
+          top:53px;
+        }
+      }      
+    </style>
+ {% endif %}     
+    <div class="flex_view_xs middle">  
+      <div class="col-xs-6">
+        <div class="xs-show">
+          <a class="mega_filter xs-show hide"> 
+            <i class="fa fa-filter" aria-hidden="true"></i> Filter 
+          </a>
+        </div>
+      </div>
+      <!-- 3d tryon filter -->
+      <div class="col-xs-12">  
+       		<div class="try3d_enable">
+          <span class="tryon_text">View Frame</span>
+		    <input type="checkbox" class="hide" id="try3d_enable_mobile" />
+		    <label for="try3d_enable_mobile">
+		      <span class="round_toggle"></span>
+		    </label>
+		    <span class="tryon_text">Virtual Try On</span>
+            <a href="/pages/wishlist" class="wlheart_icon wlsticky">
+            <img class="header-icon" src="//static.lenskart.com/media/desktop/img/menu/heart-icon.svg"/>
+            <span class="wlcount">0</span>
+          </a>
+  		</div> 
+      </div>
+    </div>
+    {% include 'collection-filter' %}    
+  </div>
+   {% else %}
+   <hr>
+   {% endunless %}
+   
+  <div class="xs-show eye_glass">
+    {% include 'breadcrumbs' %}
+  </div>
+    
+  <div class='xs-show'>
+    <div class='mob-filter-clone'> 
+    </div>
+  </div>
+  <div class="xs-show mob-filter">  
+    <div class="advance_filter mob">  
+      <div class="widget-wrapper-mob mobile-filter-btn" data-index="1"> 
+        <div class="content"> 
+          <p class="toggle"> 
+            <i style="font-size:20px; margin-right: 12px;" class="fa">&#xf0b0;</i> <span>FILTER PRODUCTS</span>
+          </p>
+        </div>
+      </div>      
+    </div> 
+  </div>
+
+</div>
+{% endif %}
+<div class="container custom">
+  <div class="">
+    <div class="">
+      <div class="collection">
+        
+        {%- assign tag_color = blank -%}
+        <ul class="list row"> 
+          
+          {%- include 'q-string' -%}
+          {%- unless show_variant == blank -%}
+          {% assign v_number = show_variant | minus:1 %}
+          {%- else -%}
+          {% assign v_number = 0 %}
+          {%- endunless -%}
+
+          {% if separate_variant %} 
+          <!-- 1 -->
+          {%- include 'v-logic' -%}
+          {% else %}
+          {% assign count = 0 %} 
+          {% for product in collection.products %}
+          {% if product.type == 'Lens' or product.type == 'Gift card' or product.template_suffix == 'none' %} {% continue %} {% endif %}
+          {% assign count =  forloop.index0 %}
+          {% assign remainder = count | modulo: 9 %}
+          {% if count !=0 %}
+          {% if remainder == 0 %}
+          <div class="hb">jvjh</div>
+          {% endif %}
+          {% endif %}
+          {%- include 'eyeglass-v-logic' -%}
+          {% endfor %}
+          {% if count == 0 %}
+          <li>
+            <h3 class="text-center">No products found</h3>
+             <a class="clearfilter noproduct_coll" href="{{collection.url}}">
+            BROWSE ALL FRAMES
+          </a>
+          </li>
+          {% endif %}
+          {% endif %}
+        </ul>
+       
+      </div>
+      {% comment %}{%- include 'collection-xs-content' -%}{% endcomment %}
+      <div class="text-center collection-loader">
+        {% if paginate.next %}
+        {%- assign next_page =  paginate.next.url %}
+        {% endif %}    
+
+        {%- if separate_variant -%}
+        {%- if template == 'collection.collection-var-sep' -%}
+        {%- if next_page != blank -%}  
+        {%- assign next_page =  paginate.next.url  | append:'&view=collection-var-sep' -%}
+        {%- endif -%}
+        {%- else -%}
+        {%- assign next_page = request.path | append:'?page=1&view=collection-var-sep' -%}
+        {%- endif -%}
+        {%- endif -%}        
+        {% if paginate.next != blank %}
+        <button class="load_more"  id="loadmore" data-next="{{ next_page }}" title="{{ paginate.next.title }}">
+          <ul class="animate-logo0">
+          <li class="logo-round-one0"></li>         
+        </ul>        
+      </button>
+      {% endif %} 
+        <div class="noproduct">
+          <p>NO PRODUCTS FOUND</p>
+          <p>Please whatsapp. Our Eyewear specialist to help you find the frames that suit you best</p>
+
+          <div class="xs-show">
+            <a class="noproduct-contact" href="https://api.whatsapp.com/send?phone={{settings.whatsapp_number}}&text=I am looking for more options"  data-url="https://{{ shop.domain }}{{ collection.url }}" target="_blank">
+              <img src="{{'lets_chat.png' | asset_url}}" alt='Find Sotre'>
+              <span class="underline">Whatsapp</span>
+            </a>
+          </div>
+
+          <div class="xs-hide">
+            <a class="noproduct-contact" href="https://api.whatsapp.com/send?phone={{settings.whatsapp_number}}&text=I am looking for more options"  data-url="https://{{ shop.domain }}{{ collection.url }}" target="_blank">
+              <img src="{{'lets_chat.png' | asset_url}}" alt='Find Sotre'>
+              <span class="underline">Whatsapp Us</span>
+            </a>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+</div>  
+{% endpaginate %}
+</div>
+
+  {% schema %}
+  {
+    "name": "Collection settings",
+    "max_blocks":3,
+    "settings": [
+
+    {
+      "type": "checkbox",
+      "label": "Sort products",
+      "id": "sort",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "label": "Filter",
+      "id": "filter",
+      "default": true,
+      "info": "Add tags to the products like 'Color_Red'"
+    },
+    {
+      "type": "link_list",
+      "id": "filter_menu",
+      "label": "Select filter menu"
+    },
+    {
+      "type": "select",
+      "label": "Product per row",
+      "id": "product_row",
+      "info": "Only for desktop view",
+      "options": [
+      {
+        "value": "col-md-6",
+        "label": "2"
+      },
+      {
+        "value": "col-md-4",
+        "label": "3"
+      },
+      {
+        "value": "col-md-3",
+        "label": "4"
+      }
+      ]
+    }
+    ],
+    "blocks": [
+    {
+      "name": "Variant name for swatches",
+      "type": "varaint",
+      "settings": [
+      {
+        "type": "text",
+        "label": "Variant name",
+        "id": "variant"
+      }
+      ]
+    }
+    ]
+  }
+  {% endschema %}

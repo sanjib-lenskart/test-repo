@@ -1,0 +1,161 @@
+
+<ul class="ul nav clearfix">
+  <li class="li custommenu-lk" id="eyemenu-lk"><span>EYEGLASSES</span></li>
+  <li class="li custommenu-lk" id="eyemenu-lkl"><span>SUNGLASSES</span></li>
+  <li class="li"><a href="/pages/blue-light-blocking-glasses" style="color:#006DBC;font-weight:600">Blue Light Block GLASSES</a></li>
+  <li class="li custommenu-lk" id="head_try3d"><a href="/pages/compare-looks">Virtual Try On</a></li>
+  <li class="li custommenu-coll"><span>COLLECTIONS</span></li>
+<!--   <li class="li"><a href="/pages/contact-us">Contact Us</a></li> -->
+<!--   <li class="li"><a href="/pages/order-shipment-tracking">Track Order</a></li> -->
+<!--   <li class="li deals_d"><a href="/pages/deals">Deals</a></li> -->
+</ul>
+
+{% assign men_img  = section.settings.mega_1_image_1 %}
+{% assign women_img  = section.settings.mega_1_image_2 %}
+{% assign sun_men_img  = section.settings.mega_2_image_1 %}
+{% assign sun_women_img  = section.settings.mega_2_image_2 %}
+
+<div id="mymodelmenu" class="modelmenu">
+  <!-- Eyeglass modelmenu content -->
+  <div class="modelmenu-content">
+    <div class="container-fluid"> 
+      <div class="row"> 
+        <div class="col-sm-6 paaddingzero"> 
+          <div class="table_view"> 
+            <div class="col-sm-12"> 
+            <a class="shopmeneg-a" href="/collections/eyeglasses-for-men"> 
+              {%- assign src_name = men_img -%}
+              {%- assign src_alt = 'Men' -%}
+              {%- include 'srcset-img' -%}
+              <span class="shopmeneg-btn btn_green">Shop Men</span>
+              </a>              
+        </div>
+        </div>
+        </div>        
+        <div class="col-sm-6 paaddingzero"> 
+          <div class="table_view"> 
+            <div class="col-sm-12"> 
+              <a class="shopwomeneg-a" href="/collections/eyeglasses-for-women"> 
+                {%- assign src_name = women_img -%}
+              {%- assign src_alt = 'Women' -%}
+              {%- include 'srcset-img' -%}
+                <span class="shopwomeneg-btn btn_green">Shop Women</span>
+        </a>
+            </div>
+          </div>
+        </div>         
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="mymodelmenusg" class="modelmenu">
+  <!-- Eyeglass modelmenu content -->
+  <div class="modelmenu-content">
+    <div class="container-fluid"> 
+     <div class="row"> 
+       <div class="col-sm-6 paaddingzero"> 
+         <div class="table_view"> 
+           <div class="col-sm-12"> 
+           <a class="shopmensg-a" href="/collections/sunglasses-for-men">              
+             {%- assign src_name = sun_men_img -%}
+              {%- assign src_alt = 'Men' -%}
+              {%- include 'srcset-img' -%}             
+             <span class="shopmensg-btn btn_green">Shop Men</span>
+             </a>
+           </div>
+         </div>
+       </div>
+       <div class="col-sm-6 paaddingzero"> 
+         <div class="table_view">
+           <div class="col-sm-12"> 
+             <a class="shopwomensg-a" href="/collections/sunglasses-for-women">                
+               {%- assign src_name = sun_women_img -%}
+              {%- assign src_alt = 'Women' -%}
+              {%- include 'srcset-img' -%}
+               <span class="shopwomensg-btn btn_green">Shop Women</span>
+       </a>
+       </div>
+       </div>
+       </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- site-nav:Collection dropdown menu -->
+<div id="collectionmenu" class="collection-menu modelmenu">  
+  <div class="container-ak">
+    <div class="row"> 
+      <div class="col-sm-3 paadding"> 
+        <div class="nav nav_1">
+          <p class="title">{{linklists.gender.title}}</p>
+          <ul class='list'>
+            {% for link in linklists.gender.links %}
+            <li>
+              <a href="{{link.url}}">
+                {{link.title}}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <div class="col-sm-3 paadding"> 
+        <div class="nav nav_1">
+          <p class="title">{{linklists.types-of-glasses.title}}</p>
+          <ul class='list'>
+            {% for link in linklists.types-of-glasses.links %}
+            <li>
+              <a href="{{link.url}}">
+                {{link.title}}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <div class="col-sm-3 paadding"> 
+        <div class="nav nav_1">
+          <p class="title">{{linklists.types-of-sunglasses.title}}</p>
+          <ul class='list'>
+            {% for link in linklists.types-of-sunglasses.links %}
+            <li>
+              <a href="{{link.url}}">
+                {{link.title}}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>      
+        <div class="col-sm-3 paadding"> 
+        <div class="nav nav_1">
+          <p class="title">{{linklists.top-picks.title}}</p>
+          <ul class='list'>
+            {% for link in linklists.top-picks.links %}
+            <li>
+              <a href="{{link.url}}">
+                {{link.title}}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>      
+        <div class="col-sm-3 paadding hide"> 
+        <div class="nav nav_1">
+          <p class="title">{{linklists.glasses-by-price-1.title}}</p>
+          <ul class='list'>
+            {% for link in linklists.glasses-by-price-1.links %}
+            <li>
+              <a href="{{link.url}}">
+                {{link.title}}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>      
+    </div>  
+  </div>
+</div>

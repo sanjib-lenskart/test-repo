@@ -1,0 +1,46 @@
+{% assign zoom = section.settings.zoom  %}
+{% assign gallery = section.settings.gallery  %}
+{% if product.images.size == 1 %}
+{% assign gallery = false %}
+{% endif %}
+{% if section.settings.ad_height %}
+{% assign ad_height = true %}
+{% endif %}
+
+<div class="images">
+  <div class="image_block_loading">
+    {% include 'loading' %}
+  </div>
+ 
+  <ul class="list" id="ProductImages" {% if ad_height %}data-height="true"{% endif %}>
+    {% for image in product.images %}
+    {%- assign total_img = forloop.length -%}
+    {% if forloop.index == 1 %}
+      {% capture firsr_li %}
+       <li class="v_hide {% if gallery  %}gallery{% endif %} id_{{image.id}}" data-index = "{{forloop.index}}" data-thumb="{{ image.src | img_url: 'small' }}" data-src="{{ image.src | img_url: 'grande' }}" >
+        <div class="zoom img">
+          <img  src="{{ image.src | img_url: 'original' }}" {% if zoom %} data-img="{{ image.src | img_url: '1024x' }}" {% else %} data-img="{{ image.src | img_url: '1024x' }}" {% endif %} data-img-xs="{{ image.src | img_url: 'large' }}"  class="product_image img_blur img_load"  alt="{{collection.title}}-{% for tags in product.tags %}{% if tags contains 'Shape' %}{% assign type = tags | remove:'Shape_' %}{{type}}{% endif %}{% endfor %}-{{ product.variants[0].option1 }}-{% if product.type == 'Eyeglasses' %}EG{% else %}SG{% endif %}" title="{{collection.title}}-{% for tags in product.tags %}{% if tags contains 'Shape' %}{% assign type = tags | remove:'Shape_' %}{{type}}{% endif %}{% endfor %}-{{ product.variants[0].option1 }}-{% if product.type == 'Eyeglasses' %}EG{% else %}SG{% endif %}">
+        </div>
+      </li>
+      {% endcapture %}
+    {% else%}    
+    <li class="v_hide {% if gallery  %}gallery{% endif %} id_{{image.id}}" data-index = "{{forloop.index}}" data-thumb="{{ image.src | img_url: 'small' }}" data-src="{{ image.src | img_url: 'grande' }}" >
+      <div class="zoom img">
+        <img  src="{{ image.src | img_url: 'original' }}" {% if zoom %} data-img="{{ image.src | img_url: '1024x' }}" {% else %} data-img="{{ image.src | img_url: '1024x' }}" {% endif %} data-img-xs="{{ image.src | img_url: 'large' }}"  class="product_image img_blur img_load"  alt="{{collection.title}}-{% for tags in product.tags %}{% if tags contains 'Shape' %}{% assign type = tags | remove:'Shape_' %}{{type}}{% endif %}{% endfor %}-{{ product.variants[0].option1 }}-{% if product.type == 'Eyeglasses' %}EG{% else %}SG{% endif %}" title="{{collection.title}}-{% for tags in product.tags %}{% if tags contains 'Shape' %}{% assign type = tags | remove:'Shape_' %}{{type}}{% endif %}{% endfor %}-{{ product.variants[0].option1 }}-{% if product.type == 'Eyeglasses' %}EG{% else %}SG{% endif %}">
+      </div>
+    </li>
+    
+    {% if forloop.index == 2 %}
+    {{firsr_li}}
+    {% endif %}
+    
+    {% endif %}
+    {% endfor %}
+  </ul>
+  <div class='fake_pagination hide'>
+    {%- for i in (1..total_img) -%}
+    <span class='dot_{{forloop.index}} dot{% if forloop.index == 1 %} active{% endif %}'>
+    </span>
+    {%- endfor -%}
+  </div>
+</div>

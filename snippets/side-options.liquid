@@ -1,0 +1,110 @@
+{% if product.tags contains 'has_lens' %}
+{% assign has_lens = true %}
+{% endif %}
+
+<div class="side_option" data-link="/pages/extra-product">
+  <div class="title_box mobile_title_box hide_sm">
+    <h4>{{product.title}}</h4>
+    <!-- <small></small> -->
+    <span class="close">&times;</span>
+  </div>
+  <form>
+   <div class="flex_view">
+     <div class="col-md-7 col-sm-6 side_img_section hide">
+       <div class="img slide-package-img">
+          <img src="{{product.featured_image | img_url:'original'}}" class="img-responsive" />
+      </div>
+     </div>
+     <div class="col-md-12 col-sm-12 side_data_section">
+        <div class="title_box hide_xs">
+            <h4>{{product.title}}</h4>
+            <!-- <small></small> -->
+            <span class="close">&times;</span>
+        </div>
+        
+        <div class="product-sidebar">
+          <div class="power_section">
+            {% if type == 'eg' or type == 'sg' or product.type == 'Child' %}
+              {% include 'side-option-labels' %}
+            {% else %}
+              {% if has_lens %}
+              {% include 'side-option-labels' %}
+              {% endif %}
+            {% endif %}
+          </div>
+        </div>
+        <div id="callToAction" class="hide side_option_text">
+          <p>
+            {% if type == 'eg' or product.type == 'Child' %}
+            {{section.settings.confused}}
+            {% else %}
+
+            {{section.settings.sun_confused}}
+            {% endif %}
+          </p>
+        </div>
+        {% if product.type == 'Eyeglasses' or product.type == 'Child' %}
+          <button type="button" class="btn_next" onclick='ga("send", "event", "P_1");'>Continue</button>
+          <div class='btn_proceed bifocal_form flex_view_xs middle justify-center' onclick='ga("send", "event", "P_1");'>
+            <div class="proceed_block">
+              <div id="egbtntemp" class="btn poweraddtocart" style="width:100%">
+              <!-- Proceed -->
+              Continue              
+                <span class="loading"></span>
+              </div>
+            </div>
+          </div>
+       
+        <div id="egbtntemp1" class="btn process_cart" style="width:100%" onclick='ga("send", "event", "P_1");'>
+              <!-- Proceed -->
+              Continue             
+                <span class="loading"></span>
+              </div>
+        {% endif %}
+       
+        {% if product.type == 'Sunglassess' %}
+          <button type="button" class="btn_next hideimp" onclick='ga("send", "event", "P_1");'>Continue</button>
+          <div class='btn_proceed bifocal_form flex_view_xs middle justify-center' onclick='ga("send", "event", "P_1");'>
+            <div class="proceed_block">
+              <div class="btn sun-poweraddtocart" style="width:100%">
+              <!-- Proceed -->
+              Continue             
+                <span class="loading"></span>
+              </div>
+            </div>
+          </div>
+        {% endif %}
+       
+     </div>
+   </div>
+  </form>
+
+</div> <!-- "/side_option" -->
+
+
+
+{% if has_lens %}
+{% assign master_product_price = product.price %}
+<div class="sunglass_lens hide">
+  {% assign temp_product = product %}
+  <div class="text text-center">
+    {{section.settings.sunglass_text}}
+  </div>
+  <ul class="list clearfix text-center">
+    <br/>
+
+    {% for product in collections[section.settings.sun_collection].products %}
+    <li class="col-sm-6 col-sm-offset-3">
+      {% assign no_height_alignment = true %}
+      {% include 'sunglass-lens-product' %}
+      <a class="btn reverse checkout" data-product="{{product.variants[0].id}}">
+        Checkout
+      </a>
+    </li>
+
+    {% endfor %}
+    <br/>
+  </ul>
+</div>
+{% assign product = temp_product %}
+{% endif %}

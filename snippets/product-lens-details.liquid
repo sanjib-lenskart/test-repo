@@ -1,0 +1,516 @@
+{% if bluCounter %}
+<style>
+  .form-group.handle_anti-glare-lenses{
+    display:none!important;
+  }
+</style>
+{% endif %}
+{%- if type == 'eg' or product.type == 'Child' -%}
+{%- if type == 'eg' or product.type == 'Child' -%}
+{%- assign glass_type = 'eyeglass' -%}
+{%- assign label_class = 'eye_lens' -%}
+{%- else -%}
+{%- assign label_class = blank -%}
+{%- assign glass_type = 'sunglass' -%}
+{%- endif -%}
+
+{% assign chooselense = false %}
+{%- for block in section.blocks -%}
+{% if forloop.index == 1 %}
+{% assign chooselense = true %}
+{%- endif -%}
+{%- endfor -%}
+{%- if type == 'eg' or product.type == 'Child' -%}
+<div class="form-group-cus">
+  <div class="top_tab">
+    <div class="tab lens_lense_type active" data-text="Prescription Type" data-fulltext="Select Prescription Type" data-index="0">Select Prescription Type</div> <span class="tabspan">&#10095;</span>
+    {% if chooselense %}
+    {%- unless unique_collection -%}
+    <div class="tab choose_lense" data-text="Lens Type" data-fulltext="Select Lens Type" data-index="1">Select Lens Type</div><span class="tabspan choose_lensespan">&#10095;</span>
+    {%- endunless -%}
+    {%- endif -%}
+    
+    <div class="tab power_detail" data-text="Enter Prescription" data-fulltext="Enter Prescription" data-index="2">Enter Prescription</div>
+     <span class="tabspan place-orderspan">&#10095;</span>
+    <div class="tab noclick place-order">Place Order</div>
+    
+  </div>
+  
+<!--   TAB 1 CONTAINER -->
+  <div class="toggle_div tab_text" data-index="0">
+    <div class="head" data-lens="powered-specs">
+      <input type="radio" name="lenstype" class="lens_input1" id="single-vision" value="Single Vision" checked> 
+      <span class="head_label">Single Vision</span>
+      <div class="sub_head">
+		Select this option if you can't see objects either at Distance OR Near field of vision 
+      </div>
+      <span class="arrow-left"></span>
+    </div>
+    
+    <div class="head" data-lens="bifocal-glasses">
+      <input type="radio" name="lenstype" class="lens_input1" id="bifocal-power" value="Progressive / Bi-Focal"> 
+      <span class="head_label">Progressive / Bi-Focal</span>
+      <div class="sub_head">
+        Select this option if you can't see objects both at Distance AND Near field of vision
+<!--         <div class="tooltip">Learn More</div> -->
+      </div>
+      <span class="arrow-left"></span>
+      <span class="tooltiptext">
+        <h3 class="">Progressive - Distance & Reading</h3>
+        <p>This lens provides seamless progression of many lens powers for all viewing distances. It includes three fields of vision: near, intermediate and distance.</p>
+        <img src="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/bifocal.jpg?65213" alt="" />
+        <span class="closetooltip">&times;</span>    
+      </span>
+    </div>
+    
+    <div class="head" data-lens="computer-glasses">
+      <input type="radio" name="lenstype" class="lens_input1" id="Zero-Power" value="Frames with ZERO power lenses"> 
+      <span class="head_label dpl-flex"><span>Frame with Zero Power Blue Light Filtering Lenses</span></span>
+      <div class="sub_head">
+        Select this option if you want to buy frame with zero power blue light filtering lenses<br />
+      </div>
+      <span class="arrow-left"></span>
+    </div>
+
+    <div class="head sun_withoutpower-last" data-lens="frame-only"> 
+      <input type="radio" name="lenstype" class="lens_input1" id="Frame-Only" value="Frame Only">
+      <span class="head_label">Frame Only</span>
+      <div class="sub_head">Select this option if you want to buy frame only, without any lenses</div>
+      <span class="arrow-left"></span>
+    </div>
+<!--     <p class="avail-free"><span>Avail your free upgrade to <strong>Blue Lenses</strong> in the next step!</span></p> -->
+  </div>       
+
+</div>
+{%- endif -%}
+
+<!--   TAB 2 CONTAINER -->
+<div  class="toggle_div choose_lense_text" data-index="1">
+  <div class="lens_container">
+  {%- for block in section.blocks  -%}
+  {% assign show = false %}
+  {%- if zero  -%}
+  {% if block.settings.zero %}
+  {%- assign show = true -%}
+  {%- endif -%}
+  {%- else -%}
+  {%- assign show  = true -%}
+  {%- endif -%}
+
+  {%- if block.settings.per_type == pre_type and  block.settings.glass_type == glass_type  and  show -%}
+  {% assign product_name = all_products[block.settings.product] %}
+  {% if type == 'eg' or product.type == 'Child' %}
+
+  <div  class='form-group count_{{ forloop.index }} handle_{{ product_name.handle }} {{ block.settings.lens_type }}' data-lens='{{block.settings.lens_type}}'>   
+    {%- unless unique_collection and forloop.index != 2 -%}  
+    <div class='lens_info'>
+      {%- assign  vid = product_name.variants[0].id -%}
+      <input name='lens_{{forloop.index}}' class='lens_input' data-name='{{product_name.handle}}' data-vid='{{vid}}' type='radio' id='lens_{{vid}}_{{forloop.index}}' data-price='{{product_name.price}}'> 
+      {% if type == 'eg' or product.type == 'Child' %}
+      <span class="arrow-left"></span>
+      {%- endif -%}
+      <label class="{{label_class}} action_btn"{% if zero %} data-zero='true' data-form="No"{% else %} data-form="Yes"{% endif %} data-vid='{{vid}}' data-product="detail_{{product.id}}"  data-value="with_lens" for="npw2">
+        {% unless product_name.handle == 'complimentary' %}  
+        {% if type != 'eg' %} 
+        Power: 
+        {%- endif -%}
+        {% endunless %}
+        {% if type == 'eg' or product.type == 'Child' %}
+        <div class="{% if block.settings.lens_name == 'Thin Blue Light Filter Lensesq' or block.settings.lens_name == 'Progressive Lenses (No-Line Bifocal)q' %}bgbluee{% endif %}">
+        <div class="flex_view middle">
+          <span class="name">{{block.settings.lens_name }}</span>                      
+        </div>
+        {% assign frameprice = product.price %}
+        {% assign lensprice = product_name.price %}        
+        {% assign lensprice = lensprice | plus: frameprice  %}
+        
+         <p class="framenlens-container">Frame + Lens<br> 
+          
+        	<span class="price">{{ lensprice | money }}</span></p>
+            
+        {%- endif -%}
+
+          
+              {% if block.settings.lens_type == 'powered-specs' or block.settings.lens_type == 'bifocal-glasses' %}
+              <div class="btn_padd" onclick='ga("send", "event", "P_2");'>
+                <div class="btn addtocart-option {% if block.settings.lens_name == 'Anti Glare Lenses' or block.settings.lens_name == 'Progressive Lenses (No-Line Bifocal)1' %}for_coating_btn_{{product_name.handle}} {% else %}poweraddtocart{% endif %} {% if product_name.handle == 'transition-coating' or product_name.handle == 'transition-coating-wide-corridor' %} coating_lens_{{product_name.handle}}{% endif %}">
+                  Buy Now
+                </div>
+<!--                 <p class="b-friday">*Black Friday Special Price</p> -->
+              </div>
+            {% endif %}
+
+              {% if block.settings.lens_type == 'powered-specs' and block.settings.lens_name == 'Anti Glare Lenses' %}
+              <div class ="hideimp"><div class="btn addtocart-option coating_btn_anti poweraddtocart">Buy Now</div></div>          
+            {% endif %}
+              {% if block.settings.lens_type == 'bifocal-glasses' and block.settings.lens_name == 'Progressive Lenses (No-Line Bifocal)1' %}
+              <div class ="hideimp"><div class="btn addtocart-option coating_btn_bifocal poweraddtocart">Buy Now</div></div>  
+              {% assign widecorilens = product_name.price %} 
+            {% endif %}                
+        </div>
+        
+          <div class="oneyear"></div>        
+        {% if block.settings.lens_type == 'computer-glasses'%}       
+            <div class="proceed_block1 btn_proceed_hide" onclick='ga("send", "event", "P_2");'>
+              <div class="btn process_cart addtocart-option">
+              <!-- Proceed -->
+              Buy Now              
+                <span class="loading"></span>
+              </div>
+            </div>        
+         {% endif %}
+        
+        <span class='text'>
+          {{ product_name.description }}
+        </span>
+      </label>
+    </div>
+    {%- endunless -%}
+  </div>
+  
+  
+      {% if block.settings.lens_type == 'powered-specs' and product_name.handle == 'transition-coating' %} 
+          {% include 'coating-lens-popup' %}
+      {% endif %}
+      {% if block.settings.lens_type == 'bifocal-glasses' and product_name.handle == 'transition-coating-wide-corridor' %} 
+          {% include 'coating-lens-popup-bifocal' %}
+      {% endif %}  
+  {% else %}
+  <!-- else part -->
+  <div class='form-group'>
+    <div class='lens_info'>
+      {%- assign  vid = product_name.variants[0].id -%}
+      <input name='lens_{{forloop.index}}' class='lens_input' data-name='{{product_name.handle}}' data-vid='{{vid}}' type='radio' id='lens_{{vid}}_{{forloop.index}}'>
+      <span class="arrow-left"></span>
+      <label class="{{label_class}} action_btn"{% if zero %} data-zero='true' data-form="No"{% else %} data-form="Yes"{% endif %} data-vid='{{vid}}' data-product="detail_{{product.id}}"  data-value="with_lens" for="npw2">
+        {% unless product_name.handle == 'complimentary' %}  {% if type != 'eg' %} Power: {%-endif - %}<span>{{product_name.price | money}}</span> {% if type == 'eg' %} - {%- endif -%} {% endunless %}
+        {% if type == 'eg' or product.type == 'Child' %}
+        {{product_name.title}}
+        {%- endif -%}
+      </label>
+      <div class='text'>
+        {{ product_name.description }}
+      </div>
+    </div>
+  </div>
+  {%- endif -%}
+  {%- endif -%}
+  {% endfor %}
+  </div>
+  <div class="checkbox_block frame_only-container">
+    <div class="form-group">
+      <div class="lens_info">
+        <input id="frame_only" type="radio" name="with_powers" data-price='0'>
+        <span class="arrow-left"></span>
+        <label for="frame_only" class="reverse action_btn" data-product="detail_{{product.id}}" data-form="No" data-value="frame_only" for="npw1">Frame Only</label>
+        <span class='text'>
+          Order these if you want a pair of dummy lenses.
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--   TAB 3 CONTAINER -->
+<div class="toggle_div prescr-form" data-index="2" style="text-align: left;">
+<!--   <div class="form-instruction"></div> -->
+  <div class="usermessage"></div>
+  
+  <div class="head_pres">
+    <span class="head_label active">Enter Prescription Later</span>
+     <div class="sub_head">Enter Prescription any time after placing the order. You can either enter manually or upload a precription image. There will be no additional charges for that.</div>
+  </div>
+  <div class="head_pres openpremodel_pp">
+    <span class="head_label">Enter Prescription Now</span>
+    <div class="sub_head">Enter your prescription manually or upload the prescription image</div>
+  </div>
+         
+  <div class="btn btn-continue process_cart pres_cont_btn" onclick='ga("send", "event", "P_3");'>
+    Continue
+    <span class="loading"></span>
+  </div>     
+  
+</div>
+
+{% if collection.handle == 'blu-light-glasses' %}
+<style>
+  #product_page .product_details .side_option .product-sidebar .checkbox_block .count_2{display:none!important;}
+  #product_page .product_details .side_option .product-sidebar .checkbox_block .count_3{display:none!important;}
+  #product_page .product_details .side_option .product-sidebar .checkbox_block .count_5{display:none!important;}
+  #product_page .product_details .side_option .product-sidebar .checkbox_block .count_6{display:none!important;}
+  #product_page .checkbox_block .form-group{
+    max-width: 50%;
+  }
+
+  @media (max-width:767px){
+    #product_page .checkbox_block .form-group{
+      max-width: 80%;
+    }
+    #product_page .product_details .side_option .product-sidebar .checkbox_block .form-group .lens_info .flex_view span{
+      font-size:18px!important;
+    }
+  }
+</style>
+{% endif %}
+<style>
+  @media (max-width:767px){
+    #product_page .checkbox_block .form-group{
+      max-width: 47%;
+    }
+    #product_page .checkbox_block .form-group.powered-specs{
+      max-width: 38%;
+    }
+    #product_page .product_details .product_form .addtocartsticky {
+    position: fixed!important;
+    z-index: 99;
+    bottom: 8px;
+    right: 0;
+    left: 4%;
+      width: 92%!important;
+      border-radius:8px!important;
+      transition: all ease 0.2s;
+}
+  }
+  
+  @media (max-width:340px){
+    #product_page .checkbox_block .form-group.powered-specs{
+      max-width: 42%;
+    }
+  }
+  
+  {% if collection.handle == 'transition-eyeglasses' %}  
+    .form-group.handle_blu-cut-lenses {
+    display:none!important;
+  }
+  .form-group.handle_anti-glare-lenses{
+    display:none!important;
+  }  
+  .form-group.handle_wide-corridor-progressive-lenses {
+    display:none!important;
+  }
+  .form-group.handle_normal-corridor-progressive-lenses{
+    display:none!important;
+  } 
+  {% else %}
+  .form-group.handle_transition-coating{
+/*   display:none!important; */
+}
+.form-group.handle_transition-coating-wide-corridor{
+/*   display:none!important; */
+}
+  {% endif %}
+    
+  {% comment %}
+  {% if collection.handle == 'blue-light-blocking-eyeglasses'%}
+  .form-group.handle_anti-glare-lenses{
+    display:none!important;
+  }
+  
+  .form-group.handle_transition-coating-wide-corridor{
+    display:none!important;
+  }
+  .form-group.handle_transition-coating{
+    display:none!important;
+  }
+  
+ .form-group.handle_wide-corridor-progressive-lenses {
+    display:none!important;
+  }
+  .form-group.handle_normal-corridor-progressive-lenses{
+    display:none!important;
+  }
+  
+  #product_page .product_details .side_option .product-sidebar .checkbox_block .form-group.count_13 .lens_info label .flex_view span{
+    line-height: calc(1em + 2px);
+    height:45px;
+  }
+  {% else %}
+   
+  .handle_wide-corridor-blue-light-blocking-lenses{
+    display:none!important;
+  }
+  {% endif %}
+  {% endcomment %}
+</style>
+{%- elsif type == 'sg' -%}
+
+<!-- Only for sunglasses -->
+{%- if type == 'sg' -%}
+{%- assign glass_type = 'sunglass' -%}
+{%- assign label_class = 'eye_lens' -%}
+{%- else -%}
+{%- assign label_class = 'eye_lens' -%}
+{%- assign glass_type = 'eyeglass' -%}
+{%- endif -%}
+
+{% assign chooselense = false %}
+{%- for block in section.blocks -%}
+{% if forloop.index == 1 %}
+{% assign chooselense = true %}
+{%- endif -%}
+{%- endfor -%}
+
+{%- if type == 'sg' -%}
+<div class="form-group-cus">
+  <div class="top_tab">
+     <div class="tab lens_lense_type active" data-text="Select Prescription Type" data-fulltext="Select Prescription Type" data-index="10">Select Prescription Type</div> <span class="tabspan">&#10095;</span>
+    {% if chooselense %}
+    {%- unless unique_collection -%}
+    <div class="tab choose_lense choose_lense-sun" data-text="Select Lens Type" data-fulltext="Select Lens Type" data-index="11">Select Lens Type</div> <span class="tabspan choose_lensespan">&#10095;</span>
+    {%- endunless -%}
+    {%- endif -%}
+    
+    <div class="tab power_detail power_detail-sun" data-text="Enter Prescription" data-fulltext="Enter Prescription" data-index="21">Enter Prescription</div>
+     <span class="tabspan place-orderspan">&#10095;</span>
+    <div class="tab noclick place-order">Place Order</div>
+    
+  </div>
+  
+   <div class="toggle_div tab_text" data-index="10">
+    <div class="head" data-lens="sun_withpower">
+      <input type="radio" name="lenstype" class="lens_input1" id="sun_withpower" value="With Single Vision Prescription Lenses" checked> 
+      <span class="head_label sg_head_label dpl-flex">With Single Vision Prescription Lenses</span>
+      <div class="sub_head">Select this option if you can't see objects either at Distance OR Near field of vision</div>
+      <span class="arrow-left"></span>       
+    </div>
+   
+    <div class="head" data-lens="sun_withpower_pro"> 
+      <input type="radio" name="lenstype" class="lens_input1" id="sun_withpower_pro" value="With Progressive Prescription Lenses">
+      <span class="head_label sg_head_label dpl-flex">With Progressive Prescription Lenses</span>
+      <div class="sub_head">Select this option if you can't see objects both at Distance AND Near field of vision</div>
+      <span class="arrow-left"></span>
+    </div>
+     
+    <div class="head sun_withoutpower-last" data-lens="sun_withoutpower"> 
+      <input type="radio" name="lenstype" class="lens_input1" id="sunglass_only" value="Without Prescription Lenses">
+      <span class="head_label sg_head_label dpl-flex">Without Prescription Lenses</span>
+      <div class="sub_head hide">Select this option if you want to buy Sunglasses without Prescription Lenses</div>
+      <span class="arrow-left"></span>
+    </div>
+<!--      <p class="avail-free">Avail your free upgrade to <strong>Blue Lenses</strong> in the next step!</p> -->
+  </div>    
+</div>
+{%- endif -%}
+
+<div class="toggle_div choose_lense_text" data-index="11">
+  {%- for block in section.blocks -%}
+  {% assign show = false %}
+  {%- if zero  -%}
+  {% if block.settings.zero %}
+  {%- assign show = true -%}
+  {%- endif -%}
+  {%- else -%}
+  {%- assign show  = true -%}
+  {%- endif -%}
+
+  {%- if block.settings.per_type == pre_type and  block.settings.glass_type == glass_type  and  show -%}
+
+  {% assign product_name = all_products[block.settings.product] %}
+  {% if type == 'sg' %}          
+  <div class='form-group count_{{ forloop.index }}' data-lens='{{block.settings.lens_type}}'>   
+    {%- unless unique_collection and forloop.index != 2 -%}  
+    <div class='lens_info'>
+      {%- assign  vid = product_name.variants[0].id -%}
+      <input name='lens_{{forloop.index}}' class='lens_input' data-name='{{product_name.handle}}' data-vid='{{vid}}' type='radio' id='lens_{{vid}}_{{forloop.index}}' data-price='{{product_name.price}}'> 
+      {% if type == 'sg' %}
+      <span class="arrow-left"></span>
+      {%- endif -%}
+      <label class="{{label_class}} action_btn"{% if zero %} data-zero='true' data-form="No"{% else %} data-form="Yes"{% endif %} data-vid='{{vid}}' data-product="detail_{{product.id}}"  data-value="with_lens" for="npw2">
+        {% unless product_name.handle == 'complimentary' %}  
+        {% if type != 'sg' %} 
+        Power: 
+        {%- endif -%}
+        {% endunless %}
+        {% if type == 'sg' %}
+        <div class="flex_view middle flex_view_sg">
+          <span class="name name_sg">{{block.settings.lens_name}}</span>
+<!--           <span class="price" >{{product_name.price | money}}</span> -->
+        </div>
+        
+        {% assign frameprice1 = product.price %}
+        {% assign lensprice1 = product_name.price %}        
+        {% assign lensprice1 = lensprice1 | plus: frameprice1  %}        
+        <p class="framenlens-container">Frame + Lens<br> <span class="price">{{ lensprice1 | money }}</span></p>
+             
+        {%- endif -%}
+         {% if block.settings.lens_type == 'sun_withpower' or block.settings.lens_type == 'sun_withpower_pro'%}
+        <div class="sunbtnpadd"><div class="btn sun-poweraddtocart addtocart-option">
+          Buy Now
+        <span class="loading"></span>
+        </div>
+        </div>
+        {% endif %}
+         <div class="oneyear"></div>
+        <span class='text'>           
+          {{ product_name.description }}
+        </span>
+      </label>
+    </div>
+    {%- endunless -%}
+  </div>
+  {% else %}
+  <!-- else part -->
+  <div class='form-group 12'>
+    <div class='lens_info'>
+      {%- assign  vid = product_name.variants[0].id -%}
+      <input name='lens_{{forloop.index}}' class='lens_input' data-name='{{product_name.handle}}' data-vid='{{vid}}' type='radio' id='lens_{{vid}}_{{forloop.index}}'>
+      <span class="arrow-left"></span>
+      <label class="{{label_class}} action_btn"{% if zero %} data-zero='true' data-form="No"{% else %} data-form="Yes"{% endif %} data-vid='{{vid}}' data-product="detail_{{product.id}}"  data-value="with_lens" for="npw2">
+        {% unless product_name.handle == 'complimentary' %}  {% if type != 'sg' %} Power: {%-endif - %}<span>{{product_name.price | money}}</span> {% if type == 'sg' %} - {%- endif -%} {% endunless %}
+        {% if type == 'sg' %}
+        {{product_name.title}}
+        {%- endif -%}
+      </label>
+      <div class='text'>        
+        {{ product_name.description }}
+      </div>
+    </div>
+  </div>
+  {%- endif -%}
+  {%- endif -%}
+  {% endfor %}
+
+  <div class="checkbox_block frame_only-container">
+    <div class="form-group">
+      <div class="lens_info">
+        <input id="frame_only" type="radio" name="with_powers" data-price='0'>
+        <span class="arrow-left"></span>
+        <label for="frame_only" class="reverse action_btn" data-product="detail_{{product.id}}" data-form="No" data-value="frame_only" for="npw1">Frame Only</label>
+        <span class='text'>
+          Order these if you want a pair of dummy lenses.
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="toggle_div prescr-form" data-index="21" style="text-align: left;">
+<!--   <div class="form-instruction">Please Upload Your Prescription Form Image Which Indicates Your Eye Power.</div> -->
+  
+  <div class="usermessage"></div>
+  
+  <div class="head_pres">
+    <span class="head_label active">Enter Prescription Later</span>
+     <div class="sub_head">Enter Prescription any time after placing the order. You can either enter manually or upload a precription image. There will be no additional charges for that.</div>
+  </div>
+  <div class="head_pres openpremodel_pp">
+    <span class="head_label">Enter Prescription Now</span>
+    <div class="sub_head">Enter your prescription manually or upload the prescription image</div>
+  </div>
+         
+  <div class="btn btn-continue process_cart pres_cont_btn" onclick='ga("send", "event", "P_3");'>
+    Continue
+    <span class="loading"></span>
+  </div> 
+  
+  
+</div>
+
+<div class="btn sg_next_btn" onclick='ga("send", "event", "P_3");'>Continue</div>
+<div class="btn sg_addtocart_btn hideimp">Continue</div>
+
+{%- endif -%}
+ <div class="bgoverlay"></div>
+
+{% include 'pre-prescription' %}

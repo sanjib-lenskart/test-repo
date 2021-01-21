@@ -1,0 +1,117 @@
+{% if section.blocks.size == 0 %}
+{% include 'no-section-msg' %}
+{% else %}
+{% assign sizes = '480,765,900,1000,1100,1300,1500,1700' | split: "," %}
+<div id="banner_grid">
+  <div class="{% unless section.settings.full %}container{% endunless %}">
+    {% unless section.settings.header == blank %}
+    <h1 class="text-center title">{{section.settings.header}}</h1>
+    {% endunless %}
+    {% unless section.settings.sub_header == blank %}
+    <p class="sub_title text-center">{{section.settings.sub_header}}</p>
+    {% endunless %}
+    <ul class="clearfix">
+    {% for block in section.blocks %}
+    <li class="{{section.settings.width}} {% if section.settings.no_gutter %}no_gutter{% endif %}">
+      <div class="img">
+      <a href="{{block.settings.link}}">
+        <img alt="{{block.settings.image.alt | escape}}"
+                   src="{{block.settings.image | img_url:'100x' | format:'pjpg'}}" 
+                   class="lazyload img_blur blur-up"
+                   data-sizes="auto"
+                   data-srcset="
+                                {% for size in sizes %}
+                                {% assign size_x = size %}
+                                {% assign size_x = size_x | append : 'x' %}
+                                {{ block.settings.image | img_url: size_x | format: 'pjpg' }} {{size | append:'w'}},
+                                {% endfor %}">
+      </a>
+      {% unless block.settings.text == blank %}
+      <div class="text">
+        {{block.settings.text}}
+      </div>
+      {% endunless %}
+      </div>
+      </li>
+    {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}
+{% schema %}
+{
+  "name": "Homepage - Banner grid",
+  "max_blocks": 4,
+  "settings": [
+    {
+      "type": "checkbox",
+      "label": "Full-width",
+      "id": "full"
+    },
+    {
+      "type": "checkbox",
+      "label": "Image without space",
+      "id": "no_gutter"
+    },
+    {
+      "type": "text",
+      "label": "Header text",
+      "id": "header"
+    },
+    {
+      "type": "textarea",
+      "label": "Sub header text",
+      "id": "sub_header"
+    },
+    {
+      "type": "select",
+      "label": "Banner per row",
+      "id": "width",
+      "info": "Only for desktop and tablet view",
+      "options": [
+        {
+          "value": "col-sm-6",
+          "label": "2"
+        },
+        {
+          "value": "col-sm-4",
+          "label": "3"
+        },
+        {
+          "value": "col-sm-3",
+          "label": "4"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "image"
+        },
+        {
+          "type": "text",
+          "label": "Image URL",
+          "id": "link"
+        },
+        {
+          "type": "richtext",
+          "label": "Image hover text",
+          "id": "text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home page - Banner image grid",
+      "category": "Banner"
+    }
+  ]
+}
+{% endschema %}

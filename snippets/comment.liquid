@@ -1,0 +1,14 @@
+<!-- /snippets/comment.liquid -->
+<div class="comments">
+  <div class="name_time">
+    <span class="name">{{ comment.author }}</span>
+    <span class="time">
+      <time datetime="{{ comment.created_at | date: '%Y-%m-%d' }}" class="comment-date">
+        ({{ comment.created_at | date: format: 'month_day_year' }})
+      </time>
+    </span>
+  </div>
+  <div class="comment_text">
+    {{ comment.content }}
+  </div>
+</div>

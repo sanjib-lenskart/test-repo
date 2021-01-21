@@ -1,0 +1,162 @@
+{% assign short_name = false %}
+{% for tag in product.tags %}
+{% if tag contains 'short_name_' %}
+{% assign short_name = true %}
+{% assign s_name =  tag | remove : 'short_name_' %}
+{% endif %}
+{% endfor %}
+{%- if short_name -%}
+{%- assign product_name = s_name -%}
+{%- else -%}
+{%- assign product_name = product.title -%}
+{%- endif -%}
+<!-- simply-product -->
+{% assign sale = false %}
+{% if product.compare_at_price > product.price %}
+{% assign sale = true %}
+{% endif %}
+{% assign sold_out = true %}
+{% if product.available %}
+{% assign sold_out = false %}
+{% endif %}
+{% assign swtich_img = settings.switch_image %} 
+{%- assign current_product_img = blank -%}
+
+<div class="product_main{% if sold_out %} sold_out{% endif %} detail_{{product.id}} simply-product-home-slider">
+  <div class="{% unless no_height_alignment == true %}{% endunless %}">
+    <div class="relative {% unless no_height_alignment == true %}img{% endunless %}">     
+      <a class="product_link" href="/collections/sunglasses/products/{{ product.handle}}" data-href="{{ product.url | within: collection }}">
+        {% if template == 'search' %}
+        {% for v in product.variants %}
+        {% assign v_id = v.id %}
+        {% assign v_sku = v.sku %}
+        {% assign search_tearms = search.terms | escape %}  
+        {% if v_sku == search_tearms %}
+        <a class="product_link" href="{{ product.url | within: collection }}?variant={{v_id}}" data-href="{{ product.url | within: collection }}">
+          {%- endif -%}
+          {%- endfor -%} 
+          {%- endif -%}
+
+        {%- if product.available -%}
+                {% if product.type == 'Contact Lens' %}
+                     {% assign new_image = product.featured_image.src  %}
+                        {%- assign alt_img_pos = product.images.position | plus:1 -%}
+                {% else %}          
+                {%- if product.available -%}
+                        {% assign new_image = product.first_available_variant.image.src  %}
+                        {%- assign alt_img_pos = product.first_available_variant.image.position | plus:1 -%}
+                      {%- else -%}
+                        {% assign new_image = product.featured_image.src  %}
+                        {%- assign alt_img_pos = product.images.position | plus:1 -%}
+               {%- endif -%}          
+                {% endif %}
+            {%- endif -%}
+          
+          {% assign tag_color = "" %}
+          
+          {% assign src_name = new_image %}
+          {% assign src_alt = product.featured_image.alt | escape %}
+          {% assign src_class = 'product_img double_img' %}
+          {% include 'srcset-img' %} 
+          
+          {%- assign current_product_img = src_name -%}
+          {%- assign src_name = product.images[alt_img_pos].src -%}
+          {%- assign src_alt = product.featured_image.src -%}
+          {%- assign src_class= 'alter_img' -%}
+          <img src='{{src_name | img_url:'370x'}}' class='{{src_class}}' alt='{{src_alt}}'>
+          {%- unless template == 'search' -%}
+          <div class="coll_ditto">
+            <img src='' class='ditto_img' alt='' />
+          </div>
+          
+          {%- endunless -%}
+        </a>
+        {% if sold_out %} 
+        {% if settings.sold_out_banner %}
+        <div class="sold_out">
+          <p>Sold <br/> out</p>
+        </div>
+        {% endif %}
+        {% elsif sale %}
+        {% if settings.on_sale_banner %}
+        <div class="on_sale">
+          {% capture saved_amount %}{{ product.compare_at_price | minus: product.price | money_without_trailing_zeros }}{% endcapture %}
+          <p>Save <br/> {{saved_amount}}</p>
+        </div>
+        {% endif %}
+        {% endif %}
+      </div>
+    </div>  
+    
+      {% unless no_text == true %}
+    <div class="text {{ product.handle }}"  style="display:none;">
+      
+      <a href="{{ product.url | within: collection }}" class="product_link">
+        <span class="product_title">
+          {{product_name}}
+        </span>
+        {% if section.settings.product_vendor_enable %}
+        <p class="grid-product__vendor">{{ product.vendor }}</p>
+        {% endif %}
+      </a> 
+
+      <span class="product_price">
+        <span class="orignal">
+          {{- product.price | money  -}}
+        </span>
+
+        {% if settings.compare_price %}
+        {% if sale %}
+        <span class="compare">
+          {{- product.compare_at_price | money_without_trailing_zeros | replace: ',','' -}}
+        </span>
+        {% endif %}
+        {% endif %}
+
+        {% if product.type == 'Eyeglasses' %}
+        {% if settings.after_hour %}
+        <br/>
+        {% endif %}
+        {% comment %}
+        <span class="note">
+          ( including prescription lenses )
+        </span>
+        {% endcomment %}
+        {% endif %}
+      </span>
+
+    </div>
+    {% endunless %}     
+  </div>
+  
+  <style>
+    .view-range {
+    	padding-top: 10px;
+	}
+    .view-range a {
+        background: #006DBC;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+        font-style: normal;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 25px;
+        color: #FFFFFF;
+        padding: 5px 20px 5px;
+        border: none;
+        font-family: 'Rajdhani', sans-serif;
+    }
+    .best-heading{
+      color: #006DBC !important;
+      font-size: 24px;
+      line-height: 25px;
+      text-transform:uppercase;
+      font-family: 'Rajdhani', sans-serif;
+    }
+     @media only screen and (max-width: 750px) {
+      .best-heading{
+      	font-size: 15px;
+      	line-height: 25px;
+    	} 
+       
+     }
+  </style>

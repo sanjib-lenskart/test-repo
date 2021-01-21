@@ -1,0 +1,77 @@
+{% layout none %}
+{%- assign total = 0 -%}
+{% for t in current_tags %}
+{% if t contains 'Color_' %}
+{% assign tag_color = t | remove : 'Color_' | handle %}
+{% endif %}
+{% endfor %}
+
+{% assign separate_variant = false %}
+{% for var_item in linklists['variant-separator'].links %}
+{%- if collection.handle == var_item.object.handle -%}
+{% assign separate_variant = true %}
+{%- endif -%}
+{% endfor %}
+
+{%- paginate collection.products by 150 -%}
+
+{% if separate_variant %}
+
+{%- for product in collection.products -%}
+{% for variant in product.variants %}
+{%- if variant.available -%}
+
+{%- if tag_color != blank -%}
+{% assign title = variant.title | handle %}
+{% if title contains tag_color %}
+{%- assign total = total | plus:1 -%}
+{% for variant in product.variants %}
+{% if variant.available %}
+
+{% endif %}
+{%- endfor -%}
+{% endif %}
+{%- else -%}
+
+{%- assign total = total | plus:1 -%}
+{%- endif -%}
+{% endif %}
+{% endfor %}
+{% endfor %}
+
+
+
+{%- else -%}
+
+
+{%- for product in collection.products -%}
+
+{% if product.available %}
+
+{%- if tag_color != blank -%}
+
+{% for variant in product.variants %}
+
+
+{% assign title = variant.title | handle %}
+{% if title contains tag_color %}
+{% if variant.available %} 
+{%- assign total = total | plus:1 -%}
+{% endif %}
+{% endif %}
+{% endfor %}
+
+{%- else -%}
+{%- assign total = total | plus:1 -%}
+{%- endif -%}
+
+
+{%- endif -%}
+{% endfor %}
+
+
+{% endif %}
+{%- endpaginate -%}
+{
+	"total":{{total}}
+}

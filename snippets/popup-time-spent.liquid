@@ -1,0 +1,76 @@
+<div class="popup_time_spent hide">
+  <div class="text-center img">
+    <img src="https://cdn.shopify.com/s/files/1/1276/5299/files/popup.png?10796018459050124505" class='img_blur'/>
+  </div>
+  <div class='text'>
+    <h3 class='title'>
+      <b>Welcome Aboard!</b> 
+    </h3>
+    <p class='paragraph'>
+      Kindly submit your number to avail 10% Off on your purchase! 
+    </p> 
+    <div class='leaving_form t_spent' data-code='{{settings.time_popup_code}}'>
+      <div class="welcome_popup_panel">
+        <div class='welcome_popup_lead'>
+        <span>+91</span>
+        <input type='number' name='customer-number' placeholder="Contact number" class='customer-input'>
+        </div>
+      <button class='btn welcome_submit'>Submit <div class="lead_loader hide"><img src="//cdn.shopify.com/s/files/1/1276/5299/t/225/assets/ajax-loader.gif?7089092878526247454"></div></button>
+      </div>
+      <p class='hide customer_error_msg'>Please enter a valid 10 digit mobile number.</p>
+      <div class="verify_otp_panel hide">
+          <div class="verify_otp_section">
+            <input type='number' name='verify-number' placeholder="Verify OTP" class='verify-input'>
+            <button class='btn verify_otp_submit'>Verify <div class="lead_loader hide"><img src="//cdn.shopify.com/s/files/1/1276/5299/t/225/assets/ajax-loader.gif?7089092878526247454"></div></button>
+          </div>
+          <p class='hide otp_error_msg'>Invalid OTP</p>
+          <p class='hide otp_error_response'></p>
+      </div>
+      <p class='hide customer_error_response'></p>
+      <div class="verify_otp_panel hide">
+        <ul class="verify_otp_resend">
+          <li class="edit_otp_number">Edit Number</li>
+          <li class="otp_resend hide">Resend</li>
+          <li class="resend_timer">30</li>
+        </ul>
+      </div>
+      <input type="hidden" name="shopid" value='1'>
+      {% if customer %}
+      <input type='hidden' name='customer-email' value='{{ customer.email }}'>
+      <input type='hidden' name='customer-id' value='{{ customer.id }}'>
+      {% endif %}
+      {% if template contains 'product' %}
+      <input type='hidden' value='[{"id":"{{product.id}}" },{"name" : "{{product.title}}"}]' name='cart-data'>
+      <input type='hidden'  name='from' value='product'>
+      {% if product_popup %}
+      <input type='hidden' value='Product Pop Up' name='page_name'>
+      {% else %}
+      <input type='hidden' value='Product Tab' name='page_name'>
+      {% endif %}
+      {% elsif template contains 'cart' %}
+      <input type='hidden' class='cart_data' name='cart-data'>
+      <input type='hidden'  name='from' value='cart'>
+      <input type='hidden' value='Cart Pop Up' name='page_name'>
+      {% elsif template contains 'collection' %}
+      <input type='hidden' class='cart_data' name='cart-data'>
+      <input type='hidden'  name='from' value='cart'>
+      <input type='hidden' value='Category Mobile' name='page_name'>
+      {%- elsif template contains 'index' -%}
+      <input type='hidden'  name='from' value='home-page'>
+      <input type='hidden' class='cart_data' name='cart-data'>
+      <input type='hidden' value='Home page' name='page_name'>
+      {% endif %}
+      <input type='hidden' name='sa_p' id='sa_p'>
+      <input type='hidden' name='user_agent' id='user_agent'>
+      {% if template contains 'collection' %}
+      <p class='hide error error_msg'><small>Please enter a valid 10 digit mobile number.</small></p>
+      {% endif %}
+      <p class='error hide'>
+      Please enter a valid 10 digit mobile number.
+      </p>
+      <p class='s_msg hide'>
+        Discount will apply at checkout
+      </p>
+    </div>
+  </div>
+</div>

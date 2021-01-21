@@ -1,0 +1,77 @@
+<!-- try3d-storelocator -->
+       
+        <div class="container">
+          <div class="row">
+            <div class="col-xs-12 col-sm-12 leftpadding">
+              {% if template == 'index' %}
+              <a href="/pages/compare-looks" class="fffimg">
+                <div class="items-wrapper">                
+                  <div class="image">
+                    <img src="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/3D_TRYON.png?104467" alt=""/>
+                  </div>
+                  <div class="text">
+                    Try Frames in 3D
+                  </div>              
+                </div>
+              </a>
+              
+              {% elsif template == 'product' %}
+              <div id="dittotextmob_topbox" class="items-wrapper tryonmob">                
+                <div class="image">
+                  <img src="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/3D_TRYON.png?104467" alt=""/>
+                </div>
+                <div class="text dittotextmob_topbox">
+                  Try Frames in 3D
+                </div>              
+              </div>
+              
+              {% endif %}
+            </div>
+            
+<!--             <div class="col-xs-6 col-sm-6 rightpadding"> 
+              <div  class="ffflink">
+               <div class="items-wrapper">                
+              <div class="image">
+                <img src="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/500_Stores.png?104467" alt=""/>
+              </div>
+              <div class="text">
+                Buy From <br> store
+              </div>              
+              </div>  
+              </div>
+            </div>            -->
+          </div>
+        </div>
+       
+
+{% schema %}
+  {
+    "name": "Try 3d and Store Locator",
+    "class": "index-section try3d-storelocator xs-show",
+    "settings": [
+        {
+        "id": "text1",
+        "type": "text",
+        "label": "Heading",
+        "default": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image1",
+          "label": "Image"
+        },
+		{
+        "id": "text2",
+        "type": "text",
+        "label": "Heading",
+        "default": "Title"
+        },
+        {
+          "type": "image_picker",
+          "id": "image2",
+          "label": "Image"
+        }
+	]
+
+  }
+{% endschema %}

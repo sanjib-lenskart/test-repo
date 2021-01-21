@@ -1,0 +1,69 @@
+{% comment %}
+<form action="/apps/johnjacobseyewear/interfaces/interfaceCart.php?action=save_customer_cart">
+  <input type="hidden" name="shopid" value='1'>
+  {% if customer %}
+  <input type='hidden' name='customer-email' value='{{ customer.email }}'>
+  <input type='hidden' name='customer-id' value='{{ customer.id }}'>
+  {% endif %}
+  {% if template contains 'product' %}
+  <input type='hidden' value='[{"id":"{{product.id}}" },{"name" : "{{product.title}}"}]' name='cart-data'>
+  <input type='hidden'  name='from' value='product'>
+  {% if product_popup %}
+  <input type='hidden' value='Product Pop Up' name='page_name'>
+  {% else %}
+  <input type='hidden' value='Product Tab' name='page_name'>
+  {% endif %}
+  {% elsif template contains 'cart' %}
+  <input type='hidden' class='cart_data' name='cart-data'>
+  <input type='hidden'  name='from' value='cart'>
+  <input type='hidden' value='Cart Pop Up' name='page_name'>
+  {% elsif template contains 'collection' %}
+  <input type='hidden' class='cart_data' name='cart-data'>
+  <input type='hidden'  name='from' value='cart'>
+  <input type='hidden' value='Category Mobile' name='page_name'>
+  {%- elsif template contains 'index' -%}
+  <input type='hidden'  name='from' value='home-page'>
+  <input type='hidden' class='cart_data' name='cart-data'>
+  <input type='hidden' value='Home page' name='page_name'>
+  {% endif %}
+  <input type='hidden' name='sa_p' id='sa_p'>
+  <input type='hidden' name='user_agent' id='user_agent'>
+  
+  <div class='number_block'>
+    <span>+91</span>
+    <input type='number' name='customer-number' 
+           placeholder="Contact number"  class='number-input'
+           required>
+    {% if template contains 'product'%}
+    <p class='hide error error_msg'><small>Invalid Mobile number</small></p>
+    {%  endif %}
+  </div>
+  <button class='btn' type="submit">
+    Submit
+  </button>
+  {% if template contains 'collection' %}
+  <p class='hide error error_msg'><small>Invalid Mobile number</small></p>
+  {% endif %}
+  <p class='error hide'>
+    Please enter a valid 10 digit mobile number.
+  </p>
+</form>
+<script>
+  function readCookie(name) { 
+    var nameEQ = name + "="; 
+    var ca = document.cookie.split(';'); 
+    for(var i=0;i < ca.length;i++) { 
+      var c = ca[i]; 
+      while (c.charAt(0)==' ') c = c.substring(1,c.length); 
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length); 
+    } 
+    return null; 
+  }
+  var userAgent = navigator.userAgent;
+  var cookieValue = readCookie('_shopify_sa_p');
+  // Asign value to input hidden sa_p
+  document.getElementById('sa_p').value = cookieValue;
+  document.getElementById('user_agent').value = userAgent;
+ //console.log('i am here ', readCookie('_shopify_sa_p'));
+</script>
+{% endcomment %}

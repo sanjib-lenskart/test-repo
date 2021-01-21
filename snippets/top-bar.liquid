@@ -1,0 +1,51 @@
+<div id="top_bar">
+  <div class="container">
+    <div class="row">
+      {% unless section.blocks[0].settings.top_message == blank  %}
+      <div class="col-sm-12 col-md-12">
+        <div class="text {{section.blocks[0].settings.top_bar_message_alignment}} sm-center">
+          <p class="inline-block">{{section.blocks[0].settings.top_message}}</p>
+          <div class="menu inline-block">
+          <ul>
+            <li>
+              {% if customer %}
+              <a href="/account">
+                Account
+              </a>
+              {% else %}
+              <a href="/account/register">
+                Register
+              </a>
+              {% endif %}
+            </li>
+            <li>
+              {% if customer %}
+              <a href="/account/logout">
+                Logout
+              </a>
+              {% else %}
+              <a href="/account">
+                Account
+              </a>
+              {% endif %}
+            </li>
+
+
+            <li>
+              <a class="cart" href="/cart">
+                <i class="fa fa-shopping-cart"></i>
+                cart
+                {% if section.blocks[0].settings.cart_count %}
+                (<span class="count">{{ cart.item_count }}</span>)
+                {% endif %}
+              </a>
+            </li>
+          </ul>
+        </div>
+        </div>
+        
+      </div>
+      {% endunless %}
+    </div>
+  </div>
+</div>

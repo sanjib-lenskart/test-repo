@@ -1,0 +1,33 @@
+<div class="container-fluid comparemain-lk">
+  <div class="backtocollections xs-show">➞</div>
+ <div id="creation" class="hide"></div>
+  <div class="row compare-lk">
+    <div class="box-comtainer">
+    <div class="col-md-6 col-sm-6 img-wrapper">
+       <video width="100%" id="videoDD" autoplay loop muted playsinline >
+          <source src="https://cdn.shopify.com/s/files/1/0047/5335/8922/files/desktop.mp4?v=1555405827" type="video/mp4" />
+          <source src="https://cdn.shopify.com/s/files/1/0047/5335/8922/files/desktop.mp4?v=1555405827" type="video/ogg" />
+          Your browser does not support HTML5 video.
+        </video>
+    </div>    
+    <div class="col-md-6 col-sm-6 text-wrapper">     
+      <div class="text-center">
+        <h1 class="">Virtual Try On</h1>        
+          <div class="text">
+            <p>
+              <span class="distext">Try & Compare 2000+ Eyeglasses in 10 Seconds and See How They Look on your Face</span>
+            </p>
+          </div>
+        <button class="btn cmparelk-btn try_ditto">Get Started</button>
+        <div class="re_try_ditto hide">RETAKE YOUR 3D TRY ON</div>
+      </div>
+      
+    </div>
+  </div>
+  </div>  
+  {% unless page.content == blank %}
+  <div class="rte">
+    {{ page.content }}
+  </div>
+</div>
+{% endunless %}

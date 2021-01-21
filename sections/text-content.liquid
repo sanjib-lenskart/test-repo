@@ -1,0 +1,117 @@
+<div id="homepage_text">
+  <div class="{% unless section.settings.full %}container{% endunless %}">
+  <div class="text">
+    {% for block in section.blocks %}
+    {% case block.type %}
+    {% when 'page' %}
+    {% if block.settings.home_page_content != blank %}
+    {{ pages[block.settings.home_page_content].content }}
+    {% else %}
+    {% include 'no-section-msg' %}
+    {% endif %}
+    {% when 'text' %}
+    {% if block.settings.header_text != blank %}
+    <h3 class="{{block.settings.header_alignment}}">{{block.settings.header_text}}</h3>
+    <div class="{{block.settings.paragraph_alignment}}">
+      {{block.settings.paragraph_text}}
+    </div>
+    {% else %}
+    {% include 'no-section-msg' %}
+    {% endif %}
+    {% endcase %}
+    {% endfor %}
+  </div>
+  </div>
+</div>
+<hr/>
+{% schema %}
+{
+  "name": "Rich text",
+  "max_blocks": 9,
+  "settings": [
+    {
+      "type": "checkbox",
+      "label": "Full-width",
+      "id": "full"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rich text",
+      "category": "Text",
+      "blocks": [
+        {
+          "type": "text"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text content",
+      "settings": [
+        {
+          "type": "richtext",
+          "label": "Header text",
+          "id": "header_text"
+        },
+        {
+          "type": "select",
+          "label": "Text alignment",
+          "id": "header_alignment",
+          "options": [
+            {
+              "label": "Left",
+              "value": "text-left"
+            },
+            {
+              "label": "Right",
+              "value": "text-right"
+            },
+            {
+              "label": "Center",
+              "value": "text-center"
+            }
+          ]
+        },
+        {
+          "type": "richtext",
+          "label": "Paragraph text",
+          "id": "paragraph_text"
+        },
+        {
+          "type": "select",
+          "label": "Text alignment",
+          "id": "paragraph_alignment",
+          "options": [
+            {
+              "label": "Left",
+              "value": "text-left"
+            },
+            {
+              "label": "Right",
+              "value": "text-right"
+            },
+            {
+              "label": "Center",
+              "value": "text-center"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "page",
+      "name": "Page",
+      "settings": [
+        {
+          "id": "home_page_content",
+          "type": "page",
+          "label": "Page"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

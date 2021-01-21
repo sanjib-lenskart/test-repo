@@ -1,0 +1,411 @@
+{% if product.type == 'Gift' %}
+	<script>
+      window.location.href = "/";
+</script>
+{% endif %}
+<!-- product-template(section) -->
+{%- assign pre_type = 'default' -%} 
+
+<div id="product_page" data-collection="{{collection.title}}" data-gender="{% if collection.handle contains 'women' %}Women{% else %}Men{% endif %}"
+     data-type="{% if product.type == 'Eyeglasses' %}EG{% elsif product.type == 'Child' %}KD{% else %}SG{% endif %}" class="{% if collection.handle contains 'women' %} product_page_women {% else %} product_page_men {% endif %}"
+     data-shape="{% for tags in product.tags %}{% if tags contains 'Shape' %}{% assign type = tags | remove:'Shape_' %}{{type}}{% endif %}{% endfor %}">
+
+  <div itemscope itemtype="http://schema.org/Product" id="ProductSection" data-section-id="{{ section.id }}" data-section-type="product-template"
+       data-image-zoom-type="{{ section.settings.zoom_enable }}" data-enable-history-state="true">
+    <div>
+      <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+      <meta itemprop="name" content="{{ product.title }}">
+      <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+      <div id="product_section">
+
+        <div id="product_card" class="card_{{product.id}} section_color {% unless product.available %}soldout_product {% endunless %}{% unless product.metafields.men.banner_img %}product_new_page{% endunless %}">
+
+          <div class="container">
+            <div class="row">
+              <div id="creation" class="hide"></div>
+
+              <div class="col-sm-12 col-md-12 custom_new product_img_sec">
+                <div class="loading_ls">
+                  <img src="https://cdn.shopify.com/s/files/1/0135/4144/1595/files/small_loader.gif?109744" alt="Loading" /> 
+                </div>            
+                <div class="ditto_panel hide">
+                  <div id="ditto"></div>
+                  <div class="ditto_sharing_button hideimp" onclick="createPopup('dittoSharing')">Share with your friends <img src="https://cdn.shopify.com/s/files/1/1276/5299/files/share-for-3D-05.png?4847209352908097585" /></div>
+                </div>
+                <div class="image_block">              
+                  {% include 'product-image-block' %}
+                </div> 
+                <!-- <div class="product-swatches">
+{% include 'swatch' with 'Color' %}
+</div> -->
+                <div class="tooltip180">Rotate the image for 180 degree View <span>&times;</span></div>
+              </div>
+              <div class="col-md-offset-3 col-md-6 col-sm-12 custom_new product_data">
+                <div class='right_main_block'>
+                  <div class="detail_block">
+                    <div class="product_details detail_{{product.id}}">
+                      {% include 'product-details' %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div> 
+          {% comment %}
+          {% if product.type == 'Eyeglasses' %} 
+          <div class="container findyourfit_pp_2 xs-show">
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-md-12">
+                <div class="findyourfit">
+                  <img alt="Find my Size" src="https://static1.lenskart.com/media/desktop/img/4-Oct-19/strip_banner_pdp2.jpg" role="presentation" width="100%">
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+          {% endcomment %}
+
+          {% include 'pp-delivery-details' %}
+
+          {% unless product.type == 'NON_POWER_READING' %} 
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-md-12">
+                {%- include 'product-tabs-images' -%} 
+              </div>
+            </div>
+          </div>          
+          {% endunless %}       
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div id="size-chart" class="mfp-hide">
+  <div class="container-fluid frame-size-guide 11"><center>
+    <div style="width: 100%; max-width: 990px; overflow: auto; text-align: center; letter-spacing: 1px; padding: 0px 0 10px 0;">
+      <h1 style="padding: 10px 0 5px 0px; background: #329C92; text-transform: uppercase; margin: 0px; color: #fff;">How to know your Face Size?</h1>
+      <!--SECTION 2--->
+      <div class="bold fonthead" style="color: #17a596; background-color: #efefef; padding: 8px 10px; border-top: 1px solid #efefef; font-size: 16px; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #efefef; margin: 11px  0 0 0;">1 Credit Card Method: -</div>
+      <div style="width: 100%; margin-top: 22px;">
+        <div class="leftshift">
+          <div class="bold" style="font-size: 15px;">1. Take a Debit/Credit card</div>
+
+          {% assign src_name = section.settings.image_guide1 %}
+          {% assign src_class = 'spc' %}     
+          {% include 'srcset-img' %}
+
+          <div class="fontstyle">This is the approximate width of a medium Eyeglass, Sunglass</div>
+        </div>
+        <div class="leftshift topspc">
+          <div class="bold topspc" style="font-size: 15px;">2. Stand in front of a mirror.</div>
+
+          {% assign src_name = section.settings.image_guide2 %}
+          {% assign src_class = 'spc' %}  
+          {% include 'srcset-img' %}
+
+          <div class="fontstyle">Place one tip of the card on center of your nose and touch the other towards the edge of eye.</div>
+        </div>
+        <div style="width: 100%; display: table;">
+          <div class="bold" style="font-size: 15px; margin: 20px  0 6px 10px; text-align: left;">3. Now check the position of the card: -</div>
+          <div class="leftshift1">
+
+            {% assign src_name = section.settings.image_guide3 %}
+            {% assign src_class = 'spc' %}     
+            {% include 'srcset-img' %}
+
+            <div class="fontstyle">If card extends beyond the corner of the eye</div>
+            <center>
+              <div class="fsize bold bgco">Size is SMALL</div>
+              <div style="overflow: hidden;">
+                <div style="float: left; width: 43%; padding: 1%; margin-left: 4%;"><a href="https://international.lenskart.com/collections/small-size-eyeglasses" style="text-decoration: none;">
+                  <div class="eyesize">Eyeglasses &gt;</div>
+                  </a></div>
+                <div style="float: left; width: 43%; padding: 1%;"><a href="https://international.lenskart.com/collections/small-size-sunglasses" style="text-decoration: none;">
+                  <div class="sunsize">Sunglasses &gt;</div>
+                  </a></div>
+              </div>
+            </center></div>
+          <div class="leftshift1">
+
+
+            {% assign src_name = section.settings.image_guide4 %}
+            {% assign src_class = 'spc' %}     
+            {% include 'srcset-img' %}
+
+            <div class="fontstyle">If card roughly touches the corner of the eye</div>
+            <center>
+              <div class="fsize bold bgco">Size is MEDIUM</div>
+              <div style="overflow: hidden;">
+                <div style="float: left; width: 43%; padding: 1%; margin-left: 4%;"><a href="https://international.lenskart.com/collections/medium-size-eyeglasses" style="text-decoration: none;">
+                  <div class="eyesize">Eyeglasses &gt;</div>
+                  </a></div>
+                <div style="float: left; width: 43%; padding: 1%;"><a href="https://international.lenskart.com/collections/medium-size-sunglasses" style="text-decoration: none;">
+                  <div class="sunsize">Sunglasses &gt;</div>
+                  </a></div>
+              </div>
+            </center></div>
+          <div class="leftshift1">
+
+            {% assign src_name = section.settings.image_guide5 %}
+            {% assign src_class = 'spc' %}     
+            {% include 'srcset-img' %}
+
+            <div class="fontstyle" style="padding-right: 2%;">If card doesn't reach the corner of the eye</div>
+            <center>
+              <div class="fsize bold bgco">Size is LARGE</div>
+              <div style="overflow: hidden;">
+                <div style="float: left; width: 43%; padding: 1%; margin-left: 4%;"><a href="https://international.lenskart.com/collections/large-size-eyeglasses" style="text-decoration: none;">
+                  <div class="eyesize">Eyeglasses &gt;</div>
+                  </a></div>
+                <div style="float: left; width: 43%; padding: 1%;"><a href="https://international.lenskart.com/collections/large-size-sunglasses" style="text-decoration: none;">
+                  <div class="sunsize">Sunglasses &gt;</div>
+                  </a></div>
+              </div>
+            </center></div>
+        </div>
+      </div>
+      <!---- Method 3 ---->
+      <div class="frame_g">
+        <div class="fr_b1">
+          <div class="bold fonthead" style="color: #17a596; background-color: #efefef; padding: 8px 10px; border-top: 1px solid #efefef; font-size: 16px; font-weight: bold; text-transform: uppercase; border-bottom: 1px solid #efefef; margin: 34px  0 0 0;">2 if you've existing eyeglass</div>
+          <p>You can easily found the size of frame by looking on the inside of your eyeglass temples (arm pieces). Below you'll find a quick guide to helping you identify your eyeglasses.</p>
+        </div>
+        <div class="fr_b1">
+
+          {% assign src_name = section.settings.image_guide6 %}    
+          {% include 'srcset-img' %}
+
+        </div>
+        <p style="font-weight: bold; font-size: 18px;">Lens Width &amp; Frame Size</p>
+        <table class="frametable" border="1" cellpadding="0" cellspacing="0" style="width: 97%; margin: 0px auto;">
+          <tbody>
+            <tr>
+              <td style="height: 40px; width: 207px; text-align: center;">
+                <p><strong>Frame Size</strong></p>
+              </td>
+              <td style="height: 40px; width: 161px; text-align: center;">
+                <p><strong>Eyeglasses</strong></p>
+              </td>
+              <td style="height: 40px; width: 161px; text-align: center;">
+                <p><strong>Sunglasses</strong></p>
+              </td>
+            </tr>
+            <tr>
+              <td style="height: 40px; width: 207px; text-align: center;">
+                <p>Small</p>
+              </td>
+              <td style="height: 40px; width: 161px; text-align: center;">
+                <p>Below 48 mm</p>
+              </td>
+              <td style="height: 40px; width: 161px; text-align: center;">
+                <p>Below 55mm</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="height: 40px; width: 207px; text-align: center;">
+                <p>Medium</p>
+              </td>
+              <td style="height: 40px; width: 161px; text-align: center;">
+                <p>48 mm- 55 mm</p>
+              </td>
+              <td style="height: 40px; width: 161px; text-align: center;">
+                <p>56 mm- 64 mm</p>
+              </td>
+            </tr>
+            <tr>
+              <td style="height: 40px; width: 207px; text-align: center;">
+                <p>Large</p>
+              </td>
+              <td style="height: 40px; width: 161px; text-align: center;">
+                <p>Above 55 mm</p>
+              </td>
+              <td style="height: 40px; width: 161px; text-align: center;">
+                <p>Above 64 mm</p>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    </center></div>
+
+</div>
+
+<div id="power-indexpop" class="mfp-hide">
+  {{ pages.power-index.content }}
+</div>
+
+<style>
+  #size-chart {
+    border: 1px #555 solid;
+    background-color: #ffffff;
+    padding: 20px;
+    max-width: 950px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+  }
+</style>
+
+{% schema %}
+{
+"name": "Product",
+"class": "no_padding",
+"settings": [
+{
+"type": "checkbox",
+"id": "leaving_popup",
+"label": "Product leaving popup",
+"default": true
+},
+{
+"type": "textarea",
+"label": "I'm confused - Eyeglass",
+"id": "confused"
+},
+{
+"type": "textarea",
+"label": "I'm confused - Sunglass",
+"id": "sun_confused"
+},
+{
+"type": "image_picker",
+"label": "Image size guide ",
+"id": "image_guide1"
+},
+{
+"type": "image_picker",
+"label": "Image size guide ",
+"id": "image_guide2"
+},
+{
+"type": "image_picker",
+"label": "Image size guide ",
+"id": "image_guide3"
+},
+{
+"type": "image_picker",
+"label": "Image size guide ",
+"id": "image_guide4"
+},
+{
+"type": "image_picker",
+"label": "Image size guide ",
+"id": "image_guide5"
+},
+{
+"type": "image_picker",
+"label": "Image size guide ",
+"id": "image_guide6"
+}
+],
+"blocks": [
+{
+"name": "lens",
+"type": "lens",
+"settings": [
+{
+"type": "text",
+"id": "lens_name",
+"label": "Name"
+},
+{
+"type": "select",
+"id": "glass_type",
+"label": "Glass type",
+"options": [
+{
+"label": "Eyeglass",
+"value": "eyeglass"
+},
+{
+"label": "Sunglass",
+"value": "sunglass"
+}
+]
+},
+{
+"type": "select",
+"id": "per_type",
+"label": "Prescription type",
+"options": [
+{
+"label": "Progressive",
+"value": "progressive"
+},
+{
+"label": "Bifocal",
+"value": "bifocal"
+},
+{
+"label": "Single Vision",
+"value": "single_vision"
+},
+{
+"label": "Default",
+"value": "default"
+}
+]
+},
+{
+"type": "select",
+"id": "lens_type",
+"label": "Lens type",
+"options": [
+{
+"label": "Powered Specs",
+"value": "powered-specs"
+},
+{
+"label": "Computer Glasses",
+"value": "computer-glasses"
+},
+{
+"label": "Bifocal Glasses",
+"value": "bifocal-glasses"
+},
+{
+"label": "Sunglass Power",
+"value": "sun_withpower"
+},
+{
+"label": "Sunglass Progressive",
+"value": "sun_withpower_pro"
+},
+{
+"label": "Sunglass No Power",
+"value": "sun_withoutpower"
+}
+]
+},
+
+{
+"type": "product",
+"label": "Select Product",
+"id": "product"
+},
+{
+"type": "textarea",
+"id": "know_more",
+"label": "Popup text"
+},
+{
+"type": "text",
+"id": "thickness",
+"label": "Lens thickness"
+},
+{
+"type": "checkbox",
+"label": "Zero power",
+"id": "zero",
+"label": "Show in Zero power section"
+}
+]
+}
+]
+}
+{% endschema %}

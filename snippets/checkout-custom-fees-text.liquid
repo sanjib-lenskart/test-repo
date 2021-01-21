@@ -1,0 +1,53 @@
+
+//Show Custom Fees text notification
+    var showCustomFeestext = $(".step__footer__continue-btn").data("trekkie-id").trim();
+    if(showCustomFeestext == 'continue_to_payment_method_button'){
+      
+      var checkcountry = $('.address--tight').text().trim(); 
+      
+      var us = checkcountry.match(/United States/g);
+      var Angola = checkcountry.match(/Angola/g);
+      var Armenia = checkcountry.match(/Armenia/g);
+      var Australia = checkcountry.match(/Australia/g);
+      var Bahrain = checkcountry.match(/Bahrain/g);
+      var Bhutan = checkcountry.match(/Bhutan/g);
+      var Bolivia = checkcountry.match(/Bolivia/g);
+      var Brunei = checkcountry.match(/Brunei/g);
+      var Colombia = checkcountry.match(/Colombia/g);
+      var Ecuador = checkcountry.match(/Ecuador/g);
+      var China = checkcountry.match(/China/g);
+      var HongKong = checkcountry.match(/Hong Kong/g);
+      var Japan = checkcountry.match(/Japan/g);
+      var Gambia = checkcountry.match(/Gambia/g);
+      var Georgia = checkcountry.match(/Georgia/g);
+      var Hondurus = checkcountry.match(/Hondurus/g);
+      var Indonesia = checkcountry.match(/Indonesia/g);
+      var Israel = checkcountry.match(/Israel/g);
+      var Korea = checkcountry.match(/Korea/g);
+      var Malaysia = checkcountry.match(/Malaysia/g);
+      var Thailand = checkcountry.match(/Thailand/g);
+      var Montenegro = checkcountry.match(/Montenegro/g);
+      var NewZealand = checkcountry.match(/New Zealand/g);
+      var Panama = checkcountry.match(/Panama/g);
+      var Peru = checkcountry.match(/Peru/g);
+      var Phillppines = checkcountry.match(/Phillppines/g);
+      var SaudiArabia = checkcountry.match(/Saudi Arabia/g);
+      var Rwanda = checkcountry.match(/Rwanda/g);
+      var Ukraine = checkcountry.match(/Ukraine/g);
+      var Venezuela = checkcountry.match(/Venezuela/g);
+      var Russia = checkcountry.match(/Russia/g);
+      var Honduras = checkcountry.match(/Honduras/g);
+	  var uae = checkcountry.match(/United Arab Emirates/g);
+      
+      if(uae == 'United Arab Emirates' || Honduras == 'Honduras' || Russia == 'Russia' || us == 'United States' || Angola == 'Angola' || Armenia == 'Armenia' || Australia == 'Australia' || Bahrain == 'Bahrain' || Bhutan == 'Bhutan' || Bolivia == 'Bolivia' || Brunei == 'Brunei' || Colombia == 'Colombia' || Ecuador == 'Ecuador' || China == 'China' || HongKong == 'Hong Kong' || Japan == 'Japan' || Gambia == 'Gambia' || Georgia == 'Georgia' || Hondurus == 'Hondurus' || Indonesia == 'Indonesia' || Israel == 'Israel' || Korea == 'Korea' || Malaysia == 'Malaysia' || Thailand == 'Thailand' || Montenegro == 'Montenegro' || NewZealand == 'New Zealand' || Panama == 'Panama' || Peru == 'Peru' || Phillppines == 'Philippines' || Rwanda == 'Rwanda' || Ukraine == 'Ukraine' || Venezuela == 'Venezuela' ){
+        $('.showcustomfeemsg').hide();
+        console.log(Honduras);
+      }else{
+$('.showcustomfeemsg').hide();
+}
+
+    }
+    else{
+      $('.showcustomfeemsg').hide();
+    }
+ 

@@ -1,0 +1,79 @@
+<!-- collection-banner -->
+<div class="text-center">
+  <h1>{{section.settings.seo_header}}</h1>
+</div>
+{% for block in section.blocks %}
+{% assign page_handle = block.settings.page %}
+{% if page_handle == page.handle %}
+<div id="page_banner_image">    
+  <div class="{% unless section.settings.full %}container{% endunless %}">
+    <div class="collection_img {% if block.settings.filter %}xs-show{% endif %}">
+      {%- assign src_name = block.settings.image -%}
+      {%- assign src_alt = page.title -%}
+      {% assign src_class = 'xs-hide' %}
+      {% include 'srcset-img' %}
+      {%- assign src_name = block.settings.image_xs -%}
+      {% assign src_class = 'xs-show' %}
+      {% include 'srcset-img' %}
+      {% assign src_class = blank %}
+    </div>
+  </div>
+</div>
+{% endif %}
+{% endfor %}
+
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+  "name": "Pages banner",
+  "class": "no_padding",
+  "settings": [
+  {
+  "type": "checkbox",
+  "id": "full",
+  "label": "Full-width",
+  "default":true
+},
+{
+  "type":"text",
+  "id":"seo_header",
+  "label":"SEO Header"
+}
+],
+"blocks": [
+{
+  "name": "Banner",
+  "type": "image",
+  "settings": [
+  {
+  "type": "page",
+  "id": "page",
+  "label": "Select page",
+  "info": "Specific banner image for collection"
+},
+{
+  "type": "image_picker",
+  "id": "image",
+  "label": "Image"
+},
+{
+  "type": "image_picker",
+  "id": "image_xs",
+  "label": "Mobile Image"
+}
+]
+}
+]
+}
+{% endschema %}
+  {% comment %}
+</script>
+{% endcomment %}
+{% comment %}
+<style>
+  {% endcomment %}
+  {% comment %}
+</style>
+{% endcomment %}

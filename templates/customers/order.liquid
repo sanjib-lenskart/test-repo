@@ -1,0 +1,328 @@
+{% assign status_code =  order.metafields.vsm_order_status.status_code %}
+{% assign order_string = "processing,processing_confirmation_pending,processing_power_followup,processing_power_followup_hto,processing_red_flag,processing_chargeback,processing_power_followup_verify,processing_powerfollowup_confirm,processing_power_followup_confirm" | split:','%}
+{% for os in order_string %}
+{% if status_code == os %}
+{%- assign processing = true -%}
+{% endif %}
+{% endfor %}
+{% assign packed_string = "complete,complete_chargeback,complete_redflag,complete_delay_shipment" | split:','%}
+{% for ps in packed_string %}
+{% if status_code == ps %}
+{%- assign packed = true -%} 
+{% endif %}
+{% endfor %}
+{% assign dispatched_string = "complete_shipped,complete_lost_by_courier,complete_reship_new_address" | split:','%}
+{% for ds in dispatched_string %}
+{% if status_code == ds %}
+{%- assign dispatched = true -%}
+{% endif %}
+{% endfor %}
+{% assign complete_string = "delivered,return_reship_delivered" | split:','%}
+{% for cs in complete_string %}
+{% if status_code == cs %}
+{%- assign delivered = true -%}
+{% endif %}
+{% endfor %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script> 
+  $(document).ready(function(){                
+
+    //Fatching order ID 
+    var myveryfuurl = 'http://app.lenskart.sg/orderstatus-inter-acc-page.php?orderno={{ order.name | remove: '#' | upcase }}';
+    $.ajax({
+      url: myveryfuurl,
+      context: 'application/json'
+    }).done(function(response){ 
+      console.log("LK ID: "+response);
+      var responsevar = response;
+       if (response != ''){ 
+      //Fatching order status
+      var myveryfuurla = 'http://developer.lenskart.com/api/v1/order/getOrderStatus/increment-id/'+responsevar;
+      var proxyaa = 'https://cors-anywhere.herokuapp.com/';
+      $.ajax({
+        url: proxyaa + myveryfuurla,
+        context: 'application/json'
+      }).done(function(responsea){ 
+        console.log(responsea);
+       
+        if (responsea[1].status == "processing"){
+       
+        }        
+        else if(responsea[1].status == "complete_shipped"){
+          $('.processing-on').removeClass('hideimp');
+          $('.processing-off').addClass('hideimp');
+          $('.order_dispatched-on').removeClass('hideimp');
+          $('.order_dispatched-off').addClass('hideimp'); 
+        }
+        
+        else if(responsea[1].status == "delivered"){
+          $('.processing-on').removeClass('hideimp');
+          $('.processing-off').addClass('hideimp');
+          $('.order_dispatched-on').removeClass('hideimp');
+          $('.order_dispatched-off').addClass('hideimp');
+          $('.order_completed-on').removeClass('hideimp');
+          $('.order_completed-off').addClass('hideimp'); 
+          $('.editprescription').addClass('hideimp'); 
+        }
+        
+         else if(responsea[1].status == "canceled"){
+           $('.order_Placed').addClass('hideimp');
+          $('.processing-on').addClass('hideimp');
+          $('.processing-off').addClass('hideimp');
+          $('.order_dispatched-on').addClass('hideimp');
+          $('.order_dispatched-off').addClass('hideimp'); 
+          $('.order_completed-off-on').addClass('hideimp');
+          $('.order_completed-off').addClass('hideimp'); 
+          $('.cancelled').removeClass('hideimp'); 
+        }
+         
+          });
+       }
+      });                                    
+    });
+</script>
+
+<div id="order_page">
+  <div class="order_status">
+    <div class="container">
+      <div class='table_view_xs middle space-between'>
+        <!-- placed -->
+        <div class="order_Placed order_icon">
+          <div class="img">
+            <img alt="order Placed" src="https://cdn.shopify.com/s/files/1/1276/5299/files/Order_Placed_-_Only_green.png?10874443725392973975">
+          </div>
+          <span>Order Placed</span>
+        </div>        
+        
+         <div class="order_packed order_icon active after_active processing-on">
+          <div class="img">
+            <img alt="order packed" src="https://cdn.shopify.com/s/files/1/1276/5299/files/Packed-Green.png?361636064670274829">
+          </div>
+          <span>Processing</span>
+        </div>               
+        <!-- dispatched -->
+       
+        <div class="order_dispatched order_icon order_dispatched-off">
+          <div class="img">
+            <img alt="order dispatched" src="https://cdn.shopify.com/s/files/1/1276/5299/files/Dispatched-Grey.png?6562225409756223633">
+          </div>
+          <span>Dispatched</span> 
+        </div> 
+        
+         <div class="hideimp order_dispatched order_icon active after_active order_dispatched-on">
+          <div class="img">
+            <img alt="order dispatched" src="https://cdn.shopify.com/s/files/1/1276/5299/files/Dispatched-Green.png?8433214511028225621">
+          </div>
+          <span>Dispatched</span>
+        </div>
+        
+       
+
+        <!-- delivered -->
+        
+        <div class="order_completed order_icon order_completed-off">
+          <div class="img">
+            <img alt="order completed" src="https://cdn.shopify.com/s/files/1/1276/5299/files/Delivered-Grey.png?6562225409756223633">
+          </div>
+          <span>Delivered</span>
+        </div>
+       
+         <div class=" hideimp order_completed order_icon active order_completed-on">
+          <div class="img">
+            <img alt="order completed" src="https://cdn.shopify.com/s/files/1/1276/5299/files/Delivered-Green.png?8433214511028225621">
+          </div> 
+          <span>Delivered</span>
+        </div>
+   
+         <div class="hideimp order_packed order_icon cancelled">
+          <div class="img">
+            <img alt="order cancelled" src="https://cdn.shopify.com/s/files/1/1276/5299/files/Cancelled-Red.png?16083916292634179994">
+          </div>
+          <span>Cancelled</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+<!--     <header>
+      <h1>{{ 'customer.account.title' | t }}</h1>
+    </header> -->
+    <div class="order_table">
+      <div class="row">
+        <div class="col-sm-10 col-md-8"> 
+          <div class="row">
+            <div class="col-sm-12 col-md-7">
+              <h2 class="os-order-number">{{ 'customer.order.title' | t: name: order.name }}</h2>
+              {%- assign order_date = order.created_at | date: "%B %d, %Y %I:%M%p" -%}
+<!--               <p>{{ 'customer.order.date' | t: date: order_date }}</p> -->
+              <p>Order Creation Date : {{order_date}}</p>
+              
+               {% if order.fulfillment_status == 'fulfilled' %}
+                  {% assign ct=1 %}
+                  {% for line_item in order.line_items %}
+                  		{% if ct == 1 %}
+              <p><a class="ordertracking" target="_blank" href="{{ line_item.fulfillment.tracking_url }}">Track Order</a></p>
+                  		{% endif %}
+                  	{% assign ct=2 %}
+                  {% endfor %}
+              {% else %}
+              <p>Expected Delivery Date: {{ order.created_at | date: '%s' | plus: 864000 | date: '%b %d, %Y' }}</p>
+                {% endif %}
+              
+              {% if order.cancelled %}
+              <div class="order--cancelled">
+                {%- assign cancelled_at = order.cancelled_at | date: "%B %d, %Y %I:%M%p" -%}
+                <p>{{ 'customer.order.cancelled' | t: date: cancelled_at }}</p>
+                <p>{{ 'customer.order.cancelled_reason' | t: reason: order.cancel_reason }}</p>
+              </div>
+              {% endif %}
+            </div>
+            <div class="col-sm-12 col-md-5 editprescriptionqq_con">
+              <a class="green-btn editprescriptionqq" onclick="Export()">Download Invoice</a>
+            <!--<a class="green-btn editprescriptionqq" id="RequestRefundBox" style="display:none;">&nbsp;&nbsp;Request Refund&nbsp;&nbsp;</a>
+              <div id="order-refund-div"><span id="order-refund"></span></div>
+              <div id="order-refund-error" style="color:red;display:none;">Your request cannot be processed temporarily.</div>
+              <a class="green-btn editprescriptionqq" id="RequestExchangeBox" style="display:none;margin-bottom:10px;">Request Exchange</a>
+              <div id="order-exchange-div"><span id="order-exchange"></span></div>
+              <div id="order-exchange-error" style="color:red;display:none;">Your request cannot be processed temporarily.</div>-->
+            </div>
+            
+            <div class="col-sm-0 col-md-0 text-right">
+              {% if order.metafields.vsm_order_status.status_code_string %}
+              <h5>{{ order.metafields.vsm_order_status.status_code_string | replace : '_', " " }}</h5>
+              {% else %}
+<!--               ORDER PLACED -->
+              <h5>{% endif %}</h5>
+            </div>
+          </div>
+          <div class="text-right xs-left">
+            
+          </div>
+          <div class="table full-color">
+            <table>
+              <thead>
+                <tr>
+                  <th>{{ 'customer.order.product' | t }}</th>
+                  <th>{{ 'customer.order.price' | t }}</th>
+                  <th>{{ 'customer.order.quantity' | t }}</th>
+                  <th>{{ 'customer.order.total' | t }}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for line_item in order.line_items %}
+                
+                {% assign short_name = false %}
+{% for tag in line_item.product.tags %}
+{% if tag contains 'short_name_' %}
+{% assign short_name = true %}
+{% assign s_name =  tag | remove : 'short_name_' %}
+{% endif %}
+{% endfor %}
+{%- if short_name -%}
+{%- assign product_name = s_name -%}
+{%- else -%}
+{%- assign product_name = line_item.title -%}
+{%- endif -%}
+                
+                <tr id="{{ line_item.key }}" class="responsive-table__row" >
+                  <td data-label="{{ 'customer.order.product' | t }}">
+
+                    {% if line_item.product.type == 'Lens' %}
+                    {{ line_item.title  }}
+                    <style>
+                      .pre_related{display:block;}
+                    </style>
+                    {% else %}
+                    {{ product_name | link_to: line_item.product.url }}
+                    {%  endif %}
+                    {% if line_item.fulfillment %}
+                    <div class="note">
+                      {%- assign created_at = line_item.fulfillment.created_at | date: format: 'month_day_year' -%}
+                      {{ 'customer.order.fulfilled_at' | t: date: created_at }}
+<!--                       {% if line_item.fulfillment.tracking_number %}
+                      <a href="{{ line_item.fulfillment.tracking_url }}">{{ line_item.fulfillment.tracking_company }} #{{ line_item.fulfillment.tracking_number}}</a>
+                      {% endif %} -->
+                    </div>
+                    {% endif %}
+                  </td>
+                  <td data-label="{{ 'customer.order.price' | t }}">{{ line_item.price | money }}</td>
+                  <td data-label="{{ 'customer.order.quantity' | t }}">{{ line_item.quantity }}</td>
+                  <td data-label="{{ 'customer.order.total' | t }}">{{ line_item.quantity | times: line_item.price | money }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+              <tfoot>
+                <tr class="responsive-table__row">
+                  <td colspan="3" class="small--hide">{{ 'customer.order.subtotal' | t }}</td>
+                  <td data-label="{{ 'customer.order.subtotal' | t }}">{{ order.subtotal_price | money }}</td>
+                </tr>
+
+                {% for discount in order.discounts %}
+                <tr class="order_summary discount">
+                  <td colspan="3" class="small--hide">{{ discount.code }} {{ 'customer.order.discount' | t }}</td>
+                  <td data-label="{{ 'customer.order.discount' | t }}">{{ discount.savings | money }}</td>
+                </tr>
+                {% endfor %}
+
+                {% for shipping_method in order.shipping_methods %}
+                <tr>
+                  <td colspan="3" class="small--hide">{{ 'customer.order.shipping' | t }} ({{ shipping_method.title }})</td>
+                  <td data-label="{{ 'customer.order.shipping' | t }} ({{ shipping_method.title }})">{{ shipping_method.price | money }}</td>
+                </tr>
+                {% endfor %}
+
+                {% for tax_line in order.tax_lines %}
+                <tr>
+                  <td colspan="3" class="small--hide">{{ 'customer.order.tax' | t }} ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)</td>
+                  <td data-label="{{ 'customer.order.tax' | t }} ({{ tax_line.title }} {{ tax_line.rate | times: 100 }}%)">{{ tax_line.price | money }}</td>
+                </tr>
+                {% endfor %}
+
+                <tr>
+                  <td colspan="3" class="small--hide"><strong>{{ 'customer.order.total' | t }}</strong></td>
+                  <td data-label="{{ 'customer.order.total' | t }}"><strong>{{ order.total_price | money }} </strong></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+ 
+         <div class="col-sm-10 col-md-8 pre_related">
+           <h2 style="margin-top:30px; margin-bottom:20px;">PRESCRIPTION</h2>
+        {% include 'order-detail-prescription' %}
+        </div>
+     
+        <div class="col-sm-10 col-md-8 text-center pre_related hide">
+          <a id="order{{ order.name | remove: '#' | downcase }}" class="openpremodel green-btn editprescription" href="#">Edit Prescription</a>
+        </div>
+      </div>
+      <hr/>
+      <div class="summary">
+        <div class="row">
+          <div class="col-sm-6">
+            <h3>{{ 'customer.order.billing_address' | t }}</h3>
+
+            <p><strong>{{ 'customer.order.payment_status' | t }}:</strong> {{ order.financial_status_label }}</p>
+
+            {{ order.billing_address | format_address }}
+          </div>
+          <div class="col-sm-6">
+            <h3>{{ 'customer.order.shipping_address' | t }}</h3>
+
+            <p><strong>{{ 'customer.order.fulfillment_status' | t }}:</strong> {{ order.fulfillment_status_label }}</p>
+
+            {{ order.shipping_address | format_address }}
+          </div>
+        </div>
+      </div>
+      <p class="text-center return_btn"><a class='' href="/account">
+        <i class="fa fa-long-arrow-left" aria-hidden="true"></i>
+        {{ 'customer.account.return' | t }}</a></p>
+    </div>
+  </div>
+
+{% include 'order-details-prescription' %}
+  </div>
+{% include 'invoice-detail' %}
+{% include 'refund-request' %}
+{% include 'exchange-request' %}

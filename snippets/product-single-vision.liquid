@@ -1,0 +1,16 @@
+<!-- single-vision -->
+<div class='single_vision reverse clearfix' id="singleVision">
+  {%- unless product.metafields.simplyproducttab.tab_4_description == blank  -%}
+  {%-  endunless -%}
+  <div class="flex_view_xs middle">
+    <div class='col-1'>
+      <div class='second_image'>
+        <img src='{{product.images[2].src | img_url:'grande'}}' alt='{{product.title}}'>
+      </div>
+    </div>
+    <div class='col-2 inline-block desc_tagbased'>
+  
+  
+    </div>
+  </div>
+</div>

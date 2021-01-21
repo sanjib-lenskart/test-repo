@@ -1,0 +1,18 @@
+{% assign desc = false %}
+
+{%- for link in linklists['sub-collection'].links -%}
+
+{%- if request.path == link.url  -%} 
+{% assign desc = true %}
+{%- assign meta_title = request.path | split:"/" -%}
+{%- assign meta_title = meta_title.last -%}
+{%- assign meta_title = meta_title | append:"title" -%}
+{%- assign current_title = current_title | append:collection.metafields.collection[meta_title] -%} 
+
+{%- assign meta_description = meta_title | append:"_description" -%}
+{%- assign current_title = current_title | append:collection.metafields.collection[meta_description] -%}
+{% else %}
+
+{%- endif -%}
+{%- endfor -%}
+{{current_title}}

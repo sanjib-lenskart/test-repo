@@ -1,0 +1,222 @@
+<!-- collection-banner -->
+{% unless section.settings.image == blank %}
+{% assign common_image = true %}
+{% endunless %}
+{% for block in section.blocks %}
+{% assign collection_handle = block.settings.collection %}
+{% if collection_handle == collection.handle %}
+{% assign common_image = false %}
+<div id="collection_image">    
+  <div class="{% unless section.settings.full %}container{% endunless %}">
+    {% if block.settings.filter %}
+    {% include 'filter-images' %}
+    {% endif %}
+    <div class="collection_img {% if block.settings.filter %}xs-show{% endif %}">
+
+      {%- assign src_name = block.settings.image -%}
+      {%- assign src_alt = collection.title -%}
+      {%- assign src_class = 'xs-hide' -%}
+      {%- unless block.settings.image == blank -%}
+      {%- include 'srcset-img' -%}
+      {%- endunless -%}
+      {%- assign src_name = block.settings.image_xs -%}
+      {%- assign src_alt = collection.title -%}
+      {%- assign src_class = 'xs-show' -%}
+      {%- unless block.settings.image == blank -%}
+      {%- include 'srcset-img' -%}
+      {%- endunless -%}
+      
+      
+<!--       <div class="collection_count hide">
+        <span class="collection_item_count">0</span><span>/<label class="collection_total_count0"> {{ collection.products_count }}</label></span>
+      </div> -->
+      
+    </div>        
+  </div>
+  {%- unless block.settings.image == blank -%}
+  <div class="text-wrapper">
+    
+  <h1 class="header">{{ block.settings.seo_header }}</h1>
+    
+    <!--<div class="sub-header">{{ block.settings.sub-seo_header }}</div>-->
+     {% if collection.handle == 'magnetic-clip-on-glasses'%}
+      <div class="sub-header sub-header-john">From glasses to sunglasses in seconds<br> 2 Pairs For {{ 9000 | money }} with Prescription Lenses</div>
+    {% endif %}
+    
+     {% if collection.handle == 'john-jacobs-sunglasses'%}
+    <div class="sub-header sub-header-john">2 Pairs For {{ 9500 | money }}</div>
+    {% endif %}
+    
+    {% if collection.handle == 'john-jacobs-eyeglasses' %}
+    <div class="sub-header sub-header-john">2 Pair of Blue Light Block Glasses <span style="text-decoration: line-through;">{{ 11000 | money }}</span> {{ 9500 | money }}</div>
+    {% endif %}
+    
+    {% if collection.handle == 'eyeglasses' or collection.handle == 'vincent-chase-eyeglasses' or collection.handle == 'eyeglasses-for-men' or collection.handle == 'eyeglasses-for-women' or collection.handle == 'blue-light-blocking-eyeglasses' or collection.handle == 'blue-light-eyeglasses-for-men' or collection.handle == 'blue-light-eyeglasses-for-women' %}
+    <div class="sub-header">2 Pairs For {{ 7500 | money }} with Prescription Lenses</div>
+    {% else %}
+    <div class="sub-header">Buy 1 Get 1 Free </div>
+    {% endif %}
+    {% if block.settings.sub-seo_header-1 %}
+    <div class="sub-header global-hide">{{ block.settings.sub-seo_header-1 }}
+
+    {% if collection.handle == 'vincent-chase-eyeglasses' or collection.handle == 'vincent-chase-sunglasses' or collection.handle == 'john-jacobs-eyeglasses' or collection.handle == 'john-jacobs-sunglasses' %}
+<!--       <span class="withgm"><span class="xs-hide"> with </span><a  href="https://lenskart.sg/pages/loyalty" target="_blank">GOLD MEMBERSHIP</a></span> -->
+    {% endif %}
+  </div>
+    {% endif %}
+    
+    {% if block.settings.sub-seo_header-2 %}
+    <div class="sub-header global-hide">{{ block.settings.sub-seo_header-2 }}</div>
+    {% endif %}
+          
+    {% if block.settings.sub-seo_header-3 %}
+    <div class="sub-header">{{ block.settings.sub-seo_header-3 }}</div>
+    {% endif %}
+    
+  </div>
+  {%- endunless -%}
+    {% if collection.handle == 'eyeglasses' or collection.handle == 'eyeglasses-for-men' or collection.handle == 'eyeglasses-for-women' %}
+      <div class="buytwo-con buytwo-con-mob">        
+        <a class="" href="/collections/vincent-chase-eyeglasses">
+          2 for $88
+        </a>
+
+        <a class="" href="/collections/john-jacobs-eyeglasses">
+          2 for $188
+        </a>
+      </div>
+      {% endif %}
+    
+     {% if collection.handle == 'sunglasses' or collection.handle == 'sunglasses-for-men' or collection.handle == 'sunglasses-for-women' %}
+       <div class="buytwo-con buytwo-con-mob">        
+        <a class="" href="/collections/vincent-chase-sunglasses">
+          2 for $88
+        </a>
+
+        <a class="" href="/collections/john-jacobs-sunglasses">
+          2 for $188
+        </a>
+      </div>
+      {% endif %}
+</div>
+{%- for c_tag in current_tags -%}
+{%- if c_tag contains "Shape_" -%}
+{%- assign shape_tag = c_tag | remove:'Shape_' -%}
+{%- endif -%}
+{%- if c_tag contains "Color_" -%} 
+{%- assign color_tag = c_tag | remove:'Color_' -%}
+{%- endif -%}
+{%- endfor -%}
+<div class="hide">
+  <h1 class="seo_header">
+    {%- assign current_title = color_tag | append:" " -%}
+    {%- assign current_title = current_title | append:block.settings.seo_header  -%}
+     
+    {%- for link in linklists['sub-collection'].links -%}
+    
+    {%- if request.path == link.url  -%}
+    {%- assign meta_title = request.path | split:"/" -%}
+    {%- assign meta_title = meta_title.last -%}
+    {%- assign current_title = color_tag | append:" " -%}
+    {%- assign meta_title = meta_title | append:"_title" -%}
+    {%- assign current_title = current_title | append:collection.metafields.collection[meta_title]  -%}
+    {%- endif -%}
+    {%- endfor -%}
+ 
+    {{current_title}} 
+    </h1>
+    <span class="collection_total">{% unless collection.handle == 'sale' %} - {% endunless %}<label class="collection_total_count">{{collection.all_products_count}}</label> Products</span>    
+</div>
+{% endif %}
+{% endfor %}
+
+{% if common_image %}
+<div id="collection_image">    
+  <div class="{% unless section.settings.full %}container{% endunless %}">
+    <div class="collection_img white">
+      <img alt="{{section.settings.image.alt | escape}}" src="{{section.settings.image | img_url: '100x' | format : 'jpg'}}" data-img="{{section.settings.image | img_url: 'master' | format : 'jpg'}}" data-img-xs="{{section.settings.image | img_url: 'grande' | format : 'jpg'}}" class="img_load img_blur">
+      
+    </div>
+  </div>
+</div>
+{% endif %}
+
+  {% schema %}
+  {
+    "name": "Collection banner",
+      "class": "no_padding",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "full",
+            "label": "Full-width",
+            "default":true
+          },
+          {
+            "type":"image_picker",
+            "label":"Common collection banner",
+            "id":"image"
+          }
+        ],
+          "blocks": [
+            {
+              "name": "Banner",
+              "type": "image",
+              "settings": [
+                {
+                  "type": "collection",
+                  "id": "collection",
+                  "label": "Select collection",
+                  "info": "Specific banner image for collection"
+                },
+                {
+                  "type": "image_picker",
+                  "id": "image",
+                  "label": "Image"
+                },
+                {
+                  "type": "image_picker",
+                  "id": "image_xs",
+                  "label": "Mobile Image"
+                },
+                {
+                  "type":"text",
+                  "id":"seo_header",
+                  "label":"SEO Header"
+                },
+                {
+                  "type":"text",
+                  "id":"sub-seo_header",
+                  "label":"SEO Sub Header"
+                },
+                {
+                  "type":"text",
+                  "id":"sub-seo_header-1",
+                  "label":"SEO Sub Header Line 2(optional)"
+                },
+                {
+                  "type":"text",
+                  "id":"sub-seo_header-2",
+                  "label":"SEO Sub Header Line 3(optional)"
+                },
+                {
+                  "type":"text",
+                  "id":"sub-seo_header-3",
+                  "label":"SEO Sub Header Line 3(optional)"
+                },
+                {
+                  "type":"checkbox",
+                  "id":"filter",
+                  "label":"Filter images"
+                },
+                {
+                  "type":"text",
+                  "id":"filter_collection_text",
+                  "label":"Filter Collection Text"
+                }  
+              ] 
+            }
+          ]
+  }
+  {% endschema %}
+  

@@ -1,0 +1,39 @@
+<article class="article">
+  <div class="article_image">
+    <a class="article_link" href="{{ article.url }}">
+      {% if article.image %}
+      {%- assign src_name = article -%}
+      {%- assign src_alt = article.title -%}
+      {%- include 'srcset-img' -%}
+      {% else %}
+      {%- assign src_name = section.settings.default_img -%}
+      {%- assign src_alt = article.title -%}
+      {%- include 'srcset-img' -%}
+
+      {% endif %}
+    </a>
+  </div>
+  <div class="article_detail">
+    <h4 class="title"><a href="{{ article.url }}">{{ article.title }}</a></h4>
+    <div class="time">
+      <time datetime="{{ article.published_at | date: '%Y-%m-%d' }}" class="date">{{ article.published_at | date: format: 'month_day_year' }}</time>
+    </div>
+    {% if section.settings.excerpt %}
+    <div class="excerpt">
+      {% if article.excerpt == blank %}
+      {{ article_content | strip_html | truncatewords: 120 }}
+      {% else %}
+      {{article.excerpt}}
+      {% endif %}
+    </div>
+
+    <a href="{{ article.url }}" class="read_more">
+      {{ 'blogs.article.read_more' | t }} 
+      <i class="fa fa-angle-right" aria-hidden="true"></i>
+    </a>
+    {% endif %}
+    {% if article.tags.size > 0 %}
+    {% include 'article-tag' %}
+    {% endif %}
+  </div>
+</article>

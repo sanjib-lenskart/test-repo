@@ -1,0 +1,153 @@
+<script>
+  $(document).ready(function(){
+    var onloadurl = window.location.href;
+    var page_contain = onloadurl.match(/thank_you/g);
+    console.log(page_contain);
+    if (page_contain == 'thank_you') {
+      
+    var order_inter_save = 'https://app.lenskart.sg/static/order_inter_save.php'; //Test'         
+    var proxys = 'https://cors-anywhere.herokuapp.com/';
+     
+    var order_number = $('.os-order-number').text();
+    var order_number =  order_number.trim();
+    var order_number =  order_number.toLowerCase();
+    var order_number =  order_number.trim();
+    var order_number =  order_number.replace(/\s/g,'');
+    var order_number = order_number.replace(/[^\w\s]/gi, '');
+    
+    //var order_number = "Order1001";   	
+    var order_status = "order_status";
+
+    var sku = "sku";
+    var type = "type";
+    var tag = "tag";	
+    var properties = "properties";
+    var properties_val = "properties_val";
+      
+     /*=================================
+  Step 2 adding ptoducts start 
+  ==================================*/
+       {% for line_item in checkout.line_items %}
+      var uniqueid = order_number+{{ forloop.index }};
+              {% for property in line_item.properties %}                  
+              {% if property.first == 'Bundle' %}
+              {% assign haslens = true %}
+  					{% assign sun_frm_bundleid = property.last %}
+                    properties='{{property.first}}';
+                    properties_val='{{ property.last }}';
+              {% endif %}
+                
+              {% if property.last == 'Frames with ZERO power lenses' %}
+                 {% assign zeropowerglass = true %} 
+              {% endif %}
+              {% endfor %}
+                    
+           {% if haslens %}//has lens START
+          		{% assign haslens = false %}
+          		{% if line_item.product.type == "Eyeglasses" or line_item.product.type == "Child" or line_item.product.type == "Reading" or line_item.product.type == "Blu Reading" %}
+//Eyeglasses:with lens
+                    {% if line_item.product.type != "Lens" %}  						
+                            
+    //     <!--Catch zero power type eyeglasses -->
+    {% if zeropowerglass %}
+                    {% assign zeropowerglass = false %}
+      {% for property in line_item.properties %}
+        {% if property.last == "Frames with ZERO power lenses" %}         
+          	properties_val='Frames with ZERO power lenses';         
+            {% if line_item.product.tags contains 'Half Rim' or line_item.product.tags contains 'Frame Type_Half Rim' %}
+           	tag = '59fc697ce4b079276442da80';  						            
+      		{% elsif line_item.product.tags contains 'Full Rim' or line_item.product.tags contains 'Frame Type_Full Rim' %}
+           	tag = '59fc6701e4b0e569286ac018';
+            {%elsif line_item.product.tags contains 'Rimless' or line_item.product.tags contains 'Frame Type_Rimless' %}
+           	 tag = '59fc6976e4b079276442da7c';                        
+            {% endif %} 
+        {% endif %}
+      {% endfor %}
+      	 
+    {% else %}
+           {% if line_item.product.tags contains 'Half Rim' or line_item.product.tags contains 'Frame Type_Half Rim' %}
+         	 tag = '59c24909e4b09bd3c4c8af6c';  						
+          {% elsif line_item.product.tags contains 'Full Rim' or line_item.product.tags contains 'Frame Type_Full Rim' %}
+         	 tag = '59c2490de4b0c7908d4b18e5';
+          {% elsif line_item.product.tags contains 'Rimless' or line_item.product.tags contains 'Frame Type_Rimless' %}
+         	 tag = '59c246ebe4b09bd3c4c8aefb';                        
+          {% endif %} 
+    {% endif %}
+    // <!--Catch zero power type eyeglasses END-->      
+                    {% endif %} 
+  
+  //Eyeglasses:with lens Script Start
+    $.ajax({
+        type: "POST",
+        url: proxys + order_inter_save,
+        crossDomain: true,
+      data: {order_number: order_number, variant_id: uniqueid, order_status: order_status, sku: '{{line_item.sku}}', type: '{{line_item.product.type}}', tag: tag, properties: properties, properties_val:properties_val},
+        success: function (data) {
+          console.log(data);          
+        },
+        error: function (err) {
+          console.log(err);
+        }
+      }); 
+ 
+  //Eyeglasses:with lens Script End
+          		{% elsif line_item.product.type == "Sunglasses" %}
+  //Sunglasses:with lens      
+                            
+//Getting lens id on the basis of frame bundle id
+                {% for line_item_lens in checkout.line_items %}
+                  {% if line_item_lens.product.type == "Lens" %}
+                    {% for property in line_item_lens.properties limit: 1 %}
+                      {% if property.last == sun_frm_bundleid %}          
+                        {% if line_item_lens.sku == '1000008' %}
+                          tag = '573eb04755206af4266f2823';                          
+                        {% elsif line_item_lens.sku == '1000009' %}
+                          tag = '5ab9f575e4b0df1547ac7593';                          
+                        {% elsif line_item_lens.sku == '1000001' %}
+                          tag = '573eb04755206af4266f2820';                          
+                        {% endif %}
+                     {% endif %}
+                    {% endfor %}
+                  {% endif %}          
+         		 {% endfor %} 
+  //Sunglasses:with lens Script Start
+                      $.ajax({
+        type: "POST",
+        url: proxys + order_inter_save,
+        crossDomain: true,
+        data: {order_number: order_number, variant_id: uniqueid, order_status: order_status, sku: '{{line_item.sku}}', type: '{{line_item.product.type}}', tag: tag, properties: properties, properties_val: properties_val},
+        success: function (data) {
+          console.log(data);          
+        },
+        error: function (err) {
+          console.log(err);
+        }
+      }); 
+  //Sunglasses:with lens Script End
+          		{% endif %}         
+          		{% else %} //has lens ELSE
+//Single product without lenses----Only frame 
+            type = '{{line_item.product.type}}';
+            sku = '{{line_item.sku}}';
+            tag = 'nopower';
+     $.ajax({
+        type: "POST",
+        url: proxys + order_inter_save,
+        crossDomain: true,
+        data: {order_number: order_number, variant_id: uniqueid, order_status: order_status, sku: sku, type: type, tag: tag, properties: 'NA', properties_val:'NA'},
+        success: function (data) {
+          console.log(data);          
+        },
+        error: function (err) {
+          console.log(err);
+        }
+      }); 
+//Single product without lenses Script END
+              {% endif %}//has lens END
+          {% endfor %}    
+  /*=================================
+  Step 2 adding ptoducts END
+  ==================================*/    
+    }
+  });
+    </script>

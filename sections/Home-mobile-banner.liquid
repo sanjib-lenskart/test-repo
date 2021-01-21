@@ -1,0 +1,194 @@
+<!-- Home-mobile-banner.liquid  -->
+{% assign sizes = '480,765,900,1000,1100,1300,1500,1700,1900,2000' | split: "," %}
+<style>
+  .home_banner_{{section.id}} .btn{
+    color:{{section.settings.btn_color}};
+  }
+</style>
+
+<div id="home_banner_xs" class='home_banner_{{section.id}}'>
+  <div class="{% unless section.settings.full %}container {% endunless %}xs-show">
+    <ul class="list clearfix">
+
+      <li>
+        <div class="img">
+          {% if section.settings.video_url != blank %}
+          {% assign video = true %}
+          {% assign main_link = section.settings.video_url %}
+          {% else %}
+          {% assign main_link = section.settings.img_link %}
+          {% endif %}
+          <a href="{{main_link}}" class='{% if video %}fancybox fancybox.iframe{% endif %}'>
+
+            <img alt="{{section.settings.image_xs.alt |  escape}}"
+                 src="{{ section.settings.image_xs | img_url: '100x' | format: 'jpg' }}"
+                 data-sizes="auto"
+                 data-src="{{ section.settings.image_xs | img_url: '1400x' | format: 'jpg' }}"
+                 data-srcset="
+                              {%- for size in sizes -%}
+                              {%- assign size_x = size| append : 'x' -%}
+                              {{ section.settings.image_xs | img_url: size_x | format: 'jpg' }} {{size | append:'w'}},
+                              {%- endfor -%}"
+                 class="lazyload img_blur blur-up xs-show">
+          </a>
+        </div>
+        <div class="slide_text  {{section.settings.home_slider_alignment }} {% if section.settings.video_url != blank %} video {% endif %}">
+          <div class="">
+            {% unless section.settings.header_text == blank %}
+            <h3>{{section.settings.header_text }}</h3>
+            {% endunless %}
+            {% unless section.settings.subheader_text  == blank %}
+            <div class='sub_header'>{{section.settings.subheader_text }}</div>
+            {% endunless %}
+           <div class="text-right">
+            {% if section.settings.home_slider_btn != blank %}
+            <div class='btn_wrapper'>
+              <a href="{{section.settings.home_slider_link}}" class="btn{% if section.id == '1499238967628' %} fancybox fancybox.iframe{% endif %}">{{section.settings.home_slider_btn}}</a>
+            </div>
+            {% endif %}
+            {% if section.settings.home_slider_btn2 != blank %}
+            <div class='btn_wrapper'>
+              <a href="{{section.settings.home_slider_link2}}" class="btn">{{section.settings.home_slider_btn2}}</a>
+            </div>
+            {% endif %}
+            </div>
+            {% unless section.settings.code == blank %}
+            <p class="code">
+              {{section.settings.code}}
+            </p>
+            {% endunless %}
+
+            {% if section.settings.video_url != blank %}
+            <a class="video_link play fancybox fancybox.iframe" href="{{section.settings.video_url}}"> 
+              <img src="{{'video_play_64x64.png' | asset_url }}">
+            </a>
+            {% endif %}
+
+          </div>
+        </div>
+        {% unless banner_btn == blank %}
+        <div class='center_btn'>
+          <a href="{{section.settings.banner_btn_url}}" class="btn">{{section.settings.banner_btn}}</a>
+        </div>
+        {% endunless %}
+      </li>
+    </ul>
+  </div>
+</div>
+
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+    "name": "Mobile Banner image",
+      "class":"no_padding",
+
+        "settings": [
+          {
+            "type": "checkbox",
+            "label": "Full-width",
+            "id": "full"
+          },
+          {
+            "type":"color",
+            "id":"btn_color",
+            "label":"Button text color"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_xs",
+            "label": "Image for mobile"
+          },
+          {
+            "type":"url",
+            "id":"img_link",
+            "label":"Image URL"
+          },
+          {
+            "type": "select",
+            "label": "Text alignment",
+            "id": "home_slider_alignment",
+            "options": [
+              {
+                "label": "Left",
+                "value": "left"
+              },
+              {
+                "label": "Right",
+                "value": "right"
+              },
+              {
+                "label": "Center",
+                "value": "center"
+              }
+            ]
+          },
+          {
+            "type": "text",
+            "label": "Header text",
+            "id": "header_text"
+          },
+          {
+            "type": "richtext",
+            "label": "Sub-header text",
+            "id": "subheader_text"
+          },
+          {
+            "type": "text",
+            "label": "Button name",
+            "id": "home_slider_btn"
+          },
+          {
+            "type": "text",
+            "label": "Button URL",
+            "id": "home_slider_link"
+          },
+          {
+            "type": "text",
+            "label": "Button name",
+            "id": "home_slider_btn2"
+          },
+          {
+            "type": "text",
+            "label": "Button URL",
+            "id": "home_slider_link2"
+          },
+          {
+            "type":"text",
+            "label":"Code",
+            "id":"code"
+          },
+          {
+            "type": "url",
+            "label": "Video URL",
+            "id": "video_url"
+          },
+          {
+            "type": "text",
+            "label": "Button name",
+            "id": "banner_btn"
+          },
+          {
+            "type": "text",
+            "label": "Button URL",
+            "id": "banner_btn_url"
+          }
+        ],
+          "presets": [
+            {
+              "name": "Mobile - Banner image",
+              "category": "Banner"
+            }
+          ]
+  }
+  {% endschema %}
+  {% comment %}
+</script>
+{% endcomment %}
+{% comment %}
+<style>
+  {% endcomment %}
+  {% comment %}
+</style>
+{% endcomment %}

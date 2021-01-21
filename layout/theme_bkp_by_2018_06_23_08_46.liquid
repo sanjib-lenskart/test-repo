@@ -1,0 +1,91 @@
+{% capture content %}
+<!DOCTYPE html>
+<!--[if IE 9]> <html class="ie9 no-js" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{ shop.locale }}"> <!--<![endif]-->
+<head>
+{% include 'limespot' %}
+  {% include 'head' %}
+  <style>.async-hide { opacity: 0 !important} </style>
+  <script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+   h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+   (a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+ })(window,document.documentElement,'async-hide','dataLayer',4000,
+ {'GTM-NM46MLN':true});</script>
+ <!-- Google Tag Manager -->
+ <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+ 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-NBG4K5J');</script>
+<!-- End Google Tag Manager -->
+
+{{ content_for_header }}
+
+  {% render 'shogun-head' %}
+</head>
+
+<body  id="{{ page_title | handle }}" class="template-{{ template | split: '.' | first }}">
+  {% for item in cart.items %}
+  {% for p in item.properties %}
+  {% if p.first == 'Prescription-form' %}
+  {% if p.last == 'Yes' %}
+  {% assign cart_top_banner = true %}
+  {% endif %}
+  {% endif %}
+  {% endfor %}
+  {% endfor %}
+  {% if template == 'cart' %}
+  {% if cart.item_count > 0 and cart_top_banner %}
+  <div class='cart_topbar'>
+    <div class='col col-1'>
+      <img src="{{'power-tab.png' | asset_img_url:'50x'}}">
+    </div>
+    <div class='col col-2'>
+      <p>
+        Err.. where shall I add my power details, you ask? 
+        Don't worry, right after placing the order.
+      </p>
+      <a class='close'>&times;</a>
+    </div>
+  </div>
+  {% endif %}
+  {% endif %}
+
+  <div id="PageContainer">
+    <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+    {% section 'header' %}
+    <div class="main_page scrollme">
+      <main class="main-content animateme" id="MainContent" role="main">
+        {{ content_for_layout }}
+<limespot></limespot>
+      </main>
+      {% section 'footer' %}
+    </div>
+  </div>
+  <div class="black_bg"></div>
+  {% if settings.welcome_popup %}
+  {% unless template == 'cart' or template == 'page.checkout-form' or template == 'page.checkout-from-frame'  %}
+  {% include 'newsletter-popup' %}
+  {% endunless %}
+  {% endif %}
+  {% include 'quick-add' %}
+  {% include 'footer-script' %}
+  <!-- BEEKETINGSCRIPT CODE START -->{% include 'bk-tracking' %}<!-- BEEKETINGSCRIPT CODE END -->
+
+
+
+
+  {% include 'social-login' %}  {% include 'sweettooth-initializer' %}
+
+  {% include 'sweettooth-tab-widget' %}
+  <!-- Google Tag Manager (noscript) -->
+  <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NBG4K5J"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  <!-- End Google Tag Manager (noscript) -->
+</body>
+</html>
+{% endcapture %}
+{% assign content = content | replace_first: '<!DOCTYPE', '!DOCTYPE' | split: "<" %}
+{% for html in content %}{% assign htmlblock = html | strip | prepend: ' <' %}{{htmlblock | replace: ' </', '</'}}{% endfor %}
+
+{% include 'livechat_chat_window' %}

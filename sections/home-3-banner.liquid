@@ -1,0 +1,70 @@
+<!-- home-3-banner -->
+<div id="home_three_banner">
+  <h3 class="title">{{section.settings.heading}}</h3>
+  <div class="video_banner">
+    <div class="container">
+
+      <div class="banner_1">
+        <div class="img">
+          <a class="fancybox fancybox.iframe" href="{{section.settings.url}}">
+            {% assign src_name = section.settings.image_1 %}
+            {% include 'srcset-img' %}
+          </a>
+          <a class="play fancybox fancybox.iframe" href="{{section.settings.url}}">
+            <img alt="video-play" src="{{'play-button.png' | asset_img_url: '200x'}}">
+          </a> 
+        </div>
+        <div class="text_wrapper">
+         <a class="fancybox fancybox.iframe" href="{{section.settings.url}}">
+          <p class="text_1">
+            <span>{{section.settings.text_1}}</span>
+            <label class="xs-hide">Now Playing</label>
+          </p>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+    "name": "Home Three Banner",
+    "settings": [
+      {
+      "type":"text",
+      "id":"heading",
+      "label":"Heading for Our Story",
+      "default":"What makes us stand apart?"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image"
+    },
+    {
+      "type":"text",
+      "id":"url",
+      "label":"Video url"
+    },
+    {
+      "type": "text",
+      "label": "Header text",
+      "id": "text_1"
+    }
+    ],
+    "presets": [
+    {
+      "name": "Home Three Banner",
+      "category": "Banner"
+    }
+    ]
+  }
+  {% endschema %}
+  {% comment %}
+</script>
+{% endcomment %}
+

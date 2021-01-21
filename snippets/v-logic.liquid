@@ -1,0 +1,50 @@
+{%- if template == 'collection.collection-var-sep' and paginate.current_page == 1 and v_number == 0-%}
+{%-assign off_val = 24 -%}
+{%- else -%}
+{%-assign off_val = 0 -%}
+{%- endif -%}
+{% for product in collection.products offset:off_val %} 
+{% if product.type == 'Lens' or product.type == 'Gift card' or product.template_suffix == 'none' %} {% continue %} 
+{% endif %}
+{% assign v_valid = -1 %}
+{% assign v_valid_exist = false %}
+{% assign v_valid_test = 9 %}
+
+{% for v in product.variants %}
+{% if v.available %} 
+{% assign v_valid = v_valid | plus : 1 %}
+{% if v_valid == v_number %} 
+{% assign v_valid_exist = true %}
+{% assign v_valid_test = forloop.index0 %}
+{% break %}
+{% endif %}
+
+{% endif %}
+{% endfor %}
+
+{% if v_valid_exist == true %}
+{%- assign variant = product.variants[v_valid_test]  -%}
+{%- if tag_color == blank -%}
+<li class="{{section.settings.product_row}} col-sm-4 col-xs-12 item" data-sku="{{variant.sku}}">
+	<div class="main_content">
+		{% include 'simply-variant' %}
+		{% include 'loading' %}
+	</div>
+</li>
+
+{% include 'banner-between-collection-items' %}
+
+{%- else -%}
+{% assign title = variant.title | handlieze %}
+{% if title contains tag_color %}
+<li class="{{section.settings.product_row}} col-sm-4 col-xs-12 item" data-sku="{{variant.sku}}">
+	<div class="main_content">
+		{% include 'simply-variant' %}
+		{% include 'loading' %}
+	</div>
+</li>
+{%- endif -%}
+
+{%- endif -%}
+{%- endif -%}
+{%- endfor -%}

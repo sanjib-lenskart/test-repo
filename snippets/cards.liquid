@@ -1,0 +1,13 @@
+<div class="cards">
+  <ul>
+    {% for block in section.blocks %}
+    <li>
+      <div class="img">
+        <img src="{{block.settings.card_img | format : 'png' | img_url : '38x38'}}" alt="{{shop.name}}">
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+
+

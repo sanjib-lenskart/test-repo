@@ -1,0 +1,64 @@
+<!-- section: home-happy-customer -->
+<div class="container">
+  <div class="row">       
+    <div class="col-xs-12 col-sm-12 col-md-6"> 
+    <a href="{{ section.settings.link }}">
+      {% assign src_name = section.settings.image  %}
+        {% include 'srcset-img' %}
+      
+       {% unless section.settings.header == blank %}
+    <div class="text_wrapper">
+      <div class="section-header text-center">
+        <h3> {{ section.settings.header }} </h3>
+        <span class="btn">{{ section.settings.know }}</span>
+      </div>
+    </div>
+	{% endunless %}
+      </a>
+    </div>
+    
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Home Happy Customer",
+    "class": "index-section home-happy-customer xs-show",
+    "settings": [
+	{
+      "type": "text",
+      "label": "Header text",
+      "id": "header"
+    },
+	{
+      "type": "url",
+      "label": "Image URL",
+      "id": "link"
+    },
+	{
+      "type": "text",
+      "label": "Link text",
+      "id": "know",
+	  "default": "Know More"
+    },
+	{
+      "type": "image_picker",
+      "label": "Image 800x800px",
+      "id": "image"
+    }
+	],
+
+  "presets": [
+    {
+      "name": {
+        "en": "Home Happy Customer"
+        
+      },
+      "category": {
+        "en": "Text"
+        
+      }
+    }
+  ]
+
+  }
+{% endschema %}

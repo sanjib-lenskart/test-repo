@@ -1,0 +1,67 @@
+<!-- home-brand -->
+<div id="home_brand">
+  <div class="container">
+    {% unless section.settings.title == blank %}
+    <h1 class="title text-center">{{section.settings.title}}</h1>  
+    {% endunless %}
+    
+    {% unless section.settings.sub_title == blank %}
+    <p class="text-center xs-hide">{{section.settings.sub_title}}</p>
+    {% endunless %}
+    
+    <div class="row">
+      <ul class="brand_list">
+        {% for block in section.blocks %}
+        <li class="col-sm-3">
+          {% assign src_name = block.settings.image %}
+          {% include 'srcset-img' %}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+    "name": "Home Brand",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading"
+        },
+        {
+          "type": "textarea",
+          "id": "sub_title",
+          "label": "Sub Heading"
+        }
+      ],
+        "blocks": [
+          {
+            "name": "Brands",
+            "type": "image",
+            "settings": [
+              {
+                "type": "image_picker",
+                "label": "Brand image",
+                "id": "image"
+              }
+            ]
+          }
+        ],
+          "presets": [
+            {
+              "name": "Home Brands",
+              "category": "Brand"
+            }
+          ]
+  }
+  {% endschema %}
+  {% comment %}
+</script>
+{% endcomment %}
+

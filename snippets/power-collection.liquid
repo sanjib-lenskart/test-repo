@@ -1,0 +1,71 @@
+{% assign main_product_id = 'detail_' | append : product.id %}
+{% assign temp_product = product %}
+<div class="content">
+  <div class="header_section">
+    <h5>Select your eye power range and accordingly we will recommend the best lens for you.</h5>
+  </div>
+  <div class="pw_filter">
+    <ul class="row">
+      {% for product in collections[section.settings.power_collection].products %}
+      {% for tag in product.tags %}
+      {% if tag contains 'power_range_' %}
+      {% assign power_range = tag %}
+      {% endif %}
+      {% endfor %}
+      <li class="col-md-3 col-sm-6">
+        {% case power_range %}
+        {% when 'power_range_1' %}
+        <input type="radio" id="pwf_1"  name="pwf">
+        <label for="pwf_1" class="pwf" data-target="product_{{product.id}}">Opps! I don't know yet!.</label>
+        {% when 'power_range_2' %}
+        <input type="radio" id="pwf_2"  name="pwf">
+        <label for="pwf_2" class="pwf" data-target="product_{{product.id}}">0 <i class="fa fa-long-arrow-right" aria-hidden="true"></i> +/- 3 </label>
+        {% when 'power_range_3' %}
+        <input type="radio" id="pwf_3" name="pwf" >
+        <label for="pwf_3" class="pwf" data-target="product_{{product.id}}">3.25 <i class="fa fa-long-arrow-right" aria-hidden="true"></i> +/- 6 </label>
+        {% when 'power_range_4' %}
+        <input type="radio" id="pwf_4"  name="pwf">
+        <label for="pwf_4" class="pwf" data-target="product_{{product.id}}">6.25 <i class="fa fa-long-arrow-right" aria-hidden="true"></i> above </label>
+        {% endcase %}
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <ul class="list lightSlider clearfix">
+    {% for product in collections[section.settings.power_collection].products %}
+    <li class="col-sm-4  col-xs-6 product_{{product.id}}">
+      <div class="pack">
+        <div class="row">
+          <div class="col-xs-6">
+            <div class="img">
+              <img  src="{{ product.featured_image.src | img_url: 'grande' }}" class="img_blur">
+            </div>
+          </div>
+          <div class="col-xs-6 pull-right">
+            <div class="text">
+              <span class="product_price">
+                {{ product.price | money_without_trailing_zeros }}
+                {% if product.compare_at_price >  product.price %}
+                <span class="compare">
+                  {{ product.compare_at_price | money_without_trailing_zeros }}
+                </span>
+                {% endif %}
+              </span>
+            </div>
+          </div>
+        </div>
+        <h6 class="title"> {{product.title}}</h6>
+        <div class="desc">
+          {{product.description}}
+        </div>
+        <div class="power_add_cart text-center" data-target="{{main_product_id}}" data-product="{{product.title}}" data-id="{{product.variants[0].id}}" data-price="{{product.variants[0].price | money}}">
+          <a class="btn" type="button">
+            Add to cart
+          </a>
+        </div>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% assign product = temp_product %}

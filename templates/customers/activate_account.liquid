@@ -1,0 +1,42 @@
+<div class="page-width text-center">
+  <div class="container">
+    <div class="col-sm-6 col-sm-offset-3">
+      <div class="section-header">
+        <h1>{{ 'customer.activate_account.title' | t }}</h1>
+        <p>{{ 'customer.activate_account.subtext' | t }}</p>
+      </div>
+      <div class="form_vertical text-left">
+        {% form 'activate_customer_password' %}
+
+          {{ form.errors | default_errors }}
+
+          <label for="CustomerPassword" class="label--hidden">{{ 'customer.activate_account.password' | t }}</label>
+          <input type="password" value="" name="customer[password]" id="CustomerPassword" placeholder="{{ 'customer.activate_account.password' | t }}">
+
+          <label for="CustomerPasswordConfirmation" class="label--hidden">{{ 'customer.activate_account.password_confirm' | t }}</label>
+          <input type="password" value="" name="customer[password_confirmation]" id="CustomerPasswordConfirmation" placeholder="{{ 'customer.activate_account.password_confirm' | t }}">
+
+        <div><input type="submit" class="btn" value="{{ 'customer.activate_account.submit' | t }}"></div>
+          <div><input type="submit" name="decline" value="{{ 'customer.activate_account.cancel' | t }}"></div>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .form_vertical form label{
+    display:block;
+    margin-bottom:10px;
+  }
+  
+  .form_vertical form input{
+    margin-bottom:20px;
+  }
+  
+  .main-content .form_vertical{
+    max-width: 340px;
+    margin: auto;
+    margin-top: 40px;
+  }
+</style>

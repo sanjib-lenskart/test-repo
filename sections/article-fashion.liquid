@@ -1,0 +1,92 @@
+<div id='article_fashion'>
+	<div class='container'>
+		<div class='header_img'>
+			<div class='img'>
+				{% assign src_name = section.settings.header_img %}
+				{% assign src_alt = 'Banner' %}
+				{% include 'srcset-img' %}
+			</div>
+			<div class='text'>
+				{{ article.content }}
+			</div> 
+		</div>
+	</div>
+	<div class="products">
+		<div class="container">
+			<div class="row">
+				{%- for block in section.blocks -%}
+				<div class="col-sm-4">
+					<div class="product">
+						<div class="img">
+							{% assign src_name = block.settings.image %}
+							{% assign src_alt = block.settings.product %}
+							<a href="{{block.settings.url}}">
+								{% include 'srcset-img' %}
+							</a>
+						</div>
+						<div class="text_wrapper">
+							<div class="text">
+								{{block.settings.text}}
+							</div>
+						</div>
+						<div class='btn_wrapper'>
+							<a class="btn" href="{{block.settings.url}}">
+								Shop Now
+							</a>
+						</div>
+					</div>
+				</div> 
+				{%- endfor -%}
+			</div>
+		</div>
+	</div>
+	
+</div>
+{%-  comment -%}
+<script>
+	{%- endcomment -%}
+	{% schema %}
+	{
+		"name": "Fashion article", 
+		"class":"no_bottom_padding", 
+		"settings":[
+		{
+			"type":"image_picker", 
+			"id":"header_img",
+			"label":"Header image"
+		}
+		],
+		"blocks":[
+		{
+			"name":"Products",
+			"type":"product",
+			"settings":[
+			{
+				"type":"url",
+				"id":"url",
+				"label":"Select product"
+			},
+			{
+				"type":"image_picker",
+				"id":"image",
+				"label":"image"
+			},
+			{
+				"type":"richtext",
+				"id":"text",
+				"label":"text"
+			}
+			]
+		}
+		]
+	}
+	{% endschema %}
+	{%-  comment -%}
+</script>
+{%- endcomment -%}
+{%-  comment -%}
+<style>
+	{%- endcomment -%}
+{%-  comment -%}
+</style>
+{%- endcomment -%} 

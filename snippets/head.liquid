@@ -1,0 +1,142 @@
+<script>
+  window.simply = window.simply || {};
+  window.cn = function(o){return"undefined"==typeof o||null==o||""==o.toString().trim()};
+  window.cb = function(o){if(o == 'true'){return true}else{return false}};
+  {%- if template contains 'collection' -%}
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if (this.readyState == 4 && this.status == 200) {
+        window.collection_total = JSON.parse(this.response);
+        var x =  document.getElementsByClassName("collection_total_count");
+        x[0].innerHTML = collection_total.total;
+      } 
+    }; 
+    xhttp.open("GET", location.pathname+"?view=paginate", true);
+    xhttp.send();
+  });
+  {%- endif -%}
+  simply.moneyFormat = '{{ shop.money_format }}';
+  
+       const getUA = () => {
+    let device = "Unknown";
+    const ua = {
+        "Generic Linux": /Linux/i,
+        "Android": /Android/i,
+        "BlackBerry": /BlackBerry/i,
+        "Bluebird": /EF500/i,
+        "Chrome OS": /CrOS/i,
+        "Datalogic": /DL-AXIS/i,
+        "Honeywell": /CT50/i,
+        "iPad": /iPad/i,
+        "iPhone": /iPhone/i,
+        "iPod": /iPod/i,
+        "macOS": /Macintosh/i,
+        "Windows": /IEMobile|Windows/i,
+        "Zebra": /TC70|TC55/i,
+    }
+    Object.keys(ua).map(v => navigator.userAgent.match(ua[v]) && (device = v));
+    return device;
+}
+  
+         function setdwopdown_val(sku_pd){        
+        var sku_wise_pd_data = sessionStorage.getItem("sku_wise_pd_data");
+    //sessionStorage.removeItem("sku_wise_pd_data"); 
+      if(sku_wise_pd_data != null || sku_wise_pd_data != ''){
+        var obj = $.parseJSON(sku_wise_pd_data); 
+        $.each(obj, function(key, val) {          
+          if(key == sku_pd){            
+            console.log('sku_pd '+ sku_pd);
+          console.log('key '+ key);            
+            if(this['status'] == 'Success'){
+               var result_cyl = '<option value="NA">Select</option>';
+        		var result_sph = '<option value="NA">Select</option>';
+              console.log(this['status']);
+              
+               var cyl = this['cyl'];
+          $.each(cyl, function(key_cyl, val_cyl) {
+            result_cyl = result_cyl + '<option value="'+val_cyl+'">'+val_cyl+'</option>'
+          })
+          var sph = this['sph'];
+          $.each(sph, function(key_sph, val_sph) {
+            result_sph = result_sph + '<option value="'+val_sph+'">'+val_sph+'</option>'
+          })          
+            }            
+            $('#RightEyeCylindrical').html(result_cyl);
+        $('#LeftEyeCylindrical').html(result_cyl);
+        $('#RightEyeSpherical').html(result_sph);
+        $('#LeftEyeSpherical').html(result_sph);            
+          }
+        });
+      }        
+      }
+</script>
+
+
+
+
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta name="theme-color" content="{{ settings.color_button }}">
+<link rel="canonical" href="{{ canonical_url  }}">
+{% if settings.favicon != blank %}
+<link rel="shortcut icon" href="{{ settings.favicon | img_url: '32x32' }}" type="image/png">
+{% else %}
+<link rel="icon" href="{{favicon.ico | asset_url}}" type="image/x-icon" />
+<link rel="shortcut icon" href="{{favicon.ico | asset_url}}" type="image/x-icon" />
+{% endif %}
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
+<link rel="preload" href="https://fonts.googleapis.com/css?family=Montserrat:400,500">
+<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"> -->
+<link rel="preload" href="{{ 'custom.scss.css' | asset_url}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'custom.scss.css' | asset_url}}"></noscript>
+
+<link rel="preload" href="{{ 'font-awesome.css' | asset_url}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{ 'font-awesome.css' | asset_url}}"></noscript>
+
+<link rel="preload" href="{{'libs.scss.css' | asset_url}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{'libs.scss.css' | asset_url}}"></noscript>
+<link rel="preload" href="{{'slick.css' | asset_url}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{'slick.css' | asset_url}}"></noscript>
+
+{% if template == 'index' %}
+<link rel="preload" href="{{'home.scss.css' | asset_url}}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="{{'home.scss.css' | asset_url}}"></noscript>
+{% endif %}
+{% if template == 'page' or template contains 'collection' %}
+{{ 'tryditto.scss.css' | asset_url | stylesheet_tag }}
+{% endif %}
+{% if template == 'product' %}
+{{ 'product.scss.css' | asset_url | stylesheet_tag }}
+{% endif %}
+{% if template == 'cart' %}
+{{ 'cart.scss.css' | asset_url | stylesheet_tag }}
+{% endif %}
+{% if template contains 'collection' %}
+{{ 'collection.scss.css' | asset_url | stylesheet_tag }}
+{% endif %}
+
+  {%- capture seo_title -%}
+    {%- if request.page_type == 'search' and search.performed == true -%}
+      {{ 'general.search.heading' | t: count: search.results_count }}: {{ 'general.search.results_with_count' | t: terms: search.terms, count: search.results_count }}
+    {%- else -%}
+	  {{ page_title }}
+	{%- endif -%}
+    {%- if current_tags -%}
+      {%- assign meta_tags = current_tags | join: ', ' -%} &ndash; {{ 'general.meta.tags' | t: tags: meta_tags -}}
+    {%- endif -%}
+    {%- if current_page != 1 -%}
+      &ndash; {{ 'general.meta.page' | t: page: current_page }}
+    {%- endif -%}
+    {%- assign escaped_page_title = page_title | escape -%}
+    {%- unless escaped_page_title contains shop.name -%}
+      &ndash; {{ shop.name }}
+    {%- endunless -%}
+  {%- endcapture -%}
+  <title>{{ seo_title | strip }}</title>
+  {%- if page_description -%}
+    <meta name="description" content="{{ page_description | escape }}">
+  {%- endif -%}
+

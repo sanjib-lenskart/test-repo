@@ -1,0 +1,25 @@
+
+{% if type =='eg' or type == 'sg' or product.type == 'Child' %}
+<div class="product_page_lens_select">
+  <div class='checkbox_block'> 
+    {%- include 'product-lens-details' -%}
+  </div> 
+</div>
+
+{% else %}
+
+<div class="checkbox_block">
+  <div class="form-group">
+    <div class="lens_info">
+      <input id="frame_only" type="radio" name="with_powers">
+    <label data-value='frame_only' data-product='detail_{{product.id}}' data-form="No" class="action_btn">No Power</label>
+    </div>
+  </div>
+</div>
+<div class="product_page_lens_select">
+  <div class='checkbox_block'> 
+    {%- include 'product-lens-details' -%}
+  </div> 
+</div>
+{% endif %}
+

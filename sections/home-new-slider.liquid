@@ -1,0 +1,121 @@
+{% if section.settings.collection == blank or collections[section.settings.collection].empty? or collections[section.settings.collection].products_count == 0 %}
+{% include 'no-section-msg' %}
+{% else %}
+{% assign product_limit = section.settings.limit %}
+{% if product_limit == 0 %}
+{% assign product_limit = 100 %}
+{% endif %}
+<!-- section.min.js working for this slider -->
+<div id="" class="new-home-slider hbjb">
+   <div class="{% unless section.settings.full %}container{% endunless %}">
+     <h2 class="title text-center">{{section.settings.title-text-box}}</h2>   
+  <ul class="carousel clearfix">
+    {% for product in collections[section.settings.collection].products limit: product_limit %}
+    {% if product.available %}
+    <li class="carousel-cell">
+      {% assign no_price = true %}
+      {% include 'simple-prescription-sunglasses-product' %}
+    </li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+     <div class="view-range">
+       <a href="{{ collections[section.settings.collection].url }}">View Range</a>
+     </div>
+</div>
+</div>
+
+<script>
+ $( document ).ready(function() {
+ $('#shopify-section-16082754735648d8ca').hide();  
+  $('.eyeglasses-tab').on( 'click', function() {
+   $('#shopify-section-16082754735648d8ca').hide();
+   $('#shopify-section-1608275387b43116c0').show();
+   $('div#tabs-slider li.sunglasses-tab').removeClass('active');
+   $('div#tabs-slider li.eyeglasses-tab').addClass('active');
+    $carousel.show()
+    .flickity('resize');
+  });
+  
+   $('.sunglasses-tab').on( 'click', function() {
+   $('#shopify-section-16082754735648d8ca').show();
+   $('#shopify-section-1608275387b43116c0').hide();
+   $('div#tabs-slider li.sunglasses-tab').addClass('active');
+   $('div#tabs-slider li.eyeglasses-tab').removeClass('active');
+     $carousel.show()
+    .flickity('resize');
+  });
+   
+   var $carousel = $('.carousel').flickity({
+     prevNextButtons: true,
+     autoPlay: true,
+     lazyLoad: true,
+     freeScroll:false,
+     contain: true,
+     pageDots: false
+  });
+  });
+  
+</script>
+
+
+{% endif %}
+{% schema %}
+{
+"name": "Home New slider",
+"class": "home_products_slider",
+"settings": [
+{
+	"type":"checkbox",
+	"label":"Full-width",
+	"id":"full"
+	},
+    
+    {
+    "id": "title",
+    "type": "richtext",
+    "label": "Add custom text below",
+    "default": "<p>Add your text here</p>"
+    },
+{
+"id": "title-text-box",
+"type": "text",
+"label": "Heading",
+"default": "Title"
+},
+	{
+    "id": "subtitle1",
+    "type": "richtext",
+    "label": "Add custom text below",
+    "default": "<p>Add your text here</p>"
+    },
+{
+    "id": "subtitle2",
+    "type": "richtext",
+    "label": "Add custom text below",
+    "default": "<p>Add your text here</p>"
+    },
+{
+"id": "subtitle-text-box",
+"type": "text",
+"label": "Heading",
+"default": "Title"
+},
+    {
+    "type":"number",
+    "id":"limit",
+    "label":"Product limit",
+    "default":3
+    },
+    {
+    "type": "collection",
+    "id": "collection",
+    "label": "Collection"
+    }
+    ],
+ "presets": [{
+    "name": "Home New slider",
+    "category": "Collection"
+  }]
+}
+{% endschema %}

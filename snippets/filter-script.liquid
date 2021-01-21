@@ -1,0 +1,190 @@
+<!-- filter-script -->
+<script>
+  $(function() {
+    var currentTags = '{{ current_tags }}',
+    filters = $('.advanced-filter'),
+      activeTag,
+      activeHandle;
+
+    filters.each(function() {
+      var el = $(this),
+          group = el.data('group'),
+          isActive = el.hasClass('active-filter');
+    });
+
+    filters.on('click', function(e) {
+      var el = $(this),
+          group = el.data('group'),
+          url = el.find('a').attr('href');
+
+      $(this).addClass('brderon-off').siblings(this).removeClass('brderon-off');
+      $(this).css('border','3px solid #49a99c').siblings(this).css('border','1px solid #ccc');
+      
+      $(".filter_check").prop("checked", false);    
+      $(this).find('input').prop("checked", true);
+
+
+      var tempurld = $(".divurl").text();
+      
+ 
+      if (tempurld == ''){
+        var tempurl = el.data('handle');
+      }
+      else{
+        
+       tempurld = $(".divurl").text();
+      
+        var shapecheck = tempurld.match(/shape/g);
+        var colorcheck = tempurld.match(/color/g);
+        var sizecheck = tempurld.match(/size/g);
+        var materialcheck = tempurld.match(/material/g);
+        var typecheck = tempurld.match(/frame-type/g);
+        var eyecheck = tempurld.match(/eye-/g);
+        var fwidthcheck = tempurld.match(/frame-width/g);
+
+        if(shapecheck == 'shape' && group == 'Shape'){
+          var checkwiththis = $(".divurl").text();
+          var tempvar = checkwiththis.replace(/\+/g, " ");
+          $(".divurl").text(tempvar);
+          var checkwiththis = $(".divurl").text();
+          var result = checkwiththis.match(/(\bshape\S+\b)/ig);
+          var replacestring = checkwiththis.replace(result, el.data('handle'));         
+          var replacestring = replacestring.replace(/\ /g, "+");
+          $(".divurl").text(replacestring);
+          var tempurl = $(".divurl").text();
+        }
+        else if(colorcheck == 'color' && group == 'Color'){
+
+          var tempurl = $(".divurl").text();
+          var checkwiththis = $(".divurl").text();
+          var tempvar = checkwiththis.replace(/\+/g, " ");
+          $(".divurl").text(tempvar);
+          var checkwiththis = $(".divurl").text();
+          var result = checkwiththis.match(/(\bcolor\S+\b)/ig);
+          var replacestring = checkwiththis.replace(result, el.data('handle'));         
+          var replacestring = replacestring.replace(/\ /g, "+");
+          $(".divurl").text(replacestring);
+          var tempurl = $(".divurl").text();
+        }
+
+        else if(sizecheck == 'size' && group == 'size'){
+          
+          var checkwiththis = $(".divurl").text();
+          var tempvar = checkwiththis.replace(/\+/g, " ");
+          $(".divurl").text(tempvar);
+          var checkwiththis = $(".divurl").text();
+          var result = checkwiththis.match(/(\bsize\S+\b)/ig);
+          var replacestring = checkwiththis.replace(result, el.data('handle'));         
+          var replacestring = replacestring.replace(/\ /g, "+");
+          $(".divurl").text(replacestring);
+          var tempurl = $(".divurl").text();          
+         
+        }
+        else if(materialcheck == 'material' && group == 'Material'){
+         
+          var checkwiththis = $(".divurl").text();
+          var tempvar = checkwiththis.replace(/\+/g, " ");
+          $(".divurl").text(tempvar);
+          var checkwiththis = $(".divurl").text();
+          var result = checkwiththis.match(/(\bmaterial\S+\b)/ig);
+          var replacestring = checkwiththis.replace(result, el.data('handle'));         
+          var replacestring = replacestring.replace(/\ /g, "+");
+          $(".divurl").text(replacestring);
+          var tempurl = $(".divurl").text();
+        }
+        else if(typecheck == 'frame-type' && group == 'Frame Type'){          
+          var checkwiththis = $(".divurl").text();
+          var tempvar = checkwiththis.replace(/\+/g, " ");
+          $(".divurl").text(tempvar);
+          var checkwiththis = $(".divurl").text();
+          var result = checkwiththis.match(/(\bframe-type\S+\b)/ig);
+          var replacestring = checkwiththis.replace(result, el.data('handle'));         
+          var replacestring = replacestring.replace(/\ /g, "+");
+          $(".divurl").text(replacestring);
+          var tempurl = $(".divurl").text();
+        }
+        else if(eyecheck == 'eye-' && group == 'Eye-'){
+          var checkwiththis = $(".divurl").text();
+          var tempvar = checkwiththis.replace(/\+/g, " ");
+          $(".divurl").text(tempvar);
+          var checkwiththis = $(".divurl").text();
+          var result = checkwiththis.match(/(\beye-\S+\b)/ig);
+          var replacestring = checkwiththis.replace(result, el.data('handle'));         
+          var replacestring = replacestring.replace(/\ /g, "+");
+          $(".divurl").text(replacestring);
+          var tempurl = $(".divurl").text();
+        }
+           else if(fwidthcheck == 'frame-width' && group == 'Frame Width'){          
+          var checkwiththis = $(".divurl").text();
+          var tempvar = checkwiththis.replace(/\+/g, " ");
+          $(".divurl").text(tempvar);
+          var checkwiththis = $(".divurl").text();
+          var result = checkwiththis.match(/(\bframe-width\S+\b)/ig);
+          var replacestring = checkwiththis.replace(result, el.data('handle'));         
+          var replacestring = replacestring.replace(/\ /g, "+");
+          $(".divurl").text(replacestring);
+          var tempurl = $(".divurl").text();
+        }
+        else{
+          var tempurl = el.data('handle');
+          tempurl = tempurld+'+'+tempurl;
+          
+        }
+
+      }
+      $(".divurl").text(tempurl);
+
+
+      //$(".divurl1").text(window.location.href);
+      var collectionurl = '{{ collection.url }}';
+      var finalfilterlink = collectionurl+'/'+tempurl;
+
+
+
+      // $('.applyfilter-btn').attr("href",url);// select filter one by one after each page refresh
+      $('.applyfilter-btn').attr("href",finalfilterlink);
+
+
+      // Continue as normal if we're clicking on the active link
+      if ( el.hasClass('active-filter') ) { 
+        return;
+      }
+
+      // Get active group link (unidentified if there isn't one)
+      activeTag = $('.active-filter[data-group="'+ group +'"]');
+
+      // If a tag from this group is already selected, remove it from the new tag's URL and continue
+      if ( activeTag && activeTag.data('group') === group ) {
+        e.preventDefault();
+        activeHandle = activeTag.data('handle') + '+';
+
+        // Create new URL without the currently active handle
+        url = url.replace(activeHandle, '');
+
+        //window.location = url;
+      }
+    });
+  });
+
+
+  $(window).on('load', function() {
+   
+    var onloadurl = window.location.href;
+    var onlyhost = onloadurl.toString().replace(/^(.*\/\/[^\/?#]*).*$/,"$1");
+    
+    var collectionurl = '{{ collection.url }}/';
+    var shopurl = '{{ shop.url }}';
+    var urlwithcollection = onlyhost+collectionurl;
+    var afterrefreshurl = onloadurl.replace(urlwithcollection, '');
+    $(".divurl2").text(afterrefreshurl);
+    var onlyhostwithcollection = onlyhost+'{{ collection.url }}';
+        
+    if(onloadurl != onlyhostwithcollection){
+    $(".divurl").text(afterrefreshurl);
+    $(".mobile-filter-btn p span").text('CHANGE FILTERS');
+    $(".mobile-filter-btn").css('background','#f18132' );
+    //console.log($(".divurl").text());
+    }         
+});
+  
+</script>

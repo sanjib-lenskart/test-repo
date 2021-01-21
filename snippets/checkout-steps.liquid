@@ -1,0 +1,53 @@
+{%comment%}
+<div class='steps_wrapper'>
+  <div class='container-fluid'>
+    <div>
+      <a href="{{shop.url}}/cart" class='CartButton'>
+        <i class="fa fa-long-arrow-left" aria-hidden="true"></i> Go to cart
+      </a>
+      <div class='row flex_view md_flex'>
+        <div class='col-md-4 step_col {% if step_no == 1 %} active{% endif %}'>
+          <div class='step_block'>
+            <div class='step_cover'>
+            </div>
+            <h3 class='step_name'> 
+              Shipping 
+            </h3>
+            <div class='address_form'>
+            </div>
+          </div>
+        </div>
+        <div class='col-md-4 step_col {% if step_no == 2 %} active{% endif %}'>
+          <div class='step_block'>
+            <div class='step_cover'>
+            </div>
+            <h3 class='step_name pay_bill'> 
+              Billing 
+            </h3>
+            <div class='payment_form'>
+              {% if step_no == 1 %}
+              <img src="{{'checkoutff.png' | asset_url}}" alt='Form'>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class='col-md-4 step_col {% if step_no == 2 %} active{% endif %}'>
+          <div class='step_block'>
+            <div class='step_cover'>
+            </div>
+            <h3 class='step_name'> 
+              Order Summary 
+            </h3>
+            <div class='reviewSection'>
+              {%- include 'fake-table' -%}
+              {% if step_no == 1 %}
+             
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endcomment%}

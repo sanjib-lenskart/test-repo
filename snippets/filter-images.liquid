@@ -1,0 +1,281 @@
+{% if collection.products[0].type == 'Sunglasses' %}
+{%- assign asset_url = true -%}
+<div class='sunglasses filter_imgs xs-hide'>
+  <div class='container'>
+    <div class='table_view'>
+      <div class='col-sm-8'>
+        <div class='inline_view text-center'>
+          <div class='col-sm-4'>
+            <div class='image_filter'>
+              <a href="{{ settings.sunglass_first_link }}" class='{% if
+                link.active %}active{%- endif -%}'>
+                {%- assign src_name = 'sunglasses_Aviator.png' -%}
+                {%- assign src_alt = 'Aviator' -%}
+                {%- include 'srcset-img' -%}
+              </a>
+            </div>
+          </div>
+          <div class='col-sm-4'>
+            <div class='image_filter'>
+              <a href="{{ settings.sunglass_second_link }}" class='{%- if
+                link.active -%}active{%- endif -%}'>
+                {%- assign src_name = 'sunglasses_Wayfarer.png' -%}
+                {%- assign src_alt = 'Wayfarer' -%}
+                {%- include 'srcset-img' -%}
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class='inline_view text-center'>
+          {% unless collection.handle contains 'for-men' %}
+          <div class='col-sm-4'>
+            <div class='image_filter'>
+              <a href="{{ settings.sunglass_third_link }}" class='{%- if
+                link.active -%}active{%- endif -%}'>
+                {%- assign src_name = 'sunglasses_Cateye.png' -%}
+                {%- assign src_alt = 'Cateye' -%}
+                {%- include 'srcset-img' -%}
+              </a>
+            </div>
+          </div>
+          {% endunless %}
+          <div class='col-sm-4'>
+            <div class='image_filter'>
+              <a href="{{ settings.sunglass_fourth_link }}" class='{%- if
+                link.active -%}active{%- endif -%}'>
+                {%- assign src_name = 'sunglasses_Round.png' -%}
+                {%- assign src_alt = 'Round' -%}
+                {%- include 'srcset-img' -%}
+              </a>
+            </div>
+          </div>
+          <div class='col-sm-4'>
+            <div class='image_filter'>
+              <a href="{{ settings.sunglass_fifth_link }}" class='{%- if
+                link.active -%}active{%- endif -%}'>
+                {%- assign src_name = 'sunglasses_Rectangle.png' -%}
+                {%- assign src_alt = 'Rectangle' -%}
+                {%- include 'srcset-img' -%}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='col-sm-4'>
+        {% if current_tags %}
+        {%- assign found_tag = false -%}
+
+
+        {% if current_tags contains 'Rimless' %}
+        <div class='sun-banner-content text'>
+          <div class="banner-content-inner"><span>Rimless:</span> For those who
+            aren't held by boundaries.</div>
+          {%- assign found_tag = true -%}
+        </div>
+        {% endif %}
+        {% if current_tags contains 'Shape_Wayfarer' %}
+        <div class='sun-banner-content text'>
+          <div class="banner-content-inner"><span>Wayfarer:</span> These glasses
+            fare way better than the rest.</div>
+          {%- assign found_tag = true -%}
+        </div>
+        {% endif %}
+        {% if current_tags contains 'Shape_Cat Eye' %}
+        <div class='sun-banner-content text'>
+          <div class="banner-content-inner"><span>Cat Eye:</span> It's the eye
+            of the tiger, it's the thrill of the fight.</div>
+          {%- assign found_tag = true -%}
+        </div>
+        {% endif %}
+        {% if current_tags contains 'Shape_Round' %}
+        <div class='sun-banner-content text'>
+          <div class="banner-content-inner"><span>Round:</span> These will make
+            your world go round.</div>
+          {%- assign found_tag = true -%}
+        </div>
+        {% endif %}
+        {% if current_tags contains 'Shape_Rectangle' %}
+        <div class='sun-banner-content text'>
+          <div class="banner-content-inner"><span>Rectangular:</span> These
+            won't bring you back to square one.</div>
+          {%- assign found_tag = true -%}
+        </div>
+        {% endif %}
+        {% if current_tags contains 'Shape_Aviator' %}
+        <div class='sun-banner-content text'>
+          <div class="banner-content-inner"><span>Aviators:</span> An ode to the
+            classics.</div>
+          {%- assign found_tag = true -%}
+        </div>
+        {% endif %}
+        {% if current_tags contains 'Has_Lens ' %}
+        <div class='sun-banner-content text'>
+          <div class="banner-content-inner"><span>What's:</span> Your Frame of
+            Mind?</div>
+          {%- assign found_tag = true -%}
+        </div>
+        {% endif %}
+        {%- unless found_tag -%}
+        <div class='text-img text'>
+          {%- assign src_name = 'sunglasses_Whats.png' -%}
+          {%- assign src_alt = 'Whats' -%}
+          {%- include 'srcset-img' -%}
+        </div>
+        {%- endunless -%}
+        {% else %}
+        {% if block.settings.filter_collection_text != blank %}
+        <div class='sun-banner-content text'>
+          <div class="banner-content-inner">{{block.settings.filter_collection_text}}</div>
+          {%- assign found_tag = true -%}
+        </div>
+        {% else%}
+        <div class='text-img text'>
+          {%- assign src_name = 'sunglasses_Whats.png' -%}
+          {%- assign src_alt = 'Whats' -%}
+          {%- include 'srcset-img' -%}
+        </div>
+        {% endif %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% if collection.products[0].type == 'Eyeglasses' %}
+{%- assign asset_url = true -%}
+<div class='filter_imgs eyeglasses xs-hide'>
+  <div class='container'>
+    <div class='table_view'>
+      <div class='col-sm-8'>
+        <div class='inline_view text-center'>
+          <div class='col-sm-4'>
+            <div class='image_filter'>
+              <a href="{{ settings.eyeglass_first_link }}" class='{%- if
+                link.active -%}active{%- endif -%}'>
+                {%- assign src_name = 'eyeglasses_Rimless.png' -%}
+                {%- assign src_alt = 'Rimless' -%}
+                {%- include 'srcset-img' -%}
+              </a>
+            </div>
+          </div>
+          <div class='col-sm-4'>
+            <div class='image_filter'>
+              <a href="{{ settings.eyeglass_second_link }}" class='{%- if
+                link.active -%}active{%- endif -%}'>
+                {%- assign src_name = 'eyeglasses_Wayfarer.png' -%}
+                {%- assign src_alt = 'Wayfarer' -%}
+                {%- include 'srcset-img' -%}
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class='inline_view text-center'>
+          {% unless collection.handle contains 'for-men' %}
+          <div class='col-sm-4'>
+            <div class='image_filter'>
+              <a href="{{ settings.eyeglass_third_link }}" class='{%- if
+                link.active -%}active{%- endif -%}'>
+                {%- assign src_name = 'eyeglasses_Cateye.png' -%}
+                {%- assign src_alt = 'Cateye' -%}
+                {%- include 'srcset-img' -%}
+              </a>
+            </div>
+          </div>
+          {% endunless %}
+          <div class='col-sm-4'>
+            <div class='image_filter'>
+              <a href="{{ settings.eyeglass_fourth_link }}" class='{%- if
+                link.active -%}active{%- endif -%}'>
+                {%- assign src_name = 'eyeglasses_Round.png' -%}
+                {%- assign src_alt = 'Round' -%}
+                {%- include 'srcset-img' -%}
+              </a>
+            </div>
+          </div>
+          <div class='col-sm-4'>
+            <div class='image_filter'>
+              <a href="{{ settings.eyeglass_fifth_link }}" class='{%- if
+                link.active -%}active{%- endif -%}'>
+                {%- assign src_name = 'eyeglasses_Rectangle.png' -%}
+                {%- assign src_alt = 'Rectangle' -%}
+                {%- include 'srcset-img' -%}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='col-sm-4'>
+        {% if current_tags %}
+        {%- assign found_tag = false -%}
+        {% if current_tags contains 'Rimless' %}
+        <div class='eye-banner-content text'>
+          <div class="banner-content-inner"><span>Rimless:</span> For those who
+            aren't held by boundaries.</div>
+          {%- assign found_tag = true -%}
+        </div>
+        {% endif %}
+        {% if current_tags contains 'Shape_Wayfarer' %}
+        <div class='eye-banner-content text'>
+          <div class="banner-content-inner"><span>Wayfarer:</span> These glasses
+            fare way better than the rest.
+          </div>
+          {%- assign found_tag = true -%}
+        </div>
+        {% endif %}
+
+        {% if current_tags contains 'Shape_Cat Eye' %}
+        <div class='eye-banner-content text'>
+          <div class="banner-content-inner"><span>Cat Eye:</span> It's the eye
+            of the tiger, it's the thrill of the fight.
+          </div>
+          {%- assign found_tag = true -%}
+        </div>
+        {% endif %}
+
+        {% if current_tags contains 'Shape_Round' %}
+        <div class='eye-banner-content text'>
+          <div class="banner-content-inner"><span>Round:</span> These will make
+            your world go round.
+          </div>
+          {%- assign found_tag = true -%}
+        </div>
+        {% endif %}
+
+        {% if current_tags contains 'Shape_Rectangle' %}
+        <div class='eye-banner-content text'>
+          <div class="banner-content-inner"><span>Rectangular:</span> These
+            won't bring you back to square one.
+          </div>
+          {%- assign found_tag = true -%}
+        </div>
+        {% endif %}
+
+        {%- unless found_tag -%}
+        <div class='text-img text'>
+          {%- assign src_name = 'eyeglasses_Whats.png' -%}
+          {%- assign src_alt = 'Whats' -%}
+          {%- include 'srcset-img' -%}
+        </div>
+        {%- endunless -%}
+        {% else %}
+
+        {% if block.settings.filter_collection_text != blank %}
+        <div class='eye-banner-content text'>
+          <div class="banner-content-inner">{{block.settings.filter_collection_text}}</div>
+          {%- assign found_tag = true -%}
+        </div>
+        {% else%}
+        <div class='text-img text'>
+          {%- assign src_name = 'eyeglasses_Whats.png' -%}
+          {%- assign src_alt = 'Whats' -%}
+          {%- include 'srcset-img' -%}
+        </div>
+        {% endif %}
+
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+{%- assign asset_url = false -%}

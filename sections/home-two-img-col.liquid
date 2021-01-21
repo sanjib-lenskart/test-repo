@@ -1,0 +1,290 @@
+<div class="container-fluid padding-zero">
+  <div class="row margin-zero">   
+     <div class="col-md-6 col-sm-12 padding-zero col-one xs-hide">
+     
+       <div class="text-section-height">
+          <div class="img-section-desk">
+        {% assign src_name = section.settings.image_2 %}
+        {% include 'srcset-img' %}
+      </div>
+      <div class="img-section-mob">
+        {% assign src_name = section.settings.image_2-mob %}
+        {% include 'srcset-img' %}
+      </div>         
+      <div class="text-section">
+        <div class="header_2 img_header_2">{{section.settings.htext_2 }}{% include 'buy_2_vc' %}</div>
+        <p class="img_header_3">WITH PRESCRIPTION LENSES</p>
+        
+        <div class="header_2_subtext">Buy One Get One Free</div>
+        
+        <div class="col-md-6 col-sm-6 col-xs-6 home_shopformen text-right">
+          <a href="/collections/eyeglasses-for-men" class="btn green-btn two-line-btn">Shop Men <br>Eyeglasses</a>
+        </div>
+        <div class="col-md-6 col-sm-6 col-xs-6 home_shopforwomen text-left">
+          <a href="/collections/eyeglasses-for-women" class="btn green-btn two-line-btn">Shop Women <br>Eyeglasses</a>
+        </div>        
+      </div>  
+       <div class="bgoverlayhome hideimp"></div>
+       </div>
+    </div>    
+    <div class="col-md-6 col-sm-12 padding-zero col-one home_tryon_video">       
+       <div class="text-section-height">         
+         <div class="vdo-section-desk desktop-view-des">
+        <video width="100%" id="videoDD" autoplay loop muted playsinline >
+          <source src="https://cdn.shopify.com/s/files/1/0047/5335/8922/files/tryon3d.mp4?32029" type="video/mp4" />
+          <source src="https://cdn.shopify.com/s/files/1/0047/5335/8922/files/tryon3d.mp4?32029" type="video/ogg" />
+          Your browser does not support HTML5 video.
+        </video>
+      </div>
+         <div class="video-img-tryon">
+           <div class="img-section-desk">
+             {% assign src_name = section.settings.image_2 %}
+             {% include 'srcset-img' %}
+           </div>
+         </div>
+<!--       <div class="text-section">
+        <div class="header_2">Try Glasses Virtually Online</div>        
+        <span id="head_try3d" class="std-btn">          
+          <a href="/pages/compare-looks">Virtual Try On</a>
+        </span>         
+      </div> -->
+         
+          <div class="text-section mobile-view-des">
+         <div class="header_2">PRESCRIPTION EYEGLASSES</div>
+         <div class="header_2_subtext">FOR MEN AND WOMEN</div>
+        <span id="head_try3d" class="std-btn">          
+          <a href="/collections/eyeglasses">BUY NOW</a>
+        </span>         
+      </div>
+         
+      <div class="text-section desktop-view-des">
+        <div class="header_2">Try Glasses Virtually Online</div>        
+        <span id="head_try3d" class="std-btn">          
+          <a href="/pages/compare-looks">Virtual Try On</a>
+        </span>         
+      </div>
+         
+      <div class="bgoverlayhome hideimp"></div>
+      </div>
+    </div>   
+  </div>
+</div>
+<style>
+
+  .bgoverlayhome{
+    left: 0;
+    width: 100%;
+    bottom:0;
+    z-index: 4;
+    height:120px;
+    overflow: hidden;
+    position: absolute;
+    background: rgba(0, 0, 0, {{ section.settings.opacity }});
+/*     background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.38), rgb(4, 4, 4)); */
+  }
+  
+   @media(max-width: 481px){ 
+    .bgoverlayhome{
+      height:96px;
+    }
+  }
+ 
+  #eg-glasses-btn{cursor:pointer;}
+  #sg-glasses-btn{cursor:pointer;}
+  #frm-glasses-btn{cursor:pointer;}
+
+  .modal-content{display:none;}
+  .modal-content-2{display:none;}
+  .modal-content-3{display:none;}
+
+  .glassesmodel{    
+    height: 100%; 
+    position:relative;
+  }
+  
+  .modal-glass {
+    display: none;
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow:hidden;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+    height: 100vh;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .overflowhidden{overflow: hidden;}
+</style>
+
+      {% schema %}
+      {
+      "name": "Home Two Images Column",
+      "class": "two-img-col",
+      "settings": [
+      {
+          "type":      "range",
+          "id":        "opacity",
+          "min":       0.1,
+          "max":        1,
+          "step":       0.1,   
+          "label":     "Opacity",
+          "default":   0.3
+      },
+      {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Image"
+      },
+      {
+      "type": "image_picker",
+      "id": "image_1-Mob",
+      "label": "Image Mobile"
+      },
+      {
+      "type": "text",
+      "label": "Header text",
+      "id": "htext_1"
+      },
+      {
+      "type": "text",
+      "label": "button text",
+      "id": "text_1",
+      "default":"Shop Now"
+      },
+      {
+      "type": "url",
+      "label": "button link",
+      "id": "url_1"
+      },
+      {
+      "type": "text",
+      "label": "button text",
+      "id": "text_11",
+      "default":"Shop Now"
+      },
+      {
+      "type": "url",
+      "label": "button link",
+      "id": "url_11"
+      },
+      {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Image"
+      },
+      {
+      "type": "image_picker",
+      "id": "image_2-mob",
+      "label": "Image Mobile"
+      },
+      {
+      "type": "text",
+      "label": "Header text",
+      "id": "htext_2"
+      },
+      {
+      "type": "text",
+      "label": "button text",
+      "id": "text_2",
+      "default":"Shop Now"
+      },
+      {
+      "type": "url",
+      "label": "button link",
+      "id": "url_2"
+      },
+      {
+      "type": "text",
+      "label": "button text",
+      "id": "text_21",
+      "default":"Shop Now"
+      },
+      {
+      "type": "url",
+      "label": "button link",
+      "id": "url_21"
+      },
+      {
+      "type": "image_picker",
+      "id": "image_model_eg-m",
+      "label": "Eyeglasses Image Women"
+      },
+
+      {
+      "type": "image_picker",
+      "id": "image_model_eg-m-mob",
+      "label": "Mobile Eyeglasses Image Women"
+      },
+
+      {
+      "type": "image_picker",
+      "id": "image_model_eg-w",
+      "label": "Eyeglasses Image Men"
+      },
+      {
+      "type": "image_picker",
+      "id": "image_model_eg-w-mob",
+      "label": "Mobile Eyeglasses Image Men"
+      },
+      {
+      "type": "image_picker",
+      "id": "image_model_sg-m",
+      "label": "Sunglass Image Men"
+      },
+
+      {
+      "type": "image_picker",
+      "id": "image_model_sg-m-mob",
+      "label": "Mobile Sunglass Image Men"
+      },
+
+      {
+      "type": "image_picker",
+      "id": "image_model_sg-w",
+      "label": "Sunglass Image Women"
+      },
+
+      {
+      "type": "image_picker",
+      "id": "image_model_sg-w-mob",
+      "label": "Mobile Sunglass Image Women"
+      },
+      {
+      "type": "image_picker",
+      "id": "image_model_fr-m",
+      "label": "Frames Image Women"
+      },
+
+      {
+      "type": "image_picker",
+      "id": "image_model_fr-m-mob",
+      "label": "Mobile Frames Image Women"
+      },
+      {
+      "type": "image_picker",
+      "id": "image_model_fr-w",
+      "label": "Frames Image Men"
+      },
+      {
+      "type": "image_picker",
+      "id": "image_model_fr-w-mob",
+      "label": "Mobile Frames Image Men"
+      }
+      ],
+      "presets": [
+      {
+      "name": "Home Two Images Column",
+      "category": "Banner"
+      }
+      ]
+      }
+      {% endschema %}

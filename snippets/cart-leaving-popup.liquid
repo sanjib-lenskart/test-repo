@@ -1,0 +1,45 @@
+{% assign cart_item_count = 0 %}
+{% for item in cart.items %}
+{% if item.product.tags contains 'cart_hide' %}
+{% else %}
+{% assign cart_item_count = cart_item_count | plus : item.quantity %}
+{% endif %}
+{% endfor %}
+
+{% if cart_item_count == 1 %}
+
+<div id="cart_leaving_popup" class="hide">
+  {%- assign asset_url = true -%}
+  {%- assign src_name = 'cart_leaving.png' -%}
+  {%- assign src_alt = 'Aviator' -%}
+  {%- include 'srcset-img' -%}
+  {%- assign asset_url = false -%}
+  <div class='text'>
+    <h3 class='title'>Happy Ending!</h3>
+    <p class='paragraph'>
+      A special offer applies exclusively to you.<br/>
+      Get <b>10% Off</b> on your final cart value.
+    </p>
+    <div class='buttons'>
+      <div class='single_btn'>
+        <a href='/checkout?discount=JJSWEET10' class='btn first'>
+          Check-out using JJSWEET10
+        </a>
+      </div>
+      <div class='single_btn'>
+        <a  class='btn leaving_btn'>
+          Still confused?<br/>
+          Speak with a specialist.
+        </a>
+      </div>
+      <div class='leaving_form hide'>
+        {%- include 'cart-leaving-form' -%}
+      </div>
+    </div>
+  </div>
+  <div class='text_applicable'>
+         *Not applicable on frame only orders. 
+      </div> 
+</div> 
+ 
+{% endif %}

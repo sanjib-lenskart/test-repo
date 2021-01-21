@@ -1,0 +1,94 @@
+{%- assign file_extension = 'png' -%}
+{%- if swatch == blank -%}
+{%- else -%}
+{%- assign found_option = false -%}
+{%- assign is_color = false -%}
+{%- assign option_index = -1 -%}
+
+{%- for option in product.options -%}
+{%- if option == swatch -%}
+{%- assign found_option = true -%}
+{%- assign option_index = forloop.index0 -%}
+{%- assign downcased_option = swatch | downcase -%}
+{%- if downcased_option contains 'color' or downcased_option contains 'colour' -%}
+{%- assign is_color = true -%}
+{%- endif -%}
+{%- endif -%}
+{%- endfor -%}
+
+{%- if option_index != -1 -%}
+<div class="swatch_filter relative">
+  <div class="swatches text-center">
+    <div class="swatch clearfix" data-option-index="{{ option_index }}" data-id="detail_{{product.id}}">
+      
+       <div class="switchmob"><span class="proview">Product View</span>
+        <input id="cmn-toggle-1" class="cmn-toggle cmn-toggle-round" type="checkbox" autocomplete="off">
+        <label for="cmn-toggle-1" class="switchimage runfirsttime aabbbq"></label>
+        <span class="threedview">3D View</span>
+      </div>
+      
+       <div id="contentttt"></div>
+      
+     <div id="ditto-thumbnail" class="hide"></div>
+     <div class='first_img_thub hide'>
+      <img src='{{product.featured_image | img_url:'100x'}}' alt='{{product.title}}' title='Back to product image'>
+     </div>
+     {%- assign values = '' -%}
+
+     {%- for variant in product.variants -%}
+     {%-  assign show_swatch = false -%}
+     {%- if product.available -%}
+     {%- if variant.available -%}
+     {%-  assign show_swatch = true -%}  
+     {%- endif -%}  
+     {%- else -%} 
+     {%-  assign show_swatch = true -%}
+     {%- endif -%}
+
+     {%- assign value = variant.options[option_index] -%}
+     {%- unless values contains value -%} 
+     {% assign values = values | join: ',' %}
+     {% assign values = values | append: ',' | append: value %} 
+     {% assign values = values | split: ',' %}
+     {% if show_swatch %}
+     {%- assign active_me = false -%}
+     {%- if current_product_img == variant.image.src -%}
+     {% assign active_me = true %}
+     {%- endif -%}
+     {%- assign alt_img_pos = variant.image.position | plus:1 -%}
+
+     {% assign short_name = false %}
+     {% for tag in product.tags %}
+     {% if tag contains 'short_name_' %}
+     {% assign short_name = true %}
+     {% assign s_name =  tag | remove : 'short_name_' %}
+     {% endif %}
+     {% endfor %}
+     {%- if short_name -%}
+     {%- assign product_name = s_name -%}
+     {%- else -%}
+     {%- assign product_name = product.title -%}
+     {%- endif -%}
+
+     <div product-title="{{product_name}}" onclick="createDitto({{ variant.sku }}, 'variant')" {% if variant == product.selected_or_first_available_variant %} {% endif %} data-sku="{{ variant.sku }}" data-tip='{{value}}' data-value="{{ value | escape }}" class="swatch-element {% if is_color %}color hideimp{% endif %} {{ value | handle }}{% if active_me %} active{% endif %}">
+      {% if is_color %}
+      <label data-vid="{{variant.id}}" data-img = "{% unless variant.image.size == blank%}{{variant | img_url:'grande'}}{% endunless %}" for="swatch-{{ option_index }}-{{ value | handle }}" style="background-image: url({{ value | handle | append: '.' | append: file_extension | asset_url }})" data-switch-img="{{product.images[alt_img_pos].src | img_url:'370x' }}">
+      </label>
+      {%- else -%}
+      <span>
+        {{ value | escape }}
+      </span> 
+      {%- endif -%}
+    </div>
+
+    {% endif %} 
+    {%- endunless -%}  
+    {%- endfor -%}  
+  </div>
+</div>
+</div>
+{%- if template contains 'product' -%}
+<p class="select_swatch_name"></p>
+{%- endif -%}
+{%- endif -%}
+{%- endif -%}

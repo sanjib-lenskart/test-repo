@@ -1,0 +1,145 @@
+{% if section.blocks.size == 0 %}
+{% include 'no-section-msg' %}
+{% else %}
+{% assign sizes = '480,765,900,1000,1100,1300,1500,1700' | split: "," %}
+<div id="store_locator_home">
+  <div class="{% unless section.settings.full %}container{% endunless %}">
+    {% unless section.settings.header == blank %}
+    <h1 class="text-center title">{{section.settings.header}}</h1>
+    {% endunless %}
+    {% unless section.settings.sub_header == blank %}
+    <p class="sub_title text-center">{{section.settings.sub_header}}</p>
+    {% endunless %}
+    <ul class="clearfix">
+      {% for block in section.blocks %}
+      <li class="col-sm-6 col-md-6 {{section.settings.width}} {% if section.settings.no_gutter %}no_gutter{% endif %}">
+        <div class="img">
+          <a href="{{block.settings.link}}">
+           <img alt="{{block.settings.image.alt | escape}}"
+                   src="{{block.settings.image | img_url:'100x' | format:'pjpg'}}" 
+                   class="lazyload img_blur blur-up"
+                   data-sizes="auto"
+                   data-srcset="
+                                {% for size in sizes %}
+                                {% assign size_x = size %}
+                                {% assign size_x = size_x | append : 'x' %}
+                                {{ block.settings.image | img_url: size_x | format: 'pjpg' }} {{size | append:'w'}},
+                                {% endfor %}">
+          </a>
+
+          <div class="text">
+            {% unless block.settings.text == blank %}
+            <div class="location">
+              {{block.settings.text}}
+            </div>
+            {% endunless   %}
+
+            {% unless block.settings.address == blank %}
+            <div class="address">
+              {{block.settings.address}}
+            </div>
+            {% endunless %}
+            <div class="location_btn">
+              <a target="_blank" class="btn" href="{{block.settings.button_url}}">{{block.settings.button}}
+              </a>
+            </div>
+          </div>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endif %}
+{% schema %}
+{
+"name": "Homepage - Store Locator",
+"max_blocks": 4,
+"settings": [
+{
+"type": "checkbox",
+"label": "Full-width",
+"id": "full"
+},
+{
+"type": "checkbox",
+"label": "Image without space",
+"id": "no_gutter"
+},
+{
+"type": "text",
+"label": "Header text",
+"id": "header"
+},
+{
+"type": "textarea",
+"label": "Sub header text",
+"id": "sub_header"
+},
+{
+"type": "select",
+"label": "Banner per row",
+"id": "width",
+"info": "Only for desktop and tablet view",
+"options": [
+{
+"value": "col-lg-6",
+"label": "2"
+},
+{
+"value": "col-lg-4",
+"label": "3"
+},
+{
+"value": "col-lg-3",
+"label": "4"
+}
+]
+}
+],
+"blocks": [
+{
+"type": "image",
+"name": "Image",
+"settings": [
+{
+"type": "image_picker",
+"label": "Image",
+"id": "image"
+},
+{
+"type": "text",
+"label": "Image URL",
+"id": "link"
+},
+{
+"type": "richtext",
+"label": "Location",
+"id": "text"
+},
+{
+"type": "richtext",
+"label": "Address",
+"id": "address"
+},
+{
+"type": "text",
+"label": "Image hover button",
+"id": "button"
+},
+{
+"type": "text",
+"label": "Image hover button URL",
+"id": "button_url"
+}
+]
+}
+],
+"presets": [
+{
+"name": "Home page - Store locator",
+"category": "Banner"
+}
+]
+}
+{% endschema %}

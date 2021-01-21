@@ -1,0 +1,31 @@
+{% comment %}
+<div class="form_vertical benchmark_form">
+  <div class="formbox-editor-794941 call_form">
+    <form action="/apps/johnjacobseyewear/interfaces/interfaceCart.php?action=save_customer_cart" method=post name="frmLB794941" accept-charset="UTF-8" >
+      <input type="hidden" name="shopid" value="1">
+      {% if footernewsletter %}
+      <input type='email' name='customer-email' placeholder="Email Address  *" class="email-input"  required />
+      <input type="hidden" name="customer-number" >
+      <p class="hide error error_msg">
+        <small>Invalid Email</small>
+      </p>
+      <input type='hidden' value='footer newsletter' name='page_name'>
+      {% else %}
+      <input type='hidden' name='customer-email'/>
+      <div class="number_block"> 
+        <span>+91</span> 
+        <input type="number" name="customer-number" placeholder="Contact number" class="number-input" required="">
+        <p class="hide error error_msg">
+          <small>Invalid Mobile number</small>
+        </p>
+      </div>
+      <input type='hidden' value='newsletter' name='page_name'>
+      {% endif %}
+      <button type="submit"  krydebug="1751" class="formbox-button-794941 btn">
+        Subscribe
+      </button>
+    </form>
+  </div>
+</div>
+<!-- END: Signup Form Manual Code from Benchmark Email Ver 3.0 ------>
+{% endcomment %}

@@ -1,0 +1,86 @@
+ <!-- product_lens_details -->
+{% unless product.type == "Contact_Lens_Medical" or product.type == "Contact_Lens_Color" %}
+<div class="container">
+ <div class="product_lens_detail_sec clearfix row">
+   <div class="col-md-6 col-sm-6 col-xs-12">
+     <img src='{{product.images[2].src | img_url:'grande'}}' alt='{{product.title}}'>
+   </div>
+   <div class="col-md-6 col-sm-6 col-xs-12 desc_tagbased">    
+     <div class="desc_product section_desc">
+      {%- for block in section.blocks -%}
+        {%- for tag in product.tags -%}
+          {% if tag == block.settings.tag_input %}
+            <div class="text"> 
+              <h4 class="title">{{block.settings.product_title}}</h4>
+              <ul> 
+                {%- for i in (1..6) -%}
+                  {%- assign line = "line_" | append:i -%}
+                  {%- if block.settings[line] != blank-%}
+                    <li>{{block.settings[line]}}</li>
+                  {%- endif -%} 
+                {%- endfor -%}
+              </ul> 
+            </div> 
+            {% break %}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endfor -%} 
+    </div>
+   </div>
+ </div>
+</div>
+{% endunless %}
+  {% schema %}
+  {
+    "name": "Product lens details",
+    "blocks":[
+    {
+      "name":"Tag based description",
+      "type": "description",
+      "settings":[
+      {
+        "type":"text",
+        "id":"tag_input",
+        "label":"Enter tag name"
+      },
+      {
+        "type":"text",
+        "id":"product_title",
+        "label":"Lens title"
+      },
+      {
+        "type":"textarea",
+        "id":"line_1",
+        "label":"Description 1"
+      },
+      {
+        "type":"textarea",
+        "id":"line_2",
+        "label":"Description 2"
+      },
+      {
+        "type":"textarea",
+        "id":"line_3",
+        "label":"Description 3"
+      },
+      {
+        "type":"textarea",
+        "id":"line_4",
+        "label":"Description 4"
+      }, 
+      {
+        "type":"textarea",
+        "id":"line_5",
+        "label":"Description 5" 
+      },
+      {
+        "type":"textarea",
+        "id":"line_6",
+        "label":"Description 6"
+      }
+      ]
+    }
+    ]
+  }
+  {% endschema %}
+  

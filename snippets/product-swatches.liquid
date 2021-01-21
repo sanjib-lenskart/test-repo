@@ -1,0 +1,8 @@
+ {% if section.blocks.size > 0 %}
+ {% for block in section.blocks %}
+ {% assign swatch = block.settings.swatch %}
+ <div class="product-swatches">
+ 	{% include 'swatch' with swatch %}
+ </div>
+ {% endfor %}
+ {% endif %}

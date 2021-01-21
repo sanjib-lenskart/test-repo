@@ -1,0 +1,195 @@
+<div id="summer_collection">
+  <div class="">
+    <div class="banner">
+      {% assign src_name = section.settings.banner_img %}		
+      {% include 'srcset-img' %}
+    </div>
+    <div class="block_1">
+      <div class="banner_image">
+        {% assign src_name = section.blocks[0].settings.image %}
+        {% include 'srcset-img' %}
+      </div>
+      <div class="banner_product">
+        <div class="container">
+          <ul class="ul flex_view center">
+            {% for product in collection.products limit:5 %}
+            <li class="col-sm-6">
+              <div class="img">
+                {% assign src_name = product.first_available_variant.image.src %}
+                {% assign src_alt = product.featured_image.alt | escape %}
+                <a href="{{product.url}}">
+                  {% include 'srcset-img' %}
+                  <!--                                   <img src='{{src_name | img_url:'370x'}}' alt='{{src_alt}}'> -->
+                </a>
+              </div>
+              <div class="text">
+                <a href="{{product.url}}">
+                  {{product.title}}
+                </a>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div> 
+    </div>
+
+    <div class="block_2">
+      <div class="banner_image">
+        {% assign src_name = section.blocks[1].settings.image %}
+        {% include 'srcset-img' %}
+      </div>
+      <div class="banner_product">
+        <div class="container">
+          <ul class="ul flex_view center">
+            {% for product in collection.products limit:5 offset:5 %}
+            <li class="col-sm-6">
+              <div class="img">
+                {% assign src_name = product.first_available_variant.image.src %}
+                {% assign src_alt = product.featured_image.alt | escape %}
+                <a href="{{product.url}}">
+                  <!-- 								<img src='{{src_name | img_url:'370x'}}' alt='{{src_alt}}'> -->
+                  {% include 'srcset-img' %}
+                </a>
+              </div>
+              <div class="text">
+                <a href="{{product.url}}">
+                  {{product.title}}
+                </a>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="block_3">
+      <div class="banner_image">
+        {% assign src_name = section.blocks[2].settings.image %}
+        {% include 'srcset-img' %}
+      </div>
+      <div class="banner_product">
+        <div class="container">
+          <ul class="ul flex_view center">
+            {% for product in collection.products limit:5 offset:10 %}
+            <li class="col-sm-6">
+              <div class="img">
+                {% assign src_name = product.first_available_variant.image.src %}
+                {% assign src_alt = product.featured_image.alt | escape %}
+                <a href="{{product.url}}">
+                  <!-- 								<img src='{{src_name | img_url:'370x'}}' alt='{{src_alt}}'> -->
+                  {% include 'srcset-img' %}
+                </a>
+              </div>
+              <div class="text">
+                <a href="{{product.url}}">
+                  {{product.title}}
+                </a>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <div class="banner_btn">
+        <a href="/collections/cateye-sunglasses" class="btn">View Collection</a>
+      </div>
+    </div>
+
+    <div class="block_4">
+      <div class="banner_image">
+        {% assign src_name = section.blocks[3].settings.image %}
+        {% include 'srcset-img' %}
+      </div>
+      <div class="banner_product">
+        <div class="container">
+          <ul class="ul flex_view center">
+            {% for product in collection.products limit:5 offset:15 %}
+            <li class="col-sm-6">
+              <div class="img">
+                {% assign src_name = product.first_available_variant.image.src  %}
+                {% assign src_alt = product.featured_image.alt | escape %}
+                <a href="{{product.url}}">
+                  <!-- 								<img src='{{src_name | img_url:'370x'}}' alt='{{src_alt}}'> -->
+                  {% include 'srcset-img' %}
+                </a>
+              </div>
+              <div class="text">
+                <a href="{{product.url}}">
+                  {{product.title}}
+                </a>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <div class="banner_btn">
+        <a href="/collections/round-sunglasses" class="btn">View Collection</a>
+      </div>
+    </div>
+
+    <div class="block_5">
+      <div class="banner_image">
+        {% assign src_name = section.blocks[4].settings.image %}
+        {% include 'srcset-img' %}
+      </div>
+      <div class="banner_product">
+        <div class="container">
+          <ul class="ul flex_view center">
+            {% for product in collection.products limit:5 offset:20 %}
+            <li class="col-sm-6">
+              <div class="img">
+                {% assign src_name = product.first_available_variant.image.src  %}
+                {% assign src_alt = product.featured_image.alt | escape %}
+                <a href="{{product.url}}">
+                  <!-- 								<img src='{{src_name | img_url:'370x'}}' alt='{{src_alt}}'> -->
+                  {% include 'srcset-img' %}
+                </a>
+              </div>
+              <div class="text">
+                <a href="{{product.url}}">
+                  {{product.title}}
+                </a>
+              </div>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{%-  comment -%}
+<script>
+  {%- endcomment -%}
+  {% schema %}
+  {
+    "name": "Full banner image",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "banner_img",
+          "label": "Banner Image"
+        }
+      ],
+        "blocks": [
+          {
+            "type": "image",
+            "name": "Image",
+            "settings": [
+              {
+                "type": "image_picker",
+                "id": "image",
+                "label": "Image"
+              }
+            ]
+          }
+        ]
+  }
+  {% endschema %}
+  {%  comment %}
+</script>
+{% endcomment %}

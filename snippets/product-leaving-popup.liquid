@@ -1,0 +1,37 @@
+<div id='product_leaving_popup' class="hide">
+  <div class="">
+    {%- assign src_name = settings.product_leaving_popup_img -%}
+    {%- assign src_alt = 'Aviator' -%}
+    {%- include 'srcset-img' -%}
+  </div>
+
+  <div class='text'>
+    <p class='paragraph'>
+      Get your <b>second pair free </b> when <br/>
+      you shop for a pair of eyeglasses <br/>
+      or sunglasses with us.
+    </p>
+    <div class='buttons table_view'>
+      <div class='single_btn'>
+        <a  class='btn first fake_popup_cart'>
+          Shop Now
+        </a>
+      </div>
+
+      <div class='single_btn'>
+        <a  class='btn leaving_btn'>
+          Still not convinced?<br/>
+          Speak with a specialist.
+        </a>
+      </div>
+
+    </div>
+
+    <div class='leaving_form hide'>
+      {% assign product_popup = true %}
+      {%- include 'cart-leaving-form' -%}
+      {% assign product_popup = false %}
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,133 @@
+<style type="text/css">
+  .fancybox-inner{
+    overflow-x: hidden !important;
+  }
+</style>
+<div id="extra_product" class="hide items">
+  {%- comment -%}
+  <div class="container">
+    <div class="text-center">
+      <h5 class="main_page_title">
+        Select your combined power range
+        and accordingly we will recommend 
+        the best lens for you.
+      </h5>
+    </div>
+
+  </div>
+  <hr/>
+  {%- endcomment -%}
+  <div class=""> 
+    {%- comment -%}
+    <div class="pw_filter">
+      <ul class="row">
+        <li class="col-md-4 col-sm-6">
+          <input type="radio" id="pwf_1"  name="pwf">
+          <label for="pwf_1" class="pwf active" data-target="power_product_1">Oops! I don't know yet!</label>
+        </li>
+        <li class="col-md-4 col-sm-6">          
+          <input type="radio" id="pwf_2"  name="pwf">
+          <label for="pwf_2" class="pwf" data-target="power_product_2">0 <i class="fa fa-long-arrow-right" aria-hidden="true"></i> +/- 3 </label>
+        </li>
+        <li class="col-md-4 col-sm-6">
+          <input type="radio" id="pwf_3" name="pwf" >
+          <label for="pwf_3" class="pwf" data-target="power_product_3">3.25 <i class="fa fa-long-arrow-right" aria-hidden="true"></i>  above </label>
+        </li>
+      </ul>
+      <hr/>
+    </div>
+    {%- endcomment -%}
+    <div class="lens_table">
+      <div class="table_view  xs-hide thead">
+        <div class ='col lens'>
+          <h5>Lenses</h5>
+        </div>
+        <div class='col price'>
+          <h5>
+            Price
+          </h5>
+        </div>
+        <div class='col thickness'>
+          <h5>Thickness</h5>
+        </div>
+        <div class='col for_me'>
+          <h5>What's in it for me?</h5>
+        </div>
+        {%- comment -%}
+        <div class='col checkout'>
+          <h5 class="no_right_border">Checkout</h5>
+        </div>
+        {%- endcomment -%}
+      </div>
+      <div class="tbody">
+        {% for block in section.blocks %}
+        {%- if block.settings.glass_type == 'eyeglass' and block.settings.per_type == pre_type -%}
+        {% assign product = all_products[block.settings.product] %}
+        {% assign target_tag = '' %}
+        {% for tag in product.tags %}
+        {% if tag contains 'power_product_' %}
+        {% assign target_tag =  target_tag | append: ' ' | append : tag  %}
+        {% endif %}
+        {% endfor %}
+        <div class="table_view tbody_wrapper power_product product_{{product.handle}} {{target_tag}}">
+          <h3 class="header xs-show">
+            {{product.title}} <span class="side_btn">
+              {% if forloop.index == 1 %}
+              <i class="fa fa-minus" aria-hidden="true"></i>
+              {% else %}
+              <i class="fa fa-plus" aria-hidden="true"></i>
+              {% endif %}
+            </span>
+          </h3>
+          <div class="content">
+            <div class="col lens"> 
+
+              <h6>
+                <span class="xs-show">
+                  Lenses - 
+                </span>
+                {{product.title}} 
+              </h6>
+            </div>
+            <div class='col price'>
+              <h6>
+                <span class="xs-show">
+                  Price - 
+                </span>
+                {{product.price | money}}
+              </h6>
+            </div>
+            <div class='col thickness'>
+              <p>
+                <span class="xs-show">
+                  Thickness - 
+                </span>
+                {{block.settings.thickness}}
+              </p>
+            </div>
+            <div class='col for_me'>
+              <p>
+                <span class="xs-show">
+                  What's in it for me? - 
+                </span>
+                {{block.settings.know_more}}
+              </p>
+            </div>
+            {%- comment -%}
+            <div class='col checkout'>
+              <div class="cart_extra_product" data-target="{{main_product_id}}"
+              data-product="{{product.title}}"
+              data-id="{{product.variants[0].id}}" 
+              data-price="{{product.variants[0].price | money}}">
+              <h6 ><label class="lens_input" data-name='{{product.handle}}' data-vid='{{product.variants[0].id}}'>Select</label></h6>
+            </div>
+          </div>
+          {%- endcomment -%}
+        </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+  </div>
+</div>
+</div>

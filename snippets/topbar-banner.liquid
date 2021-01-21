@@ -1,0 +1,38 @@
+  
+{%- assign cp = topbar-banner -%}
+{%- assign click_check = '_click' | prepend:cp -%}
+{%- assign desk_img = '_desktop_img' | prepend:cp -%}
+{%- assign mob_img = '_mobile_img' | prepend:cp -%}
+{%- assign dis_code = '_discount_code' | prepend:cp -%}
+{%- assign applied_img = '_applied_msg' | prepend:cp -%}
+{%- assign bg_color = '_msg_bg_color' | prepend:cp -%}
+{%- assign text_color = '_text_color' | prepend:cp -%}
+<style>
+  .top_bar_discount .{{cp}}_msg{
+   background-color: {{ settings[bg_color] }}; 
+   color: {{ settings[text_color] }}; 
+ }
+</style> 
+{%- unless settings[desk_img] == blank -%}
+<div class="top_bar_discount{% if settings[click_check] %} click{% endif %}"> 
+  <div class="images">
+    {% unless settings[desk_img]  == blank %}
+    <div class='xs-hide'>
+     {%- assign src_name =  settings[desk_img]  -%}
+     {%- assign src_alt = settings[desk_img].alt |  escape -%}
+     {%- include 'srcset-img' -%}
+   </div> 
+   {% endunless %}
+   {% unless settings.sg_mobile_img == blank %}
+   <div class='xs-show'> 
+    {%- assign src_name =  settings[mob_img]  -%}
+    {%- assign src_alt = settings[mob_img].alt |  escape -%}
+    {%- include 'srcset-img' -%} 
+  </div>
+  {% endunless %} 
+</div>
+<div class="discount_code hide">{{settings[dis_code]}}</div>
+<div class="success_msg {{cp}}_msg hide">{{settings[applied_img]}}</div>
+<a class='close'>&times;</a>
+</div>
+{%- endunless -%} 

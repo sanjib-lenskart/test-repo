@@ -1,0 +1,283 @@
+{% if product.tags contains 'cart_hide' %}
+<script>
+  window.location.href = "/";
+</script> {% else %}
+<!-- product-template(section) -->
+{% if product.tags contains 'has_180' %} 
+{% assign rotate = true %} 
+{% else %}
+{% assign rotate = flase %}
+{% endif %}
+{% if collection.handle contains 'women' %}
+{% assign women = true %} 
+{% if product.metafields['women_header_src'].size > 0 %} 
+{% assign women_header = true %}
+{% endif %} 
+{% else %}
+{% assign women = false %}
+{% if product.metafields['men_header_src'].size > 0 %} 
+{% assign men_header = true %} 
+{% endif %}
+{% endif %} 
+{%- case template -%} 
+{% when 'product.progressive' %} 
+{%- assign pre_type = 'progressive' -%} 
+{% when 'product.bifocal' %} 
+{%- assign pre_type = 'bifocal' -%}
+{% when 'product.single_vision'
+%} {%- assign pre_type = 'single_vision' -%} 
+{%- else -%} 
+{%- assign pre_type = 'default' -%} 
+{%- endcase -%}
+
+<div id="product_page" data-collection="{{collection.title}}" data-gender="{% if collection.handle contains 'women' %}Women{% else %}Men{% endif %}"
+data-type="{% if product.type == 'Eyeglasses' %}EG{% else %}SG{% endif %}" class="{% if collection.handle contains 'women' %} product_page_women {% else %} product_page_men {% endif %}"
+data-shape="{% for tags in product.tags %}{% if tags contains 'Shape' %}{% assign type = tags | remove:'Shape_' %}{{type}}{% endif %}{% endfor %}">
+
+<div itemscope itemtype="http://schema.org/Product" id="ProductSection" data-section-id="{{ section.id }}" data-section-type="product-template"
+data-image-zoom-type="{{ section.settings.zoom_enable }}" data-enable-history-state="true">
+<div>
+  <meta itemprop="url" content="{{ shop.url }}{{ product.url }}">
+  <meta itemprop="name" content="{{ product.title }}">
+  <meta itemprop="image" content="{{ product.featured_image.src | img_url: 'grande' }}">
+  <div id="product_section">
+    <div id="dittoSharing" class="modal-box">
+      <div class="ditto_share_close" onclick="modalClose('dittoSharing')">X</div>
+      <div class="modal-body">
+        <div class="ditto_share_content">share your look with your friends</div>
+        <ul class="ditto_sharing">
+          <li class="ditto_facebook">
+            <img src="https://cdn.shopify.com/s/files/1/1276/5299/files/share-for-3D-06.png?4847209352908097585" />
+          </li>
+          <li class="ditto_twitter">
+            <img src="https://cdn.shopify.com/s/files/1/1276/5299/files/share-for-3D-09.png?4847209352908097585" />
+          </li>
+          <li class="ditto_email">
+            <img src="https://cdn.shopify.com/s/files/1/1276/5299/files/share-for-3D-07.png?4847209352908097585" />
+          </li>
+          <li class="whats_app">
+            <img src="https://cdn.shopify.com/s/files/1/1276/5299/files/share-for-3D-08.png?4847209352908097585" />
+          </li>
+          <li class="ditto_url">
+            <button class="js-textareacopybtn">
+              <img src="https://cdn.shopify.com/s/files/1/1276/5299/files/share-for-3D-11.png?4847209352908097585" />
+            </button>
+          </li>
+        </ul>
+        <div class="ditto_copy">
+          <input id="dittoUrl" class="js-copytextarea" value="" />
+          <div id="ditto-msg"></div>
+        </div>
+        <div class="ditto_email_input hide">
+          <h3>Please Enter Your Email ID to recieve your image</h3>
+          <input class="ditto_email_value" type="text" placeholder="Enter Your Email Address">
+          <div class="ditto_email_error hide">Please Enter Your Email Address</div>
+          <input type="button" value="Send My Image" id="dittoSend">
+        </div>
+      </div>
+    </div>
+
+    <div id="product_card" class="card_{{product.id}} section_color {% unless product.available %}soldout_product {% endunless %}{% unless product.metafields.men.banner_img %}product_new_page{% endunless %}">
+
+      <div class="container">
+        <div class="row">
+          <div id="creation" class="hide"></div>
+          {%- comment -%} men_header or women_header condition false below {%- endcomment -%} {% if false %}
+          
+          <div class="col-sm-6 col-md-6 custom">
+            
+            {% for tag in product.tags %} {% if tag contains 'dittoEnable' %}
+            <div class="try_ditto hide">TRY THESE ON IN 3D</div>
+            {% endif %} {% endfor %}
+            <div class="img product_banner_div">
+            </div>
+            <div class="arrow-product-banner xs-show hide">
+              <a href="#productBannerStatic" rel="scroll"></a>
+            </div>
+            {% for tag in product.tags %} {% if tag contains 'dittoEnable' %}
+            <div class="re_try_ditto hide">RETAKE YOUR 3D TRY ON</div>
+            <div id="ditto" ></div>
+            <div class="ditto_with_modal hide">
+              <div id="ditto-thumbnail" class="hide"></div>
+              <div class="product_banner_thubnail hide"></div>
+            </div>
+            {% endif %} {% endfor %}
+          </div>
+          <div class="col-sm-6 col-md-6 custom">
+            <div class='right_main_block'>
+              <div class="image_block">
+                {% include 'product-image-block' %}
+              </div>
+             <!--  <div class="product-swatches">
+                {% include 'swatch' with 'Color' %}
+              </div> -->
+              <div class="detail_block">
+                <div class="product_details detail_{{product.id}}">
+                  {% include 'product-details' %}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% else %}
+          <div class="col-sm-12 col-md-12 custom_new product_img_sec">
+          {%- comment -%}
+            {% for tag in product.tags %} 
+              {% if tag contains 'dittoEnable' %}
+                <div class="try_ditto">TRY THESE ON IN 3D</div>
+              {% endif %} 
+            {% endfor %}
+          {%- endcomment -%}
+            <div class="re_try_ditto hide">RETAKE YOUR 3D TRY ON</div>
+            <div class="ditto_panel">
+              <div id="ditto"></div>
+              <div class="ditto_sharing_button" onclick="createPopup('dittoSharing')">Share with your friends <img src="https://cdn.shopify.com/s/files/1/1276/5299/files/share-for-3D-05.png?4847209352908097585" /></div>
+            </div>
+            <div class="image_block">
+              <div id="ditto-thumbnail" class="hide"></div>
+              {% include 'product-image-block' %}
+            </div> 
+            <!-- <div class="product-swatches">
+              {% include 'swatch' with 'Color' %}
+            </div> -->
+          </div>
+          <div class="col-md-offset-3 col-md-6 col-sm-12 custom_new product_data">
+            <div class='right_main_block'>
+              <div class="detail_block">
+                <div class="product_details detail_{{product.id}}">
+                  {% include 'product-details' %}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% comment %}
+      <div class="container">
+        <div class="product_description text-center rte{% if product.type == 'NON_POWER_READING' %} no_power_glass{% endif %}" itemprop="description">
+          {{product.description | remove:'#SIMPLY_TABS'}}
+        </div>
+      </div>
+      {% endcomment %}
+      {% unless product.type == 'NON_POWER_READING' %} 
+       
+      
+      {% if men_header or women_header %}
+      {%- include 'product-work-play' -%} 
+      {% endif %} 
+      
+      
+     
+      {% endunless %} 
+      
+      {% if template == 'product.quickview' %} 
+      {% include 'product-script' %} 
+      {% endif %}
+    </div>
+  </div>
+</div>
+</div>
+{% include 'locator-form' %} {%- if section.settings.leaving_popup -%} {%- include 'product-leaving-popup' -%} {%- endif
+-%} {% include 'sku-form' %}
+</div>
+{% endif %} {%- include 'product-lens-popup' -%} {% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+    "name": "Product",
+    "class": "no_padding",
+    "settings": [
+    {
+      "type": "checkbox",
+      "id": "leaving_popup",
+      "label": "Product leaving popup",
+      "default": true
+    },
+    {
+      "type": "textarea",
+      "label": "I'm confused - Eyeglass",
+      "id": "confused"
+    },
+    {
+      "type": "textarea",
+      "label": "I'm confused - Sunglass",
+      "id": "sun_confused"
+    }
+    ],
+    "blocks": [
+    {
+      "name": "lens",
+      "type": "lens",
+      "settings": [
+      {
+        "type": "text",
+        "id": "lens_name",
+        "label": "Name"
+      },
+      {
+        "type": "select",
+        "id": "glass_type",
+        "label": "Glass type",
+        "options": [
+        {
+          "label": "Eyeglass",
+          "value": "eyeglass"
+        },
+        {
+          "label": "Sunglass",
+          "value": "sunglass"
+        }
+        ]
+      },
+      {
+        "type": "select",
+        "id": "per_type",
+        "label": "Prescription type",
+        "options": [
+        {
+          "label": "Progressive",
+          "value": "progressive"
+        },
+        {
+          "label": "Bifocal",
+          "value": "bifocal"
+        },
+        {
+          "label": "Single Vision",
+          "value": "single_vision"
+        },
+        {
+          "label": "Default",
+          "value": "default"
+        }
+        ]
+      },
+      {
+        "type": "product",
+        "label": "Select Product",
+        "id": "product"
+      },
+      {
+        "type": "textarea",
+        "id": "know_more",
+        "label": "Popup text"
+      },
+      {
+        "type": "text",
+        "id": "thickness",
+        "label": "Lens thickness"
+      },
+      {
+        "type": "checkbox",
+        "label": "Zero power",
+        "id": "zero",
+        "label": "Show in Zero power section"
+      }
+      ]
+    }
+    ]
+  }
+  {% endschema %}
+  {% comment %}
+</script> {% endcomment %}

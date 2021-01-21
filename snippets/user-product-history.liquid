@@ -1,0 +1,72 @@
+{% if template == 'product' %}   
+<script>
+$(document).ready(function(){
+    
+    function getCook(cookiename) 
+  {
+    var cookiestring=RegExp(cookiename+"=[^;]+").exec(document.cookie);
+    return decodeURIComponent(!!cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
+  }
+  
+
+  var contact_no = getCook('contactno_cook');  
+  var shopify_session = getCook('shopify_s_cus');
+  var contact_no_added_time = getCook('vtime');
+  var contact_no_added_date = getCook('vdate');
+  var country_code = getCook('country_code');
+  //var country_code = "NA";
+  console.log(contact_no_added_time);
+ 
+  if(contact_no == ''){
+//var contact_no = shopify_session
+}else{
+  var onloadurl = window.location.href;
+var product_page_sku = $('.current_variant_sku').text();
+  product_page_sku = '<a href="'+onloadurl+'" target="_blank">'+ product_page_sku + '</a>';
+var cart_page_sku = '';
+var purchaged_sku = '';
+var collections = '';
+var page_type = 'product';
+var domain = window.location.hostname;
+  
+ 
+  //var mysenturls = 'http://localhost/user_product_history/sku-history-inter.php';  
+  var mysenturls = "https://singapore.lenskart.com/user_product_history/sku-history-inter.php";
+
+      $.ajax({
+        type: "POST",
+        url: mysenturls,
+        crossDomain: true,
+        data: {contact_no: contact_no, shopify_session: shopify_session, product_page_sku: product_page_sku, cart_page_sku: cart_page_sku, purchaged_sku: purchaged_sku, collections: collections, page_type: page_type, contact_no_added_time: contact_no_added_time, contact_no_added_date:contact_no_added_date, country_code: country_code, domain:domain},
+        success: function (data) {
+          console.log('pp sku added');          
+        },
+        error: function (err) {
+          console.log(err);
+        }
+      });     
+// Cart page insert    
+    $(".process_cart").click(function() {      
+      var page_type = 'cart';
+      cart_page_sku = $('.current_variant_sku').text();
+      $.ajax({
+        type: "POST",
+        url: mysenturls,
+        crossDomain: true,
+        data: {contact_no: contact_no, shopify_session: shopify_session, cart_page_sku: cart_page_sku, purchaged_sku: purchaged_sku, collections: collections, page_type: page_type},
+        success: function (data) {
+          console.log('cart sku added');          
+        },
+        error: function (err) {
+          console.log(err);
+        }
+      });       
+    });
+  
+}   
+
+});
+
+</script>
+
+{% endif %}

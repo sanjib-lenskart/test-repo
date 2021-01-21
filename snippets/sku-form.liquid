@@ -1,0 +1,17 @@
+
+{% comment %}
+<div class="hide">
+  {% assign sku_array = ''%}
+  {% for varaint in product.variants %}
+  {% if forloop.last %}
+  {% assign sku_array = sku_array | append: varaint.sku %}
+  {% else %}
+  {% assign sku_array = sku_array | append: varaint.sku |append:',' %}
+  {% endif %}
+  {% endfor %}
+  <form class="sku_form" action="/apps/johnjacobseyewear/interfaces/interfaceVsm.php?action=vsmInventory">
+    <input type="hidden" name="shopid" value='1'>
+    <input type="hidden" name="sku" value="{{sku_array}}">
+  </form>
+</div>
+{% endcomment %}

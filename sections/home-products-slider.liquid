@@ -1,0 +1,171 @@
+{% if section.settings.collection == blank or collections[section.settings.collection].empty? or collections[section.settings.collection].products_count == 0 %}
+{% include 'no-section-msg' %}
+{% else %}
+{% assign product_limit = section.settings.limit %}
+{% if product_limit == 0 %}
+{% assign product_limit = 100 %}
+{% endif %}
+<!-- section.min.js working for this slider -->
+<div id="home_products_slider" class="new-home-slider">
+   <div class="{% unless section.settings.full %}container{% endunless %}">
+  {% unless section.settings.title == blank  %}
+     <h3 class="title text-center">{{section.settings.title}} <span class="best-heading" style="color: {{section.settings.headingC}}">{{section.settings.title-text-box}}</span></h3>
+  {% endunless %}
+     
+     {% unless section.settings.subtitle1 == blank  %}
+  <div class="text-center">{{section.settings.subtitle1}} </div>
+  {% endunless %}
+     
+     {% unless section.settings.subtitle2 == blank  %}
+     <div class="subtitle text-center">{{section.settings.subtitle2}} <span>Only For {% include 'buy_2_vc' %} with PC Prescription Lenses </span></div>
+  {% endunless %}
+     
+  <ul class="clearfix commonSlider">
+    {% for product in collections[section.settings.collection].products limit: product_limit %}
+    {% if product.available %}
+    <li class="carousel-cell">
+      {% assign no_price = true %}
+      {% include 'simply-product-home-slider' %}
+    </li>
+    {% endif %}
+    {% endfor %}
+  </ul>
+     <div class="view-range">
+       <a href="{{ collections[section.settings.collection].url }}">View Range</a>
+<!--        <a href="/pages/compare-looks" class="viewbtn btn2">View in 3D</a> -->
+     </div>
+</div>
+</div>
+
+{% endif %}
+
+<style>
+  #shopify-section-{{section.id}} .view-range a{
+    background: {{section.settings.btnB}};
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 46px;
+    color: {{section.settings.btnC}};
+    {% if template.name == "index" %}
+    padding: 0;
+    {% else %}
+        padding: 5px 20px 5px;
+    {% endif %}
+    border: none;
+    font-family: 'Rajdhani', sans-serif;
+    border: 2px solid transparent;
+  }
+
+  #shopify-section-{{section.id}} .view-range a:hover{
+    background: {{section.settings.btnHB}};
+    color: {{section.settings.btnHC}};
+    border: 2px solid #006DBC;
+  }
+</style>
+
+
+{% schema %}
+{
+   "name":"Featured products slider",
+   "class":"home_products_slider",
+   "settings":[
+      {
+         "type":"checkbox",
+         "label":"Full-width",
+         "id":"full"
+      },
+      {
+         "id":"title",
+         "type":"richtext",
+         "label":"Add custom text below",
+         "default":"<p>Add your text here</p>"
+      },
+      {
+         "id":"title-text-box",
+         "type":"text",
+         "label":"Heading",
+         "default":"Title"
+      },
+      {
+         "id":"subtitle1",
+         "type":"richtext",
+         "label":"Add custom text below",
+         "default":"<p>Add your text here</p>"
+      },
+      {
+         "id":"subtitle2",
+         "type":"richtext",
+         "label":"Add custom text below",
+         "default":"<p>Add your text here</p>"
+      },
+      {
+         "id":"subtitle-text-box",
+         "type":"text",
+         "label":"Heading",
+         "default":"Title"
+      },
+	  {
+		"type": "color",
+		"id": "headingC",
+		"label": "Heading color" 
+	  },
+	  {
+		"type": "color",
+		"id": "btnC",
+		"label": "Btn Color color" 
+	  },
+	  {
+		"type": "color",
+		"id": "btnB",
+		"label": "Btn Background color" 
+	  },
+	  {
+		"type": "color",
+		"id": "btnHC",
+		"label": "Hover btn color" 
+	  },
+	  {
+		"type": "color",
+		"id": "btnHB",
+		"label": "Hover Btn Background color" 
+	  },
+      {
+         "type":"number",
+         "id":"limit",
+         "label":"Product limit",
+         "default":3
+      },
+      {
+         "type":"collection",
+         "id":"collection",
+         "label":"Collection"
+      }
+   ],
+   "presets":[
+      {
+         "name":"Featured products slider",
+         "category":"Collection"
+      }
+   ]
+}
+{% endschema %}
+
+
+<script>
+
+  $(function() {
+    $(".commonSlider").slick({
+      slidesToShow: 3,
+      slidesToScroll: 1,
+      nav: true,
+      navText: [
+        "<button class='pre-btn'><img src='https://cdn.shopify.com/s/files/1/0047/5335/8922/files/left-chevron.png?v=1611209118'></button>",
+        "<button class='next-btn'><img src='https://cdn.shopify.com/s/files/1/0047/5335/8922/files/right-chevron.png?v=1611209133'></button>"
+      ]
+
+    });
+  })
+
+</script>

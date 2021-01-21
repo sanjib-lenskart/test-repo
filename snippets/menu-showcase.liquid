@@ -1,0 +1,48 @@
+{%- assign asset_url = true -%}
+<div class="glasses">
+  <div class="eye_block block" data-target="eye_glasses">
+  <p class="text-center name">Eyeglasses</p>
+  <div class="relative">
+    
+    <a  class="glass">
+      {%- assign src_name = 'eye_mobile.jpg' -%}
+      {%- assign src_alt = 'Eyeglass' -%}
+      {%- include 'srcset-img' -%}
+    </a>
+    <div class="eye_glasses clearfix showcase">
+      <a href="{{settings.eye_men_url}}">
+        {%- assign src_name = 'eye_men.png' -%}
+      {%- assign src_alt = 'Eyeglass-Men' -%}
+      {%- include 'srcset-img' -%}
+      </a>
+      <a href="{{settings.eye_women_url}}">
+          {%- assign src_name = 'eye_women.png' -%}
+      {%- assign src_alt = 'Eyeglass-Women' -%}
+      {%- include 'srcset-img' -%}
+      </a>
+    </div>
+  </div>
+  </div>
+  <div class="sun_block block" data-target="sun_glasses">
+    <p class="text-center name">Sunglasses</p>
+    <div class="relative">
+    <a class="glass">
+      {%- assign src_name = 'sun_mobile.jpg' -%}
+      {%- assign src_alt = 'Sunglass' -%}
+      {%- include 'srcset-img' -%}
+    </a>
+    <div class="sun_glasses clearfix showcase">
+       <a href="{{settings.sun_men_url}}">
+         {%- assign src_name = 'sun_men.png' -%}
+      {%- assign src_alt = 'Sunglass-Men' -%}
+      {%- include 'srcset-img' -%}
+      </a>
+     <a href="{{settings.sun_women_url}}">
+        {%- assign src_name = 'sun_women.png' -%}
+      {%- assign src_alt = 'Sunglass-Women' -%}
+      {%- include 'srcset-img' -%}
+      </a>
+    </div>
+    </div>
+  </div>
+</div>

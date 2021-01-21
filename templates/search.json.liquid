@@ -1,0 +1,18 @@
+{%- layout none -%}
+{% paginate search.results by 30 %}
+{% assign count = 0 %}
+{% for item in search.results %}
+	{% if item.object_type == 'product' %}
+	{% assign product = item %}
+{% if product.available %}
+{% assign count = count | plus:1 %}
+	<li class="{{section.settings.product_row}} col-md-4 col-sm-4 col-xs-12 item" data-item="{{ count }}" data-sku="{{product.first_available_variant.sku}}">
+  <div class="main_content">
+    {% include 'simply-product' %}
+    {% include 'loading' %}
+  </div>
+</li>
+{% endif %}
+	{% endif %}
+	{% endfor %}
+{% endpaginate %}

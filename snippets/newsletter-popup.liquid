@@ -1,0 +1,29 @@
+{% assign image = settings.welcome_popup_img %}
+{% assign expire =  settings.welcome_popup_expire %}
+{% if expire == 0 %}
+{% assign expire = 2 %}
+{% endif %}
+
+<div id="welcome_popup" class="clearfix" data-day="{{expire}}">
+  <!-- news-letter-popup -->
+  {% if image %}
+  <div class="col_1 xs-hide">
+    <div class="img">
+      <img alt="Welcome Popup" src="https://cdn.shopify.com/s/files/1/1276/5299/files/welcome_popup_image.jpg?13812926425702489073"  class="img_blur">
+    </div>
+  </div>
+  {% endif %}
+  <div class="{% if image %}col_2{% endif %}">
+    <div class="content">
+      <h3 class="title xs-center">
+        {{settings.welcome_popup_header}}
+      </h3>
+      <p class="text">
+        {{settings.welcome_popup_text}}
+      </p>
+      <div class="form xs-center">
+        {% include 'news-letter' %}
+      </div>
+    </div>
+  </div>
+</div>

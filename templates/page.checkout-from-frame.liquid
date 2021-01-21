@@ -1,0 +1,29 @@
+{% layout none %}
+{% capture content %}
+<!DOCTYPE html>
+<!--[if IE 9]> <html class="ie9 no-js" lang="{{ shop.locale }}"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html class="no-js" lang="{{ shop.locale }}"> <!--<![endif]-->
+<head>
+  {% include 'head' %}
+  {{ content_for_header }}
+</head>
+<body style="overflow:auto" id="{{ page_title | handle }}" class="template-{{ template | split: '.' | first }}">
+  <div id="PageContainer">
+    <a class="in-page-link visually-hidden skip-link" href="#MainContent">{{ 'general.accessibility.skip_to_content' | t }}</a>
+
+    <div class="main_page" >
+      <main class="main-content checkout_iframe" id="MainContent" role="main">
+        {% section 'prescription-form' %}
+      </main>
+    </div>
+  </div>
+  <div class="black_bg"></div>
+  {% include 'quick-add' %}
+  {% include 'footer-script' %}
+  {{'prescription-form.js' | asset_url | script_tag }}
+  {% include 'social-login' %}
+</body>
+</html>
+{% endcapture %}
+{% assign content = content | replace_first: '<!DOCTYPE', '!DOCTYPE' | split: "<" %}
+{% for html in content %}{% assign htmlblock = html | strip | prepend: ' <' %}{{htmlblock | replace: ' </', '</'}}{% endfor %}

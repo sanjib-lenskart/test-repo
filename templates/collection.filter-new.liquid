@@ -1,0 +1,27 @@
+{% section 'collection-banner' %}
+{% if collection.handle == 'sunglasses' or  collection.handle == 'sunglasses-for-men' or  collection.handle == 'sunglasses-for-women' %}
+<div class="">
+	<div class="eye_glass xs-hide formytwobutton-col">
+    {% include 'breadcrumbs' %}
+
+    {% comment %} Polaroid button below 1200px and above 768 {% endcomment %}
+    <div class="polarbutton-con">
+      <div class="prescription-col-link">
+        <a href="/collections/prescription-sunglasses">Prescription</a>
+      </div>
+
+      <div class="polar-col-link">
+        <a href="/collections/polarized-sunglasses">Polarized</a>
+      </div>
+    </div>  
+  </div>  
+</div>
+{% else %}
+<div class="">
+	<div class="eye_glass xs-hide">
+		{% include 'breadcrumbs' %}
+	</div>
+</div>
+{% endif %}
+
+{% section 'collection-template' %}

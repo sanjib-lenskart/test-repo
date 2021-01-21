@@ -1,0 +1,185 @@
+<!--snippets: homepage-contactno-popup -->
+<div id="ac-wrapper" style='display:none' onClick="hideNow(event)">
+  <div id="popup">    
+    {% assign src_name = settings.welcomeDes %}
+          {% assign src_class = 'desktop_img' %}
+          {% include 'srcset-img' %} 
+   
+    {% assign src_name = settings.welcomeMob %}
+          {% assign src_class = 'mobile_img' %}
+          {% include 'srcset-img' %} 
+    <div class="text-container form-container Cont_form_container">
+      <h2>Welcome Aboard!</h2>
+<!--       <p class="bogo-text-whole">Get <span class="bogo-text">Additional 20% OFF</span><br>by entering your Phone No</p>           -->
+<p class="bogo-text-whole"><span class="bogo-text">Buy One Get One Free</span><br>by entering your Email ID</p>
+      <!--<form name="submit-contct-to-google-sheet" id="bogoform">
+        <div class="popup-elements">
+          <input type="text" id="ContactFormPhone" name="email" value="{% if form[email] %}{{ form[email] }}{% elsif customer %}{{ customer.email }}{% endif %}" placeholder="Email ID" required>
+<!--           <input type="text" id="ContactFormPhone" name="email" value="" placeholder="Phone No" required> -->
+        <!--  <input id="domain" class="hide" type="text" name="domain" value="" />
+          <input id="ccode" class="hide" type="text" name="countrycode" value="" />
+          <input id="devicename" class="hide" type="text" name="device_name" value="" />
+          <button id="homepop_submitbtn" type="submit" name="submit" class="submit-btn">
+            Submit           
+          </button> 
+        </div>
+      </form>-->
+      <form name="submit-contct-to-google-sheet" id="bogoform" method="post" action="/contact" id="popup_form" accept-charset="UTF-8" class="contact-form">
+        <input type="hidden" name="form_type" value="customer">
+        <input type="hidden" name="utf8" value="✓">
+        <div class="popup-elements">
+          
+          
+          <input type="hidden" name="contact[tags]" value="prospect, popUp">
+          <input type="email" name="contact[email]" id="Email" placeholder="Email">
+        </div>
+        </form>
+      <div class="popup-elements">
+		<button id="homepop_submitbtn" onClick="PopUpSubmit()" type="submit" name="submit" class="submit-btn">
+            Submit           
+          </button>
+      </div>
+      <div class="loading js-loading1 is-hidden">
+        <div class="loading-spinner">
+          <svg><circle cx="25" cy="25" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/></svg>
+        </div>
+      </div>
+      <p class="js-success-message1 is-hidden">Success!</p>
+      <p class="js-error-message1 is-hidden">Error!</p>
+      <p class="nothanks" onClick="PopUp('hide')">No, I want to pay full price</p> 
+    </div>
+    <div class="text-container after_submit is-hidden">
+      <h2 class="thankyou">Thank You</h2>
+      <div class="bogo-text-whole textdesign"><span class="bogo-text1">Buy One Get One Free</span> <br>Applied
+<!--         <div class="bogo-text-whole textdesign">Use code:- <span class="bogo-text1">OFF20</span><br> -->
+<!--         <span class="get10off">At the Checkout To Get <b>20% OFF</b> </span> -->
+
+      </div>  
+      <p class="expirecode hide">Code will expire after 1 hour</p>
+    </div>
+    <span class="closemeak" onClick="PopUp('hide')">&times;</span>
+  </div>
+</div>
+<script>  
+  function PopUpSubmit() {
+    localStorage.setItem("popupWasShown",1);
+    
+    var delayInMilliseconds = 2000; //1 second
+	setTimeout(function() {
+  		$( "#bogoform" ).submit();
+	}, delayInMilliseconds);
+  }
+  window.onload = function () {
+    setTimeout(function () {
+      PopUp('show');
+    }, 0);
+  }
+  
+  function PopUp(hideOrshow) {
+    if (hideOrshow == 'hide') {
+      document.getElementById('ac-wrapper').style.display = "none";
+      //$('body').removeClass('overflow_hidden');
+    }
+    else  if(localStorage.getItem("popupWasShown") == null) {
+      localStorage.setItem("popupWasShown",1);
+      document.getElementById('ac-wrapper').removeAttribute('style');
+      //$('body').addClass('overflow_hidden');
+    }
+  }
+  
+  
+  const scriptURL1 = 'https://script.google.com/macros/s/AKfycbzk445O8DV5HZ-AwLCDBqHsRTbpMF8TBLmNdbCJc6H9dLZZF6g/exec'
+  const form1 = document.forms['submit-contct-to-google-sheet']
+  const loading1 = document.querySelector('.js-loading1')
+  const successMessage1 = document.querySelector('.js-success-message1')
+  const errorMessage1 = document.querySelector('.js-error-message1')
+  const Cont_form_container = document.querySelector('.Cont_form_container')
+  const after_submit = document.querySelector('.after_submit')
+
+   var dtq = new Date();
+  var day = dtq.getDate();
+var month = dtq.getMonth() + 1;
+var year = dtq.getFullYear();
+var vdate = day + "-0" + month + "-" + year;
+      simply.setCookie('vdate', vdate, { expires: 30, path: '/' });
+  
+  document.getElementById("domain").value = location.host.replace('www.','');
+document.getElementById("devicename").value = getUA();
+  
+  form1.addEventListener('submit', e => {
+    e.preventDefault()
+    showLoadingIndicator()
+    fetch(scriptURL1, { method: 'POST', body: new FormData(form1)})
+    .then(response => showSuccessMessage(response))
+    .catch(error => showErrorMessage(error))
+  })
+  function showLoadingIndicator () {
+    //form1.classList.add('is-hidden')
+    loading1.classList.remove('is-hidden')
+  }
+ 
+   function getCookaa(cookiename) 
+  {
+    var cookiestring=RegExp(cookiename+"=[^;]+").exec(document.cookie);
+    return decodeURIComponent(!!cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
+  }  
+var domain = window.location.hostname;
+  //   on product page fire function
+  var skuhistoryurl = "https://singapore.lenskart.com/user_product_history/sku-history-inter.php";
+  function whenonhomepage(contact_no, contact_no_added_time){
+    var domain = window.location.hostname;
+    var country_code = getCookaa('country_code');
+  var shopify_session = getCookaa('shopify_s_cus');
+    document.getElementById("ccode").value = country_code;
+   $.ajax({
+        type: "POST",
+        url: skuhistoryurl,
+        crossDomain: true,
+        data: {contact_no: contact_no, shopify_session: shopify_session, contact_no_added_time: contact_no_added_time, country_code: country_code, domain:domain},
+        success: function (data) {
+        },
+        error: function (err) {
+          console.log(err);
+        }
+      });   
+  }
+ 
+  function showSuccessMessage(response) {
+    console.log('Success!', response)
+    setTimeout(() => {
+               successMessage1.classList.remove('is-hidden')
+    loading1.classList.add('is-hidden')
+    var phone_length = $('#popup #ContactFormPhone').val();
+    simply.setCookie('contactno_cook', phone_length,30);
+    //if(!simply.getCookie('vtime')) {
+      var usaTime = new Date().toLocaleString("en-US", {timeZone: "Asia/Kolkata"});
+      usaTime = new Date(usaTime);
+      usaTime = usaTime.toLocaleString();
+    usaTime = usaTime.replace(/\//g, '-');
+      usaTime = usaTime.replace(',', '');
+    usaTime = usaTime.replace(' PM', '');
+     usaTime = usaTime.replace(' pm', '');
+     usaTime = usaTime.replace(' AM', '');
+     usaTime = usaTime.replace(' am', '');
+      simply.setCookie('vtime', usaTime, { expires: 30, path: '/' });
+    //}  
+    whenonhomepage(phone_length, usaTime);
+  }, 100)
+  }
+  function showErrorMessage (error) {
+    console.error('Error!', error.message)
+    setTimeout(() => {
+               errorMessage1.classList.remove('is-hidden')
+    loading.classList.add('is-hidden')
+  }, 500)
+  }
+
+  
+  
+  
+  function hideNow(e) {
+    if (e.target.id == 'ac-wrapper') document.getElementById('ac-wrapper').style.display = 'none';
+    //$('body').removeClass('overflow_hidden');
+  }
+</script>
+

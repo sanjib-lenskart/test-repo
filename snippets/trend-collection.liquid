@@ -1,0 +1,57 @@
+<p class="collection_extra_text">
+  For Family Brunches
+</p>
+<ul class="list row">
+  {% assign count = 0 %}
+  {% for product in collection.products %}
+  {% if product.type == 'Lens' or product.type == 'Gift card' or product.template_suffix == 'none' %} {% continue %} {% endif %}
+  {% assign count =  forloop.index %}
+
+  <li class="{{section.settings.product_row}} col-sm-4 col-xs-12 item" data-item='{{forloop.index}}'>
+    <div class="main_content">
+      {% include 'simply-product' %}
+       {% comment %}
+      {% for block in section.blocks %}
+      {% assign v_name = block.settings.variant %}
+      {% unless v_name == blank %}
+      {% include 'swatch' with v_name %}
+      {% endunless %}
+      {% endfor %}
+       {% endcomment %}
+      {% include 'loading' %}
+    </div>
+
+  </li>
+  {% assign six_mod = forloop.index | modulo:6  %}
+  {% if six_mod == 0  %}
+</ul>
+
+{% case forloop.index %}
+{% when 6 %}
+<p class="collection_extra_text">
+For Weekend Cocktails
+</p>
+{% when 12 %}
+<p class="collection_extra_text">
+  For Groomsmen
+</p>
+{% when 18 %}
+<p class="collection_extra_text">
+  For Bridesmaids
+</p>
+{% else %}
+
+{% endcase %}
+
+<ul class="list row">
+
+  {% endif %}
+  {% endfor %}
+</ul>
+
+{% if count == 0 %}
+<li>
+  <h3 class="text-center">No products found.</h3>
+</li>
+{% endif %}
+

@@ -1,0 +1,2694 @@
+<style>
+
+.power-modal .one-half {
+    width: 49%;
+}
+</style>
+
+<div class="grid power-modal">
+  <form action="" class="prescription-form" enctype="multipart/form-data">
+    <div class="inner-container">
+      <div class="grid__item one-whole">
+        <h1 class="signuppopuplogo"><a href="/">LENSKART</a></h1>
+      </div>
+      {% assign count = 0 %}
+      <div id="pimages" class="grid__item one-whole pimages owl-carousel">
+    {% for line_item in order.line_items %}     
+      {% if line_item.product.type != 'Lens' %}        
+      <div class="pimage {% if forloop.index == 1 %}selected{% endif%} skuak{{ line_item.sku }}" data-skuak= "skuak{{ line_item.sku }}" data-skuonly= "{{ line_item.sku }}">      
+        <img class="{% if forloop.index == 1 %}active{% endif%}" src="{{ line_item | img_url: '355x' }}" alt=""/>
+        <div class="title">{{ line_item.product.title }}</div>
+       
+        {% assign count = count | plus: 1 %}        
+        <div class="item_id hide">{{ count }}</div>
+        
+        <div class="item_sku hide">{{ line_item.sku }}</div>
+        <div class="item_type hide">{{ line_item.product.type }}</div>
+        <span class="icon"></span>  
+        <div class="usermessage"></div>
+        <div class="sku{{ line_item.sku }}" style="margin-top: 7px; font-size: 16px; text-align: center; color:green;"></div>
+      </div>
+      {% endif %}     
+    {% endfor %}
+      </div>
+      
+       <div class="grid__item one-whole howsubmit xs-hide"><h3>How would you like to submit prescription?</h3></div>
+      
+      <div id="mirror_manual" class="grid__item one-half fronttab xs-hide">
+        <div class="tabicon">{% include 'keyboard-icon' %}</div>
+        <div class="title">Enter Prescription Manually</div>
+      </div>
+
+      <div id="mirror_upload" class="grid__item one-half fronttab xs-hide">
+        <div class="tabicon">{% include 'camera-icon' %}</div>
+        <div class="title">Upload prescription Image</div>
+      </div>
+
+     
+      
+      <div class="bgoverlay"></div>
+
+      <div class="grid__item large--one-whole tabheader">
+        <ul class="tabs">
+          <li id="manual"><a href="#tab-1"><i class="tabicon fa fa-keyboard-o"></i>Enter Prescription Manually</a></li>
+<!--           <li id="dontknow"><a href="#tab-2"><i class="tabicon fa fa-question-circle"></i>I Don't Know My Prescription</a></li> -->
+          <li id="upload"><a href="#tab-3"><i class="tabicon fa fa-camera"></i>Upload Prescription Image</a></li>
+        </ul>
+      </div>
+      <div class="grid__item large--one-whole">
+        <div class="accordion_container">
+          <span class="close xs-hide">&times;</span>
+          <div class="accordion_head"><i class="tabicon fa fa-keyboard-o"></i>Enter Prescription Manually<span class="plusminus">+</span></div>
+          <div id="tab-1" class="accordion_body" style="display: none;">
+            <div class="grid">
+              
+              <div class="grid__item one-whole"><h3>Enter Eye Prescription Details</h3></div>
+
+              <div class="grid__item one-third large--text-right small-padding">
+                <p> <label>Eye</label></p>
+              </div>
+              <div class="grid__item one-third large--text-right small-padding">
+                <p class="heading_p"> <label class="heading">Right Eye (OD)</label></p>
+              </div>
+              <div class="grid__item one-third large--text-right small-padding">
+                <p class="heading_p"> <label class="heading">Left Eye (OS)</label></p>
+              </div>
+
+              <div class="grid__item one-third large--text-right small-padding">
+                <p><label class="sph">Spherical 
+
+                  <span class="tooltiplensinfo">?</span>
+                  <span class="tooltiplensinfotext">This is your main power and is a + or - number or 0
+                    <span class="close-tooltiplensinfo">&times;</span>
+                  </span>
+
+                  </label>  
+                </p>
+              </div>
+
+              <div class="grid__item one-third large--text-right small-padding">
+                <div class="line-item-property__field lineitem-con">                                 
+                  <select id="RightEyeSpherical" class="design" name="RightEyeSpherical">
+                    <option value="NA">Select</option>
+                    <option value="-0.25">-0.25</option>
+                    <option value="-0.50">-0.50</option>
+                    <option value="-0.75">-0.75</option>
+                    <option value="-1.00">-1.00</option>
+                    <option value="-1.25">-1.25</option>
+                    <option value="-1.50">-1.50</option>
+                    <option value="-1.75">-1.75</option>
+                    <option value="-2.00">-2.00</option>
+                    <option value="-2.25">-2.25</option>
+                    <option value="-2.50">-2.50</option>
+                    <option value="-2.75">-2.75</option>
+                    <option value="-3.00">-3.00</option>
+                    <option value="-3.25">-3.25</option>
+                    <option value="-3.50">-3.50</option>
+                    <option value="-3.75">-3.75</option>
+                    <option value="-4.00">-4.00</option>
+                    <option value="-4.25">-4.25</option>
+                    <option value="-4.50">-4.50</option>
+                    <option value="-4.75">-4.75</option>
+                    <option value="-5.00">-5.00</option>
+                    <option value="-5.25">-5.25</option>
+                    <option value="-5.50">-5.50</option>
+                    <option value="-5.75">-5.75</option>
+                    <option value="-6.00">-6.00</option>
+                    <option value="-6.25">-6.25</option>
+                    <option value="-6.50">-6.50</option>
+                    <option value="-6.75">-6.75</option>
+                    <option value="-7.00">-7.00</option>
+                    <option value="-7.25">-7.25</option>
+                    <option value="-7.50">-7.50</option>
+                    <option value="-7.75">-7.75</option>
+                    <option value="-8.00">-8.00</option>
+                    <option value="-8.25">-8.25</option>
+                    <option value="-8.50">-8.50</option>
+                    <option value="-8.75">-8.75</option>
+                    <option value="-9.00">-9.00</option>
+                    <option value="-9.25">-9.25</option>
+                    <option value="-9.50">-9.50</option>
+                    <option value="-9.75">-9.75</option>
+                    <option value="-10.00">-10.00</option>
+                    <option value="-10.25">-10.25</option>
+                    <option value="-10.50">-10.50</option>
+                    <option value="-10.75">-10.75</option>
+                    <option value="-11.00">-11.00</option>
+                    <option value="-11.25">-11.25</option>
+                    <option value="-11.50">-11.50</option>
+                    <option value="-11.75">-11.75</option>
+                    <option value="-12.00">-12.00</option>
+                    <option value="-12.25">-12.25</option>
+                    <option value="-12.50">-12.50</option>
+                    <option value="-12.75">-12.75</option>
+                    <option value="-13.00">-13.00</option>
+                    <option value="-13.25">-13.25</option>
+                    <option value="-13.50">-13.50</option>
+                    <option value="-13.75">-13.75</option>
+                    <option value="-14.00">-14.00</option>
+                    <option value="-14.25">-14.25</option>
+                    <option value="-14.50">-14.50</option>
+                    <option value="-14.75">-14.75</option>
+                    <option value="-15.00">-15.00</option>
+                    <option value="-15.25">-15.25</option>
+                    <option value="-15.50">-15.50</option>
+                    <option value="-15.75">-15.75</option>
+                    <option value="-16.00">-16.00</option>
+                    <option value="0.00">0.00</option>
+                    <option value="+0.25">+0.25</option>
+                    <option value="+0.50">+0.50</option>
+                    <option value="+0.75">+0.75</option>
+                    <option value="+1.00">+1.00</option>
+                    <option value="+1.25">+1.25</option>
+                    <option value="+1.50">+1.50</option>
+                    <option value="+1.75">+1.75</option>
+                    <option value="+2.00">+2.00</option>
+                    <option value="+2.25">+2.25</option>
+                    <option value="+2.50">+2.50</option>
+                    <option value="+2.75">+2.75</option>
+                    <option value="+3.00">+3.00</option>
+                    <option value="+3.25">+3.25</option>
+                    <option value="+3.50">+3.50</option>
+                    <option value="+3.75">+3.75</option>
+                    <option value="+4.00">+4.00</option>
+                    <option value="+4.25">+4.25</option>
+                    <option value="+4.50">+4.50</option>
+                    <option value="+4.75">+4.75</option>
+                    <option value="+5.00">+5.00</option>
+                    <option value="+5.25">+5.25</option>
+                    <option value="+5.50">+5.50</option>
+                    <option value="+5.75">+5.75</option>
+                    <option value="+6.00">+6.00</option>
+                    <option value="+6.25">+6.25</option>
+                    <option value="+6.50">+6.50</option>
+                    <option value="+6.75">+6.75</option>
+                    <option value="+7.00">+7.00</option>
+                    <option value="+7.25">+7.25</option>
+                    <option value="+7.50">+7.50</option>
+                    <option value="+7.75">+7.75</option>
+                    <option value="+8.00">+8.00</option>
+                    <option value="+8.25">+8.25</option>
+                    <option value="+8.50">+8.50</option>
+                    <option value="+8.75">+8.75</option>
+                    <option value="+9.00">+9.00</option>
+                    <option value="+9.25">+9.25</option>
+                    <option value="+9.50">+9.50</option>
+                    <option value="+9.75">+9.75</option>
+                    <option value="+10.00">+10.00</option>
+                    <option value="+10.25">+10.25</option>
+                    <option value="+10.50">+10.50</option>
+                    <option value="+10.75">+10.75</option>
+                    <option value="+11.00">+11.00</option>
+                    <option value="+11.25">+11.25</option>
+                    <option value="+11.50">+11.50</option>
+                    <option value="+11.75">+11.75</option>
+                    <option value="+12.00">+12.00</option>
+                    <option value="+12.25">+12.25</option>
+                    <option value="+12.50">+12.50</option>
+                    <option value="+12.75">+12.75</option>
+                    <option value="+13.00">+13.00</option>
+                    <option value="+13.25">+13.25</option>
+                    <option value="+13.50">+13.50</option>
+                    <option value="+13.75">+13.75</option>
+                    <option value="+14.00">+14.00</option>
+                    <option value="+14.25">+14.25</option>
+                    <option value="+14.50">+14.50</option>
+                    <option value="+14.75">+14.75</option>
+                    <option value="+15.00">+15.00</option>
+                    <option value="+15.25">+15.25</option>
+                    <option value="+15.50">+15.50</option>
+                    <option value="+15.75">+15.75</option>
+                    <option value="+16.00">+16.00</option>
+                  </select>
+                  <!--                 <p class="hide">Please select Eye Power</p> -->
+                </div>
+              </div>
+              <div class="grid__item one-third large--text-left small-padding">
+                <div class="line-item-property__field lineitem-con">
+                  <select id="LeftEyeSpherical" class="design" name="LeftEyeSpherical">
+                    <option value="NA">Select</option>
+                    <option value="-0.25">-0.25</option>
+                    <option value="-0.50">-0.50</option>
+                    <option value="-0.75">-0.75</option>
+                    <option value="-1.00">-1.00</option>
+                    <option value="-1.25">-1.25</option>
+                    <option value="-1.50">-1.50</option>
+                    <option value="-1.75">-1.75</option>
+                    <option value="-2.00">-2.00</option>
+                    <option value="-2.25">-2.25</option>
+                    <option value="-2.50">-2.50</option>
+                    <option value="-2.75">-2.75</option>
+                    <option value="-3.00">-3.00</option>
+                    <option value="-3.25">-3.25</option>
+                    <option value="-3.50">-3.50</option>
+                    <option value="-3.75">-3.75</option>
+                    <option value="-4.00">-4.00</option>
+                    <option value="-4.25">-4.25</option>
+                    <option value="-4.50">-4.50</option>
+                    <option value="-4.75">-4.75</option>
+                    <option value="-5.00">-5.00</option>
+                    <option value="-5.25">-5.25</option>
+                    <option value="-5.50">-5.50</option>
+                    <option value="-5.75">-5.75</option>
+                    <option value="-6.00">-6.00</option>
+                    <option value="-6.25">-6.25</option>
+                    <option value="-6.50">-6.50</option>
+                    <option value="-6.75">-6.75</option>
+                    <option value="-7.00">-7.00</option>
+                    <option value="-7.25">-7.25</option>
+                    <option value="-7.50">-7.50</option>
+                    <option value="-7.75">-7.75</option>
+                    <option value="-8.00">-8.00</option>
+                    <option value="-8.25">-8.25</option>
+                    <option value="-8.50">-8.50</option>
+                    <option value="-8.75">-8.75</option>
+                    <option value="-9.00">-9.00</option>
+                    <option value="-9.25">-9.25</option>
+                    <option value="-9.50">-9.50</option>
+                    <option value="-9.75">-9.75</option>
+                    <option value="-10.00">-10.00</option>
+                    <option value="-10.25">-10.25</option>
+                    <option value="-10.50">-10.50</option>
+                    <option value="-10.75">-10.75</option>
+                    <option value="-11.00">-11.00</option>
+                    <option value="-11.25">-11.25</option>
+                    <option value="-11.50">-11.50</option>
+                    <option value="-11.75">-11.75</option>
+                    <option value="-12.00">-12.00</option>
+                    <option value="-12.25">-12.25</option>
+                    <option value="-12.50">-12.50</option>
+                    <option value="-12.75">-12.75</option>
+                    <option value="-13.00">-13.00</option>
+                    <option value="-13.25">-13.25</option>
+                    <option value="-13.50">-13.50</option>
+                    <option value="-13.75">-13.75</option>
+                    <option value="-14.00">-14.00</option>
+                    <option value="-14.25">-14.25</option>
+                    <option value="-14.50">-14.50</option>
+                    <option value="-14.75">-14.75</option>
+                    <option value="-15.00">-15.00</option>
+                    <option value="-15.25">-15.25</option>
+                    <option value="-15.50">-15.50</option>
+                    <option value="-15.75">-15.75</option>
+                    <option value="-16.00">-16.00</option>
+                    <option value="0.00">0.00</option>
+                    <option value="+0.25">+0.25</option>
+                    <option value="+0.50">+0.50</option>
+                    <option value="+0.75">+0.75</option>
+                    <option value="+1.00">+1.00</option>
+                    <option value="+1.25">+1.25</option>
+                    <option value="+1.50">+1.50</option>
+                    <option value="+1.75">+1.75</option>
+                    <option value="+2.00">+2.00</option>
+                    <option value="+2.25">+2.25</option>
+                    <option value="+2.50">+2.50</option>
+                    <option value="+2.75">+2.75</option>
+                    <option value="+3.00">+3.00</option>
+                    <option value="+3.25">+3.25</option>
+                    <option value="+3.50">+3.50</option>
+                    <option value="+3.75">+3.75</option>
+                    <option value="+3.00">+4.00</option>
+                    <option value="+4.25">+4.25</option>
+                    <option value="+4.50">+4.50</option>
+                    <option value="+4.75">+4.75</option>
+                    <option value="+5.00">+5.00</option>
+                    <option value="+5.25">+5.25</option>
+                    <option value="+5.50">+5.50</option>
+                    <option value="+5.75">+5.75</option>
+                    <option value="+6.00">+6.00</option>
+                    <option value="+6.25">+6.25</option>
+                    <option value="+6.50">+6.50</option>
+                    <option value="+6.75">+6.75</option>
+                    <option value="+7.00">+7.00</option>
+                    <option value="+7.25">+7.25</option>
+                    <option value="+7.50">+7.50</option>
+                    <option value="+7.75">+7.75</option>
+                    <option value="+8.00">+8.00</option>
+                    <option value="+8.25">+8.25</option>
+                    <option value="+8.50">+8.50</option>
+                    <option value="+8.75">+8.75</option>
+                    <option value="+9.00">+9.00</option>
+                    <option value="+9.25">+9.25</option>
+                    <option value="+9.50">+9.50</option>
+                    <option value="+9.75">+9.75</option>
+                    <option value="+10.00">+10.00</option>
+                    <option value="+10.25">+10.25</option>
+                    <option value="+10.50">+10.50</option>
+                    <option value="+10.75">+10.75</option>
+                    <option value="+11.00">+11.00</option>
+                    <option value="+11.25">+11.25</option>
+                    <option value="+11.50">+11.50</option>
+                    <option value="+11.75">+11.75</option>
+                    <option value="+12.00">+12.00</option>
+                    <option value="+12.25">+12.25</option>
+                    <option value="+12.50">+12.50</option>
+                    <option value="+12.75">+12.75</option>
+                    <option value="+13.00">+13.00</option>
+                    <option value="+13.25">+13.25</option>
+                    <option value="+13.50">+13.50</option>
+                    <option value="+13.75">+13.75</option>
+                    <option value="+14.00">+14.00</option>
+                    <option value="+14.25">+14.25</option>
+                    <option value="+14.50">+14.50</option>
+                    <option value="+14.75">+14.75</option>
+                    <option value="+15.00">+15.00</option>
+                    <option value="+15.25">+15.25</option>
+                    <option value="+15.50">+15.50</option>
+                    <option value="+15.75">+15.75</option>
+                    <option value="+16.00">+16.00</option>
+                  </select>
+                </div>
+              </div> 
+
+              <div class="grid__item one-half ihavepres">
+                <label class="container-ckeck">I Have Cylindrical Power Also
+                  <input type="checkbox" class="havepres" onchange="ihaveprescheck()">
+                  <span class="checkmark"></span>
+                </label> 					
+              </div>
+
+              <div class="grid__item one-half ihavepres hidewhensunglass">
+                {% if product.type != 'Sunglasses' %}
+                <label class="container-ckeck">I Have ADD Power Also
+                  <input type="checkbox" class="havebifocal" onchange="ihavebifocalcheck()">
+                  <span class="checkmark"></span>
+                </label> 
+                {% endif %}
+              </div>
+
+             
+              <!--             cyl -->
+              <div class="extraoptions">
+                <div class="grid__item one-third large--text-right small-padding">
+                  <p>
+                    <label class="sph">Cylindrical                         
+                      <span class="tooltiplensinfo">?                                        
+                      </span>
+                      <span class="tooltiplensinfotext">Not all powers have a cylinder(CYL) component, in which case leave it blank
+                        <span class="close-tooltiplensinfo">&times;</span>
+                      </span>
+                    </label>  
+                  </p>    
+                </div>
+
+                <div class="grid__item one-third large--text-right small-padding">
+                  <div class="line-item-property__field lineitem-con">
+
+                    <select id="RightEyeCylindrical" class="design" name="RightEyeSpherical">
+                      <option value="NA">Select</option>
+                      <option value="-0.25">-0.25</option>
+                      <option value="-0.50">-0.50</option>
+                      <option value="-0.75">-0.75</option>
+                      <option value="-1.00">-1.00</option>
+                      <option value="-1.25">-1.25</option>
+                      <option value="-1.50">-1.50</option>
+                      <option value="-1.75">-1.75</option>
+                      <option value="-2.00">-2.00</option>
+                      <option value="-2.25">-2.25</option>
+                      <option value="-2.50">-2.50</option>
+                      <option value="-2.75">-2.75</option>
+                      <option value="-3.00">-3.00</option>
+                      <option value="-3.25">-3.25</option>
+                      <option value="-3.50">-3.50</option>
+                      <option value="-3.75">-3.75</option>
+                      <option value="-4.00">-4.00</option>
+                      <option value="-4.25">-4.25</option>
+                      <option value="-4.50">-4.50</option>
+                      <option value="-4.75">-4.75</option>
+                      <option value="-5.00">-5.00</option>
+                      <option value="-5.25">-5.25</option>
+                      <option value="-5.50">-5.50</option>
+                      <option value="-5.75">-5.75</option>
+                      <option value="-6.00">-6.00</option>
+                      <option value="-6.25">-6.25</option>
+                      <option value="-6.50">-6.50</option>
+                      <option value="-6.75">-6.75</option>
+                      <option value="-7.00">-7.00</option>
+                      <option value="-7.25">-7.25</option>
+                      <option value="-7.50">-7.50</option>
+                      <option value="-7.75">-7.75</option>
+                      <option value="-8.00">-8.00</option>
+                      <option value="-8.25">-8.25</option>
+                      <option value="-8.50">-8.50</option>
+                      <option value="-8.75">-8.75</option>
+                      <option value="-9.00">-9.00</option>
+                      <option value="-9.25">-9.25</option>
+                      <option value="-9.50">-9.50</option>
+                      <option value="-9.75">-9.75</option>
+                      <option value="-10.00">-10.00</option>
+                      <option value="-10.25">-10.25</option>
+                      <option value="-10.50">-10.50</option>
+                      <option value="-10.75">-10.75</option>
+                      <option value="-11.00">-11.00</option>
+                      <option value="-11.25">-11.25</option>
+                      <option value="-11.50">-11.50</option>
+                      <option value="-11.75">-11.75</option>
+                      <option value="-12.00">-12.00</option>
+                      <option value="-12.25">-12.25</option>
+                      <option value="-12.50">-12.50</option>
+                      <option value="-12.75">-12.75</option>
+                      <option value="-13.00">-13.00</option>
+                      <option value="-13.25">-13.25</option>
+                      <option value="-13.50">-13.50</option>
+                      <option value="-13.75">-13.75</option>
+                      <option value="-14.00">-14.00</option>
+                      <option value="-14.25">-14.25</option>
+                      <option value="-14.50">-14.50</option>
+                      <option value="-14.75">-14.75</option>
+                      <option value="-15.00">-15.00</option>
+                      <option value="-15.25">-15.25</option>
+                      <option value="-15.50">-15.50</option>
+                      <option value="-15.75">-15.75</option>
+                      <option value="-16.00">-16.00</option>
+                      <option value="0.00">0.00</option>
+                      <option value="+0.25">+0.25</option>
+                      <option value="+0.50">+0.50</option>
+                      <option value="+0.75">+0.75</option>
+                      <option value="+1.00">+1.00</option>
+                      <option value="+1.25">+1.25</option>
+                      <option value="+1.50">+1.50</option>
+                      <option value="+1.75">+1.75</option>
+                      <option value="+2.00">+2.00</option>
+                      <option value="+2.25">+2.25</option>
+                      <option value="+2.50">+2.50</option>
+                      <option value="+2.75">+2.75</option>
+                      <option value="+3.00">+3.00</option>
+                      <option value="+3.25">+3.25</option>
+                      <option value="+3.50">+3.50</option>
+                      <option value="+3.75">+3.75</option>
+                      <option value="+4.00">+4.00</option>
+                      <option value="+4.25">+4.25</option>
+                      <option value="+4.50">+4.50</option>
+                      <option value="+4.75">+4.75</option>
+                      <option value="+5.00">+5.00</option>
+                      <option value="+5.25">+5.25</option>
+                      <option value="+5.50">+5.50</option>
+                      <option value="+5.75">+5.75</option>
+                      <option value="+6.00">+6.00</option>
+                      <option value="+6.25">+6.25</option>
+                      <option value="+6.50">+6.50</option>
+                      <option value="+6.75">+6.75</option>
+                      <option value="+7.00">+7.00</option>
+                      <option value="+7.25">+7.25</option>
+                      <option value="+7.50">+7.50</option>
+                      <option value="+7.75">+7.75</option>
+                      <option value="+8.00">+8.00</option>
+                      <option value="+8.25">+8.25</option>
+                      <option value="+8.50">+8.50</option>
+                      <option value="+8.75">+8.75</option>
+                      <option value="+9.00">+9.00</option>
+                      <option value="+9.25">+9.25</option>
+                      <option value="+9.50">+9.50</option>
+                      <option value="+9.75">+9.75</option>
+                      <option value="+10.00">+10.00</option>
+                      <option value="+10.25">+10.25</option>
+                      <option value="+10.50">+10.50</option>
+                      <option value="+10.75">+10.75</option>
+                      <option value="+11.00">+11.00</option>
+                      <option value="+11.25">+11.25</option>
+                      <option value="+11.50">+11.50</option>
+                      <option value="+11.75">+11.75</option>
+                      <option value="+12.00">+12.00</option>
+                      <option value="+12.25">+12.25</option>
+                      <option value="+12.50">+12.50</option>
+                      <option value="+12.75">+12.75</option>
+                      <option value="+13.00">+13.00</option>
+                      <option value="+13.25">+13.25</option>
+                      <option value="+13.50">+13.50</option>
+                      <option value="+13.75">+13.75</option>
+                      <option value="+14.00">+14.00</option>
+                      <option value="+14.25">+14.25</option>
+                      <option value="+14.50">+14.50</option>
+                      <option value="+14.75">+14.75</option>
+                      <option value="+15.00">+15.00</option>
+                      <option value="+15.25">+15.25</option>
+                      <option value="+15.50">+15.50</option>
+                      <option value="+15.75">+15.75</option>
+                      <option value="+16.00">+16.00</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="grid__item one-third large--text-left small-padding">
+                  <div class="line-item-property__field lineitem-con">
+                    <select id="LeftEyeCylindrical" class="design" name="LeftEyeCylindrical">
+                      <option value="NA">Select</option>
+                      <option value="-0.25">-0.25</option>
+                      <option value="-0.50">-0.50</option>
+                      <option value="-0.75">-0.75</option>
+                      <option value="-1.00">-1.00</option>
+                      <option value="-1.25">-1.25</option>
+                      <option value="-1.50">-1.50</option>
+                      <option value="-1.75">-1.75</option>
+                      <option value="-2.00">-2.00</option>
+                      <option value="-2.25">-2.25</option>
+                      <option value="-2.50">-2.50</option>
+                      <option value="-2.75">-2.75</option>
+                      <option value="-3.00">-3.00</option>
+                      <option value="-3.25">-3.25</option>
+                      <option value="-3.50">-3.50</option>
+                      <option value="-3.75">-3.75</option>
+                      <option value="-4.00">-4.00</option>
+                      <option value="-4.25">-4.25</option>
+                      <option value="-4.50">-4.50</option>
+                      <option value="-4.75">-4.75</option>
+                      <option value="-5.00">-5.00</option>
+                      <option value="-5.25">-5.25</option>
+                      <option value="-5.50">-5.50</option>
+                      <option value="-5.75">-5.75</option>
+                      <option value="-6.00">-6.00</option>
+                      <option value="-6.25">-6.25</option>
+                      <option value="-6.50">-6.50</option>
+                      <option value="-6.75">-6.75</option>
+                      <option value="-7.00">-7.00</option>
+                      <option value="-7.25">-7.25</option>
+                      <option value="-7.50">-7.50</option>
+                      <option value="-7.75">-7.75</option>
+                      <option value="-8.00">-8.00</option>
+                      <option value="-8.25">-8.25</option>
+                      <option value="-8.50">-8.50</option>
+                      <option value="-8.75">-8.75</option>
+                      <option value="-9.00">-9.00</option>
+                      <option value="-9.25">-9.25</option>
+                      <option value="-9.50">-9.50</option>
+                      <option value="-9.75">-9.75</option>
+                      <option value="-10.00">-10.00</option>
+                      <option value="-10.25">-10.25</option>
+                      <option value="-10.50">-10.50</option>
+                      <option value="-10.75">-10.75</option>
+                      <option value="-11.00">-11.00</option>
+                      <option value="-11.25">-11.25</option>
+                      <option value="-11.50">-11.50</option>
+                      <option value="-11.75">-11.75</option>
+                      <option value="-12.00">-12.00</option>
+                      <option value="-12.25">-12.25</option>
+                      <option value="-12.50">-12.50</option>
+                      <option value="-12.75">-12.75</option>
+                      <option value="-13.00">-13.00</option>
+                      <option value="-13.25">-13.25</option>
+                      <option value="-13.50">-13.50</option>
+                      <option value="-13.75">-13.75</option>
+                      <option value="-14.00">-14.00</option>
+                      <option value="-14.25">-14.25</option>
+                      <option value="-14.50">-14.50</option>
+                      <option value="-14.75">-14.75</option>
+                      <option value="-15.00">-15.00</option>
+                      <option value="-15.25">-15.25</option>
+                      <option value="-15.50">-15.50</option>
+                      <option value="-15.75">-15.75</option>
+                      <option value="-16.00">-16.00</option>
+                      <option value="0.00">0.00</option>
+                      <option value="+0.25">+0.25</option>
+                      <option value="+0.50">+0.50</option>
+                      <option value="+0.75">+0.75</option>
+                      <option value="+1.00">+1.00</option>
+                      <option value="+1.25">+1.25</option>
+                      <option value="+1.50">+1.50</option>
+                      <option value="+1.75">+1.75</option>
+                      <option value="+2.00">+2.00</option>
+                      <option value="+2.25">+2.25</option>
+                      <option value="+2.50">+2.50</option>
+                      <option value="+2.75">+2.75</option>
+                      <option value="+3.00">+3.00</option>
+                      <option value="+3.25">+3.25</option>
+                      <option value="+3.50">+3.50</option>
+                      <option value="+3.75">+3.75</option>
+                      <option value="+4.00">+4.00</option>
+                      <option value="+4.25">+4.25</option>
+                      <option value="+4.50">+4.50</option>
+                      <option value="+4.75">+4.75</option>
+                      <option value="+5.00">+5.00</option>
+                      <option value="+5.25">+5.25</option>
+                      <option value="+5.50">+5.50</option>
+                      <option value="+5.75">+5.75</option>
+                      <option value="+6.00">+6.00</option>
+                      <option value="+6.25">+6.25</option>
+                      <option value="+6.50">+6.50</option>
+                      <option value="+6.75">+6.75</option>
+                      <option value="+7.00">+7.00</option>
+                      <option value="+7.25">+7.25</option>
+                      <option value="+7.50">+7.50</option>
+                      <option value="+7.75">+7.75</option>
+                      <option value="+8.00">+8.00</option>
+                      <option value="+8.25">+8.25</option>
+                      <option value="+8.50">+8.50</option>
+                      <option value="+8.75">+8.75</option>
+                      <option value="+9.00">+9.00</option>
+                      <option value="+9.25">+9.25</option>
+                      <option value="+9.50">+9.50</option>
+                      <option value="+9.75">+9.75</option>
+                      <option value="+10.00">+10.00</option>
+                      <option value="+10.25">+10.25</option>
+                      <option value="+10.50">+10.50</option>
+                      <option value="+10.75">+10.75</option>
+                      <option value="+11.00">+11.00</option>
+                      <option value="+11.25">+11.25</option>
+                      <option value="+11.50">+11.50</option>
+                      <option value="+11.75">+11.75</option>
+                      <option value="+12.00">+12.00</option>
+                      <option value="+12.25">+12.25</option>
+                      <option value="+12.50">+12.50</option>
+                      <option value="+12.75">+12.75</option>
+                      <option value="+13.00">+13.00</option>
+                      <option value="+13.25">+13.25</option>
+                      <option value="+13.50">+13.50</option>
+                      <option value="+13.75">+13.75</option>
+                      <option value="+14.00">+14.00</option>
+                      <option value="+14.25">+14.25</option>
+                      <option value="+14.50">+14.50</option>
+                      <option value="+14.75">+14.75</option>
+                      <option value="+15.00">+15.00</option>
+                      <option value="+15.25">+15.25</option>
+                      <option value="+15.50">+15.50</option>
+                      <option value="+15.75">+15.75</option>
+                      <option value="+16.00">+16.00</option>
+                    </select>
+                  </div>
+                </div> 
+                <!--          Axis    -->
+                <div class="grid__item one-third large--text-right small-padding">
+                  <p><label class="sph">Axis                      
+                    <span class="tooltiplensinfo">?                                        
+                    </span>
+                    <span class="tooltiplensinfotext">If you have Cylindrical power, You will have an axis i.e. angle view (between 1 and 180)
+                      <span class="close-tooltiplensinfo">&times;</span>
+                    </span>
+                    </label>
+                  </p>    
+                </div>
+                <div class="grid__item one-third large--text-right small-padding">
+                  <div class="line-item-property__field lineitem-con">
+                    <select id="RightEyeAxis" class="design" name="RightEyeAxis">
+                      <option value="NA">Select</option>
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                      <option value="13">13</option>
+                      <option value="14">14</option>
+                      <option value="15">15</option>
+                      <option value="16">16</option>
+                      <option value="17">17</option>
+                      <option value="18">18</option>
+                      <option value="19">19</option>
+                      <option value="20">20</option>
+                      <option value="21">21</option>
+                      <option value="22">22</option>
+                      <option value="23">23</option>
+                      <option value="24">24</option>
+                      <option value="25">25</option>
+                      <option value="26">26</option>
+                      <option value="27">27</option>
+                      <option value="28">28</option>
+                      <option value="29">29</option>
+                      <option value="30">30</option>
+                      <option value="31">31</option>
+                      <option value="32">32</option>
+                      <option value="33">33</option>
+                      <option value="34">34</option>
+                      <option value="35">35</option>
+                      <option value="36">36</option>
+                      <option value="37">37</option>
+                      <option value="38">38</option>
+                      <option value="39">39</option>
+                      <option value="40">40</option>
+                      <option value="41">41</option>
+                      <option value="42">42</option>
+                      <option value="43">43</option>
+                      <option value="44">44</option>
+                      <option value="45">45</option>
+                      <option value="46">46</option>
+                      <option value="47">47</option>
+                      <option value="48">48</option>
+                      <option value="49">49</option>
+                      <option value="50">50</option>
+                      <option value="51">51</option>
+                      <option value="52">52</option>
+                      <option value="53">53</option>
+                      <option value="54">54</option>
+                      <option value="55">55</option>
+                      <option value="56">56</option>
+                      <option value="57">57</option>
+                      <option value="58">58</option>
+                      <option value="59">59</option>
+                      <option value="60">60</option>
+                      <option value="61">61</option>
+                      <option value="62">62</option>
+                      <option value="63">63</option>
+                      <option value="64">64</option>
+                      <option value="65">65</option>
+                      <option value="66">66</option>
+                      <option value="67">67</option>
+                      <option value="68">68</option>
+                      <option value="69">69</option>
+                      <option value="70">70</option>
+                      <option value="71">71</option>
+                      <option value="72">72</option>
+                      <option value="73">73</option>
+                      <option value="74">74</option>
+                      <option value="75">75</option>
+                      <option value="76">76</option>
+                      <option value="77">77</option>
+                      <option value="78">78</option>
+                      <option value="79">79</option>
+                      <option value="80">80</option>
+                      <option value="81">81</option>
+                      <option value="82">82</option>
+                      <option value="83">83</option>
+                      <option value="84">84</option>
+                      <option value="85">85</option>
+                      <option value="86">86</option>
+                      <option value="87">87</option>
+                      <option value="88">88</option>
+                      <option value="89">89</option>
+                      <option value="90">90</option>
+                      <option value="91">91</option>
+                      <option value="92">92</option>
+                      <option value="93">93</option>
+                      <option value="94">94</option>
+                      <option value="95">95</option>
+                      <option value="96">96</option>
+                      <option value="97">97</option>
+                      <option value="98">98</option>
+                      <option value="99">99</option>
+                      <option value="100">100</option>
+                      <option value="101">101</option>
+                      <option value="102">102</option>
+                      <option value="103">103</option>
+                      <option value="104">104</option>
+                      <option value="105">105</option>
+                      <option value="106">106</option>
+                      <option value="107">107</option>
+                      <option value="108">108</option>
+                      <option value="109">109</option>
+                      <option value="110">110</option>
+                      <option value="111">111</option>
+                      <option value="112">112</option>
+                      <option value="113">113</option>
+                      <option value="114">114</option>
+                      <option value="115">115</option>
+                      <option value="116">116</option>
+                      <option value="117">117</option>
+                      <option value="118">118</option>
+                      <option value="119">119</option>
+                      <option value="120">120</option>
+                      <option value="121">121</option>
+                      <option value="122">122</option>
+                      <option value="123">123</option>
+                      <option value="124">124</option>
+                      <option value="125">125</option>
+                      <option value="126">126</option>
+                      <option value="127">127</option>
+                      <option value="128">128</option>
+                      <option value="129">129</option>
+                      <option value="130">130</option>
+                      <option value="131">131</option>
+                      <option value="132">132</option>
+                      <option value="133">133</option>
+                      <option value="134">134</option>
+                      <option value="135">135</option>
+                      <option value="136">136</option>
+                      <option value="137">137</option>
+                      <option value="138">138</option>
+                      <option value="139">139</option>
+                      <option value="140">140</option>
+                      <option value="141">141</option>
+                      <option value="142">142</option>
+                      <option value="143">143</option>
+                      <option value="144">144</option>
+                      <option value="145">145</option>
+                      <option value="146">146</option>
+                      <option value="147">147</option>
+                      <option value="148">148</option>
+                      <option value="149">149</option>
+                      <option value="150">150</option>
+                      <option value="151">151</option>
+                      <option value="152">152</option>
+                      <option value="153">153</option>
+                      <option value="154">154</option>
+                      <option value="155">155</option>
+                      <option value="156">156</option>
+                      <option value="157">157</option>
+                      <option value="158">158</option>
+                      <option value="159">159</option>
+                      <option value="160">160</option>
+                      <option value="161">161</option>
+                      <option value="162">162</option>
+                      <option value="163">163</option>
+                      <option value="164">164</option>
+                      <option value="165">165</option>
+                      <option value="166">166</option>
+                      <option value="167">167</option>
+                      <option value="168">168</option>
+                      <option value="169">169</option>
+                      <option value="170">170</option>
+                      <option value="171">171</option>
+                      <option value="172">172</option>
+                      <option value="173">173</option>
+                      <option value="174">174</option>
+                      <option value="175">175</option>
+                      <option value="176">176</option>
+                      <option value="177">177</option>
+                      <option value="178">178</option>
+                      <option value="179">179</option>
+                      <option value="180">180</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="grid__item one-third large--text-left small-padding">
+                  <div class="line-item-property__field lineitem-con">
+                    <select id="LeftEyeAxis" class="design" name="LeftEyeAxis">
+                      <option value="NA">Select</option>
+                      <option value="0">0</option>
+                      <option value="1">1</option>
+                      <option value="2">2</option>
+                      <option value="3">3</option>
+                      <option value="4">4</option>
+                      <option value="5">5</option>
+                      <option value="6">6</option>
+                      <option value="7">7</option>
+                      <option value="8">8</option>
+                      <option value="9">9</option>
+                      <option value="10">10</option>
+                      <option value="11">11</option>
+                      <option value="12">12</option>
+                      <option value="13">13</option>
+                      <option value="14">14</option>
+                      <option value="15">15</option>
+                      <option value="16">16</option>
+                      <option value="17">17</option>
+                      <option value="18">18</option>
+                      <option value="19">19</option>
+                      <option value="20">20</option>
+                      <option value="21">21</option>
+                      <option value="22">22</option>
+                      <option value="23">23</option>
+                      <option value="24">24</option>
+                      <option value="25">25</option>
+                      <option value="26">26</option>
+                      <option value="27">27</option>
+                      <option value="28">28</option>
+                      <option value="29">29</option>
+                      <option value="30">30</option>
+                      <option value="31">31</option>
+                      <option value="32">32</option>
+                      <option value="33">33</option>
+                      <option value="34">34</option>
+                      <option value="35">35</option>
+                      <option value="36">36</option>
+                      <option value="37">37</option>
+                      <option value="38">38</option>
+                      <option value="39">39</option>
+                      <option value="40">40</option>
+                      <option value="41">41</option>
+                      <option value="42">42</option>
+                      <option value="43">43</option>
+                      <option value="44">44</option>
+                      <option value="45">45</option>
+                      <option value="46">46</option>
+                      <option value="47">47</option>
+                      <option value="48">48</option>
+                      <option value="49">49</option>
+                      <option value="50">50</option>
+                      <option value="51">51</option>
+                      <option value="52">52</option>
+                      <option value="53">53</option>
+                      <option value="54">54</option>
+                      <option value="55">55</option>
+                      <option value="56">56</option>
+                      <option value="57">57</option>
+                      <option value="58">58</option>
+                      <option value="59">59</option>
+                      <option value="60">60</option>
+                      <option value="61">61</option>
+                      <option value="62">62</option>
+                      <option value="63">63</option>
+                      <option value="64">64</option>
+                      <option value="65">65</option>
+                      <option value="66">66</option>
+                      <option value="67">67</option>
+                      <option value="68">68</option>
+                      <option value="69">69</option>
+                      <option value="70">70</option>
+                      <option value="71">71</option>
+                      <option value="72">72</option>
+                      <option value="73">73</option>
+                      <option value="74">74</option>
+                      <option value="75">75</option>
+                      <option value="76">76</option>
+                      <option value="77">77</option>
+                      <option value="78">78</option>
+                      <option value="79">79</option>
+                      <option value="80">80</option>
+                      <option value="81">81</option>
+                      <option value="82">82</option>
+                      <option value="83">83</option>
+                      <option value="84">84</option>
+                      <option value="85">85</option>
+                      <option value="86">86</option>
+                      <option value="87">87</option>
+                      <option value="88">88</option>
+                      <option value="89">89</option>
+                      <option value="90">90</option>
+                      <option value="91">91</option>
+                      <option value="92">92</option>
+                      <option value="93">93</option>
+                      <option value="94">94</option>
+                      <option value="95">95</option>
+                      <option value="96">96</option>
+                      <option value="97">97</option>
+                      <option value="98">98</option>
+                      <option value="99">99</option>
+                      <option value="100">100</option>
+                      <option value="101">101</option>
+                      <option value="102">102</option>
+                      <option value="103">103</option>
+                      <option value="104">104</option>
+                      <option value="105">105</option>
+                      <option value="106">106</option>
+                      <option value="107">107</option>
+                      <option value="108">108</option>
+                      <option value="109">109</option>
+                      <option value="110">110</option>
+                      <option value="111">111</option>
+                      <option value="112">112</option>
+                      <option value="113">113</option>
+                      <option value="114">114</option>
+                      <option value="115">115</option>
+                      <option value="116">116</option>
+                      <option value="117">117</option>
+                      <option value="118">118</option>
+                      <option value="119">119</option>
+                      <option value="120">120</option>
+                      <option value="121">121</option>
+                      <option value="122">122</option>
+                      <option value="123">123</option>
+                      <option value="124">124</option>
+                      <option value="125">125</option>
+                      <option value="126">126</option>
+                      <option value="127">127</option>
+                      <option value="128">128</option>
+                      <option value="129">129</option>
+                      <option value="130">130</option>
+                      <option value="131">131</option>
+                      <option value="132">132</option>
+                      <option value="133">133</option>
+                      <option value="134">134</option>
+                      <option value="135">135</option>
+                      <option value="136">136</option>
+                      <option value="137">137</option>
+                      <option value="138">138</option>
+                      <option value="139">139</option>
+                      <option value="140">140</option>
+                      <option value="141">141</option>
+                      <option value="142">142</option>
+                      <option value="143">143</option>
+                      <option value="144">144</option>
+                      <option value="145">145</option>
+                      <option value="146">146</option>
+                      <option value="147">147</option>
+                      <option value="148">148</option>
+                      <option value="149">149</option>
+                      <option value="150">150</option>
+                      <option value="151">151</option>
+                      <option value="152">152</option>
+                      <option value="153">153</option>
+                      <option value="154">154</option>
+                      <option value="155">155</option>
+                      <option value="156">156</option>
+                      <option value="157">157</option>
+                      <option value="158">158</option>
+                      <option value="159">159</option>
+                      <option value="160">160</option>
+                      <option value="161">161</option>
+                      <option value="162">162</option>
+                      <option value="163">163</option>
+                      <option value="164">164</option>
+                      <option value="165">165</option>
+                      <option value="166">166</option>
+                      <option value="167">167</option>
+                      <option value="168">168</option>
+                      <option value="169">169</option>
+                      <option value="170">170</option>
+                      <option value="171">171</option>
+                      <option value="172">172</option>
+                      <option value="173">173</option>
+                      <option value="174">174</option>
+                      <option value="175">175</option>
+                      <option value="176">176</option>
+                      <option value="177">177</option>
+                      <option value="178">178</option>
+                      <option value="179">179</option>
+                      <option value="180">180</option>
+                    </select>
+                  </div>
+                </div> 
+              </div>
+
+               <!-- Bifocal -->
+              <div class="extraoptions1">
+                <div class="grid__item one-third large--text-right small-padding">
+                  <p>
+                    <label class="sph">ADD                         
+                      <span class="tooltiplensinfo">?</span>
+                      <span class="tooltiplensinfotext">It is an additional plus power in the lower portion of a bifocal/progressive lens that is required for near vision. It is usually a + power (like +1.5, +2.5 etc.)
+                        <span class="close-tooltiplensinfo">&times;</span>
+                      </span>
+                    </label>  
+                  </p>    
+                </div>
+
+                <div class="grid__item one-third large--text-right small-padding">
+                  <div class="line-item-property__field lineitem-con">
+
+                    <select id="RightEyeBifocal" class="design" name="RightEyeBifocal">
+                      <option value="NA">Select</option>
+                      <option value="+0.75">+0.75</option>
+                      <option value="+1.00">+1.00</option>
+                      <option value="+1.25">+1.25</option>
+                      <option value="+1.50">+1.50</option>
+                      <option value="+1.75">+1.75</option>
+                      <option value="+2.00">+2.00</option>
+                      <option value="+2.25">+2.25</option>
+                      <option value="+2.50">+2.50</option>
+                      <option value="+2.75">+2.75</option>
+                      <option value="+3.00">+3.00</option>
+                      <option value="+3.25">+3.25</option>
+                      <option value="+3.50">+3.50</option>
+                      <option value="+3.75">+3.75</option>
+                      <option value="+4.00">+4.00</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="grid__item one-third large--text-left small-padding">
+                  <div class="line-item-property__field lineitem-con">
+                    <select id="LeftEyeBifocal" class="design" name="LeftEyeBifocal">
+                      <option value="NA">Select</option>
+                      <option value="+0.75">+0.75</option>
+                      <option value="+1.00">+1.00</option>
+                      <option value="+1.25">+1.25</option>
+                      <option value="+1.50">+1.50</option>
+                      <option value="+1.75">+1.75</option>
+                      <option value="+2.00">+2.00</option>
+                      <option value="+2.25">+2.25</option>
+                      <option value="+2.50">+2.50</option>
+                      <option value="+2.75">+2.75</option>
+                      <option value="+3.00">+3.00</option>
+                      <option value="+3.25">+3.25</option>
+                      <option value="+3.50">+3.50</option>
+                      <option value="+3.75">+3.75</option>
+                      <option value="+4.00">+4.00</option>
+                    </select>
+                  </div>
+                </div> 
+
+                
+                <!--                 PD -->
+                <div class="grid__item one-third large--text-right small-padding">
+                  <p>
+                    <label class="sph">PD                         
+                      <span class="tooltiplensinfo">?</span>
+                      <span class="tooltiplensinfotext">The PD, also known as Pupilliary Distance, is the distance between the centre of the Pupil of your both eyes
+                        <span class="close-tooltiplensinfo">&times;</span>
+                      </span>
+                    </label>  
+                  </p>    
+                </div>
+
+                <div class="grid__item one-third large--text-right small-padding">
+                  <div class="line-item-property__field lineitem-con">
+
+                    <select id="right_pd" class="design" name="right_pd">
+                      <option value="NA">Select</option>
+<!--                       <option value="+20">+20</option>
+                      <option value="+20.50">+20.50</option>
+                      <option value="+21">+21</option>
+                      <option value="+21.50">+21.50</option>
+                      <option value="+22">+22</option>
+                      <option value="+22.50">+22.50</option>
+                      <option value="+23">+23</option>
+                      <option value="+23.50">+23.50</option>
+                      <option value="+24">+24</option>
+                      <option value="+24.50">+24.50</option>
+                      <option value="+25">+25</option>
+                      <option value="+25.50">+25.50</option>
+                      <option value="+26">+26</option>
+                      <option value="+26.50">+26.50</option>
+                      <option value="+27">+27</option>
+                      <option value="+27.50">+27.50</option>
+                      <option value="+28">+28</option>
+                      <option value="+28.50">+28.50</option>
+                      <option value="+29">+29</option>
+                      <option value="+29.50">+29.50</option>
+                      <option value="+30">+30</option>
+                      <option value="+30.50">+30.50</option>
+                      <option value="+31">+31</option>
+                      <option value="+31.50">+31.50</option>
+                      <option value="+32">+32</option>
+                      <option value="+32.50">+32.50</option>
+                      <option value="+33">+33</option>
+                      <option value="+33.50">+33.50</option>
+                      <option value="+34">+34</option>
+                      <option value="+34.50">+34.50</option>
+                      <option value="+35">+35</option>
+                      <option value="+35.50">+35.50</option>
+                      <option value="+36">+36</option>
+                      <option value="+36.50">+36.50</option>
+                      <option value="+37">+37</option>
+                      <option value="+37.50">+37.50</option>
+                      <option value="+38">+38</option>
+                      <option value="+38.50">+38.50</option>
+                      <option value="+39">+39</option>
+                      <option value="+39.50">+39.50</option>
+                      <option value="+40">+40</option> -->
+                      <option value="20">20</option>
+                      <option value="20.5">20.5</option>
+                      <option value="21">21</option>
+                      <option value="21.5">21.5</option>
+                      <option value="22">22</option>
+                      <option value="22.5">22.5</option>
+                      <option value="23">23</option>
+                      <option value="23.5">23.5</option>
+                      <option value="24">24</option>
+                      <option value="24.5">24.5</option>
+                      <option value="25">25</option>
+                      <option value="25.5">25.5</option>
+                      <option value="26">26</option>
+                      <option value="26.5">26.5</option>
+                      <option value="27">27</option>
+                      <option value="27.5">27.5</option>
+                      <option value="28">28</option>
+                      <option value="28.5">28.5</option>
+                      <option value="29">29</option>
+                      <option value="29.5">29.5</option>
+                      <option value="30">30</option>
+                      <option value="30.5">30.5</option>
+                      <option value="31">31</option>
+                      <option value="31.5">31.5</option>
+                      <option value="32">32</option>
+                      <option value="32.5">32.5</option>
+                      <option value="33">33</option>
+                      <option value="33.5">33.5</option>
+                      <option value="34">34</option>
+                      <option value="34.5">34.5</option>
+                      <option value="35">35</option>
+                      <option value="35.5">35.5</option>
+                      <option value="36">36</option>
+                      <option value="36.5">36.5</option>
+                      <option value="37">37</option>
+                      <option value="37.5">37.5</option>
+                      <option value="38">38</option>
+                      <option value="38.5">38.5</option>
+                      <option value="39">39</option>
+                      <option value="39.5">39.5</option>
+                      <option value="40">40</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="grid__item one-third large--text-left small-padding">
+                  <div class="line-item-property__field lineitem-con">
+                    <select id="left_pd" class="design" name="left_pd">
+                      <option value="NA">Select</option>
+                     <option value="20">20</option>
+                      <option value="20.5">20.5</option>
+                      <option value="21">21</option>
+                      <option value="21.5">21.5</option>
+                      <option value="22">22</option>
+                      <option value="22.5">22.5</option>
+                      <option value="23">23</option>
+                      <option value="23.5">23.5</option>
+                      <option value="24">24</option>
+                      <option value="24.5">24.5</option>
+                      <option value="25">25</option>
+                      <option value="25.5">25.5</option>
+                      <option value="26">26</option>
+                      <option value="26.5">26.5</option>
+                      <option value="27">27</option>
+                      <option value="27.5">27.5</option>
+                      <option value="28">28</option>
+                      <option value="28.5">28.5</option>
+                      <option value="29">29</option>
+                      <option value="29.5">29.5</option>
+                      <option value="30">30</option>
+                      <option value="30.5">30.5</option>
+                      <option value="31">31</option>
+                      <option value="31.5">31.5</option>
+                      <option value="32">32</option>
+                      <option value="32.5">32.5</option>
+                      <option value="33">33</option>
+                      <option value="33.5">33.5</option>
+                      <option value="34">34</option>
+                      <option value="34.5">34.5</option>
+                      <option value="35">35</option>
+                      <option value="35.5">35.5</option>
+                      <option value="36">36</option>
+                      <option value="36.5">36.5</option>
+                      <option value="37">37</option>
+                      <option value="37.5">37.5</option>
+                      <option value="38">38</option>
+                      <option value="38.5">38.5</option>
+                      <option value="39">39</option>
+                      <option value="39.5">39.5</option>
+                      <option value="40">40</option>
+                    </select>
+                  </div>
+                </div> 
+                
+              </div>
+              
+              <button class="add_power-btn sendorder_id" type="button">Proceed<span class="loadingpr"></span></button>
+<span class="err_selectpower"></span>
+            </div>
+          </div>
+<!--           <div class="accordion_head"><i class="tabicon fa fa-question-circle"></i>I Don't Know My Prescription<span class="plusminus">+</span></div> -->
+          <div id="tab-2" class="accordion_body" style="display: none;">
+            <div class="we_call_help">
+              <h3>We are here to help</h3>
+              <img src="https://cdn.shopify.com/s/files/1/0084/6957/7794/files/we_are_here.97b4c07fd402e584f700_100x.png?11316" alt="" />
+              <div class="we_call">We will call you to take your prescription after the order is placed.</div>      
+              <button class="add_power-btn nothavepres" type="button">Continue</button>
+            </div>       
+          </div>
+          <div class="accordion_head"><i class="tabicon fa fa-camera"></i>Upload Prescription Image<span class="plusminus">+</span></div>
+          <div id="tab-3" class="accordion_body" style="display: none;">
+            <h3>Please Upload Prescription Image</h3>
+            <div class="box">
+              <input type="file" id="fileupload" class="inputfile inputfile-4" data-multiple-caption="{count} files selected" multiple />
+              <label for="fileupload">
+                <span class="inputfilespan">Click Here To Upload Prescription</span>
+                <span class="successtext"></span></label>
+              <button class="add_power-btn uploadfile" type="button">Upload
+                <span class="loadingpr"></span>
+                 <span id="progress-wrp"><span class="progress-bar"></span>(<span class="status">0%</span>)</span>
+              </button>
+            </div>        
+          </div>
+          
+        </div>
+      </div>
+      
+<!--        <div class="grid__item one-whole">
+        <div class="customer_notes_pre">
+        Please Note: If you are not able to Enter your Prescription now, please complete your Order Purchase. After that our team will reach out to you via Call / Email to collect your Prescription
+        </div>
+        </div> -->
+      
+      <span class="close-power-modal">&times;</span>
+    </div>
+  </form>
+</div>
+<script>
+  $(document).ready(function(){
+    if ($(window).width() < 481) {
+      $(".small-padding .tooltiplensinfo").click(function(){     
+        $(this).parents('.small-padding').find('.tooltiplensinfotext').css('visibility','visible');
+        $(this).parents('.small-padding').siblings().find('.tooltiplensinfotext').css('visibility','hidden');     
+      });
+
+      $(".close-tooltiplensinfo").click(function(){
+        $(this).parents('.small-padding').find('.tooltiplensinfotext').css('visibility','hidden');
+      });
+    }
+            
+  $('body').click(function(e) {
+    if (!$(e.target).closest('.tooltiplensinfotext').length){
+      $(".tooltiplensinfotext").css('visibility','hidden');
+    }
+
+    if ($(e.target).closest('.small-padding').length){
+      $(e.target).closest('.small-padding').find('.tooltiplensinfotext').css('visibility','visible');
+    }
+
+    if ($(e.target).closest('.close-tooltiplensinfo').length){
+      $(e.target).closest('.small-padding').find('.tooltiplensinfotext').css('visibility','hidden');
+    }
+  });
+    
+    
+        $("#pimages").owlCarousel({
+        items:3,
+        itemsDesktop:[1000,3],
+        itemsDesktopSmall:[979,3],
+        itemsTablet:[768,2],
+        pagination:false,
+        navigation:true,
+        navigationText:["",""],
+        autoPlay:false,
+             afterAction: function(){
+      if ( this.itemsAmount > this.visibleItems.length ) {
+        $('.owl-next').show();
+        $('.owl-prev').show();
+
+        $('.owl-next').removeClass('disabled');
+        $('.owl-prev').removeClass('disabled');
+        if ( this.currentItem == 0 ) {
+          $('.owl-prev').addClass('disabled');
+        }
+        if ( this.currentItem == this.maximumItem ) {
+          $('.owl-next').addClass('disabled');
+        }
+
+      } else {
+        $('.owl-next').hide();
+        $('.owl-prev').hide();
+      }
+    }
+    });
+    
+var $owl = $('.owl-carousel');
+$owl.on('initialized.owl.carousel resized.owl.carousel', function(e) {
+    $(e.target).toggleClass('hide-nav', e.item.count <= e.page.size);
+});
+    
+    $(".accordion_container .close").click(function(){
+      $(".accordion_container").hide();
+      $(".bgoverlay").hide();
+    });
+    
+    $("#mirror_manual").click(function(){
+      $("#manual a").click();
+      $(".accordion_container").show();
+      $(".bgoverlay").show();
+      $('.accordion_container #tab-1').show();
+      $('.accordion_container #tab-3').hide();
+      $('.accordion_container #tab-2').hide();
+    });
+    $("#mirror_dontknow").click(function(){
+      $("#dontknow a").click();
+      $(".accordion_container").show();
+      $(".bgoverlay").show();
+      $('.accordion_container #tab-2').show();
+      $('.accordion_container #tab-1').hide();
+      $('.accordion_container #tab-3').hide();
+    });
+    $("#mirror_upload").click(function(){
+      $("#upload a").click();
+      $(".accordion_container").show();
+      $(".bgoverlay").show();
+      $('.accordion_container #tab-3').show();
+      $('.accordion_container #tab-1').hide();
+      $('.accordion_container #tab-2').hide();
+    });
+    
+    $(".pimage img").click(function(){
+      $(this).addClass("active").parents('.owl-item').siblings().find("img").removeClass('active');
+    });
+    
+//     $(".pimage").click(function(){
+//       //$(this).addClass('selected').parents('.owl-item').siblings().find(".pimage").removeClass('selected');
+//     //var item_sku = $(".pimage:first").find(".item_sku").text();
+//       //setdwopdown_val(item_sku);
+      
+//     });
+     
+    $(".close-power-modal, .closemodel").click(function(){
+      $(".power-modal").fadeOut(200);  
+    });
+    
+    $(".nothavepres").click(function(){
+      $(".pimage.selected .usermessage").text('Prescription Not submitted');
+      $(".pimage.selected .usermessage").css('color','green');
+      var is_newxtitem = $('.pimage.selected').parent('.owl-item').next().is('div');    
+      if(is_newxtitem){
+        var newxtitem =$('.pimage.selected').parent('.owl-item').next();
+        var owl = $('.owl-carousel');
+        owl.owlCarousel();
+        owl.trigger('owl.next');
+        if ($(window).width() > 767) {
+          $(".accordion_container").hide();
+          $(".bgoverlay").hide();
+        }       
+      }
+    });    
+    var onloadurl = window.location.href;
+    var page_contain = onloadurl.match(/orders/g);
+    var page_contain1 = onloadurl.match(/thank_you/g);
+   if (page_contain1 == 'thank_you' || page_contain == 'orders') {
+    $('.openpremodel-container').show();
+     }
+   
+    //toggle the component with class accordion_body
+    $(".accordion_head").click(function() {
+      if ($('.accordion_body').is(':visible')) {
+        $(".accordion_body").slideUp(300);
+        $(".plusminus").text('+');
+      }
+      if ($(this).next(".accordion_body").is(':visible')) {
+        $(this).next(".accordion_body").slideUp(300);
+        $(this).children(".plusminus").text('+');
+      } else {
+        $(this).next(".accordion_body").slideDown(300);
+        $(this).children(".plusminus").text('-');
+      }
+    });
+        
+    //var shopify_orderid =  "test12311";
+    var shopify_orderid =  $('.os-order-number').text();
+    var shopify_orderid =  shopify_orderid.trim();
+    var shopify_orderid =  shopify_orderid.toLowerCase();
+    var shopify_orderid =  shopify_orderid.trim();
+    var shopify_orderid =  shopify_orderid.replace(/\s/g,'');
+    var shopify_orderid = shopify_orderid.replace(/[^\w\s]/gi, '');
+
+    var item_id = $(".pimage:first").find(".item_id").text();
+    item_id = $.trim(item_id);
+    item_id = shopify_orderid+'_'+item_id
+	var item_type;
+    var item_sku = $(".pimage:first").find(".item_sku").text();
+    item_sku = $.trim(item_sku);
+    
+    item_type = $(".pimage:first").find(".item_type").text();
+	   item_type = $.trim(item_type);
+       if(item_type == "Sunglasses"){
+         $('.hidewhensunglass').hide();
+       }else{
+         //$('.hidewhensunglass').show();
+       }
+    
+     $(".pimage").click(function(){
+       
+        var item_sku = $(this).data('skuonly');
+        setdwopdown_val(item_sku);
+       
+       $(this).addClass('selected').parents('.owl-item').siblings().find(".pimage").removeClass('selected');
+        item_id = $(this).find(".item_id").text();
+		item_id = $.trim(item_id);
+       item_id = shopify_orderid+'_'+item_id
+       
+       item_sku = $(this).find(".item_sku").text();
+	   item_sku = $.trim(item_sku);
+       //setdwopdown_val(item_sku);
+       
+       item_type = $(this).find(".item_type").text();
+	   item_type = $.trim(item_type);
+       if(item_type == "Sunglasses"){
+         $('.hidewhensunglass').hide();
+       }else{
+         $('.hidewhensunglass').show();
+       }
+     });
+        
+    
+    $(".sendorder_id").click(function(e){
+      $('.sendorder_id .loadingpr').css('display','inline-block');
+      e.preventDefault();
+
+      var RightEyeCylindrical = $("#RightEyeCylindrical").find('option:selected').val();
+      var RightEyeAxis = $("#RightEyeAxis").find('option:selected').val();
+      var RightEyeSpherical = $("#RightEyeSpherical").find('option:selected').val();
+      var LeftEyeCylindrical = $("#LeftEyeCylindrical").find('option:selected').val();
+      var LeftEyeAxis = $("#LeftEyeAxis").find('option:selected').val();
+      var LeftEyeSpherical = $("#LeftEyeSpherical").find('option:selected').val();
+      var RightEyeBifocal = $("#RightEyeBifocal").find('option:selected').val();
+      var LeftEyeBifocal = $("#LeftEyeBifocal").find('option:selected').val();
+      var right_pd = $("#right_pd").find('option:selected').val();
+      var left_pd = $("#left_pd").find('option:selected').val();
+      var filenamea = $("#fileupload").val();
+      var aux = filenamea.split('.');
+      var extension = aux[aux.length -1].toLowerCase();
+      var newFileName = item_id+'.'+extension;
+      var input = document.getElementById("fileupload");
+      var file = input.files[0];
+      if(file == undefined){
+        var ImageLink = '/images/noimage.jpg';
+      }
+      else{
+        // Check file size          
+        var imgsize = $("#fileupload")[0].files[0].size;
+        if (imgsize > 10000000){
+          var ImageLink = '/images/noimage.jpg';
+          $('.successtext').show();
+          $('.successtext').css('color','red');
+          $('.successtext').text('Image Size To Large, Please upload less than 10 mb');
+          return;
+        }  
+        else{    
+          var ImageLink = '/images/'+newFileName;
+        }     
+      }
+console.log(item_id);
+      //var mysenturls = 'https://singapore.lenskart.com/interprescription_ck_nulla.php';
+      var mysenturls = 'https://singapore.lenskart.com/intermyaccount_update_prescription.php';
+      //if (shopify_orderid != '' && item_id != ''){
+      if(item_id != '' && item_id != 'null'){
+        if (RightEyeCylindrical != 'NA' || LeftEyeCylindrical != 'NA' || RightEyeSpherical != 'NA' || LeftEyeSpherical != 'NA' || RightEyeAxis != 'NA' || LeftEyeAxis != 'NA' || RightEyeBifocal != 'NA' || LeftEyeBifocal != 'NA' || right_pd != 'NA' || left_pd != 'NA'){
+      $.ajax({
+        type: "POST",
+        url: mysenturls,
+        crossDomain: true,
+        data: {RightEyeCylindrical: RightEyeCylindrical, RightEyeAxis: RightEyeAxis, RightEyeSpherical: RightEyeSpherical, LeftEyeCylindrical: LeftEyeCylindrical, LeftEyeAxis: LeftEyeAxis, LeftEyeSpherical: LeftEyeSpherical, RightEyeBifocal: RightEyeBifocal, LeftEyeBifocal: LeftEyeBifocal, right_pd: right_pd, left_pd: left_pd, ImageLink: ImageLink, item_id:item_id},
+        //data: {shopify_orderid: shopify_orderid, item_sku: item_sku, RightEyeCylindrical: RightEyeCylindrical, RightEyeAxis: RightEyeAxis, RightEyeSpherical: RightEyeSpherical, LeftEyeCylindrical: LeftEyeCylindrical, LeftEyeAxis: LeftEyeAxis, LeftEyeSpherical: LeftEyeSpherical, RightEyeBifocal: RightEyeBifocal, LeftEyeBifocal: LeftEyeBifocal, right_pd: right_pd, left_pd: left_pd, ImageLink: ImageLink, item_id:item_id},
+        success: function (data) {
+          aftersubmitok(data);
+        },
+        error: function (err) {
+          $(".pimage.selected .usermessage").text('Prescription Not submitted');
+          $(".pimage.selected .usermessage").css('color','red');
+          $('.loadingpr').fadeIn().css('display','none');
+        }
+      });
+          }else{
+      $(".err_selectpower").text('Power options not selected');
+         $('.loadingpr').css('display','none');
+         }
+    }
+      $('select').on('change', function() {
+        $(".err_selectpower").text('');
+        $('.successtext').text('');
+      });
+             
+    });
+       
+function getCook(cookiename) 
+  {
+  var cookiestring=RegExp(cookiename+"=[^;]+").exec(document.cookie);
+  return decodeURIComponent(!!cookiestring ? cookiestring.toString().replace(/^[^=]+./,"") : "");
+  }
+var shopify_s_cus = getCook('shopify_s_cus');
+    if(shopify_s_cus == ''){
+      shopify_s_cus = "NA";
+    }
+    
+    var onloadurl = window.location.href;
+    var page_contain = onloadurl.match(/orders/g);
+     var page_contain1 = onloadurl.match(/thank_you/g);
+    
+//     if (page_contain1 == 'thank_you' || page_contain == 'orders') {       
+//     var mysenturls = 'https://singapore.lenskart.com/inter_pres_thank_pagea.php';    
+      
+      
+//         var item_id = $(".pimage:first").find(".item_id").text();
+//     item_id = $.trim(item_id);
+//     item_id = shopify_orderid+'_'+item_id
+//     console.log(item_id);
+//    }    
+      $('ul.tabs').each(function(){
+      var active, content, links = $(this).find('a');
+      active = links.first().addClass('active');
+      content = $(active.attr('href'));
+      links.not(':first').each(function () {
+        $($(this).attr('href')).hide();
+      });
+      $(this).find('a').click(function(e){
+        active.removeClass('active');
+        content.hide();
+        active = $(this);
+        content = $($(this).attr('href'));
+        active.addClass('active');
+        content.show();
+        return false;
+      });
+    });   
+    $(".uploadfile").click(function(){
+      var fi = document.getElementById("fileupload");
+      var filea = fi.files[0];
+    if(filea != undefined){
+      
+      var filenamea = $("#fileupload").val();
+      var imgsize = $("#fileupload")[0].files[0].size;
+      
+      if(filenamea == ''){
+        $('.successtext').show();
+        $('.successtext').css('color','red');
+        $('.successtext').text('Select a file');
+        return;
+      }
+    
+      else if (imgsize > 10000000){
+          var ImageLink = '/images/noimage.jpg';
+          $('.successtext').show();
+          $('.successtext').css('color','red');
+          $('.successtext').text('Image Size To Large, Please upload less than 10 mb');
+          //alert('Image Size To Large, Please upload less than 6 mb');
+          return;
+        }      
+      else{
+        if(item_id != '' && item_id != 'null'){ 
+        uploadFile(item_id, shopify_orderid, item_sku);
+        }
+      }
+    }else{
+        $('.successtext').show();
+        $('.successtext').css('color','red');
+        $('.successtext').text('Select file');
+        return;
+      }
+    });
+  });       
+  function uploadFile(item_id, shopify_orderid, item_sku){
+        $('.uploadfile .loadingpr').css('display','inline-block');
+    $('#progress-wrp').css('display','initial');
+    var input = document.getElementById("fileupload");
+    file = input.files[0];
+    if(file != undefined){
+      var filenamea = $("#fileupload").val();
+      var aux = filenamea.split('.');
+      var extension = aux[aux.length -1].toLowerCase();;
+      var newFileName = item_id+'.'+extension;
+    }
+    else{
+      var newFileName = "File not uploaded";
+    }       
+    if(file != undefined){
+      formData= new FormData();
+      //if(!!file.type.match(/image\/.*|application\/pdf/)){
+      if(extension == "pdf" || extension == "docx" || extension == "doc" || extension == "jpg" || extension == "jpeg" || extension == "png" || extension == "txt"){
+//         formData.append("image", file, newFileName);        
+//         formData.append("shopify_orderid", shopify_orderid);
+//         formData.append("item_sku", item_sku);
+//         formData.append("item_id", item_id);
+        formData.append("image", file, newFileName);
+        formData.append("item_id", item_id);
+        console.log(item_id);
+        $.ajax({
+          url: 'https://singapore.lenskart.com/intermyaccount_update_prescription_img.php',
+          type: "POST",
+          data: formData,
+          processData: false,
+          contentType: false,
+            	xhr: function(){
+		//upload Progress
+		var xhr = $.ajaxSettings.xhr();
+		if (xhr.upload) {
+			xhr.upload.addEventListener('progress', function(event) {
+				var percent = 0;
+				var position = event.loaded || event.position;
+				var total = event.total;
+				if (event.lengthComputable) {
+					percent = Math.ceil(position / total * 100);
+				}
+				//update progressbar
+				$(".progress-bar").css("width", + percent +"%");
+				$(".status").text(percent +"%");
+			}, true);
+		}
+		return xhr;
+	},
+          success: function(data){
+            $('#progress-wrp').hide();
+            $("#fileupload").val('');
+            $(".inputfilespan").text('Click Here To Upload Prescription');
+            console.log(data);
+            if(data == 'Image_inserted_server'){
+            aftersubmitok(data);
+            }
+            else if(data == 'invalid'){
+              $('.loadingpr').css('display','none');
+              $('.successtext').text('Only Image/pdf Allow');
+              $('.successtext').show();
+              $('.successtext').css('color','red');
+            }else{
+        $('.loadingpr').css('display','none');
+        $('.successtext').text('Failed, Please Try Again');
+        $('.successtext').show();
+        $('.successtext').css('color','red');
+            }
+          }
+        });
+      }else{
+        //alert('Not a valid image!');
+        $('#progress-wrp').hide();
+        $('.loadingpr').css('display','none');
+        $('.successtext').text('Only Image/pdf Allow');
+        $('.successtext').show();
+        $('.successtext').css('color','red');
+      }
+    }else{
+      //alert('Input something!');
+      $('.loadingpr').fadeIn().css('display','none');
+      $('#progress-wrp').hide();
+    }
+  }
+    function ihaveprescheck(){
+    if($('.havepres').is(":checked"))   
+      $(".extraoptions").show(300);
+    else
+      $(".extraoptions").hide(200);
+  }
+
+  function ihavebifocalcheck(){
+    if($('.havebifocal').is(":checked"))   
+      $(".extraoptions1").show(300);
+    else
+      $(".extraoptions1").hide(200);
+  }
+  
+  function aftersubmitok(data){
+    if ($(window).width() > 767) {
+    $(".accordion_container").hide();
+  }
+    console.log(data);
+    $(".bgoverlay").hide();
+$('.successtext').text('');
+    $(".submitsuccess").show();
+    $(".openpremodel-container").hide();
+    $('.loadingpr').fadeIn().css('display','none');
+    $('.sendorder_id .loadingpr').css('display','none');
+    if(data=='Already exist'){
+      $(".pimage.selected .usermessage").text('Already Submitted, You can edit from my account');
+      $(".pimage.selected .usermessage").css('color','green');
+    }
+    else{
+      $(".pimage.selected .usermessage").text('Prescription Submitted');
+      $(".pimage.selected .usermessage").css('color','green');
+    }
+    
+    var is_newxtitem = $('.pimage.selected').parent('.owl-item').next().is('div');    
+    if(is_newxtitem){
+      var newxtitem =$('.pimage.selected').parent('.owl-item').next();
+        var owl = $('.owl-carousel');
+		owl.owlCarousel();
+	    owl.trigger('owl.next');
+    }
+  }
+  'use strict';
+
+  ;( function ( document, window, index )
+    {
+    var inputs = document.querySelectorAll( '.inputfile' );
+    Array.prototype.forEach.call( inputs, function( input ){
+      var label	 = input.nextElementSibling,
+          labelVal = label.innerHTML;
+      input.addEventListener( 'change', function( e ){
+        var fileName = '';
+        if( this.files && this.files.length > 1 )
+          fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+        else
+          fileName = e.target.value.split( '\\' ).pop();
+        if( fileName )
+          label.querySelector( 'span' ).innerHTML = fileName;
+        else
+          label.innerHTML = labelVal;
+        $(".err_selectpower").text('');
+        $('.successtext').text('');
+      });
+
+      // Firefox bug fix
+      input.addEventListener( 'focus', function(){ input.classList.add( 'has-focus' ); });
+      input.addEventListener( 'blur', function(){ input.classList.remove( 'has-focus' ); });
+    });
+  }( document, window, 0 ));
+    
+  $(document).ready(function(){
+
+    var onloadurl = window.location.href;
+    var page_contain = onloadurl.match(/thank_you/g);
+    var page_contain1 = onloadurl.match(/orders/g);
+    var shipping_method = onloadurl.match(/shipping/g);
+    var payment_method = onloadurl.match(/payment_method/g);
+    
+    if(shipping_method == 'shipping'){
+      var check_country = $('.address.address--tight').text();
+      var check_canada = check_country.match(/Canada/g);
+      var check_Hungary = check_country.match(/Hungary/g);
+      var check_Sweden = check_country.match(/Sweden/g);
+      var check_Ukraine = check_country.match(/Ukraine/g);
+      var check_Belgium = check_country.match(/Belgium/g);
+      var check_Ireland = check_country.match(/Ireland/g);
+      var check_Netherlands = check_country.match(/Netherlands/g);
+      var check_Luxembourg = check_country.match(/Luxembourg/g);
+      var uk = check_country.match(/United Kingdom/g);
+      
+      if(uk == 'United Kingdom' || check_canada == 'Canada' || check_canada == 'canada' || check_Luxembourg == 'Luxembourg' || check_Hungary == 'Hungary' || check_Sweden == 'Sweden' || check_Ukraine == 'Ukraine' || check_Belgium == 'Belgium' || check_Ireland == 'Ireland' || check_Netherlands == 'Netherlands'){
+        if(payment_method == 'payment_method'){
+          $('.canada_notes').hide();
+        }else{
+        $('.canada_notes').show();
+        }
+      }
+    }
+    $("#continue_button .btn__content").click(function(e){
+      console.log($(this).text());
+      var btntext = $(this).text();
+      if (btntext == "Continue"){
+        function main_view_ga() {
+          ga( "send", "event", "SHIPPING");
+          console.log('SHIPPING');
+        }
+        main_view_ga();
+      }
+      else if(btntext == "Continue to payment"){
+        function main_view_ga() {
+          ga( "send", "event", "PAYMENT");
+          console.log('PAYMENT');
+        }
+        main_view_ga();
+      }
+    });
+    
+      if(page_contain == 'thank_you'){
+        function main_view_ga() {
+          ga( "send", "event", "THANKYOU");
+          console.log('THANKYOU');
+        }
+      main_view_ga();
+      }
+    
+  });
+</script>
+<style>
+ 
+.owl-controls .owl-prev.disabled,
+.owl-controls .owl-next.disabled {
+   display: none!important;
+}
+
+.owl-theme .owl-controls{
+  width: 100%;
+  height: 0px;
+  opacity: 1;
+  position: absolute;
+  top: 40%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  
+  @media(max-width:767px){
+    top: 36%;
+  }
+}
+  
+#pimages.owl-theme .owl-controls .owl-buttons div{
+/*   width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 0;
+  background: transparent; */
+}
+#pimages .owl-prev{
+  position: absolute;
+  left: 0%;
+}
+#pimages .owl-next{
+  position: absolute;
+  right: 0%;
+}
+#pimages .owl-prev:after,
+#pimages .owl-next:after{
+  content: url('https://cdn.shopify.com/s/files/1/1276/5299/files/back.svg?12072168514005081447');
+  color: #444;
+  opacity: 1;
+}
+#pimages .owl-next:after{ content: url('https://cdn.shopify.com/s/files/1/1276/5299/files/right-arrow.svg?12072168514005081447'); }
+
+.item_id{
+  display:none;
+}
+.pimages {
+	 background: #fff;
+}
+ @media (min-width: 768px) {
+	 .pimages {
+		 text-align: left;
+		 display: flex;
+		 padding: 25px !important;
+		 border-radius: 8px;
+	}
+}
+ .pimages .pimage {
+	 position: relative;
+	 padding: 5px;
+}
+ .pimages .pimage img {
+	 width: 100%;
+}
+ @media (min-width: 769px) {
+	 .pimages .pimage img {
+		 padding: 3px;
+		 width: 100%;
+	}
+}
+ .pimages .pimage .title {
+	 font-size: 14px;
+	 margin-top: 5px;
+	 text-align: center;
+}
+ .pimages .pimage .icon {
+	 display: none;
+	 width: 16px;
+	 height: 16px;
+	 position: absolute;
+	 border: 1px solid #ccc;
+	 border-radius: 50%;
+	 top: 13px;
+	 left: 13px;
+}
+ .pimages .pimage .icon:after {
+	 content: '';
+	 background: #49aa9a;
+	 width: 12px;
+	 height: 12px;
+	 position: absolute;
+	 top: 2px;
+	 left: 2px;
+	 border-radius: 50%;
+}
+ .pimages .pimage .usermessage {
+	 margin-top: 7px;
+	 font-size: 16px;
+	 text-align: center;
+}
+ @media (max-width: 767px) {
+	 .pimages .pimage .usermessage {
+		 margin-top: 3px;
+		 font-size: 12px;
+	}
+}
+ .pimages .selected {
+	 border: 2px solid #49aa9a;
+	 border-radius: 8px;
+}
+ .pimages .selected .icon {
+	 display: block;
+}
+ 
+@media (min-width: 768px) {
+  .fronttab{
+    background:#fff;
+    border: 1px solid #ccc;
+    padding:56px!important;
+    margin-left: 1%;
+  }
+  .fronttab .tabicon{font-size:60px!important; margin: auto;}
+  .fronttab .title{font-size:16px; margin-top:15px;}
+
+  .howsubmit{
+    padding:50px 0 5px;
+    font-size:20px;
+  }
+
+  .accordion_container{
+    display:none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    max-width: 700px;
+    margin: auto;
+    width: 100%;          
+    background: #fff;
+    padding: 40px 20px;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+
+  .accordion_body{
+    background: #fff!important;
+
+    h3{
+      margin-bottom:30px;
+    }
+  }
+  .tabheader{
+    display:none;
+  }
+
+  .accordion_container .close{
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 1000;
+    margin: auto;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background: black;
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    line-height: 32px;
+  }
+
+  .bgoverlay{
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    overflow: hidden;
+    position: fixed;
+    background: #0b0b0b;
+    opacity: 0.4;
+    display:none;
+  }
+}
+
+@media(max-width:767px){
+  .xs-hide{
+    display:none;
+  }
+}
+
+@media(min-width:768px){
+  .xs-show{
+    display:none;
+  }
+}
+.hide{display:none!important;}
+
+  .step__footer__continue-btn .btn__content{font-size: 18px;}
+  
+  .step__footer__continue-btn{
+    padding-top: 1.40em;
+    padding-bottom: 1.40em;
+    padding-right: 28px;
+    padding-left: 28px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  
+  .power-modal::-webkit-scrollbar {
+    display: none;
+  }
+  .power-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #f9f9f9;
+    z-index: 9999;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
+  }
+  @media (min-width: 768px) {
+    .power-modal {
+      padding: 0 50px 50px;
+    }
+  }
+  .power-modal .inner-container {
+    padding: 0 10px;
+    text-align: center;
+    max-width: 1200px;
+    margin: auto;
+  }
+  .power-modal .close-power-modal {
+    position: fixed;
+    top: 6px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: black;
+    color: white;
+    font-size: 26px;
+    cursor: pointer;
+    line-height: 35px;
+  }
+  @media (min-width: 768px) {
+    .power-modal .close-power-modal {
+      right: 35px;
+    }
+  }
+  .power-modal .grid-padding-img {
+    padding: 10% 3%;
+  }
+  .power-modal .grid-padding-text {
+    /* padding:1%;
+    */
+  }
+  @media (max-width: 767px) {
+    .power-modal .grid-padding-text {
+      max-width: 600px;
+    }
+  }
+  .power-modal .grid-padding-text .product-single__add-to-cart--full-width {
+    width: auto;
+  }
+
+  .power-modal .product-form__item--prescription .lineitem-con label {
+    line-height: 46px;
+    margin-right: 15px;
+  }
+  .power-modal #open-power-modal {
+    width: 280px;
+  }
+  .power-modal .phone-container {
+    padding: 30px 0 10px;
+  }
+  @media (min-width: 768px) {
+    .power-modal .phone-container {
+      display: inline-flex;
+      align-items: center;
+      padding: 50px 0 10px;
+    }
+  }
+  .power-modal .add_power-btn {
+    color: #000;
+    border: 2px solid #000;
+    padding: 10px 15px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: 190px !important;
+    display: inline-block;
+    float: left;
+    margin-left: calc(50% - 95px);
+    font-size: 13px;
+    letter-spacing: 1px;
+    box-shadow: 0 6px 0 0 #f4f0f0;
+    background: #fff;
+    box-shadow: 5px 5px 0 0 #e2e2e2;
+    transition: all 0.3s ease-out;
+    margin-top: 30px;
+  }
+  .power-modal .product-single__add-to-cart {
+    display: none;
+  }
+  .power-modal .tabicon {
+    margin-right: 15px;
+    font-size: 18px;
+  }
+.power-modal .tabicon svg{width:60px;}
+  @media (min-width: 768px) {
+    .power-modal .tabicon {
+      display: block;
+      font-size: 26px;
+      padding-top: 2px;
+    }
+  }
+  /* Mobile Accordian Css */
+  .accordion_container {
+    width: 100%;
+  }
+  .accordion_head {
+    background-color: #f3f3f3;
+    color: #000;
+    cursor: pointer;
+    font-size: 14px;
+    margin: 15px 0 15px 0;
+    padding: 10px 15px;
+    font-weight: bold;
+    border: 1px solid #ccc;
+    clear: both;
+    text-align: left;
+  }
+  @media (min-width: 768px) {
+    .accordion_head {
+      display: none;
+    }
+  }
+  .accordion_body {
+    background: #f9f9f9;
+    padding: 20px 10px;
+  }
+  
+  @media (max-width: 767px) {
+    .accordion_body {
+      margin-top: -15px;
+    }
+  }
+  .accordion_body .box {
+    display: inline-block;
+  }
+  .accordion_body .we_call_help {
+    display: inline-block;
+  }
+  .accordion_body p {
+    margin: 0px;
+    text-transform: uppercase;
+  }
+  .plusminus {
+    float: right;
+  }
+  .we_call_help .add_power-btn {
+    margin-top: 0px;
+  }
+  .we_call {
+    width: 98%;
+    margin-top: 18px;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+    font-size: 16px;
+    float: left;
+    margin-left: 1%;
+  }
+  .add_power .continue {
+    margin-left: calc(50% - 98px);
+    margin-bottom: 20px;
+    margin-top: 5px;
+    width: 202px !important;
+  }
+  /* Desktop tab menu */
+  ul.tabs {
+    border-bottom: 1px solid #ddd;
+    display: inline-flex;
+    margin: 0;
+    padding: 0;
+  }
+  @media (max-width: 767px) {
+    ul.tabs {
+      display: none;
+    }
+  }
+  ul.tabs li {
+    display: block;
+    max-width: 220px;
+    margin-bottom: 0;
+    padding: 0;
+    width: auto;
+  }
+  ul.tabs li a {
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    background: none repeat scroll 0 0 #f5f5f5;
+    border-color: #ddd !important;
+    border-style: solid;
+    border-width: 1px 1px 0 1px;
+    display: block;
+    font-size: 13px;
+    margin: 0;
+    padding: 20px 20px;
+    text-decoration: none;
+    width: auto;
+    color: #303030;
+    border-bottom: none !important;
+  }
+  ul.tabs li a.active {
+    background: none repeat scroll 0 0 #fff;
+    border-left-width: 1px;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    color: #111;
+    position: relative;
+  }
+  ul.tabs li:first-child a.active {
+    margin-left: 0;
+  }
+  ul.tabs li:first-child a {
+    border-top-left-radius: 2px;
+    border-width: 1px 1px 0;
+  }
+  ul.tabs li:last-child a {
+    border-top-right-radius: 2px;
+  }
+  ul.tabs:before, ul.tabs:after {
+    content: " ";
+    display: block;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+  }
+  ul.tabs:after {
+    clear: both;
+  }
+
+  .lineitem-con select {
+    background: #fff;    
+    width: 100%;
+    height: 40px;
+    text-indent: 6px;
+    border-radius: 0;
+    background: url(//cdn.shopify.com/s/files/1/0135/4144/1595/t/51/assets/select.png?59152) no-repeat;
+    background-position: calc(100% - 8px) center;
+    background-size: 15px;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -o-appearance: none;
+    -ms-appearance: none;
+    appearance: none;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 0;
+    border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0; 
+    outline: none;
+  }
+
+  @media (max-width: 767px) {
+    .lineitem-con select {
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 481px) {
+    .sph {
+      font-size: 11px;
+    }
+  }
+
+  .grid{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-left: -6px;
+  }
+
+  .grid__item {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    min-height: 1px;
+    padding-left: 2px;
+    vertical-align: top;
+    width: 100%;
+  }
+
+  .one-whole {
+    width: 100%;
+  }
+  .one-half {
+    width: 50%;
+  }
+
+  .one-third {
+    width: 32.33%;
+  }
+.one-quarter {
+    width: 25%;
+  }
+  
+  .inputfilespan {
+    padding: 10px;
+    background: #51c4df;
+    color: white;
+    display: block;
+  }
+
+  .inputfile {
+    width: 0.01px;
+    height: 0.01px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+    background: #fff;
+  }
+  .inputfile:hover, .inputfile:focus {
+    opacity: 0;
+  }
+  .inputfile-4 + label {
+    color: #000;
+  }
+  .inputfile + label {
+    max-width: 80%;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: pointer;
+    display: inline-block;
+    overflow: hidden;
+    position: relative;
+  }
+  @media (max-width: 767px) {
+    .inputfile + label {
+      max-width: max-content;
+    }
+  }
+
+  h3{
+    font-weight: 600;
+    font-style: normal;
+    letter-spacing: 0.05em;
+    font-size: 1.4125em;
+    margin: 0 0 0.5em;
+    line-height: 1.4;
+    text-rendering: optimizeLegibility; 
+  }
+
+  @media only screen and (max-width: 767px) {
+    .small-padding{
+      padding-left:2px;
+    }
+
+    .power-modal .add_power-btn{
+      margin-top: 15px;
+      margin-bottom: 15px;
+    }
+  }
+  .openpremodel{
+    background: #ee6437;
+    color: #ffffff;
+    transition: .5s all;
+    padding: 10px 16px;
+    border-radius:3px;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    width:100%;
+  }
+  .signuppopuplogo{padding:20px;}
+  .openpremodel-container{display:none; padding:20px 0; text-align:center;}
+  .submitsuccess{display:none; padding: 10px 0;}
+  .alreadyexist{display:none; padding: 10px 0;}
+
+  .submitsuccess .btn{
+    padding: 10px 16px;
+    background-color: #49aa9a;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .submitsuccess .myacc{float:left; margin-bottom:10px;}
+  .submitsuccess .contshop{float:right; margin-bottom:10px;}
+  .submitsuccess .thnaktext{
+ margin: 0 0 20px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #808080;
+    border-radius: 4px;
+    background: #fafafa;
+  }
+  
+  .accordion_body p {
+    background: #49a99c;
+    color: #fff;
+    height:40px;
+    line-height: 40px;
+  }
+
+  .grid__item {
+    margin-bottom: 2px;
+  }
+  .ihavepres{
+    text-align:left;  
+    padding:10px 0;
+    @media(max-width:767px){
+    height:77px;
+    }
+  }
+
+  .extraoptions{display:none;clear:both;}
+  .extraoptions1{display:none; clear:both;}
+
+  /*       Checkbox button style */     
+  .container-ckeck {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    line-height: 21px;
+  }
+  .container-ckeck input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #fff;
+    border: 1px solid #49a99b;
+  }
+  .container-ckeck:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  .container-ckeck input:checked ~ .checkmark {
+    background-color: #49a99b;
+  }
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  .container-ckeck input:checked ~ .checkmark:after {
+    display: block;
+  }
+  .container-ckeck .checkmark:after {
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }      
+
+  .add_power-btn .loadingpr {
+    display: inline-block;
+    background-color: transparent;
+    width: 40px;
+    height: 11px;
+    background-image: url(https://cdn.shopify.com/s/files/1/0135/4144/1595/files/lenskart-loader.gif?16483419966955911833);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 200px;
+    vertical-align: middle;
+    display: none;
+  }
+  
+   .small-padding{
+                  position: relative;
+                }
+                .tooltiplensinfo {
+                  position: relative;
+                  display: inline-block;
+                  width: 15px;
+                  height: 15px;
+                  border-radius: 50%;
+                  background: #000;
+                  line-height: 15px;
+                  font-size: 12px;
+                  text-align: center;
+                }
+
+                .small-padding .tooltiplensinfotext {
+                  visibility: hidden;
+                  background-color: #fff;
+                  color: #000;
+                  text-align: left;
+                  border-radius: 6px;
+                  padding: 2px 8px;
+                  position: absolute;
+                  z-index: 1;
+                  max-width: 420px;
+                  width:100%;
+                  border: 1px solid #444;
+                  text-transform: capitalize;
+                  top: 26px;
+                  line-height: 18px;
+                }
+                @media(max-width:590px){
+                  .small-padding .tooltiplensinfotext {
+                    min-width: 200px;
+                    line-height: 18px;
+                    padding: 6px 4px;
+                  }
+                }
+
+                .small-padding:hover .tooltiplensinfotext {
+                  visibility: visible;
+                }
+                .close-tooltiplensinfo{
+                  width: 15px;
+                  height: 15px;
+                  line-height: 15px;
+                  text-align: center !important;
+                  position: absolute;
+                  right: 0px;
+                  top: -1px;
+                  transform: translateY(-50%);
+                  font-size: 16px;
+                  font-weight: 400;
+                  cursor: pointer;
+                  font-family: initial;
+                  color: #fff;
+                  border-radius: 50%;
+                  background: #000;
+                  z-index: 99;
+                }
+                @media(max-width:481px){
+                  .close-tooltiplensinfo{
+                    display:block;
+                  }
+                }
+
+@media (max-width: 999px){
+        .breadcrumb {
+          display: flex;
+          margin-bottom:10px;
+        }
+      }
+      .section--billing-address{
+        display:none;
+      }
+      
+      .order-summary__small-text{
+        display: none!important;
+      }
+
+      .product__price{
+        display: none!important;
+      }
+
+      .product[data-product-type|="Lens"] {
+        display: none!important;
+      }
+.err_selectpower{
+  color: red;
+    display: block;
+    width: 100%;
+    clear: both;
+    padding-top: 10px;
+}
+
+li.reduction-code{
+  display:none;
+}
+.customer_notes_pre{
+  padding: 40px 10px 10px;
+    max-width: 600px;
+    margin: auto;
+  letter-spacing: 0.8px;
+    line-height: 18px;
+}
+.canada_notes{
+  padding: 10px 12px;
+  border: 1px solid #49aa9a;
+  border-radius: 5px;
+  margin-bottom:10px;
+  margin-top: 10px;
+  color: #444;
+  font-weight:500;
+  font-size:16px;
+  line-height:20px;
+  
+  @media (max-width: 767px){
+    padding: 10px 8px;
+    font-size:14px;
+  }
+}
+ #progress-wrp {
+  display:none; 
+ }
+
+@media (max-width: 340px){
+.accordion_body .small-padding .heading {
+    line-height: 20px;
+    letter-spacing: 0.3px;
+}
+  .accordion_body .small-padding .heading_p{
+    line-height: 18px;
+  }
+}
+</style>

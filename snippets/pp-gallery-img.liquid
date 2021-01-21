@@ -1,0 +1,145 @@
+<!-- Mobile Images   -->
+<div class="container pp-gallery-cont">
+<!-- both mobile     -->
+<div class="pp-gallery">
+  <div class="mob_gellery">
+     <h1>FRAMES IN ACTION</h1>
+      <ul class="tabs tabsmm" style="display:none;">
+        <li><a href="#tab-100">Men</a></li>
+        <li><a href="#tab-200">Women</a></li>
+      </ul>
+
+      <div id="tab-100">        
+        <div id="mob_man" class="mob_man owl-carousel">
+          
+        </div>      
+      </div>
+
+      <div id="tab-200">
+        <div id="mob_woman" class="mob_woman owl-carousel">
+          
+        </div>
+      </div> 
+
+    </div>
+</div>
+  
+  <div class="pp-gallery">
+  <div class="desk_gellery">
+     <h1>FRAMES IN ACTION</h1>
+      <ul class="tabs tabsdd" style="display:none;">
+        <li><a href="#tab-1d" class="firsttabdd">Men</a></li>
+        <li><a href="#tab-2d">Women</a></li>
+      </ul>
+
+      <div id="tab-1d">        
+        <div id="desk_man" class="desk_man owl-carousel">
+         
+        </div>      
+      </div>
+
+      <div id="tab-2d">
+        <div id="desk_woman" class="desk_woman owl-carousel">
+         
+         
+        </div>
+      </div> 
+  </div>
+    </div>
+</div>
+
+{% comment %}
+<!-- Mobile Images   -->
+<div class="container">
+{% if product.metafields.mobman_src.mobman != blank and  product.metafields.mobwoman_src.mobmans != blank %}
+<!-- both mobile     -->
+<div class="pp-gallery">
+  <div class="mob_gellery">
+     <h1>FRAMES IN ACTION</h1>
+      <ul class="tabs tabsmm">
+        <li><a href="#tab-100">Men</a></li>
+        <li><a href="#tab-200">Women</a></li>
+      </ul>
+
+      <div id="tab-100">        
+        <div class="">
+          <img src="{{ product.metafields.mobman_src.mobmans }}" alt=""/>
+          <img src="{{ product.metafields.mobman_src.mobman }}"  alt=""/>
+        </div>      
+      </div>
+
+      <div id="tab-200">
+        <div class="">
+          <img src="{{ product.metafields.mobwoman_src.mobmans }}" alt=""/>
+          <img src="{{ product.metafields.mobwoman_src.mobman }}"  alt=""/> 
+        </div>
+      </div> 
+
+    </div>
+</div>
+{% elsif product.metafields.mobman_src.mobmans != blank %}
+<!-- only men -->
+    <div class="pp-gallery">
+     <div class="mob_gellery">
+        <h1>FRAMES IN ACTION</h1>
+          <img src="{{ product.metafields.mobman_src.mobmans }}" alt=""/>
+          <img src="{{ product.metafields.mobman_src.mobman }}"  alt=""/>
+        </div>
+    </div>
+    {% elsif product.metafields.mobwoman_src.mobmans != blank %}
+<!-- only women  -->
+    <div class="pp-gallery">
+     <div class="mob_gellery">
+        <h1>FRAMES IN ACTION</h1>
+          <img src="{{ product.metafields.mobwoman_src.mobmans }}" alt=""/>
+          <img src="{{ product.metafields.mobwoman_src.mobman }}"  alt=""/> 
+        </div>
+    </div>
+    {% endif %}
+
+<!-- Desktop Images -->
+{% if product.metafields.deskman_src.mobmans != blank and  product.metafields.deskwoman_src.mobmans != blank %}
+<!-- both Desktop     -->
+<div class="pp-gallery">
+  <div class="desk_gellery">
+     <h1>FRAMES IN ACTION</h1>
+      <ul class="tabs tabsdd">
+        <li><a href="#tab-1d" class="firsttabdd">Men</a></li>
+        <li><a href="#tab-2d">Women</a></li>
+      </ul>
+
+      <div id="tab-1d">        
+        <div class="">
+          <img src="{{ product.metafields.deskman_src.mobmans }}" alt=""/>
+          
+        </div>      
+      </div>
+
+      <div id="tab-2d">
+        <div class="">
+          <img src="{{ product.metafields.deskwoman_src.mobmans }}" alt=""/>
+         
+        </div>
+      </div> 
+  </div>
+    </div>
+    {% elsif product.metafields.deskman_src.mobmans != blank %}
+<!-- only men -->
+    <div class="pp-gallery">
+     <div class="desk_gellery">
+        <h1>FRAMES IN ACTION</h1>
+          <img src="{{ product.metafields.deskman_src.mobmans }}" alt=""/>          
+        </div>
+    </div>
+    {% elsif product.metafields.deskwoman_src.mobmans != blank %}
+<!-- only women  -->
+    <div class="pp-gallery">
+     <div class="desk_gellery">
+       <h1>FRAMES IN ACTION</h1>
+          <img src="{{ product.metafields.deskwoman_src.mobmans }}" alt=""/>
+         
+        </div>
+    </div>
+  {% endif %}
+</div>
+{% endcomment %}

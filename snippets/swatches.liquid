@@ -1,0 +1,112 @@
+
+<div id="swatch_image">
+  {% assign active_border_count = 0 %}
+  {%- assign file_extension = 'png' -%}
+  {%- if swatch == blank -%}
+  {%- else -%}
+  {%- assign found_option = false -%}
+  {%- assign is_color = false -%}
+  {%- assign option_index = -1 -%}
+  {%- for option in product.options -%}
+  {%- if option == swatch -%}
+  {%- assign found_option = true -%}
+  {%- assign option_index = forloop.index0 -%}
+  {%- assign downcased_option = swatch | downcase -%}
+  {%- if downcased_option contains 'color' or downcased_option contains 'colour' -%}
+  {%- assign is_color = true -%}
+  {%- endif -%}
+  {%- endif -%}
+  {%- endfor -%}
+  {%- if option_index != -1 -%}
+
+  <div class="swatch_filter relative">
+    <div class="swatches">
+      <div class="swatch clearfix" data-option-index="{{ option_index }}" data-id="detail_{{product.id}}">
+        <div id="ditto-thumbnail" class="hide"></div>
+        {%- assign values = '' -%}
+        {% assign c = 0 %}
+        {% assign flag = false %}
+        {%- for variant in product.variants -%}
+        {% assign c = c | plus : 1 %}
+
+        {%-  assign show_swatch = false -%}
+        {%- if product.available -%}
+        {%- if variant.available -%}
+        {%-  assign show_swatch = true -%}  
+        {%- endif -%}  
+        {%- else -%} 
+        {%-  assign show_swatch = true -%}
+        {%- endif -%}
+
+        {%- assign value = variant.options[option_index] -%}
+        {%- unless values contains value -%}
+        {% assign values = values | join: ',' %}
+        {% assign values = values | append: ',' | append: value %} 
+        {% assign values = values | split: ',' %}
+        {% if show_swatch %}
+
+        {%- assign active_me = false -%}
+        
+        {% for image in product.images %}
+        {% if img_id == image.id %}  
+        {% assign pos = image.position | plus :1 %}
+        
+        {%- if product.images.src == product.images[pos].src -%}
+        {% assign active_me = true %}
+        {%- endif -%} 
+        
+        {%- endif -%}
+        {%- endfor -%}
+
+        {%- assign alt_img_pos = variant.image.position | plus:1 -%}
+        {% assign short_name = false %}
+        {% for tag in product.tags %}
+        {% if tag contains 'short_name_' %}
+        {% assign short_name = true %}
+        {% assign s_name =  tag | remove : 'short_name_' %}
+        {% endif %}
+        {% endfor %}
+        {%- if short_name -%}
+        {%- assign product_name = s_name -%}
+        {%- else -%}
+        {%- assign product_name = product.title -%}
+        {%- endif -%}
+
+        {% assign img_id = variant.image.id %}
+        {% assign active_border = false %}
+
+        {% for image in product.images %}
+        {% if img_id == image.id %}  
+
+        {% assign active_border_count = active_border_count | plus:1 %}
+        {% if active_border_count == 1 %}
+        {% assign active_border = true %} 
+        {% else %} 
+        {% assign active_border = false %}
+        {% endif %}
+        {% assign pos = image.position | plus :1 %}
+
+        <div product-title="{{product_name}}" onclick="createDitto({{ variant.sku }}, 'variant')" {% if variant == product.selected_or_first_available_variant %} {% endif %} data-sku="{{ variant.sku }}" data-tip='{{value}}' data-value="{{ value | escape }}" class="swatch-element {% if is_color %}color {% endif %} {{ value | handle }}{% if active_me %} active {% endif %}">
+          {% if is_color %}
+          <img data-vid="{{variant.id}}"  data-img = "{% unless variant.image.size == blank%}{{variant | img_url:'grande'}}{% endunless %}" for="swatch-{{ option_index }}-{{ value | handle }}" src="{{ product.images[pos].src | img_url}}" data-switch-img="{{product.images[alt_img_pos].src | img_url:'370x' }}" class="{% if active_border %} active_border {% endif %}" /> 
+          {%- else -%}
+          <span> 
+            {{ value | escape }}
+          </span> 
+          {%- endif -%} 
+        </div>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+        {%- endunless -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div> 
+  {%- if template contains 'product' -%}
+
+  {%- endif -%}
+  {%- endif -%}
+  {%- endif -%}
+    <p class="select_swatch_name_title"></p>
+</div>

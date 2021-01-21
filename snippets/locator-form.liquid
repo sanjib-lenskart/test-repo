@@ -1,0 +1,41 @@
+{% comment %}
+<div class='locator_form hide'>
+	<div class='img'>
+		{%- assign src_name = section.settings.store_locator_img -%}
+		{%- assign src_alt = 'Store Locator' -%}
+		{%- assign src_class = 'xs-hide' -%}
+		{%- include 'srcset-img' -%}
+		{%- assign src_class = blank -%}
+	</div>
+	<div class="form_wrapper">
+		<div class="col-sm-offset-6 col-sm-6">
+			<div class="text">
+				
+				<h3>Find in Store</h3>
+				<h4>Living in Bangalore, Delhi or NCR?</h4>
+				<p>
+					Drop 	in your phone number and we will save this pair for you. Try out at our exclusive brand stores!
+				</p>	
+			</div>
+			<form  action="/apps/johnjacobseyewear/interfaces/interfaceStore.php?action=saveLocatorData">
+				<div class="number_block">
+					<input type="hidden" name="shopid" value='1'>
+					{% if customer %}
+					<input type="hidden" name="email" value="{{customer.email}}">
+
+					{% endif %}
+					<input type="hidden" name="pid" value="{{product.id}}">
+					<input type="hidden" name="title" value="{{product.title}}">
+					<input type="hidden" name="vid" class="location_vid" value="{{product.varitants[0].id}}">
+
+					<span>+91</span> <input type="number" name="phone" placeholder="Contact number" class="number-input" required> 
+					<p class="hide error error_msg"> <small>Invalid Mobile number</small></p>
+				</div>
+				<button class="btn" type="submit">
+					Submit
+				</button>
+			</form>
+		</div>
+	</div>
+</div>
+{% endcomment %}

@@ -1,0 +1,65 @@
+<div id="team_footer">
+  <div class="container">
+    <div class="footer_details ">
+      <ul class="details clearfix">
+        {% for block in section.blocks %}
+        <li>
+          <div class="digit">
+            {{ block.settings.digit}}
+          </div>
+          <div class="digit_content">
+            {{ block.settings.content}}
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+    "name": "Deatils",
+      "settings": [
+
+      ],
+        "blocks":[
+          {
+            "type":"text",
+            "name":"Add content",
+            "settings": [
+              {
+                "type": "text",
+                "label": "Digit",
+                "id": "digit"
+              },
+              {
+                "type": "richtext",
+                "label": "Content",
+                "id": "content"
+              }
+            ]
+          }
+        ],
+          "presets": [
+            {
+              "name": "Team Footer",
+              "category": "Team"
+            }
+          ]
+  }
+  {% endschema %}
+  {% javascript %}
+
+  {% endjavascript %}
+  {% comment %}
+</script>
+{% endcomment %}
+{%  comment %}
+<style>
+  {% endcomment %}
+  {%  comment %}
+</style>
+{% endcomment %}

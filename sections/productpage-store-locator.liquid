@@ -1,0 +1,452 @@
+<div class="product_store_locator">
+  <div class="container">
+    <div class="store_border">
+      <div class="title">
+
+        {% if template contains 'product' %}
+        <h3 class="text-center">{{section.settings.header}}</h3>
+        {% else %}
+        <h1 class="text-center">{{section.settings.store_header}}</h1>
+        {% endif %}
+
+
+        <p>State of the art stores at key locations in Delhi, Gurgaon and Bangalore so come experience eyewear like never before.</p>
+      </div>
+      <div class="row desktop">
+        <div class="store_locator col-sm-12 clearfix">
+          <div class="flex_view_xs stretch middle reverse">
+            <div class="col-md-9 col-xs-12 pd">
+              {% for i in (1..8) %}
+              {% assign contact = 'contact_' | append:i %}
+              {% assign text = 'text_' | append:i %}
+              {% assign img = 'img_' | append : i %}
+              {% assign id = 'tab-' | append : i %}
+              <div id="{{id}}" class="location_description"> 
+                <div  class="location_images">
+                  {%- assign src_name = section.settings[img] -%}
+                  {%- assign src_alt = section.settings[img].alt |  escape -%}
+                  {%- include 'srcset-img' -%}
+                  {% if forloop.index == 8 %}
+                  <!-- <p class="store_locater_comming_soon"> Coming Soon! </p>  -->
+                  {% endif %}
+                </div>
+              </div> 
+              {% endfor %}
+              <div class="contact_us hide">
+                <a class="btn">Contact Us</a>
+              </div>
+            </div>
+
+            <div class="col-md-3 col-xs-12 pd">
+              <ul class="location_tab">
+                {% for i in (1..8) %}
+                {% assign contact = 'contact_' | append:i %}
+                {% assign text = 'text_' | append:i %}
+                {% assign img = 'img_' | append : i %}
+                {% assign title = 'location_title_' | append : i %}
+                {% assign id = 'tab-' | append : i %}
+                <li class="location-title">
+                  <img class="location-img" src="https://cdn.shopify.com/s/files/1/1276/5299/files/location.jpg?14612567820654507899">
+                  <div class="location-div">
+                    <a href="#tab-{{forloop.index}}" >
+
+                      {{section.settings[title]}}
+                      {{section.settings[text]}}</a>
+                      {% unless section.settings[contact] == blank %}
+                      <a class="contact">{{section.settings[contact]}}</a>
+                      {% endunless %}
+                    </div>
+                  </li>
+                  {%- endfor -%}
+                  <div class="product_locator_arrow xs-hide"> 
+                    <i class="fa fa-angle-down" aria-hidden="true"></i>
+                  </div>
+                </ul>
+              </div>
+            {% comment %}
+            <div class="col-md-7 pd">
+              <div class="video_wrapper">
+                <div id="map"></div>
+              </div>
+            </div>
+            {% endcomment %}
+
+          </div>
+        </div>
+      </div>
+
+      <div class="tablet">
+        <div class='mobile_version'>
+          <div class='images'>
+            {% for i in (1..8) %}
+            {% assign title = 'location_title_' | append:i %}
+            {% assign img = 'img_' | append : i %}
+            {% assign address = 'text_' | append : i %}
+
+
+            <div class="img img_{{forloop.index}}{% unless forloop.index == 1 %} hide{% endunless %}">
+              {%- assign src_name = section.settings[img] -%}
+              {%- assign src_alt = section.settings[img].alt |  escape -%}
+              {%- include 'srcset-img' -%}
+              {% if forloop.index == 8 %}
+              <!-- <p class="store_locater_comming_soon"> Coming Soon! </p>  -->
+              {% endif %}
+            </div>
+            {% capture s_options %}  
+            {{s_options}}
+            <option value="{{forloop.index}}">{{section.settings[title]}}</option>
+            {%- endcapture -%}
+            {% endfor %}
+          </div>
+
+          <div class="container">
+            <div class="select_wrapper">
+              <select> 
+                {{s_options}}
+              </select>  
+            </div>
+            {% for i in (1..8) %}
+            {% assign address = 'text_' | append : i %}
+            {% assign title = 'location_title_' | append:i %}
+            {% assign phone = 'contact_' | append:i %}
+            {% assign phone_url = 'contact_url_' | append:i %}
+            {% assign locate_text = 'locate_text_' | append : i %}
+            {% assign locate_url = 'locate_url_' | append : i %}
+            <div class="addresses">
+              <div class="address address_{{forloop.index}} text-center{% unless forloop.index == 1 %} hide{% endunless %}">
+                {{section.settings[address]}}
+                {% if section.settings[phone] != blank %}<a href="tel:{{section.settings[phone_url]}}" class="calling">{{section.settings[phone]}}</a>{% endif %}
+                {% unless section.settings[locate_text] == blank or section.settings[locate_url] == blank %}
+                <a href="{{section.settings[locate_url]}}" target="_blank" class="locate_btn btn reverse">
+                  {{section.settings[locate_text]}}
+                </a>
+                {% endunless %}
+              </div>
+            </div>
+
+            {% endfor %}
+
+          </div>
+
+
+        </div> 
+      </div>
+
+    </div>
+  </div>
+</div>
+{% comment %}
+<script>
+  {% endcomment %}
+  {% schema %}
+  {
+  "name": "Store Locator", 
+  "class":"no_bottom_padding",
+  "settings":[
+  {
+  "type":"text",
+  "id":"header",
+  "label":"Product page SEO header"
+},
+{
+  "type":"text",
+  "id":"store_header",
+  "label":"Store locator page SEO header"
+},
+{
+  "type":"text",
+  "id":"area_1",
+  "label":"Area"
+},
+{
+  "type": "text",
+  "id": "location_title_1",
+  "label": "Location 1"
+},
+{
+  "type": "image_picker",
+  "id": "img_1",
+  "label": "Image"
+},
+{
+  "type": "textarea",
+  "label": "Address",
+  "id": "text_1"
+},
+{
+  "type": "text",
+  "label": "phone no",
+  "id": "contact_1"
+},
+{
+  "type":"text",
+  "label":"Contact number url",
+  "id":"contact_url_1"
+},
+{
+  "type": "text",
+  "id": "locate_text_1",
+  "label": "Locate text 1"
+},
+{
+  "type": "text",
+  "id": "locate_url_1",
+  "label": "Locate URL 1"
+},
+{
+  "type": "text",
+  "id": "location_title_2",
+  "label": "Location 2"
+},
+{
+  "type": "image_picker",
+  "id": "img_2",
+  "label": "Image"
+},
+{
+  "type": "textarea",
+  "label": "Address",
+  "id": "text_2"
+},
+{
+  "type": "text",
+  "label": "phone no",
+  "id": "contact_2"
+},
+{
+  "type":"text",
+  "label":"Contact number url",
+  "id":"contact_url_2"
+},
+{
+  "type":"text",
+  "id":"area_2", 
+  "label":"Area"
+},
+{
+  "type": "text",
+  "id": "locate_text_2",
+  "label": "Locate text 2"
+},
+{
+  "type": "text",
+  "id": "locate_url_2",
+  "label": "Locate URL 2"
+},
+{
+  "type": "text",
+  "id": "location_title_3",
+  "label": "Location 3"
+},
+{
+  "type": "image_picker",
+  "id": "img_3",
+  "label": "Image"
+},
+{
+  "type": "textarea",
+  "label": "Address",
+  "id": "text_3"
+},
+{
+  "type": "text",
+  "label": "phone no",
+  "id": "contact_3"
+},
+{
+  "type":"text",
+  "label":"Contact number url",
+  "id":"contact_url_3"
+},
+{
+  "type": "text",
+  "id": "locate_text_3",
+  "label": "Locate text 3"
+},
+{
+  "type": "text",
+  "id": "locate_url_3",
+  "label": "Locate URL 3"
+},
+{
+  "type": "text",
+  "id": "location_title_4",
+  "label": "Location 4"
+},
+{
+  "type": "image_picker",
+  "id": "img_4",
+  "label": "Image"
+},
+{
+  "type": "textarea",
+  "label": "Address",
+  "id": "text_4"
+},
+{
+  "type": "text",
+  "label": "phone no",
+  "id": "contact_4"
+},
+{
+  "type":"text",
+  "label":"Contact number url",
+  "id":"contact_url_4"
+},
+{
+  "type": "text",
+  "id": "locate_text_4",
+  "label": "Locate text 4"
+},
+{
+  "type": "text",
+  "id": "locate_url_4",
+  "label": "Locate URL 4"
+},
+{
+  "type": "text",
+  "id": "location_title_5",
+  "label": "Location 5"
+},
+{
+  "type": "image_picker",
+  "id": "img_5",
+  "label": "Image"
+},
+{
+  "type": "textarea",
+  "label": "Address",
+  "id": "text_5"
+},
+{
+  "type": "text",
+  "label": "phone no",
+  "id": "contact_5"
+},
+{
+  "type":"text",
+  "label":"Contact number url",
+  "id":"contact_url_5"
+},
+{
+  "type": "text",
+  "id": "locate_text_5",
+  "label": "Locate text 5"
+},
+{
+  "type": "text",
+  "id": "locate_url_5",
+  "label": "Locate URL 5"
+},
+{
+  "type": "text",
+  "id": "location_title_6",
+  "label": "Location 6"
+},
+{
+  "type": "image_picker",
+  "id": "img_6",
+  "label": "Image"
+},
+{
+  "type": "textarea",
+  "label": "Address",
+  "id": "text_6"
+},
+{
+  "type": "text",
+  "label": "phone no",
+  "id": "contact_6"
+},
+{
+  "type":"text",
+  "label":"Contact number url",
+  "id":"contact_url_6"
+},
+{
+  "type": "text",
+  "id": "locate_text_6",
+  "label": "Locate text 6"
+},
+{
+  "type": "text",
+  "id": "locate_url_6",
+  "label": "Locate URL 6"
+},
+{
+  "type": "text",
+  "id": "location_title_7",
+  "label": "Location 7"
+},
+{
+  "type": "image_picker",
+  "id": "img_7",
+  "label": "Image"
+},
+{
+  "type": "textarea",
+  "label": "Address",
+  "id": "text_7"
+},
+{
+  "type": "text",
+  "label": "phone no",
+  "id": "contact_7"
+},
+{
+  "type":"text",
+  "label":"Contact number url",
+  "id":"contact_url_7"
+},
+{
+  "type": "text",
+  "id": "locate_text_7",
+  "label": "Locate text 7"
+},
+{
+  "type": "text",
+  "id": "locate_url_7",
+  "label": "Locate URL 7"
+},
+{
+  "type": "text",
+  "id": "location_title_8",
+  "label": "Location 8"
+},
+{
+  "type": "image_picker",
+  "id": "img_8",
+  "label": "Image"
+},
+{
+  "type": "textarea",
+  "label": "Address",
+  "id": "text_8"
+},
+{
+  "type": "text",
+  "label": "phone no",
+  "id": "contact_8"
+},
+{
+  "type":"text",
+  "label":"Contact number url",
+  "id":"contact_url_8"
+},
+{
+  "type": "text",
+  "id": "locate_text_8",
+  "label": "Locate text 8"
+},
+{
+  "type": "text",
+  "id": "locate_url_8",
+  "label": "Locate URL 8"
+}
+]
+
+}
+{% endschema %}
+  {% comment %}
+</script>
+{% endcomment %}

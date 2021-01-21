@@ -1,0 +1,248 @@
+
+<style>
+#overlay-power-eye {
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 9999999;
+  cursor: pointer;
+  text-align: left;
+  overflow-x: auto;
+    overflow-y: auto;
+}
+
+#text-power-eye{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 14px;
+  color: #000;
+  transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  max-width: 1130px;
+    width: 100%;
+}
+
+  
+  #text-power-eye .modal-header {
+    background-image: linear-gradient(264deg,#f6be30,#07b2b6);
+    border: none;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    padding: 20px 15px 28px 25px;
+    color: #fff;
+}
+  
+  .modal-header .modal-title {
+    color: #fff;
+    font-size: 22px;
+    letter-spacing: 1.5px;
+    background: url(https://static1.lenskart.com/media/desktop/img/icon-prescription.png) no-repeat 0 0;
+    padding-left: 65px;
+}
+  
+  .modal-header .modal-title .sub-title {
+    display: block;
+    font-size: 14px;
+    letter-spacing: 1px;
+}
+  
+  #text-power-eye .modal-body {
+    padding: 45px 45px 45px 90px!important;
+    margin-top: -8px;
+    background: #fff;
+    border-radius: 8px;
+}
+  .margin-b40 {
+    margin-bottom: 40px;
+}
+ #text-power-eye .modal-body h5 {
+    color: #414241;
+    font-size: 20px;
+    position: relative;
+}
+  
+  #text-power-eye .modal-body h5:before {
+    font: normal normal normal 20px/1 FontAwesome;
+    color: #3bb3a9;
+    content: "\F00C";
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: -45px;
+}
+  #text-power-eye .modal-body p{
+    margin: 0 0 12px;
+  letter-spacing: 0.6px;
+  }
+  
+  #text-power-eye .modal-body ul {
+    margin: 0 0 0 10px;
+    padding: 0;
+    list-style-position: inside;
+}
+  
+  #text-power-eye .modal-body li {
+    margin: 0 0 8px;
+    letter-spacing: 0.6px;
+    list-style: disc;
+}
+  
+  #powerpopup_addtocart .btn-continue{
+    margin: 12px 0 4px;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: normal;
+    vertical-align: middle;
+    outline: none;    
+    width: 300px;
+    height:60px;
+    line-height: 38px;
+  }
+  
+     .offpowereye{
+       width: 36px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center !important;
+    position: absolute;
+    right: 4px;
+    top: 23px;
+    transform: translateY(-50%);
+    font-size: 36px;
+    font-weight: 400;
+    cursor: pointer;
+    font-family: initial;
+    color: #414b56;
+     }
+  
+    @media(max-width:767px){
+      #overlay-power-eye {
+        background:#fff;
+      }
+  #text-power-eye {
+    top: 0;
+    left: 0;
+    bottom:0;
+    transform: translate(-0%,-0%);
+    -ms-transform: translate(-0%,-0%);   
+  }
+    
+    #text-power-eye .modal-header {
+      padding: 10px 5px;     
+    }
+  
+      #text-power-eye .modal-body {
+    padding: 18px 0px 30px 30px!important;
+    margin-top: -8px;
+        overflow: auto;
+}
+      
+      .modal-header .modal-title {
+    color: #fff;
+    font-size: 20px;
+    letter-spacing: 1px;
+    padding-left: 61px;
+}
+      #text-power-eye .modal-body h5 {
+    font-size: 16px;
+   
+}
+      
+      #powerpopup_addtocart .btn-continue{
+    margin: 0;    
+    width: 100%; 
+        border-radius: 8px!important;
+  }
+      
+    #powerpopup_addtocart{
+   width: 92%;
+    position: fixed;
+    bottom: 16px;
+    right: 0;
+    left: 4%;
+    margin: 0;
+      z-index:999999;
+  }
+      
+        .margin-b40 {
+    margin-bottom: 45px;
+}
+      
+      .small-bmargin0{
+         margin-bottom: 0px!important;
+      }
+        .small-bpadding30{
+          padding-bottom: 30px;
+        }
+      
+    #text-power-eye .modal-body h5:before {
+      left: -25px;
+    }
+      
+      #text-power-eye .modal-body p, li {
+    font-size: 14px;
+}
+  
+}
+  
+</style>
+
+<div id="overlay-power-eye">
+  <div id="text-power-eye">
+      
+    <div class="modal-header">
+      <h4 class="modal-title">What About My Eye Prescription?
+        <span class="sub-title">Submit right at the end after your order is placed</span>
+      </h4>
+    </div>
+    
+  <div class="modal-body">
+    <div class="margin-b40">
+      <h5>You can submit your Eye Prescription after placing the order</h5>
+      <p>Using any of the following methods:</p>
+      <ul><li>Enter manually</li><li>Upload photo of your prescription</li><li>Get phone assistance from our optometrist</li></ul>
+    </div>
+    
+    <div class="margin-b40">
+      <h5>There’s no hurry! Prescription can be submitted within 10 days of order placement</h5>
+      <p>So go ahead and place your order &amp; reserve your favourite eyewear while it’s in stock</p>
+    </div>
+    
+    <div class="margin-b40">
+      <h5>No additional charges for high / complex power</h5>
+      <p class="">We do not charge extra for higher power, so lenses you’ve selected will be provided regardless of your power</p>     
+    </div>
+    
+    <div id="powerpopup_addtocart" class="text-center padding-r45 xs-hide">           
+      <div class="btn btn-continue process_cart">
+        Continue
+       <span class="loading"></span>
+      </div>     
+    </div>
+    
+  </div>
+  
+    <span class="offpowereye">&times;</span>
+  </div>
+   <div id="powerpopup_addtocart" class="text-center padding-r45 xs-show">     
+      
+      <div class="btn btn-continue process_cart">
+        Continue
+       <span class="loading"></span>
+      </div>
+      
+    </div>
+</div>
+

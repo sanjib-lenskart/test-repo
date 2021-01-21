@@ -1,0 +1,24 @@
+<div class="wishlist_email_pop_up">
+  <div class="wishlist_popup">
+    <form id="wishlist_popup">
+      <h6 class="text-center login_title">Your Contact Details (promise, we won't bug you!)
+      </h6>
+      <br/>
+      <label for="CustomerEmail">Email</label>
+      <input required type="email" name="customer[email]" id="CustomerEmail" class="{% if form.errors contains 'email' %} input--error{% endif %}" autocorrect="off" autocapitalize="off" autofocus>
+      <label>Mobile No</label>
+      <div class='number_block'>
+        <span>+91</span>
+        <input type='number' id='wishlist_mobile' name='customer-number' 
+               placeholder="Contact number"  class='number-input'
+               required>
+        {% if template contains 'product'%}
+        <p class='hide error error_msg'><small>Invalid Mobile number</small></p>
+        {%  endif %}
+      </div>
+      <button type="submit" id="wishlist-main-email" class="btn">
+        PROCEED
+      </button>
+    </form>
+  </div> 
+</div>  

@@ -1,0 +1,58 @@
+<!-- product-work-play -->
+<div id="product_work_play">
+  <div class="title">
+    <h3>Work & Play</h3>
+  </div>
+
+  <div class='xs-show'>
+    <div class='work_tabs'>
+      <a class='btn work_tab' data-name='men'>
+        Men
+      </a>
+      <a class='btn work_tab' data-name='women'>
+        Women
+      </a>
+    </div>
+  </div>
+
+  <div class='flex_view images'>
+    <div class='col-1' id="productBannerStatic">
+      <div class='xs-hide'>
+        <div class="men gender">
+          {%- assign src_name = product.metafields.new_t_men_src.collage -%}
+          <img  alt="{{src_alt}}"
+     		src="{{ src_name }}">
+        </div>
+        <div class="women gender">
+          {%- assign src_name = product.metafields.new_t_women_src.collage -%}
+          <img  alt="{{src_alt}}"
+     		src="{{ src_name }}">
+        </div>
+      </div>
+      <div class='xs-show'>
+        <div class="men gender">
+          {%- assign src_name = product.metafields.new_t_men_src.collage_mobile -%}
+          <img  alt="{{src_alt}}"
+     		src="{{ src_name }}">
+        </div>
+        <div class="women gender">
+          {%- assign src_name = product.metafields.new_t_women_src.collage_mobile -%}
+          <img  alt="{{src_alt}}"
+     		src="{{ src_name }}">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class='text-center xs-hide'>
+    <div class='work_tabs tabs_desk'>
+      <a class='btn work_tab' data-name='men'>
+        Men
+      </a>
+      <a class='btn work_tab' data-name='women'>
+        Women
+      </a>
+    </div>
+  </div>
+
+</div>

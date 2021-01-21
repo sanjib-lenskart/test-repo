@@ -1,0 +1,55 @@
+ <div class='cart_extra_product'>
+  <h5 class='extra_title'>Upgrade Your lens</h5>
+  <div class='checkbox_block'>
+    {%- for block in section.blocks -%}
+
+    {% assign product = all_products[block.settings.product] %}
+    {% assign show = true %}
+    {% if zero %}
+    {% unless product.handle == 'next-gen' or product.handle == 'complimentary' %}
+    {% assign show = false %}
+    {% endunless %}
+    {% endif %}
+    {% assign lens_handle = block.settings.name | handleize %}
+    {% if lens_handle == 'value' %}
+    {% assign free_lens = true %}
+    {%- else -%}
+    {% assign free_lens = false %}
+    {%- endif -%}
+    {% if show %}
+    <div class='form-group'>
+      <p class='lens_info'>
+        {%- assign  vid = product.variants[0].id -%}
+        <input name='lens_{{bundle}}' class='lens_input' data-name='{{product.handle}}' data-vid='{{vid}}' type='radio' id='lens_{{vid}}_{{bundle}}'>
+        <label for='lens_{{vid}}_{{bundle}}'>
+        {% unless product.handle == 'complimentary' %}  <span>{{product.price | money}}</span> - {% endunless %}
+        {{block.settings.name}}</label> 
+        <span class='text'>
+          {% if free_lens %}
+          Significantly thinner than Complimentary Lenses. Fights bad stuff like dust, water & scratches
+          {%- else -%}
+          {{ block.settings.description }}
+          {%- endif -%}
+          {%- comment -%}
+          <br/>
+          {% unless block.settings.know_more == blank %}
+          <a class='know_more'>Know more</a>
+          {% endunless %}
+        </span> 
+        {% unless block.settings.know_more == blank %}
+        <div class='hide popup'>
+          {{block.settings.know_more}}
+        </div>
+        {% endunless %}
+        {%- endcomment -%}
+      </p>
+    </div>
+    {% endif %}
+    {%- endfor -%}
+  </div>
+  <a class='confused'>Confused? Let's compare the lenses</a>
+  {% comment %}
+  {% assign product = all_products[section.settings.basic_lens] %}
+  <a data-vid='{{product.variants[0].id}}' class="lens_input basic_lens hide">I don't want upgrade my lens.</a>
+  {% endcomment %}
+</div>

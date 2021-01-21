@@ -1,0 +1,171 @@
+<div id="account_page">
+  <div class="container">
+    <div class="section-header text-center">
+      <h1>{{ 'customer.account.title' | t }}</h1>
+
+<!--       {{ 'layout.customer.log_out' | t | customer_logout_link }} -->
+    </div>
+
+    <div class="row">
+     {% if cart.item_count > 0 %}
+       <div class="col-md-12 col-sm-12 text-center">         
+           <a class="btn" href="/cart">Complete your purchase</a>
+         <p></p>    
+      </div>
+      {% endif %}
+      
+      <div class="col-md-3 col-sm-12">
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'ordert')" id="defaultOpen">Orders</button>
+  <a class="tablinks" href="/pages/order-shipment-tracking">Track Order</a>
+  <button class="tablinks" onclick="openCity(event, 'addresst')">Address</button>
+  <button class="tablinks" onclick="window.location = '/pages/feedback';">Feedback</button>
+</div>
+      </div>
+      
+      <div class="col-md-9 col-sm-12">
+        
+        
+
+
+<div id="ordert" class="tabcontent">
+     <h2>{{ 'customer.orders.title' | t }}</h2>
+
+        {% paginate customer.orders by 20 %}
+        {% if customer.orders.size != 0 %}
+   <div class="order_item row">
+  {% for order in customer.orders %}
+ 
+    <div class="col-md-6 col-sm-12">
+      <div class="commnstyle">
+      <div class="row">
+    <div class="col-md-12 tt">
+      <h3>Order No: {{order.name}}</h3>
+    </div>
+    <div class="col-md-12 tt">
+      {{ 'customer.orders.date' | t }}: {{ order.created_at | date: '%b %d, %Y' }}
+    </div>
+<!--         Fulfilled  -->
+        <div class="col-md-12 tt">
+      Expected Delivery Date: {{ order.created_at | date: '%s' | plus: 1468800 | date: '%b %d, %Y' }}
+    </div>
+        
+    <div class="col-md-12 bbttnn" data-label="{{ 'customer.orders.order_number' | t }}">
+      <a id="order{{ order.name | remove: '#' | downcase }}" href="{{ order.customer_url }}" class="editprescriptionqq replaceurl green-btn reverse btn btn--secondary btn--small">Order Details</a>
+    </div>
+    </div>
+    </div>
+     </div>
+  
+  {% endfor %}
+  </div>
+        <div class="table hide">
+                 
+         
+          <table class="responsive-table">
+            <thead>
+              <tr>
+                <th>{{ 'customer.orders.order_number' | t }}</th>
+                <th>{{ 'customer.orders.date' | t }}</th>
+                 <th>Expected Delivery Date</th>
+                <th>Order Status</th>
+<!--                 <th>{{ 'customer.orders.fulfillment_status' | t }}</th> -->
+                <th>{{ 'customer.orders.total' | t }}</th>
+                <th>Edit Prescription</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for order in customer.orders %}
+               
+              <tr>
+                <td data-label="{{ 'customer.orders.order_number' | t }}">
+                  <a id="order{{ order.name | remove: '#' | downcase }}" href="{{ order.customer_url }}" class="editprescriptionqq replaceurl green-btn reverse btn btn--secondary btn--small">{{ order.name }}</a>
+                </td>
+                <td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | date: '%b %d, %Y' }}</td>
+                 
+                <td data-label="{{ 'customer.orders.date' | t }}">{{ order.created_at | date: '%s' | plus: 864000 | date: '%b %d, %Y' }}</td>
+                
+                <td data-label="{{ 'customer.orders.payment_status' | t }}"> <a href="{{ order.customer_url }}" class="replaceurl green-btn reverse btn btn--secondary btn--small">Check Status</a></td>
+<!--                 <td data-label="{{ 'customer.orders.fulfillment_status' | t }}">{{ order.fulfillment_status_label }}</td> -->
+                <td data-label="{{ 'customer.orders.total' | t }}">{{ order.total_price | money }}</td>
+                
+                <td>
+                  {% if order.fulfillment_status == 'unfulfilled' %}
+                  <a id="order{{ order.name | remove: '#' | downcase }}" class="green-btn editprescription" href="/pages/my-prescription" target="_blank">Edit Prescription</a>
+                  {%else%}<div class="text-center">NA</div>
+                  {% endif %}
+                </td>
+              
+              </tr>             
+              {% endfor %}
+            </tbody>
+          </table>
+                  
+
+        </div>
+        {% else %}
+
+        <p>{{ 'customer.orders.none' | t }}</p>
+
+        {% endif %}
+        {% if paginate.pages > 1 %}
+        {% include 'pagination' %}
+        {% endif %}
+        {% endpaginate %}
+</div>
+
+<div id="addresst" class="tabcontent">
+  <div class="address address_block">
+        <h2>{{ 'customer.account.details' | t }}</h2>
+        <p>
+          
+          
+  <span class='name'>
+    <b>{{customer.first_name}} <!--{{customer.last_name}}--></b>
+          </span><br/>
+          <span class="email">{{customer.email}}</span><br/>
+          <span class='address'>
+            {{customer.default_address.address1}}
+          </span><br/>
+          <span>
+            {{customer.default_address.address2}}
+          </span><br/>
+          <span>
+          {{customer.default_address.zip}} {{customer.default_address.city}} {{customer.default_address.country_code}}
+          </span><br/>
+          <span>{{customer.default_address.country}}</span>
+        </p>
+        {% comment %}
+        {{ customer.default_address | format_address }}
+        <p>{{customer.email}}</p>
+        {% endcomment %}
+        <p><a href="/account/addresses" class="btn btn--small reverse">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a></p>
+      </div>
+</div>
+        
+        
+      </div>
+      
+    </div>
+    <div id = "wk_wallet" customer_id="{{ customer.id }}" customer_email = "{{ customer.email }}" customer_tag = "{{ customer.tags }}"></div>
+  </div>
+</div>
+<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+// Get the element with id="defaultOpen" and click on it
+document.getElementById("defaultOpen").click();
+</script>
+

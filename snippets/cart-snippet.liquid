@@ -1,0 +1,97 @@
+{%- assign showPlusMinus = true -%}
+{%- if item.product.type == 'Gift' -%}
+  {%- assign showPlusMinus = false -%}
+{%- endif -%}
+<!-- checkout scri<!-- checkout script -->
+{% if item.discounts[0].title == 'Buy 1 Get 2nd 50% OFF' %}
+{% assign bogo_applied = true %}
+{%- assign item_dis =  item.discounts[0].amount -%}
+<div class='hide'>
+  discoount of item {{discount_total_price}}<br/>test:{{item_dis}}
+</div>
+{%- assign discount_total_price = discount_total_price | plus:item_dis -%}
+{% endif %}
+<!-- end of checkout script -->
+
+<div class='xs-hide'>
+  <div class="flex_view_xs space cart_flex middle">
+    <div class='col col-cart i_block'>
+      <div class="image cart_item">
+        <a {% unless showPlusMinus == false %} href="{{ item.url | within: collections.all }}" {% endunless %} class="cart__image">
+          {%- assign src_name = item -%}
+          {%- assign src_alt = item.title | escape -%}
+          {%- include 'srcset-img' -%}
+        </a>
+      </div>
+    </div>
+    <div class='col col-cart t_block'>
+      {% include 'cart-product-info' %}
+    </div>
+    <div class='col col-cart q_block text-center'>
+      
+      <div class="spinner qty">
+        {%- if showPlusMinus -%}
+          <span class='min'>-</span>
+        {%- endif -%}
+        <input {% unless showPlusMinus %} style="visibility: hidden" {% endunless %} type="number" name="updates[]" id="updates_{{ item.key |remove:':'}}" class="qty_input{% if bundle_product %} bundle_qty{% endif %}" readonly value="{{ item.quantity }}" min="0" data-id="{{ item.key }}" data-item="{{key}}">
+        {%- if showPlusMinus -%}
+          <span class='plus'>+</span>
+        {%- endif -%}
+      </div>
+      
+    </div>
+    <div class="col col-cart p_block text-center">
+      {%- include 'cart-price-block' -%}
+    </div>
+    <div class='col col-cart d_block text-center'>
+      {% unless showPlusMinus == false%}
+      <a class="remove_btn {% if bundle_product %}remove_bundle{% endif %}"{% if master %} data-item="{{key}}"{% else %}href="/cart/change?line={{ forloop.index }}&amp;quantity=0"{% endif %} data-itemsku="{{ item.sku }}">
+        <span class="remove"> &times; </span> 
+      </a> 
+      {% endunless %}
+    </div>
+  </div> 
+</div>
+<div class='xs-show'>
+  <div class='flex_view_xs top xs_cart'>
+    <div class='col-xs-7'>
+      <div class='image_block'>
+        <div class="image cart_item">
+          
+          <a {% unless showPlusMinus == false%} href="{{ item.url | within: collections.all }}"{% endunless %} class="cart__image">
+            {%- assign src_name = item -%}
+            {%- assign src_alt = item.title | escape -%}
+            {%- include 'srcset-img' -%}
+          </a>
+          
+        </div>
+      </div>
+      <div class='xs_qty text-center hide'>
+        
+        <div class="spinner qty">
+          {%- if showPlusMinus -%}
+          	<span class='min'>-</span>
+          {%- endif -%}
+          <input {% unless showPlusMinus %} style="visibility: hidden" {% endunless %} type="number" data-target='updates_{{ item.key | remove:':' }}'  class="qty_input fake_qty {% if bundle_product %} bundle_qty{% endif %}" readonly value="{{ item.quantity }}" min="0" data-id="{{ item.key }}" data-item="{{key}}">
+          {%- if showPlusMinus -%}
+          	<span class='plus'>+</span>
+          {%- endif -%}
+        </div>
+        
+      </div>
+    </div>
+    <div class='col-xs-5'>
+      {% unless showPlusMinus == false%}
+      <a class="remove_btn {% if bundle_product %}remove_bundle{% endif %}"{% if master %} data-item="{{key}}"{% else %}href="/cart/change?line={{ forloop.index }}&amp;quantity=0"{% endif %}>
+        <label> &times; </label> <span class="remove">{{ 'cart.general.remove' | t }}</span>
+      </a>
+      {% endunless %}
+      <div class='name_block'>
+        {% include 'cart-product-info' %}
+      </div>
+      <div class="price_block">
+        {%- include 'cart-price-block' -%}
+      </div>
+    </div>
+  </div>
+</div>

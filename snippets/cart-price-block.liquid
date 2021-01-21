@@ -1,0 +1,43 @@
+<div class='price_block'>
+  {%- unless item.product.type == 'Lens' -%}
+  {%- assign f_price = item.price -%}
+  {%- if item.properties['prepaid_applied'] == 'yes' -%}
+  {%- assign f_price = item.price | plus:22300 -%}
+  {%- assign prepaidApplied = true -%}
+  {%- endif -%}
+  {%- endunless -%}
+  
+  {%- if flatDiscount -%}
+{%- assign f_price = item.price  |plus:150000 -%}
+  {%- endif -%}
+  
+  <h4 class="item_total" data-price='{{f_price}}'>
+    <span style="color:#CCC; font-size:17px;text-decoration: line-through;">{{ item.variant.compare_at_price  | money }}</span>
+    <span>{{ f_price | money }}</span>
+    {% if script_dis %}
+    {% assign script_dis = true %}
+    {% assign bogo_applied = true %}
+    <s>{{ item.product.price | money }}
+    </s>
+    {% endif %}
+  </h4>
+  {%- if master -%}
+<!--   <p class="sub_price" data-price='{{f_price}}'>
+    (Frames
+    <span class='price'>
+      <span>{{ f_price | money }}</span>
+      {% if script_dis %}
+      {% assign script_dis = true %}
+      {% assign bogo_applied = true %}
+      <s>{{ item.product.price | money }}
+      </s>
+      {% endif %}
+    </span>
+    + <span class='lens_name'>Lenses</span>  <span class='lens_price'>{{0 | money}}
+    </span>) 
+  </p> -->
+    <p class="sub_price" data-price='{{f_price}}'>     
+     (Frame + Lens)
+   </p>
+  {%- endif -%}
+</div>

@@ -1,0 +1,111 @@
+<script
+        src="https://code.jquery.com/jquery-2.2.4.min.js"
+        integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+        crossorigin="anonymous"></script>
+<script type="text/javascript" defer='defer'>
+  $(document).ready(function(){$(".checkout_btn").click(function(e){e.preventDefault() ;$("body").addClass("overflow_hidden");$("html").addClass("overflow_hidden");$(".video_wrapper").fadeIn();});
+                               $(".video_wrapper .close").click(function({$(".video_wrapper").fadeOut();$("body").removeClass("overflow_hidden");$("html").removeClass("overflow_hidden");});
+                                                                $(window).load(function(){setTimeout(function(){ $(".checkout_btn").click();}, 1500);});});
+</script>
+<style>
+  .btn{background:#d83c31;color:#ffffff;transition:.5s all;padding:8px 12px;}.btn:hover{background:#000;color:#fff;}
+</style>
+<br> 
+{% assign count = 0 %}
+{% assign check = 'no' %}
+{% for item in checkout.line_items %}
+{% for p in item.properties %}
+{% if p.first == 'Prescription-form' %}
+{% assign check = p.last | downcase %}
+{% endif %}
+{% if check ==  'yes' %}
+{% if count == 0 %}
+<a  class="btn checkout_btn"  target="_blank" href="https://johnjacobseyewear.com/pages/prescription-from?id={{checkout.order_number}}&email={{checkout.email}}">Add prescription form</a>
+<div class='video_wrapper'>
+  <a class='close' title='Close'>
+    &times;
+  </a>
+  <iframe src='https://johnjacobseyewear.com/pages/prescription-from?view=checkout-from-frame&id={{checkout.order_number}}&email={{checkout.email}}'>
+  </iframe>
+</div>
+{% endif %}
+{% assign count = 1 %}
+{% endif %}
+
+{% endfor %}
+{% endfor %}
+<style>p+p{margin-top:0}.video_wrapper{left:0;top:0;bottom:0;right:0;z-index:10;position:fixed;display:none;-webkit-overflow-scrolling:touch!important;overflow-y:auto}.overflow_hidden{overflow:hidden}.video_wrapper .close{position:absolute;right:20px;top:20px;font-size:34px;cursor:pointer;z-index:110;width:30px;height:30px;border-radius:100%;background:#fff;text-align:center;line-height:30px}.video_wrapper iframe{position:absolute;top:0;left:0;width:100%;height:100%;max-width:100%;border:none;z-index:0}
+</style>
+{% if first_time_accessed %}
+<script type="text/javascript">
+  /* <![CDATA[ */
+  var google_conversion_id = 863183917;
+  var google_conversion_language = "en";
+  var google_conversion_format = "3";
+  var google_conversion_color = "ffffff";
+  var google_conversion_label = "rTlBCImq7XEQrcjMmwM";
+  var google_conversion_value = {{ total_price | money_without_currency | replace : ',' }};
+  var google_conversion_currency = "INR";
+  var google_remarketing_only = false;
+  /* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+  <div style="display:inline;">
+    <img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/863183917/?value={{ total_price | money_without_currency | replace : ',' }}&amp;currency_code=INR&amp;label=rTlBCImq7XEQrcjMmwM&amp;guid=ON&amp;script=0"/>
+  </div>
+</noscript>
+{% endif %}
+
+<!-- Google Code for Remarketing Tag -->
+<!--------------------------------------------------
+Remarketing tags may not be associated with personally identifiable information or placed on pages related to sensitive categories. See more information and instructions on how to setup the tag on: http://google.com/ads/remarketingsetup
+
+{% assign prodidarray = prodidarray | append : ','  | append: 'shopify_IN_' |  append : item.product_id | append : '_' | append : item.variant_id %}
+
+{% assign prodidarray = prodidarray | append : ','   |  append : item.product_id  %}
+--------------------------------------------------->
+<script type="text/javascript">
+  var google_tag_params = {
+    {% assign prodidarray = "," %}
+    {% for item in checkout.line_items %}
+    {% assign prodidarray = prodidarray | append : ','  | append: 'shopify_IN_' |  append : item.product_id | append : '_' | append : item.variant_id %}
+    {% endfor %}
+    ecomm_prodid: [{{prodidarray | remove : ',,'}}],
+    ecomm_pagetype: 'purchase',
+    ecomm_totalvalue: {{ total_price   | money_without_currency | replace : ','}},
+  };
+</script>
+<script type="text/javascript">
+  /* <![CDATA[ */
+  var google_conversion_id = 863183917;
+  var google_custom_params = window.google_tag_params;
+  var google_remarketing_only = true;
+  /* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+  <div style="display:inline;">
+    <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/863183917/?guid=ON&amp;script=0"/>
+  </div>
+</noscript>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                          })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-87912173-1', 'auto');
+  var ecomm_prodid = google_tag_params.ecomm_prodid;
+  ga('set', 'dimension1', ecomm_prodid);
+  var ecomm_pagetype = google_tag_params.ecomm_pagetype;
+  ga('set', 'dimension2', ecomm_pagetype);
+  var ecomm_totalvalue = google_tag_params.ecomm_totalvalue;
+  ga('set', 'dimension3', ecomm_totalvalue);
+  ga('send', 'pageview');
+</script>
+
+<iframe  src="https://johnjacobseyewear.com/pages/thank-you-page?order_number={{order_number}}&price={{ total_price   | money_without_currency | replace : ','}}" height="1" width="1" frameborder="0" scrolling="no"></iframe>

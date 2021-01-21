@@ -1,0 +1,150 @@
+{% assign blog_limit = section.settings.blog_limit %}
+{% if blog_limit == 0 %}
+{% assign blog_limit = 1 %}
+{% endif %}
+<div id="home_blog">
+{% if section.settings.blog == blank %}
+  {% include 'no-section-msg' %}
+  {% else %}
+  {% assign blog = blogs[section.settings.blog] %}
+  <div class="blogs">
+    <div class="{% unless section.settings.full %}container{% endunless %}">
+      
+      <ul class="article_list clearfix">
+      {% for article in blog.articles limit : blog_limit %}
+       <li class="{{section.settings.width}}">
+        {% include 'simply-article' %}
+      </li>
+       {% endfor %}
+    </ul>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% schema %}
+{
+  "name": "Blog",
+  "settings": [
+    {
+      "type": "checkbox",
+      "label": "Full-width",
+      "id": "full"
+    },
+    {
+      "type": "blog",
+      "label": "Select blog",
+      "id": "blog"
+    },
+    {
+      "type": "number",
+      "label": "Blog limit",
+      "id": "blog_limit",
+	  "default":3
+    },
+    {
+      "type": "image_picker",
+      "label": "Default article image",
+      "id": "default_img"
+    },
+	 {
+      "type": "checkbox",
+      "label": "Enable excerpt",
+      "id": "excerpt",
+      "default": true
+    },
+	 {
+      "type": "select",
+      "label": "Articles per row",
+      "id": "width",
+      "options": [
+        {
+          "label": "1",
+          "value": "col-sm-12"
+        },
+        {
+          "label": "2",
+          "value": "col-sm-6"
+        },
+        {
+          "label": "3",
+          "value": "col-sm-4"
+        },
+        {
+          "label": "4",
+          "value": "col-sm-3"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home page - Blog",
+      "category": "Blogs"
+    }
+  ]
+}
+{% endschema %}
+{% stylesheet  'scss' %}
+#home_blog{
+ ul.article_list{
+	.article_link{
+    display:block;
+    overflow:hidden;
+  }
+	  .article{
+    margin-bottom:20px;
+  }
+  .article_img{
+    transition: all 0.8s ease;
+    -webkit-transition: all 0.8s ease;
+    -moz-transition: all 0.8s ease;
+    -o-transition: all 0.8s ease;
+    display:block;
+    &:hover{
+      transform:scale(1.03);
+      -webkit-transform:scale(1.03);
+      -moz-transform:scale(1.03);
+      -o-transform:scale(1.03);
+    }
+  }
+	  .article_detail{
+    padding:15px 0;
+    .title{
+      margin-bottom:15px;
+    }
+    .time{
+      padding-bottom:8px;
+    }
+    .read_more{
+      display:block;
+      margin:5px 0;
+    }
+  }
+    padding:25px 0;
+	li{
+		padding-bottom:20px;
+	}
+    li.col-sm-6{
+      @media(min-width:768px){
+        &:nth-of-type(2n+1){
+          clear:both;
+        }
+      }
+    }
+    li.col-sm-4{
+      @media(min-width:768px){
+        &:nth-of-type(3n+1){
+          clear:both;
+        }
+      }
+    }
+    li.col-sm-3{
+      @media(min-width:768px){
+        &:nth-of-type(4n+1){
+          clear:both;
+        }
+      }
+    }
+  }
+}
+{% endstylesheet %}

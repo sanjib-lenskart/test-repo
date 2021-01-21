@@ -1,0 +1,110 @@
+<style>
+  #testimonials_{{section.id}} #home_testimonials_text{
+    background:url({{section.settings.main_img | img_url : '1024x1024' | format: 'jpg'}});
+    background-size:cover;
+  }
+  #testimonials_{{section.id}} h1{
+    color:{{section.settings.header_color}};
+  }
+  #testimonials_{{section.id}} .text h3{
+    color:{{section.settings.header_color}};
+  }
+  #testimonials_{{section.id}} .text .review , #testimonials_{{section.id}} .slider li .quote{
+    color:{{section.settings.text_color}};
+  }
+  #testimonials_{{section.id}} .slider li .border{
+    background:{{section.settings.text_color}};
+  }
+</style>
+
+{% if  section.settings.header_text == blank  %}
+{% include 'no-section-msg' %}
+{% else %}
+<div id="testimonials_{{section.id}}">
+  <div class="{% unless section.settings.full %}container{% endunless %}">
+    <div id="home_testimonials_text">
+      <div class="header">
+        <h1> {{ section.settings.header_text }}</h1>
+      </div>
+      <div class="slider">
+        <ul class="lightSlider">
+          {% for block in section.blocks %}
+          <li>
+            <div class="text">
+              <h3>{{block.settings.name}}</h3>
+              {% unless block.settings.comment == blank %}
+              <span class="border left"></span>
+              <span class="quote"><i class="fa fa-quote-left" aria-hidden="true"></i></span>
+              <span class="border right"></span>
+              <div class="review">{{block.settings.comment}}</div>
+              <span class="border left"></span>
+              <span class="quote"><i class="fa fa-quote-right" aria-hidden="true"></i></span>
+              <span class="border right"></span>
+              {% endunless %}
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<hr/>
+{% endif %}
+{% schema %}
+{  
+"name":"Testimonials-Slides text",
+"max_blocks":20,
+"settings":[
+{
+"type":"checkbox",
+"label":"Full-width",
+"id":"full"
+},
+{
+"type":"richtext",
+"id":"header_text",
+"label":"Header text"
+},
+{
+"type":"image_picker",
+"label":"Background image",
+"id":"main_img"
+},
+{
+"type":"color",
+"id":"header_color",
+"label":"Header color",
+"default":"#000"
+},
+{
+"type":"color",
+"id":"text_color",
+"label":"Text color",
+"default":"#000"
+}
+],
+"blocks":[  
+{  
+"type":"text",
+"name":"Text",
+"settings":[  
+{
+"type":"text",
+"id":"name",
+"label":"Name"
+},
+{
+"type":"richtext",
+"id":"comment",
+"label":"Text"
+}
+]
+}
+],
+"presets": [{
+"name": "Testimonials - Text",
+"category": "Slide show"
+}]
+}
+{% endschema %}

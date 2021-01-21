@@ -1,0 +1,16 @@
+
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+
+
+{%- assign pageUrl = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last |
+   replace:'\/','/' | 
+   replace:'%20',' ' | 
+   replace:'\u0026','&'
+-%}
+{% assign show_variants = pageUrl | remove:request.path  %}
+{%- assign show_variants = show_variants | split:'&' -%}
+{%- for sv in show_variants  -%}
+{%- if sv contains 'variant=' -%}
+{%-  assign show_variant = sv  | remove: '?variant=' |  remove: 'variant='-%}
+{%- endif -%}
+{%- endfor -%}

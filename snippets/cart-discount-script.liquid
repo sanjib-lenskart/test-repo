@@ -1,0 +1,201 @@
+<script>
+simply.discountCalc = function(name) {
+  var total = $(".cart_footer .cart_total_price").attr('data-price');
+  var total_cart = parseInt(total);
+  // $(".discount_input").val(name);
+  var discount_wrapper = $(".discount_text_wrapper");
+  var discountTimes = $(".items.child[data-handle=next-gen]").length;
+  var subtotal = $(".cart_subtotal_price");
+  var sub_price = parseInt(subtotal.attr("data-price"));
+  if (!cn(name)) {
+    $(".discount_input").val(name);
+    var obj = simply.cartDiscounts[simply.handleize(name)];
+    var orignal_sub_price = parseInt(subtotal.attr("data-price"));
+    var discount_text = $(".cart_discount_price");
+    var success = $(".discount_info_wrapper .success");
+    var error = $(".discount_info_wrapper .error");
+    var suc_message = simply.cartDiscounts.success;
+    var err_message = simply.cartDiscounts.error;
+    if (obj) {
+      if (!cn(obj.success)) {
+        suc_message = obj.success;
+      }
+      if (!cn(obj.error)) {
+        err_message = obj.error;
+      }
+      var discount_amount;
+      if (obj.type == "price") {
+        discount_amount = parseInt(obj.amount);
+        sub_price = sub_price - discount_amount;
+        simply.discountSubTotalCalc(sub_price);
+      } else {
+        discount_amount = sub_price * (parseInt(obj.amount) / 100);
+        sub_price = sub_price - discount_amount;
+        simply.discountSubTotalCalc(sub_price);
+      }
+      discount_wrapper.show();
+
+      $(".discount_info_wrapper .msg").hide();
+      success.html(suc_message);
+      simply.setCookie("discountcode", discount_amount, 1);
+      $(".discount_text_wrapper .dis_text").html("Discount : " + obj.name + "");
+      success.show();
+      discount_text.html("-" + Shopify.formatMoney(discount_amount, simply.moneyFormat));
+      $(".discount_input").val(name);
+      $(".topbar_dis").val(name);
+      simply.setCookie("discountcode", name, 1);
+
+      function additional_hide() {
+        discount_amount = 0;
+        discount_wrapper.hide();
+        success.hide();
+        simply.discountSubTotalCalc(parseInt(subtotal.attr("data-price")));
+        error.html(err_message);
+        error.show();
+        $(".topbar_dis").val("");
+      }
+      function additional_show() {
+        discount_wrapper.show();
+        success.html(suc_message);
+        success.show();
+        error.hide();
+      }
+ var totalmater_item = $(".cart_main").children('.master').length;
+      
+      {%- for block in section.blocks -%}
+      if (obj.name == '{{ block.settings.discount }}') {
+          
+          if({{ block.settings.max_pair }} == 0){
+        
+                  var sub_price = parseInt(subtotal.attr("data-price"));
+                  if (sub_price < {{ block.settings.min_amount }}00) {          
+                    $(".topbar_dis").val("");
+                    additional_hide();
+                  }
+          }
+      	  else if({{ block.settings.max_pair }} == totalmater_item){
+        
+                  var sub_price = parseInt(subtotal.attr("data-price"));
+                  if (sub_price < {{ block.settings.min_amount }}00) {          
+                    $(".topbar_dis").val("");
+                    additional_hide();
+                  }
+          }
+          else{
+               
+                  sub_price = parseInt(subtotal.attr("data-price"));
+                  discount_wrapper.hide();
+                  $(".discount_info_wrapper .msg").hide();
+                  if (!cn(name)) {
+                    error.html(err_message);
+                    error.show();
+                  }
+                  simply.discountSubTotalCalc(sub_price);        
+            }
+    
+ 
+      }
+      {% endfor%}
+//       if(obj.name == 'JJSWEET10'){
+//         sub_price = parseInt(subtotal.attr("data-price"));
+//         if(sub_price < 250000){
+//           additional_hide();
+//         }
+//       }
+
+//       if (obj.name == 'SMARTBLU') {
+//         sub_price = parseInt(subtotal.attr("data-price"));
+//         if (discountTimes != 0) {
+//           discount_amount = discount_amount * discountTimes;
+//           sub_price = sub_price - discount_amount;
+//           simply.discountSubTotalCalc(sub_price);
+//           discount_text.html("-" + Shopify.formatMoney(discount_amount, simply.moneyFormat));
+//           additional_show();
+//         } else {
+//           additional_hide();
+//         }
+//       }
+//       if (obj.name == 'JJ500') {
+//         var sub_price = parseInt(subtotal.attr("data-price"));
+//         if (sub_price < 377700) {
+//           $(".topbar_dis").val("");
+//           additional_hide();
+//         }
+//       }
+      
+//       if (obj.name == 'OFF20') {
+//         var sub_price = parseInt(subtotal.attr("data-price"));
+//         if (sub_price < 12000) {
+//           $(".topbar_dis").val("");
+//           additional_hide();
+//         }
+//       }
+//        if (obj.name == 'OFF30') {
+//         var sub_price = parseInt(subtotal.attr("data-price"));
+//         if (sub_price < 18000) {
+//           $(".topbar_dis").val("");
+//           additional_hide();
+//         }
+//       }
+      
+//        if (obj.name == 'OFF10') {
+//         var sub_price = parseInt(subtotal.attr("data-price"));
+//         if (sub_price < 12000) {
+//           $(".topbar_dis").val("");
+//           additional_hide();
+//         }
+//       }
+      
+//          if (obj.name == 'WE10') {
+//         var sub_price = parseInt(subtotal.attr("data-price"));
+//         if (sub_price < 6000) {
+//           $(".topbar_dis").val("");
+//           additional_hide();
+//         }
+//       }
+//         if (obj.name == 'BOGO') {
+//         var sub_price = parseInt(subtotal.attr("data-price"));
+//         if (sub_price < 8999) {
+//           $(".topbar_dis").val("");
+//           additional_hide();
+//         }
+//       }
+      
+//       if (obj.name == 'EYE1000') {
+//         if ($(".cart_main .items[data-product-type=Eyeglasses]").length == 1 && total_cart > 400000) {} else {
+//           $(".topbar_dis").val("");
+//           additional_hide();
+//         }
+//       }
+//       if (obj.name == 'JJ1500') {
+//         var sub_price = parseInt(subtotal.attr("data-price"));
+//         if ($('.cart_main .items').not(".child").length != 1 || sub_price < 377600) {
+//           $(".topbar_dis").val("");
+//           additional_hide();
+//           return false;
+//         }
+//       }
+    } else {
+      sub_price = parseInt(subtotal.attr("data-price"));
+      discount_wrapper.hide();
+      $(".discount_info_wrapper .msg").hide();
+      if (!cn(name)) {
+        error.html(err_message);
+        error.show();
+      }
+      simply.discountSubTotalCalc(sub_price);
+    }
+  } else {
+    simply.discountSubTotalCalc(sub_price);
+    $(".discount_info_wrapper .msg").hide();
+    discount_wrapper.hide();
+    var obj = simply.cartDiscounts;
+    var sub_price = parseInt(subtotal.attr("data-price"));
+    if(obj.auto){
+      if (sub_price > obj.auto_price) {
+        simply.discountCalc(obj.auto);
+      }  
+    }
+  }
+};
+</script>

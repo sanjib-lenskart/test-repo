@@ -1,0 +1,158 @@
+<!-- product-form -->
+{%- assign sun_lens = false -%}
+{% if product.type == 'Sunglasses' or product.type == 'sunglasses' %}
+  {% assign type = 'sg' %}
+  {% for tag in product.tags %}
+    {%- if tag == 'has_lens' -%}
+      {%- assign sun_lens = true -%}
+    {%- endif -%} 
+
+{%- if tag == 'polar' -%}
+      {%- assign polar_tag = true -%}
+    {%- endif -%}
+
+  {% endfor %}
+{% else %}
+  {% assign type = 'eg' %}
+{% endif %}
+
+{%- assign unique_collection = false -%}
+{%- if collection.handle == 'complimentary-lenses' -%}
+  <span class='unique_collection'></span>
+  <style type="text/css">
+  .top_bar_discount{
+    display: none;
+  }
+  </style>
+  {%- assign unique_collection = true -%}
+{%- endif -%}
+
+<div class="product_form">
+{% include 'side-options' %}
+  {% include 'popup-power-eye' %}
+<form action="/cart/add" method="post" enctype="multipart/form-data" 
+data-lens = "{{settings.lens_product_id}}"
+class="{% if settings.ajax_cart or settings.side_cart %}ajaxCart{% endif %} xs-center" id="AddToCartForm" data-type="{{type}}">
+{%- if unique_collection -%}
+<input type='hidden' value="unique_collection" name="properties[unique_collection]">
+{%- endif -%}
+<select name="id" data-productid="{{product.id}}" id="ProductSelect_{{product.id}}" class="single_variants">
+  {% for variant in product.variants %}
+  <option {% if variant == product.selected_or_first_available_variant %} selected="selected" {% endif %} data-sku="{{ variant.sku }}" value="{{ variant.id }}">{{ variant.title }} - {{ variant.price | money_with_currency }}</option>
+  {% endfor %}
+</select>
+  
+
+  <!--  prescription-type input -->
+  {%- if type == 'eg' -%}
+    <input id="powerfield" type="hidden" name="properties[prescription_type]" value="Single Vision">  
+  {%- else -%}
+    {%- if sun_lens -%}
+  <input id="powerfield" type="hidden" name="properties[prescription_type]" value="Single Vision">  
+  {%- endif -%}
+  {%- endif -%}
+
+  <input type="hidden" name="properties[Type]" value="{{product.type}}">
+  <div class="product-single__add-to-cart">
+    {% if product.available %}
+    {% for tag in product.tags %}
+    {% if tag contains 'dittoEnable' %}
+    <div class="try_ditto hide {% if polar_tag %} polar_button{% endif %}">TRY THESE ON IN 3D</div>
+    <div class="re_try_ditto hide {% if polar_tag %} polar_button{% endif %}">RETAKE YOUR 3D TRY ON</div>
+    {% endif %} 
+    {% endfor %}
+    
+    
+    
+    {% if product.type == 'Contact_Lens_Medical' or product.type == 'Contact_Lens_Color' %}   
+       <button type="button" name="add" id="AddToCart12" class="btn add_to_cart poweraddtocart">Buy Now</button>
+    {% else %}
+       
+   		{% if bluLensCounter %}
+    		<div style="border-radius:0px;" class="btn add_to_cart process_cart pres_cont_btn">
+    			Add To Cart
+    			<span class="loading"></span>
+  			</div>
+       {% else %}
+            <button type="button" name="add" id="AddToCart" onclick='ga("send", "event", "P_0");'
+            {% unless has_lens %}{% if type == 'sg' or product.type == 'NON_POWER_READING' or product.type == 'Reading' or product.type == 'Blu Reading' %}data-fast="cart"{% endif %}{% endunless %} 
+            class="btn add_to_cart{% if polar_tag %} hideimp{% endif %}">
+
+           {% if product.type == 'Eyeglasses' or product.type == 'Child' %}
+              <span data-text="Select Lens" data-process="Adding..." id="AddToCartText" class='buy_from'>Select Lenses and Purchase</span>
+              {% else %}
+              <span data-text="Buy Now {{product.price | money }}" data-process="Adding..." id="AddToCartText" class='buy_from'>
+                Buy Now
+        <!--         <span class="extraofftext">at 50% OFF</span> -->
+              </span>
+              {% endif %}     
+          </button>    
+        {% endif %}
+    {% endif %}
+    
+    {% if polar_tag %}
+    <div class="btn sunglass-power polar_button">BUY NOW</div>
+    {% endif %}
+    
+  {% else %}
+    <button    type="button" name="add" id="AddToCart" class="btn disabled" disabled>
+      <span class='buy_from'>
+        {{ 'products.product.sold_out' | t }} - 
+      </span> 
+      <span class="orignal">
+        {{product.price | money }} 
+      </span>
+    </button>
+{% endif %}
+</div>
+
+<div class='locator_block'>
+<div class="row">
+  <div class="co-sm-offset-2 co-sm-8 col-xs-12 text-center">
+    <a id="whtus_pp" class="find_store replacewhattappurl" href="lenskart.us" onclick="ga('send', 'event', 'click', 'Whats app', 'Product Page');" data-url="https://{{ shop.domain }}{{ product.url | within: collection }}" target="_blank">
+      <img src="{{'lets_chat.png' | asset_url}}" alt='Find Sotre'>
+      <span class="underline">Chat on Whatsapp</span>
+    </a>
+    
+     <a id="ios_msgus" class="find_store" href="https://bcrw.apple.com/sms:open?service=iMessage&recipient=urn:biz:97a77f54-4867-4944-a513-4061f6158150" onclick="ga('send', 'event', 'click', 'Whats app', 'Product Page');" target="_blank">
+       <span><img src="https://cdn.shopify.com/s/files/1/0047/5335/8922/files/Messages-icon.png?v=1592834866" alt=""/></span><span class="underline">Chat with us</span>
+    </a>
+    
+<!--   #extra-data -->
+  </div>  
+  
+</div>
+</div>  
+  </form>
+  
+</div>
+ 
+
+<!-- Free shippng etc popup contents -->
+
+<div id="freedelivery_model" class="freedelivery_model">
+  <div class="text_wrapper_model">
+
+    <h2>Free Delivery (7 - 10 Days)</h2>    
+    <p>We guarantee you Free Delivery at your Doorstep within 10 Days of Order Placement</p>
+
+    <div class="text-center btn_container">
+      <span class="back">&times;</span>
+    </div>
+  </div>
+</div>
+
+
+<!-- daysexchange popup contents -->
+<div id="daysexchange_model" class="daysexchange_model">
+  <div class="text_wrapper_model">
+
+    <h2>Free 14 Days Refund or Exchange</h2>    
+    <p>No Questions Asked. If you Don't like the Frames you have purchased, simply mail us at supportme@lenskart.in and as per your choice, you can ask for Refund or an exchange with another Frame
+ </p>
+
+    <div class="text-center btn_container">
+      <span class="back">&times;</span>
+    </div>
+  </div>
+</div>

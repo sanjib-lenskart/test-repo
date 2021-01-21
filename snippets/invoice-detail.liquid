@@ -1,0 +1,132 @@
+{%- assign order_date = order.created_at | date: "%m/%d/%Y" -%}
+<style type="text/css">
+  #tblCustomers{
+    display:none;
+  }
+  .tblInvoice
+  {
+    font-family: Arial;
+    font-size: 20px;
+    line-height: 1.4;
+    border: 1px solid #ccc;
+    border-collapse: collapse;
+  }
+  .tblInvoice th
+  {
+    background-color: #F7F7F7;
+    color: #333;
+    font-weight: bold;
+  }
+  .tblInvoice th, .tblInvoice td
+  {
+    padding: 10px;
+    border: 1px solid #ccc;
+  }
+</style>
+<div id="tblCustomers">
+<table class="tblInvoice" cellspacing="0" cellpadding="0" style="width:70%;border:none;">
+        <tr>
+          <td style="border:none;"><h1 style="font-size:40px;">Lenskart</h1></td>
+          <td style="border:none;text-align:right;">&nbsp;</td>
+          <td style="border:none;text-align:right;"><p style="line-height: 1.4;">{{order_date}} <br>Invoice for {{ 'customer.order.title' | t: name: order.name }}</p></td>
+        </tr>
+  		<tr>
+          <td style="border:none;"><p style="line-height: 1.4;">W-123, GREATER KAILASH, PART-2<br>
+            New Delhi DL 110048<br>India</p></td>
+          <td style="border:none;">&nbsp;</td>
+          <td style="border:none;">&nbsp;</td>
+        </tr>
+    </table>
+  <hr style="border-top: 2px solid #d2d6d9;width:70%;">
+  <h3 style="margin-top:40px;">Item Details</h3>
+  <table class="tblInvoice" cellspacing="0" cellpadding="0" style="width:70%;">
+    <tr>
+      <th style="width:5%">Quantity</th>
+      <th style="width:70%">Item</th>
+      <th style="width:20%">Price</th>
+    </tr>
+    {% for line_item in order.line_items %}
+    <tr>
+      <td data-label="{{ 'customer.order.quantity' | t }}">{{ line_item.quantity }} X </td>
+      <td data-label="{{ 'customer.order.product' | t }}">
+        {% if line_item.product.type == 'Lens' %}
+        {{ line_item.title  }}
+        {% else %}
+        {{ line_item.title | link_to: line_item.product.url }}
+        {%  endif %}
+      </td>
+      <!--<td data-label="{{ 'customer.order.price' | t }}">{{ line_item.price | money }}</td>-->
+      <td>{{ line_item.quantity | times: line_item.price | money }}</td>
+    </tr>
+    {% endfor %}
+    </table>
+  <h3 style="margin-top:40px;">Payment Details</h3>
+  <table class="tblInvoice" cellspacing="0" cellpadding="0" style="width:70%;">
+        <tr>
+          <td style="width:80%">Subtotal price:</td>
+          <td style="width:20%">{{ order.subtotal_price | money }}</td>
+        </tr>
+    	{% for discount in order.discounts %}
+    		<tr class="order_summary discount">
+      			<td style="width:80%">Includes discount "{{ discount.code }}"</td>
+      			<td style="width:20%">{{ discount.savings | money }}</td>
+    		</tr>
+    {% endfor %}
+    {% for tax_line in order.tax_lines %}
+    <tr>
+      <td style="width:80%">Total tax:</td>
+      <td>{{ tax_line.price | money }}</td>
+    </tr>
+    {% endfor %}	
+      {% for shipping_method in order.shipping_methods %}
+    <tr>
+      <td style="width:80%">Shipping:</td>
+      <td>{{ shipping_method.price | money }}</td>
+    </tr>
+    {% endfor %}
+     	<tr>
+          <td style="width:80%">Total price:</td>
+          <td style="width:20%">{{ order.total_price | money }}</td>
+        </tr>
+    </table>
+  <h3 style="margin-top:40px;">Shipping Details</h3>
+  <table class="tblInvoice" cellspacing="0" cellpadding="0" style="width:70%;">
+        <tr>
+          <td style="width:100%" colspan="2">
+            <p style="line-height: 1.4;">{{ order.shipping_address | format_address }}</p>
+          </td>
+        </tr>
+  </table>
+  <p style="margin-top:10px;font-size:18px;">If you have any questions, please send an email to <a href="mailto:customer@lenskart.us">customer@lenskart.us</a></p>
+</div>   
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.22/pdfmake.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script type="text/javascript">
+        function Export() {
+          document.getElementById("tblCustomers").style.display = "block";
+          html2canvas(document.getElementById('tblCustomers'), {
+                onrendered: function (canvas) {
+                    var data = canvas.toDataURL();
+                    var docDefinition = {
+                        content: [{
+                            image: data,
+                            width: 700
+                        }]
+                    };
+                    pdfMake.createPdf(docDefinition).download("{{ 'customer.order.title' | t: name: order.name }}.pdf");
+                    document.getElementById("tblCustomers").style.display = "none";                                          
+                }
+            });  
+        }
+      //document.getElementById("selectfilter13").style.display = "none";
+      var country="{{ order.shipping_address.country}}";
+      if(country=='Canada'){
+        document.cookie = "currency=CAD";
+      }else if(country=='United Kingdom'){
+        document.cookie = "currency=GBP";
+      }else if(country=='France' || country=='Germany' || country=='Switzerland' || country=='Spain' || country=='Poland' || country=='Portugal' || country=='Czechia' || country=='Finland' || country=='Denmark' || country=='Austria'){
+        document.cookie = "currency=EUR";
+      }else{
+      	document.cookie = "currency=USD";
+      }
+    </script>

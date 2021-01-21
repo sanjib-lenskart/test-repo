@@ -1,0 +1,231 @@
+<div id="gift_card">
+  <div class="banner">
+    <div class="img">
+      <a class="block" rel="scroll" href="#gift_type">
+      <img src="{{section.settings.banner | img_url : '100x' | format:'png'}}" class="img_blur img_load" alt="Collection Banner" data-img="{{section.settings.banner | img_url : 'master' | format:'jpg'}}" data-img-xs="{{section.settings.banner_xs | img_url : 'grande' | format:'jpg'}}">
+      </a>
+    </div>
+    <div class="text ">
+      <div class="xs-hide">{{section.settings.banner_text}}</div>
+      <a class="xs-hide round_btn" rel="scroll" href="#gift_type">
+        {{section.settings.banner_btn}}
+      </a>
+    </div>
+  </div>
+  <h3 class="footer_text">{{section.settings.banner_footer_text}}</h3>
+  <div class="video_img" href="" data-video="{{section.settings.video_url}}?autoplay=1">
+    <img src="{{section.settings.video | img_url : '100x' | format:'jpg'}}" class="img_blur img_load" alt="Our stroy banner" data-img="{{section.settings.video | img_url : 'master' | format:'jpg'}}" data-img-xs="{{section.settings.video | img_url : 'grande' | format:'jpg'}}">
+    <div class="video_wrapper hide">
+    <iframe src=""></iframe>
+  </div>
+  </div>
+  
+  <form action="/cart/add" method="post" enctype="multipart/form-data"  id="AddToCartForm" data-type="{{type}}">
+    <div id="gift_type">
+      <hr/>
+      <div class="section">
+        <div class="container">
+          <h1 class="header_text">{{section.settings.gift_header}}</h1>
+          <p class="sub_header">{{section.settings.gift_sub_header}}</p>
+          <div class="row">
+            <div class="col-sm-offset-3 col-sm-6">
+              <div class="buttons">
+                <div class="row">
+                  <div class="col-xs-6">
+                    <a rel="scroll" data-parent="gift_type" href="#gift_images_1" data-value="{{section.settings.gift_btn_1}}" data-target="gift_type_input" class="round_large_btn gift_input form_show first">
+                      {{section.settings.gift_btn_1}}
+                    </a>
+                  </div>
+                  <div class="col-xs-6">
+                    <a href="#gift_images_2" rel="scroll" data-parent="gift_type" class="round_large_btn form_hide gift_input second" data-target="gift_type_input" data-value="{{section.settings.gift_btn_2}}">
+                      {{section.settings.gift_btn_2}}
+                    </a>
+                  </div>
+                  <input type="hidden" name="properties[Gift type]" class="gift_type_input">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    {% assign count = 0 %}
+    {% for product in collections['gift-cards'].products %}
+    {% assign count = count | plus : 1 %}
+    <div id="gift_images_{{count}}" class="gift_images">  
+      <hr/>
+      <div class="section">
+        <div class="container">
+          <div class="header">{{section.settings.product_header}}</div>
+          <ul class="list row">
+            {% for variant in product.variants %}
+            {% if variant.available %}
+            <li class="col-sm-4">
+              <div class="img">
+                <a href="#gift_form" class="gift_input" rel="scroll" data-value="{{variant.id}}" data-target="variant_id" data-parent="gift_images_{{count}}">
+                  <img  src="{{ variant.image.src | img_url: '100x' }}"  data-img="{{ variant.image.src | img_url: 'grande' }}" data-img-xs="{{ variant.image.src | img_url: 'large' }}"  class="product_image img_blur img_load"  alt="{{ image.alt | escape }}">
+                  <p class="price">
+                    {{variant.price | money}}
+                  </p>
+                </a>
+
+              </div>
+            </li>
+            {% endif %}
+            {% endfor %}
+            <input type="hidden" name="id" class="variant_id">
+          </ul>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+
+
+    <div class="form" id="gift_form">
+      <hr/>
+      <div class="section">
+        <div class="container">
+        
+          <h3 class="header fields text-center">To whom are you gifting</h3>
+          <p class="sub_header fields text-center">Share details, along with note.</p>
+          <div class="col-sm-offset-2 col-sm-8">
+            <div class="fields clearfix">
+            <div class="row">
+              <div class="col-sm-6">
+                <input type="text" placeholder="Recipients Name" name="properties[Recipients Name]">
+              </div>
+              <div class="col-sm-6">
+                <input type="text" placeholder="Your Name" name="properties[Customer Name]">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-6">
+                <input type="email" placeholder="Recipients Email" name="properties[Recipients Email]">
+              </div>
+              <div class="col-sm-6">
+                <input type="email" placeholder="Your Email" name="properties[Customer Email]">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="relative text_field">
+                  <textarea name="properties[Note]" placeholder="Add a note if you want"> </textarea>
+                  <span>Add a note if you want</span>
+                </div>
+              </div>
+              
+        
+            </div>
+            </div>
+            <button type="submit" class="btn">
+                Checkout
+        </button>
+          </div>
+        
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+{% schema %}
+{
+"name": "Gift card",
+"class": "no_padding",
+"settings": [
+{
+"type": "header",
+"content": "Banner"
+},
+{
+"type": "image_picker",
+"id": "banner",
+"label": "Banner image"
+},
+{
+"type": "image_picker",
+"id": "banner_xs",
+"label": "Banner image - Mobile"
+},
+{
+"type": "richtext",
+"label": "Banner text",
+"id": "banner_text"
+},
+{
+"type": "text",
+"label": "Banner button",
+"id": "banner_btn"
+},
+{
+"type": "text",
+"label": "Banner button URL",
+"id": "banner_btn_url"
+},
+{
+"type": "text",
+"label": "Banner footer text",
+"id": "banner_footer_text"
+},
+{
+"type": "header",
+"content": "Banner"
+},
+{
+"type": "image_picker",
+"id": "video",
+"label": "Video image"
+},
+{
+"type": "text",
+"id": "video_url",
+"label": "Banner video URL",
+"info": "Embedded required"
+},
+{
+"type": "header",
+"content": "Gift type"
+},
+{
+"type": "text",
+"label": "Header text",
+"id": "gift_header"
+},
+{
+"type": "text",
+"label": "Sub header text",
+"id": "gift_sub_header"
+},
+{
+"type": "text",
+"label": "Button-1 text",
+"id": "gift_btn_1"
+},
+{
+"type": "text",
+"label": "Button-1 URL",
+"id": "gift_btn_url_1"
+},
+{
+"type": "text",
+"label": "Button-1 text",
+"id": "gift_btn_2"
+},
+{
+"type": "text",
+"label": "Button-1 URL",
+"id": "gift_btn_url_2"
+},
+{
+"type": "header",
+"content": "Product"
+},
+{
+"type": "richtext",
+"label": "Header text",
+"id": "product_header"
+}
+]
+}
+{% endschema %}

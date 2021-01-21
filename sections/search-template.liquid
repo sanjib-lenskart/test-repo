@@ -1,0 +1,83 @@
+<!-- /templates/search.liquid -->
+{% comment %}
+
+To return only products or pages in results:
+- http://docs.shopify.com/manual/configuration/store-customization/return-only-product-in-storefront-search-results
+- Or manually add type=product or type=page to the search URL as a parameter
+
+{% endcomment %}
+{% comment %}
+Avoid accessing search.results before the opening paginate tag.
+If you do, the pagination of results will be broken.
+{% endcomment %}
+{% paginate search.results by 50 %}
+<div id="search_page">
+  <div class="container">
+    <header>
+      {% if search.performed %}
+      {% if search.results_count == 0 %}
+      <h3 class="text-center">{{ 'general.search.no_results_html' | t: terms: search.terms }}</h3>
+      {% else %}
+      <h3 class="text-center">{{ 'general.search.results_for_html' | t: terms: search.terms }}</h3>
+      {% endif %}
+      {% else %}
+      <h1 class="text-center">{{ 'general.search.title' | t }}</h1>
+      {% endif %}
+      <div class="text-center">
+        {% include 'search-form' %}
+      </div>
+      <hr/>
+    </header>
+    {% if search.performed %}
+    <div class="row">
+      <ul class="list">
+        {% for item in search.results %}
+        {% if item.object_type == 'product' %}
+        {% assign product = item %}
+        {% unless product.tags contains 'cart_hide' or product.type == 'Lens' or product.type == 'Gift'%}
+        {% if product.available %}
+        <li class="{{section.settings.product_row}} col-xs-12">  	
+          {% include 'simply-product' %}
+        </li>
+        {% endif %}
+        {% endunless %}
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+    {% if paginate.pages > 1 %}
+    {% include 'pagination' %}
+    {% endif %}
+    {% endif %}
+  </div>
+</div>
+{% endpaginate %}
+
+{% schema %}
+{
+  "name": "Search products",
+  "settings": [
+  {
+    "type": "select",
+    "id": "product_row",
+    "label": "Products per row (Desktop)",
+    "default": "col-sm-4",
+    "options": [
+    {
+      "value": "col-sm-6",
+      "label": "2"
+    },
+    {
+      "value": "col-sm-4",
+      "label": "3"
+    },
+    {
+      "value": "col-sm-3",
+      "label": "4"
+    }
+    ]
+  }
+  ]
+}
+{% endschema %}
+ 

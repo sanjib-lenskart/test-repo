@@ -1,0 +1,17 @@
+{% if collections.frontpage.products.size > 0 %}
+{% for product in collections.frontpage.products %}
+{% if product.handle == 'john-jacobs-golden-sunglasses-132067' %}
+  <span>              
+    {{product.price | money_without_trailing_zeros | replace: ',',''}}                          
+  </span>
+
+<!--  <span class="nonusdcase">              
+    $75                          
+  </span>
+
+<span class="usdcase" style="display:none;">              
+    {{product.price | money  }}                          
+  </span> -->
+{% endif %}
+{% endfor %}
+{% endif %}

@@ -1,0 +1,246 @@
+<div class="container container_con">
+  <a href="javascript&colon; history.go(-1)" class="backto-feedback">
+    <i class="fa fa-arrow-circle-left"></i>
+  </a>
+  <div class="text-center">
+    <h3 class="page_header">{{ page.title }}</h3>
+    <div class="description">
+      Thank you so much for purchasing from Lenskart. Please kindly submit your feedback so that we can further improve our services. For the same, we will reward you with a Gift Card, via which you can avail 10% Off on your Next Order with us.
+    </div>
+  </div>
+
+  <form name="submit-to-google-sheetfb" class="submit-to-google-sheetfb">
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <p>1. Please describe your experience on purchasing glasses on lenskart. *</p>
+      <textarea rows ="4" type="text" name="Your Experience" required></textarea>
+    </div>
+    <div class="col-sm-12 col-md-12">
+      <p>2. What are the issues you faced? *</p>
+      <textarea rows ="4" type="textarea" name="Issues"></textarea>
+    </div>
+    <div class="col-sm-12 col-md-12">
+      <p>3. As per you, what else can be done to improve your overall experience?</p>
+      <textarea rows ="4" type="textarea" name="Improvement"></textarea>
+    </div>
+    <div class="col-sm-12 col-md-12">
+      <p>4. How likely is it that you will recommend our product to a friend or colleague? *</p>
+    </div>
+    <div class="col-sm-12 col-md-9 small--text-center starboxfb hide">
+ 	   <i data-starid="1" class="fa fa-star one"></i>
+       <i data-starid="2" class="fa fa-star two"></i>
+       <i data-starid="3" class="fa fa-star three"></i>
+       <i data-starid="4" class="fa fa-star four"></i>
+       <i data-starid="5" class="fa fa-star five"></i>
+      <input id="feedbackstar" class="hide" type="text" name="rate" placeholder=""/>
+      <input id="siteurl" class="hide" type="text" name="site_url" placeholder="" />
+      <input id="imgurl" class="hide" type="text" name="Image Path" placeholder="" />
+    </div>
+    
+    <div class="col-xs-12 col-sm-12 col-md-12 ratingnum_con">
+      <div class="ratingnum ratingnum_style">
+        1
+      </div>
+      <div class="ratingnum ratingnum_style">
+        2
+      </div>
+      <div class="ratingnum ratingnum_style">
+        3
+      </div>
+      <div class="ratingnum ratingnum_style">
+        4
+      </div>
+      <div class="ratingnum ratingnum_style">
+        5
+      </div>
+      <div class="ratingnum ratingnum_style">
+        6
+      </div>
+      <div class="ratingnum ratingnum_style">
+        7
+      </div>
+      <div class="ratingnum ratingnum_style">
+        8
+      </div>
+      <div class="ratingnum ratingnum_style">
+        9
+      </div>
+      <div class="ratingnum ratingnum_style">
+        10
+      </div>      
+    </div>
+    
+     <div class="col-sm-12 col-md-12">
+       <div class="row dec">
+       <div class="col-xs-6 col-sm-6 col-md-6 lowlike text-left">
+         0 - Not likely
+       </div>
+       
+       <div class="col-xs-6 col-sm-6 col-md-6 hightlike text-right">
+         10 - Very likely
+       </div>
+       </div>
+    </div>
+    
+    <div class="col-sm-12 col-md-12">
+      <p>5. Please give us your overall feedback</p>
+    </div>
+    <div class="col-sm-12 col-md-9 small--text-center starboxfb hide">
+ 	   <i data-starid="1" class="fa fa-star one"></i>
+       <i data-starid="2" class="fa fa-star two"></i>
+       <i data-starid="3" class="fa fa-star three"></i>
+       <i data-starid="4" class="fa fa-star four"></i>
+       <i data-starid="5" class="fa fa-star five"></i>
+      <input id="feedbackstar_all" class="hide" type="text" name="Over All Rating" placeholder=""/>
+    </div>
+    
+    <div class="col-xs-12 col-sm-12 col-md-12 ratingnum_con">
+      <div class="ratingnum_all ratingnum_style">
+        1
+      </div>
+      <div class="ratingnum_all ratingnum_style">
+        2
+      </div>
+      <div class="ratingnum_all ratingnum_style">
+        3
+      </div>
+      <div class="ratingnum_all ratingnum_style">
+        4
+      </div>
+      <div class="ratingnum_all ratingnum_style">
+        5
+      </div>      
+    </div>
+     
+<!--     <div class="col-sm-12 col-md-12 mt-20">
+      <p>6. If possible, please submit a photo describing how was your overall experience with us. Please make sure you wear our eyeglasses while doing the same</p>
+    </div>
+     <div class="col-xs-12 col-sm-12 col-md-12">
+    <form method="post" action="" enctype="multipart/form-data" id="myform">
+            <div >
+                <input class="styleinp" type="file" id="file_feedbackimg" name="file" />
+                <input class="styleinp hide" type="button" class="button" value="Upload" id="but_upload">
+            </div>
+        </form>
+    </div> -->
+    
+    <div class="col-sm-12 col-md-6">
+      <input id="namefb" class="namefb" type="text" name="namefb" placeholder="Name" required/>
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <input id="emailfb" class="emailfb" type="email" name="emailfb" placeholder="Email" required/>
+    </div>
+    
+
+    
+    <div class="col-sm-12 col-md-12 feedbkbtncont has_loading_icon text-center">
+      <button class="btn green-btn" type="submit">Submit <span class="loading"></span>
+      <span id="progress-wrp"><span class="progress-bar"></span> (<span class="status">0%</span>)</span>
+      </button>
+    </div>
+    
+    
+    
+  </div>
+  </form>
+  
+  <div class="row">
+  <div class="col-sm-12 col-md-12">
+      <div class="showSuccessMessagefb">Thank you so much for submitting your Feedback. Use code: FEEDBACK10 to get 10% Off on your Next Order.</div>
+      <div class="showErrorMessagefb">Feedback Not Send, Please Try Again.</div>
+    </div>
+  </div>
+  {% unless page.content == blank %}
+  <div class="rte">
+    {{ page.content }}
+  </div>
+{% endunless %}
+</div>
+
+{% if page.handle == 'feedback' %}
+<script>
+  const scriptURLfb = 'https://script.google.com/macros/s/AKfycbwTeFouJisvmjBR6tM7Gnj2Q674m7_dWyUyEpOQgOrtEFEDGbE/exec'
+  const formfed = document.forms['submit-to-google-sheetfb']
+ 
+  document.getElementById("siteurl").defaultValue = window.location.host;
+    
+  formfed.addEventListener('submit', e => {
+    e.preventDefault()
+    var starinput = $('#feedbackstar').val();
+    if(starinput != ''){
+      
+//       var fd = new FormData();
+//       var files = $('#file_feedbackimg')[0].files[0];
+//       fd.append('file',files);
+//       var cksize = $('#file_feedbackimg').length;
+//       if( document.getElementById("file_feedbackimg").files.length != 0 ){
+//       var filename = files.name;
+//         $('#progress-wrp').css('display','initial');
+//     }
+      //if(filename != ''){
+        //$('#but_upload').click();
+        
+     // }             
+                
+//                console.log(filename);
+// document.getElementById("imgurl").defaultValue = 'https://singapore.lenskart.com/images/'+filename;
+//                 $.ajax({
+//                     url:'https://singapore.lenskart.com/feedbackimg.php',
+//                     type:'post',
+//                     data:fd,
+//                     contentType: false,
+//                     processData: false,
+//                             	xhr: function(){
+// 		//upload Progress
+// 		var xhr = $.ajaxSettings.xhr();
+// 		if (xhr.upload) {
+// 			xhr.upload.addEventListener('progress', function(event) {
+// 				var percent = 0;
+// 				var position = event.loaded || event.position;
+// 				var total = event.total;
+// 				if (event.lengthComputable) {
+// 					percent = Math.ceil(position / total * 100);
+// 				}
+// 				//update progressbar
+// 				$(".progress-bar").css("width", + percent +"%");
+// 				$(".status").text(percent +"%");
+// 			}, true);
+// 		}
+// 		return xhr;
+// 	},
+//                     success:function(response){
+//                         if(response != 0){
+                          
+//                           $('#progress-wrp').hide();
+//                            console.log('feedback image uploades')
+               
+//                         }else{
+//                            $('#progress-wrp').hide();
+//                         }
+//                     }
+//                 });
+      
+    fetch(scriptURLfb, { method: 'POST', body: new FormData(formfed)})
+      .then(response => showSuccessMessagefb(response))
+      .catch(error => showErrorMessagefb(error))
+    }else{
+      console.log(starinput);
+      //$('.fa-star').addClass('errorborder');
+    }
+  })
+  
+    function showSuccessMessagefb (response) {
+    $('.feedbkbtncont').hide();
+    $('.showSuccessMessagefb').show();
+      $('.submit-to-google-sheetfb').hide();
+      $('.description').hide();
+  }
+  
+    function showErrorMessagefb (error) {
+    $('.showErrorMessagefb').show();
+  }
+  
+ 
+  
+</script>
+{% endif %}

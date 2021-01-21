@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="text-left">
+    <h3 class="page_header">{{ page.title }}</h3>
+  </div>
+
+  {% unless page.content == blank %}
+  <div class="rte">
+    {{ page.content }}
+  </div>
+</div>
+{% endunless %}

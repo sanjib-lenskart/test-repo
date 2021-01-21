@@ -1,0 +1,75 @@
+<!-- /section/blog-template.liquid -->
+{% paginate blog.articles by 6 %}
+<div id="blog_page">
+  <div class="container">
+    <header class="section-header text-center">
+      <h1>
+        {{section.settings.seo_title}}
+        <a href="{{ shop.url }}{{ blog.url }}.atom" class="icon-fallback-text rss-link">
+          <i class="fa fa-rss" aria-hidden="true"></i>
+        </a>
+      </h1>
+
+    </header>
+    <hr/>
+    <div class="row">
+      <ul class="article_list clearfix">
+        {% for article in blog.articles %}
+        <li class="{{section.settings.width}}">
+          {% include 'simply-article' %}
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% if paginate.pages > 1 %}
+    {% include 'pagination' %}
+    {% endif %}
+  </div>
+</div>
+{% endpaginate %}
+{% schema %}
+{
+  "name": "Blog - Page",
+  "settings": [
+  {
+    "type":"text",
+    "id":"seo_title",
+    "label":"SEO title"
+  },
+  {
+    "type": "image_picker",
+    "id": "default_img",
+    "label": "Article default image"
+  },
+  {
+    "type": "checkbox",
+    "label": "Enable excerpt",
+    "id": "excerpt",
+    "default": true
+  },
+  {
+    "type": "select",
+    "label": "Articles per row",
+    "id": "width",
+    "options": [
+    {
+      "label": "1",
+      "value": "col-sm-12"
+    },
+    {
+      "label": "2",
+      "value": "col-sm-6"
+    },
+    {
+      "label": "3",
+      "value": "col-sm-4"
+    },
+    {
+      "label": "4",
+      "value": "col-sm-3"
+    }
+    ]
+  }
+  ]
+}
+{% endschema %}

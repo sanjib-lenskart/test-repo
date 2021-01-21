@@ -1,0 +1,61 @@
+<div class="coating_lens_model coating_lens_model_bifocal ">
+  <div class="inner-model">
+    <div class="heading_container text-left">
+<!--       <div class="heading xs-show text-center">Select Coating</div> -->
+      <div class="heading">Add Transition Coating <span class="optional_coating">(Optional)</span></div>
+      <div class="sub_heading">Lenses darkens when exposed to sunlight</div>
+      <span class="close_coated">&times;</span>
+    </div>
+    
+    <div class="innder_container">
+      <p class="text-center title xs-hide">{{block.settings.lens_name }}</p>
+      <div class="xs-hide">{{ product_name.compare_at_price | money }}</div>
+      <img src="https://cdn.shopify.com/s/files/1/0047/5335/8922/files/Transition_Banner.png?v=1584081801" alt="Coated lens" />
+      <div class="innder_container_btn">
+        <div class="xs-show name_price_mobile">
+          <div class="titlee">{{block.settings.lens_name }}</div>
+          <div class="pricee">{{ product_name.price | money }}</div>
+        </div>
+      <div class=" applycoating btn"><span class="xs-hide">Apply Coating</span><span class="xs-show">Add</span></div>
+      <div class=" removecoating hide btn"><span class="xs-hide">Remove Coating</span><span class="xs-show">Remove</span></div>
+      </div>
+    </div>
+    
+    {% assign framepricew = product.price %}
+    {% assign addonlens = product_name.price %}
+    {% assign frmwide = framepricew | plus: widecorilens  %}
+    {% assign frmwideaddon = framepricew | plus: addonlens  %}
+           
+    <div class="ordertotal_coating withoutcoating_price">Total : <span class="price_coating"> {{ frmwide | money }}</span><span class="frame_lens_text"> (Frame + Lens)</span></div>
+    <div class="ordertotal_coating withcoating_price hide">Total : <span class="price_coating"> {{ frmwideaddon | money }}</span><span class="frame_lens_text"> (Frame + Lens + Transition)</span></div>
+    <div class="bottom_text">
+      <div class="Skip btn xs-hide">Skip</div>
+      <div class="Continue-dummy btn">Continue</div>
+      <div class="Continue btn hide">Continue</div>
+    </div>
+  </div>
+</div>
+<!-- <div class="coating_lens_model_bg"></div> -->
+<script>
+  function functionwide() {      
+    var newItem = document.createElement("li");
+    newItem.innerHTML = 'X';
+   
+
+    var list = document.getElementById("desforwide");
+    list.insertBefore(newItem, list.childNodes[3]);
+
+  }  
+  function functionbia() {      
+    var newItembia = document.createElement("li");
+    var textnodebia = document.createTextNode("X");
+    newItembia.appendChild(textnodebia);
+
+    var listbia = document.getElementById("desforbiafocal");
+    listbia.insertBefore(newItembia, listbia.childNodes[3]);
+
+  }
+  functionwide(); 
+  functionbia();
+  //setTimeout(function(){ functionwide(); functionbia(); }, 2000);
+</script>

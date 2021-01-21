@@ -1,0 +1,465 @@
+<div id='prescription_form'>
+  <div class="container">
+    <div id="checkout_form" class="hide">
+      <h2 class='title'>{{page.title}}</h2>
+      <div class="row">
+        <div class="col-sm-8">
+          <div class="table">
+            <table>
+              <thead>
+                <tr>
+                  <th>
+                    Order
+                  </th>
+                  <th>
+                    Product Name
+                  </th>
+                  <th>
+                    Lens Name
+                  </th>
+                  <th>
+                    Action
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <h3 class='second_header'>Customer Details</h3>
+          <div class="customer_detail">
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class='forms'>
+  {%- for block in section.blocks -%}
+  {%- assign bs = block.settings -%}
+  <div class='checkout_form' data-form='{{bs.lens_name}}'>
+    <h5 class="text-center">{{bs.lens_name}}</h5><br/>
+    <form action='/apps/johnjacobseyewear/interfaces/interfacePrescription.php?shopid=1&action=addPrescription' method='post' class="form_vertical clearfix">
+
+      <input type='hidden' name='order_id' class="order_id">
+      <input type='hidden' name='line_item' class="line_item">
+      <input type='hidden' name='prescription_type' class="prescription_type">
+      <input type='hidden' name='product_lens' value='{{bs.lens_name}}'>
+
+
+      {%- unless bs.spherical_values == blank -%}
+      {%- for i in (1..2) -%}
+      {%- if i == 1 -%}
+      {%- assign side = 'Right-' -%}
+      {%- else -%}
+      {%- assign side = 'Left-' -%}
+      {%- endif -%}
+      {%- assign name = bs.spherical_name -%}
+      {%- assign values = bs.spherical_values | split:','-%}
+      {%- assign side = side| append:name -%}
+      <div class='col-sm-6'>
+        <label>
+          {{side}}
+        </label>
+        <select name='{{side}}' class='form-control normal {{side | handleize}}'>
+          <option value="none">Select</option>
+          {%- for value in values -%}
+          <option value="{{value}}">{{value}}</option>
+          {%- endfor -%}
+        </select>
+        <select  class='form-control {{side | handleize}} hide rimless'>
+          {%- assign values = bs.spherical_rim_values | split:','-%}
+          <option value="none">Select</option>
+          {%- for value in values -%}
+          <option value="{{value}}">{{value}}</option>
+          {%- endfor -%}
+        </select>
+        <select  class='form-control {{side | handleize}} hide limit'>
+          {%- assign values = bs.spherical_lim_values | split:','-%}
+          <option value="none">Select</option>
+          {%- for value in values -%}
+          <option value="{{value}}">{{value}}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+      {%- endfor -%}
+      {%- endunless -%}
+
+
+      {%- unless bs.cylinder_values == blank -%}
+      {%- for i in (1..2) -%}
+      {%- if i == 1 -%}
+      {%- assign side = 'Right-' -%}
+      {%- else -%}
+      {%- assign side = 'Left-' -%}
+      {%- endif -%} 
+
+      {%- assign name = bs.cylinder_name -%}
+      {%- assign side = side| append:name -%}
+      {%- assign values = bs.cylinder_values | split:','-%}
+      <div class='col-sm-6'>
+        <label>
+          {{side}}
+        </label>
+        <select name='{{side}}' class='form-control {{side | handleize}}'>
+          <option value="none">Select</option>
+          {%- for value in values -%}
+          <option value="{{value}}">{{value}}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+      {%- endfor -%}
+      {%- endunless -%}
+
+
+      {%- unless bs.axis_values == blank -%}
+      {%- for i in (1..2) -%}
+      {%- if i == 1 -%}
+      {%- assign side = 'Right-' -%}
+      {%- else -%}
+      {%- assign side = 'Left-' -%}
+      {%- endif -%} 
+
+      {%- assign name = bs.axis_name -%}
+      {%- assign side = side| append:name -%}
+      {%- assign values = bs.axis_values | split:','-%}
+      <div class='col-sm-6'>
+        <label>
+          {{side}}
+        </label>
+        <select name='{{side}}' class='form-control {{side | handleize}}'>
+          <option value="none">Select</option>
+          {%- for value in values -%}
+          <option value="{{value}}">{{value}}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+      {%- endfor -%}
+      {%- endunless -%}
+
+
+      
+      
+      {%- unless bs.pupillary_values == blank -%}
+      {%- for i in (1..2) -%}
+      {%- if i == 1 -%}
+      {%- assign side = 'Right-' -%}
+      {%- else -%}
+      {%- assign side = 'Left-' -%}
+      {%- endif -%}
+      {%- assign name = bs.pupillary_name -%}
+      {%- assign side = side| append:name -%}
+      {%- assign values = bs.pupillary_values | split:','-%}
+      <div class='col-sm-6'>
+        <label>
+          {{side}}
+        </label>
+        <select name='{{side}}' class='form-control {{side | handleize}}'>
+          <option value="none">Select</option>
+          {%- for value in values -%}
+          <option value="{{value}}">{{value}}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+      {%- endfor -%}
+      {%- endunless -%}
+
+      {%- unless bs.additional_power_values == blank -%}
+      {%- for i in (1..2) -%}
+      {%- if i == 1 -%}
+      {%- assign side = 'Right-' -%}
+      {%- else -%}
+      {%- assign side = 'Left-' -%}
+      {%- endif -%}
+      {%- assign name = bs.additional_power_name -%}
+      {%- assign side = side| append:name -%}
+      {%- assign values = bs.additional_power_values | split:','-%}
+      <div class='col-sm-6'>
+        <label>
+          {{side}}
+        </label>
+        <select name='{{side}}' class='form-control {{side | handleize}}'>
+          <option value="none">Select</option>
+          {%- for value in values -%}
+          <option value="{{value}}">{{value}}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+      {%- endfor -%}
+      {%- endunless -%}
+
+      {%- unless bs.lens_width_values == blank -%}
+      {%- assign name = bs.lens_width_name -%}
+      {%- assign values = bs.lens_width_values | split:','-%}
+      <div class='col-sm-6'>
+        <label>
+          {{name}}
+        </label>
+        <select name='{{name}}' class='form-control {{name | handleize}}'>
+          <option value="none">Select</option>
+          {%- for value in values -%}
+          <option value="{{value}}">{{value}}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+      {%- endunless -%}
+
+      {%- unless bs.lens_height_values == blank -%}
+      {%- assign name = bs.lens_height_name -%}
+      {%- assign values = bs.lens_height_values | split:','-%}
+      <div class='col-sm-6'>
+        <label>
+          {{name}}
+        </label>
+        <select name='{{name}}' class='form-control {{name | handleize}}'>
+          <option value="none">Select</option>
+          {%- for value in values -%}
+          <option value="{{value}}">{{value}}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+      {%- endunless -%}
+
+      {%- unless bs.fitting_height_values == blank -%}
+      {%- assign name = bs.fitting_height_name -%}
+      {%- assign values = bs.fitting_height_values | split:','-%}
+      <div class='col-sm-6'>
+        <label>
+          {{name}}
+        </label>
+        <select name='{{name}}' class='form-control {{name | handleize}}'>
+          <option value="none">Select</option>
+          {%- for value in values -%}
+          <option value="{{value}}">{{value}}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+      {%- endunless -%}
+
+      {%- unless bs.effective_diameter_values == blank -%}
+      {%- assign name = bs.effective_diameter_name -%}
+      {%- assign values = bs.effective_diameter_values | split:','-%}
+      <div class='col-sm-6'>
+        <label>
+          {{name}}
+        </label>
+        <select name='{{name}}' class='form-control {{name | handleize}}'>
+          <option value="none">Select</option>
+          {%- for value in values -%}
+          <option value="{{value}}">{{value}}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+      {%- endunless -%}
+
+      {%- unless bs.lenses_distance_values == blank -%}
+      {%- assign name = bs.lenses_distance_name -%}
+      {%- assign values = bs.lenses_distance_values | split:','-%}
+      <div class='col-sm-6'>
+        <label>
+          {{name}}
+        </label>
+        <select name='{{name}}' class='form-control {{name | handleize}}'>
+          <option value="none">Select</option>
+          {%- for value in values -%}
+          <option value="{{value}}">{{value}}</option>
+          {%- endfor -%}
+        </select>
+      </div>
+      {%- endunless -%}
+
+      {%- unless bs.svpd_values == blank -%}
+
+      {%- for i in (1..2) -%}
+      {%- if i == 1 -%}
+      {%- assign side = 'Right-' -%}
+      {%- else -%}
+      {%- assign side = 'Left-' -%}
+      {%- endif -%} 
+      {%- assign name = bs.svpd_name -%}
+      {%- assign values = bs.svpd_values | split:','-%}
+      
+      
+      {%- assign side = side | append:name -%}
+      <div class='col-sm-6'>
+        <div class='svpd_id_{{side}} hide'>
+          <label>
+            {{side}}
+          </label>
+          <select name='{{side}}' class='form-control {{side | handleize}}'>
+            <option value="none">Select</option>
+            {%- for value in values -%}
+            <option value="{{value}}">{{value}}</option>
+            {%- endfor -%}
+          </select>
+        </div>
+      </div>
+      {%- endfor -%}
+      {%- endunless -%}
+      <div class='col-sm-6'><br/><a class='add_svpd'>Add SVPD (Optional)</a></div>
+      <div class="col-sm-12 text-center"><br><button type="submit" class="btn">Submit</button></div>
+      
+    </form>
+  </div>
+  {%- endfor -%}
+</div>
+</div>
+
+
+{%- comment -%}
+<script>
+  {%- endcomment -%}
+  {% schema %}
+  {
+    "name": "Perscription data",
+    "blocks":[
+    {
+      "type":"lens",
+      "name":"Lens",
+      "settings":[
+      {
+        "type":"text",
+        "id":"lens_name",
+        "label":"Lens name"
+      },
+      {
+        "type":"text",
+        "id":"spherical_name",
+        "label":"Spherical name",
+        "default":"Power-Spherical"
+      },
+      {
+        "type":"textarea",
+        "id":"spherical_values",
+        "label":"Spherical values"
+      },
+      {
+        "type":"textarea",
+        "id":"spherical_rim_values",
+        "label":"Spherical-Rim values"
+      },
+      {
+        "type":"textarea",
+        "id":"spherical_lim_values",
+        "label":"Spherical-Limited values"
+      },
+      {
+        "type":"text",
+        "id":"cylinder_name",
+        "label":"Cylinder name",
+        "default":"Cylinder"
+      },
+      {
+        "type":"textarea",
+        "id":"cylinder_values",
+        "label":"Cylinder min"
+      },
+      {
+        "type":"text",
+        "id":"axis_name",
+        "label":"Axis name",
+        "default":"Axis"
+      },
+      {
+        "type":"textarea",
+        "id":"axis_values",
+        "label":"Axis values"
+      },
+      {
+        "type":"text",
+        "id":"pupillary_name",
+        "label":"Pupillary name",
+        "default":"Pupillary-Distance"
+      },
+      {
+        "type":"textarea",
+        "id":"pupillary_values",
+        "label":"Pupillary values"
+      },
+      {
+        "type":"text",
+        "id":"additional_power_name",
+        "label":"Additional power name",
+        "default":"Additional-Power"
+      },
+      {
+        "type":"textarea",
+        "id":"additional_power_values",
+        "label":"Additional power values"
+      },
+      {
+        "type":"text",
+        "id":"lens_width_name",
+        "label":"Lens width name",
+        "default":"Lens-Width"
+      },
+      {
+        "type":"textarea",
+        "id":"lens_width_values",
+        "label":"Lens width values"
+      },
+      {
+        "type":"text",
+        "id":"lens_height_name",
+        "label":"Lens height name",
+        "default":"Lens-Height"
+      },
+      {
+        "type":"textarea",
+        "id":"lens_height_values",
+        "label":"Lens height values"
+      },
+      {
+        "type":"text",
+        "id":"fitting_height_name",
+        "label":"Fitting Height name",
+        "default":"Fitting-Height"
+      },
+      {
+        "type":"textarea",
+        "id":"fitting_height_values",
+        "label":"Fitting Height values"
+      },
+      {
+        "type":"text",
+        "id":"effective_diameter_name",
+        "label":"Effective Diameter name",
+        "default":"Effective-Diameter"
+      },
+      {
+        "type":"textarea",
+        "id":"effective_diameter_values",
+        "label":"Effective Diameter values"
+      },
+      {
+        "type":"text",
+        "id":"lenses_distance_name",
+        "label":"Lenses Distance name",
+        "default":"Lenses-Distance"
+      },
+      {
+        "type":"textarea",
+        "id":"lenses_distance_values",
+        "label":"Lenses Distance values"
+      },
+      {
+        "type":"text",
+        "id":"svpd_name",
+        "label":"SVPD name",
+        "default":"SVPD"
+      },
+      {
+        "type":"textarea",
+        "id":"svpd_values",
+        "label":"SVPD values"
+      }
+      ]
+    }
+    ]
+  }
+  {% endschema %}
+  {%- comment -%}
+</script>
+{%- endcomment -%}

@@ -1,0 +1,233 @@
+<!-- cart-footer -->
+<div class="cart_footer">
+  <div class="row flex_view middle space footer_bg">
+    <div class='col-sm-7 col-md-8'>
+      <div class="flex_view_xs end discount_wrapper">
+<!--         <p class="blue-discount-code"><span>Use code HOLIDAY to get your second pair of glasses for free!</span></p> -->
+        <div class="col">
+          <label>Discount Code:</label>
+          <input type='text' name='' class="discount_input">
+           <span class='apply_btn btn' style="margin-left:0px;">
+            Apply
+          </span>
+        </div> 
+        
+      </div>
+      <div class='discount_info_wrapper'>
+        <span class="success msg"></span>
+        <span class="error msg"></span>
+      </div>
+    </div>
+    <div class="col-sm-5 col-md-4">
+      <div class="third_col">
+        {%- if discount_total_price -%}
+        <h5 class="bogo_applied">2nd PAIR DISCOUNT APPLIED</h5> 
+        <div class="row items">
+          <div class="col-xs-6">
+            <span >2nd Frame Discount</span>
+          </div> 
+          
+          <div class="col-xs-6">
+            <div class="text-right">
+              <span>
+                -{{discount_total_price | money}}
+              </span>
+            </div>
+          </div> 
+        </div>
+        {%- endif -%}
+        {%- if flatDiscount -%}
+        <h5 class="bogo_applied">AUTO DISCOUNT APPLIED</h5> 
+        {%- endif -%}
+        {%- if flatDiscount -%}
+        <div class="row items">
+          <div class="col-xs-6">
+            <span >Flat discount</span>
+          </div>
+          
+          <div class="col-xs-6"> 
+            <div class="text-right">
+              <span>
+                -{{250000 | money}}
+              </span>
+            </div>
+          </div>
+        </div>
+        {%- endif -%}
+        <div class="row items">
+          <div class="col-xs-6">
+            <span id="bk-cart-subtotal-label">{{ 'cart.general.subtotal' | t }}</span>
+          </div>
+          {%- assign sub_total_price = cart.total_price -%}
+          {%- if prepaidApplied -%}
+          {%- assign sub_total_price = cart.total_price | plus:p_price -%}          
+          {%- endif -%} 
+          <div class="col-xs-6">
+            <div class="cart__subtotal text-right">
+              <span id="bk-cart-subtotal-price" class="cart_subtotal_price" data-price='{{sub_total_price}}'>
+                {{sub_total_price | money}}
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class='discount_text_wrapper hide'>
+          <div class="row items"> 
+            <div class="col-xs-7">
+              <span id="bk-cart-subtotal-label" class='dis_text'>Discount Code</span>
+            </div> 
+            <div class="col-xs-5">
+              <div class="cart__subtotal text-right">
+                <span id="bk-cart-subtotal-price" class="cart_discount_price">
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row items">
+          <div class="col-xs-12">
+            <span class="shipping_text">Free Shipping in 7-10 Days</span>
+          </div>
+<!--           <div class="col-xs-6 text-right">
+            {% assign taxes = sub_total_price  | times:12 | divided_by :100 %}
+            <span class="cart_tax_price">{{ taxes | money}}</span>
+          </div> -->
+        </div>
+               
+        <div class='final_total flex_view_xs'>
+          <div class='col-xs-6'>
+            <span>
+              Total
+            </span>
+          </div>
+          <div class='col-xs-6 text-right'>
+            <span class='cart_total_price' data-price='{{cart.total_price | plus:taxes}}'>
+              {{cart.total_price | plus:taxes | money}}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer_btn row flex_view">
+    <div class="col-md-8 col-xs-12 col-sm-12 cart_ship_info_con">
+      
+      <div class="row cartpage_ship_info">
+      <div class="col-xs-12 col-sm-3 col-md-3">
+           <div class="innerblock">
+          <div class="block">
+<!--           {% include 'reward-cart-icon' %} -->
+            <img src="https://static.lenskart.com/media/mobile/universal/assets/year_extended.svg" alt="1 Year Warranty " style="height: 29px;">
+           <div class="text">
+            <div class="lineone">365 Day Warranty</div>
+<!--             <div class="linetwo"></div> -->
+             
+          </div>
+            </div>
+<!--             <p>Over 10 Million Customers can vouch for our quality and authencity. All our products come with a 1 Year Warranty, and if in a rare circumstance, the product gets 
+               damaged, we will Exchange the Same for Free</p> -->
+          </div>
+        </div>
+        
+
+        <div class="col-xs-12 col-sm-3 col-md-3">
+           <div class="innerblock">
+          <div class="block">
+<!--           {% include 'truck-cart-icon' %} -->
+            <img src="https://static.lenskart.com/media/mobile/universal/assets/free_shipping.svg" alt="Free Shipping In India " style="height: 29px;">
+          <div class="text">
+          <div class="lineone">Free Shipping</div>
+          <div class="linetwo">and Returns</div>
+            </div>
+          </div>
+<!--             <p>We have Free Shipping Worldwide.</p> -->
+          </div>
+        </div>
+        
+        <div class="col-xs-12 col-sm-3 col-md-3">
+           <div class="innerblock">
+          <div class="block">
+<!--           {% include 'return-cart-icon' %} -->
+            <img src="https://static.lenskart.com/media/desktop/img/site-images/ic_exchange.svg" alt="Exchange At Our Stores " style="height: 29px;">
+           <div class="text">
+          <div class="lineone">100% Money</div>
+          <div class="linetwo">Back Guarantee</div>
+             </div>
+          </div>
+<!--             <p>We insist that every pair of glasses you order must fit perfectly and you must be completely satisfied. Otherwise, 
+               you can ask us for a complete refund within 14 days of receiving the Product. For More Details, <span class="link">Click Here</span></p>
+          <div class="linktext">
+            
+            <h4>How To Get Refund</h4>
+            <p>If you don’t like what you have received, you can ask us for a complete 100% Refund by emailing us on customer@lenskart.us and we will process your refund within 2 Days and collect the product from your house in next 7 days
+            </p>
+
+            <h4>How To Get Exchange</h4>
+            <p>
+              If you want to exchange the product you received, please email us on customer@lenskart.us mentioning which product you want in exchange for. We will ship the new product to you in 7 Days for Free and will collect back the previous product
+            </p>
+            <span class="closelink">&times;</span>
+            
+          </div> -->
+          </div>
+        </div> 
+        
+         <div class="col-xs-12 col-sm-3 col-md-3">
+           <div class="innerblock">
+          <div class="block">
+            <img src="https://static.lenskart.com/media/mobile/universal/assets/return.svg" alt="14 Days Free Return " style="height: 29px;">
+
+          <div class="text">
+          <div class="lineone">14 Days</div>
+          <div class="linetwo">Free Return</div>
+            </div>
+          </div>
+<!--             <p>We have Free Shipping Worldwide.</p> -->
+          </div>
+        </div>
+      </div>
+      
+      <button class="cart_btn cart_update_btn btn hideimp" type="submit" name="update">{{ 'cart.general.update' | t }}</button>
+      {%- if settings.after_hour -%}
+      <a href="/" class="cart_continue_btn btn cart_btn hide hideimp" >Continue Shopping</a>
+      {%- else -%}
+      {%- if bogo_applied -%}
+      <a href="/" class="cart_continue_btn btn cart_btn hide hideimp" >Continue Shopping</a>
+      {%- endif -%}
+      {%- endif -%} 
+    </div>
+
+    <div id="cart_checkout_fix" class="col-md-4 col-xs-12 col-sm-12 text-right cart_checkout_fix cart_ship_info_chkbtn">
+      <span class="xs-show cart_total_pricess" style="display:none;">
+        <span class='cart_total_price' data-price='{{cart.total_price | plus:taxes}}'>
+              {{cart.total_price | plus:taxes | money}}          
+        </span>    
+<!--         <p>Total Payable</p> -->
+      </span>
+      
+      <div id="cart_checkout_btn" type="submit" name="checkout" class="btn cart_checkout_btn cart_btn" onclick='ga("send", "event", "CHECKOUT");'>
+        {{ 'cart.general.checkout' | t }}
+       <span class="loading"></span>
+      </div>
+      
+      <button id="ckoriginal" type="submit" name="checkout" class="hideimp" onclick='ga("send", "event", "CHECKOUT");'>
+        {{ 'cart.general.checkout' | t }}
+      </button>
+      <div id="wk_pay_wallet" customer_id="{{ customer.id }}" customer_email="{{ customer.email }}"></div>
+     <div class="xs-hide"><div class="discount_text_footer"> </div></div>
+      
+    </div>
+    <div class="xs-show col-xs-12"><div class="discount_text_footer"> </div></div>
+  </div>
+</div>
+<style>
+  #wk_pay_wallet_button{
+    width: 320px;
+    height: 55px;
+  }
+  @media screen and (max-width: 750px) {
+    #wk_pay_wallet_button{
+    	width: 330px;
+  	}
+  }
+  
+</style>
